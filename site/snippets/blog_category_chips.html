@@ -1,0 +1,30 @@
+<!-- CarDiag: colored category tags on blog post cards (Elementor Posts widget) -->
+<style>
+.cdp-cats{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.cdp-cat{display:inline-block;font-size:12px;font-weight:700;line-height:1.6;padding:2px 10px;border-radius:10px;text-decoration:none!important;white-space:nowrap}
+.cdp-cat:hover{filter:brightness(.95)}
+</style>
+<script>
+(function(){
+ function run(){
+  var arts=[].slice.call(document.querySelectorAll('article.elementor-post'));if(!arts.length)return;
+  var slugs={};arts.forEach(function(a){(a.className.match(/\bcategory-\S+/g)||[]).forEach(function(c){slugs[c.slice(9)]=1})});
+  var list=Object.keys(slugs);if(!list.length)return;
+  fetch('/wp-json/wp/v2/categories?per_page=100&_fields=slug,name,link&slug='+list.map(encodeURIComponent).join(','))
+  .then(function(r){return r.json()}).then(function(cats){
+   var map={};(cats||[]).forEach(function(c){map[c.slug]=c});
+   // each category always gets the same color pair [text, background]
+   var pal=[['#1565C0','#E3EFFC'],['#0E7C86','#DDF4F5'],['#6A3FB5','#EEE7FA'],['#B4236B','#FBE6F0'],['#2E7D32','#E3F3E4'],['#9A5B00','#FDF0D9']];
+   function color(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return pal[h%pal.length]}
+   arts.forEach(function(a){
+    var t=a.querySelector('.elementor-post__text');if(!t||t.querySelector('.cdp-cats'))return;
+    var box=document.createElement('div');box.className='cdp-cats';
+    (a.className.match(/\bcategory-\S+/g)||[]).slice(0,2).forEach(function(c){
+     var s=c.slice(9),k=map[s];if(!k)return;var p=color(s);
+     var e=document.createElement('a');e.className='cdp-cat';e.href=k.link;e.textContent=k.name;e.style.color=p[0];e.style.background=p[1];box.appendChild(e)});
+    if(box.children.length)t.insertBefore(box,t.firstChild)})
+  }).catch(function(){})
+ }
+ document.readyState!=='loading'?run():document.addEventListener('DOMContentLoaded',run);
+})();
+</script>
