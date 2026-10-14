@@ -67,7 +67,7 @@ buy_form = ('<form class="cdp-cart" method="post" enctype="multipart/form-data">
 
 template = [
     W('html', 'cdp-assets', html=assets),
-    C('cdp cdp-wrap cdp-crumbs', [W('woocommerce-breadcrumb')], padding_mobile={"unit": "px", "top": 0, "right": 16, "bottom": 0, "left": 16, "isLinked": False}),
+    C('cdp cdp-wrap cdp-crumbs', [W('woocommerce-breadcrumb')]),
     C('cdp cdp-wrap cdp-hero', [
         C('cdp cdp-gal', [W('html', '', html='<span class="cdp-badge"></span>'),
                           W('theme-post-featured-image', '', image_size='large', __dynamic__={"image": f'[elementor-tag id="{nid("t")[:7]}" name="post-featured-image" settings="%7B%7D"]'})],
@@ -92,12 +92,10 @@ template = [
             W('theme-post-excerpt', 'cdp-lead', __dynamic__={"excerpt": f'[elementor-tag id="{nid("t")[:7]}" name="post-excerpt" settings="%7B%7D"]'}),
         ], width={"unit": "%", "size": 50}, width_tablet={"unit": "%", "size": 100}, width_mobile={"unit": "%", "size": 100}),
     ], direction='row', g=40, flex_direction_tablet='column', flex_direction_mobile='column', flex_gap_mobile=gap(16),
-       flex_gap_tablet=gap(20), flex_align_items='flex-start', flex_wrap='nowrap',
-       padding_mobile={"unit": "px", "top": 0, "right": 16, "bottom": 0, "left": 16, "isLinked": False}),
+       flex_gap_tablet=gap(20), flex_align_items='flex-start', flex_wrap='nowrap'),
     C('cdp cdp-snav', [ilist([('امکانات', None, '#app'), ('راه‌اندازی', None, '#setup'), ('مقایسه', None, '#vs'),
                               ('مشخصات', None, '#spec'), ('خودروها', None, '#cars'), ('سوالات', None, '#faq')], inline=True)]),
-    C('cdp cdp-body', [W('woocommerce-product-content')],
-      padding_mobile={"unit": "px", "top": 0, "right": 16, "bottom": 0, "left": 16, "isLinked": False}),
+    C('cdp cdp-body', [W('woocommerce-product-content')]),
 ]
 
 # ---------------------------------------------------------------- product 2560 (content)

@@ -1,0 +1,15 @@
+/* ===== هم‌ترازی هدر با محتوای صفحه =====
+   Added to Appearance > Customize > Additional CSS (custom_css post 2307).
+   محتوای همه‌ی صفحه‌ها داخل .container قالب است: حداکثر ۱۳۲۰ پیکسل با ۱۲ پیکسل فاصله از دو طرف.
+   سه ردیف هدر (نوار بالا، خط جداکننده، نوار اصلی) هم دقیقاً همین عرض و فاصله را می‌گیرند. */
+@media (min-width: 768px) {
+  .elementor-197 .elementor-element.elementor-element-672b8aa,
+  .elementor-197 .elementor-element.elementor-element-d32f4cb,
+  .elementor-197 .elementor-element.elementor-element-b6a2783 {
+    --content-width: 1296px !important;
+    --padding-left: 12px !important;
+    --padding-right: 12px !important;
+    --padding-inline-start: 12px !important;
+    --padding-inline-end: 12px !important;
+  }
+}
