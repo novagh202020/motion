@@ -13,3 +13,6 @@
     --padding-inline-end: 12px !important;
   }
 }
+
+/* سبد خرید هدر در موبایل/تبلت: باکس کشویی داخل عرض صفحه بماند */
+@media (max-width:1024px){.ht-menu-cart-widget-cart-hover-content{position:fixed!important;left:12px!important;right:12px!important;width:auto!important;min-width:0!important;max-width:none!important;transform:none!important;margin:0!important;max-height:calc(100vh - 160px);max-height:calc(100dvh - 160px);overflow-y:auto!important;box-sizing:border-box!important;z-index:2147482000!important}.ht-menu-cart-widget-cart-hover-content *{min-width:0;overflow-wrap:anywhere;box-sizing:border-box}.ht-menu-cart-widget-cart-hover-content img{max-width:100%;height:auto}}

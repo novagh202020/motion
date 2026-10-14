@@ -9,7 +9,7 @@
 .cdp-crumbs .woocommerce-breadcrumb{font-size:13px;color:var(--sl);margin:4px 0 10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cdp-crumbs a{color:var(--sl)!important}
 /* hero */
-.cdp-gal img{width:100%;aspect-ratio:1/1;object-fit:contain;border-radius:24px;padding:28px;background:radial-gradient(120% 90% at 50% 30%,#fff 0%,#EAF3FD 60%,#DCEBFB 100%)}
+.cdp-gal img{box-sizing:border-box;max-width:100%;width:100%;aspect-ratio:1/1;object-fit:contain;border-radius:24px;padding:28px;background:radial-gradient(120% 90% at 50% 30%,#fff 0%,#EAF3FD 60%,#DCEBFB 100%)}
 .cdp-gal{position:relative}
 .cdp-badge{position:absolute;top:14px;right:14px;z-index:2;background:var(--r);color:#fff;font-weight:800;font-size:14px;padding:4px 12px;border-radius:12px;display:none}
 .cdp-title .elementor-heading-title{font-size:21px!important;font-weight:900!important;line-height:1.55!important;color:var(--n)!important;margin:0}
@@ -112,28 +112,35 @@ table.cdp-spec td:first-child{color:var(--sl);font-weight:500;text-align:right;w
 .cdp-final .elementor-heading-title{color:#fff!important;font-size:20px!important;font-weight:900!important}
 .cdp-final p{color:#DCEBFB;font-size:14px;margin:0}
 .cdp-final .elementor-button{width:100%;background:#fff!important;color:var(--d)!important;border-radius:14px!important;font-weight:800!important;font-size:16px!important;padding:15px!important}
-/* sticky buy bar + popup */
-.cdp-bar{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#fff;border-top:1px solid var(--l);box-shadow:0 -8px 24px rgba(20,40,80,.08);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;direction:rtl}
-.cdp-bar .p{line-height:1.3;color:var(--n)}.cdp-bar .p del{display:block;font-size:12px;color:#98A3B8}.cdp-bar .p b{font-size:17px;font-weight:900}
+/* nothing inside the product page may be wider than the phone screen (a wider element makes mobile Chrome zoom the whole page out) */
+.elementor-3124,.elementor-2560{max-width:100%;overflow-x:clip}
+.elementor-3124 .e-con,.elementor-3124 .elementor-widget,.elementor-3124 .elementor-widget-container,.elementor-2560 .e-con,.elementor-2560 .elementor-widget,.elementor-2560 .elementor-widget-container{min-width:0!important;max-width:100%}
+.elementor-3124 img,.elementor-3124 iframe,.elementor-3124 video,.elementor-3124 table,.elementor-2560 img,.elementor-2560 iframe,.elementor-2560 video,.elementor-2560 table{max-width:100%!important;min-width:0!important}
+.elementor-3124 table,.elementor-2560 table{width:100%!important;table-layout:fixed!important}
+.cdp-sec td,.cdp-sec th,.cdp-acc .elementor-tab-title{overflow-wrap:anywhere}
+.cdp-debug{position:fixed!important;left:8px;right:8px;top:8px;z-index:2147483647;background:#10203C;color:#fff;font:600 12px/1.6 monospace;direction:ltr;text-align:left;padding:10px 12px;border-radius:12px;white-space:pre-wrap;max-height:60vh;overflow:auto}
+/* sticky buy bar + popup: unique class names so theme rules for generic classes (.box, .item, .close…) can't touch them */
+.cdp-bar{position:fixed!important;left:0;right:0;bottom:0;top:auto;z-index:2147483000;background:#fff;border-top:1px solid var(--l);box-shadow:0 -8px 24px rgba(20,40,80,.08);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;direction:rtl;margin:0;transform:none}
+.cdp-bar[hidden]{display:none!important}
+.cdp-bar-p{line-height:1.3;color:var(--n)}.cdp-bar-p del{display:block;font-size:12px;color:#98A3B8}.cdp-bar-p b{font-size:17px;font-weight:900}
 .single-product{padding-bottom:84px}
-.cdp-sheet{position:fixed;inset:0;z-index:100000;display:flex;align-items:flex-end;justify-content:center;visibility:hidden;direction:rtl}
+.cdp-sheet{position:fixed!important;top:0;right:0;bottom:0;left:0;z-index:2147483600;display:flex;align-items:flex-end;justify-content:center;visibility:hidden;direction:rtl;margin:0;padding:0;transform:none;float:none}
 .cdp-sheet.open{visibility:visible}
-.cdp-sheet .dim{position:absolute;inset:0;background:rgba(16,32,60,.45);opacity:0;transition:opacity .2s}
-.cdp-sheet.open .dim{opacity:1}
-.cdp-sheet .box{position:relative;width:100%;max-width:480px;background:#fff;color:var(--n);border-radius:24px 24px 0 0;padding:10px 18px calc(18px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .25s cubic-bezier(.2,.8,.2,1);display:grid;gap:14px;box-shadow:0 -10px 40px rgba(20,40,80,.18)}
-.cdp-sheet.open .box{transform:none}
-.cdp-sheet .grab{width:44px;height:5px;border-radius:3px;background:var(--l);margin:0 auto 2px}
-.cdp-sheet .ok{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;color:var(--g)}
-.cdp-sheet .ok i{width:30px;height:30px;border-radius:50%;background:var(--gt);display:flex;align-items:center;justify-content:center;font-style:normal}
-.cdp-sheet .item{display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:16px;padding:10px}
-.cdp-sheet .item img{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:12px;padding:6px}
-.cdp-sheet .item b{display:block;font-size:14px;font-weight:800;line-height:1.6}.cdp-sheet .item span{font-size:13px;color:var(--sl)}
-.cdp-sheet .gifted{font-size:13px;font-weight:700;color:var(--ink);background:#FFF4D1;border-radius:12px;padding:8px 12px}
-.cdp-sheet .sum{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--sl)}.cdp-sheet .sum b{font-size:18px;font-weight:900;color:var(--n)}
-.cdp-sheet .acts{display:grid;gap:8px}.cdp-sheet .acts .cdp-btn{flex:none;width:100%}
-.cdp-sheet .close{position:absolute;top:12px;left:12px;width:36px;height:36px;border:0;border-radius:50%;background:var(--bg);color:var(--sl);font-size:20px;line-height:1;padding:0}
-.cdp-sheet .err{color:var(--r);font-size:13px;font-weight:700}
-.cdp-btn:focus-visible,.cdp-sheet .close:focus-visible,.cdp-qty button:focus-visible{outline:3px solid #78CDFF;outline-offset:2px}
+.cdp-sh-dim{position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(16,32,60,.45);opacity:0;transition:opacity .2s}
+.cdp-sheet.open .cdp-sh-dim{opacity:1}
+.cdp-sh-box{position:relative;float:none;top:auto;left:auto;margin:0;width:100%;max-width:480px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow-y:auto;box-sizing:border-box;background:#fff;color:var(--n);border-radius:24px 24px 0 0;padding:10px 18px calc(18px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .25s cubic-bezier(.2,.8,.2,1);display:grid;gap:14px;box-shadow:0 -10px 40px rgba(20,40,80,.18);text-align:right}
+.cdp-sheet.open .cdp-sh-box{transform:none}
+.cdp-sh-grab{width:44px;height:5px;border-radius:3px;background:var(--l);margin:0 auto 2px}
+.cdp-sh-ok{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;color:var(--g);padding-left:44px}
+.cdp-sh-ok i{width:30px;height:30px;border-radius:50%;background:var(--gt);display:flex;align-items:center;justify-content:center;font-style:normal;flex:none}
+.cdp-sh-item{display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:16px;padding:10px;margin:0}
+.cdp-sh-item img{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:12px;padding:6px;flex:none}
+.cdp-sh-item b{display:block;font-size:14px;font-weight:800;line-height:1.6}.cdp-sh-item span{font-size:13px;color:var(--sl)}
+.cdp-sh-gift{font-size:13px;font-weight:700;color:var(--ink);background:#FFF4D1;border-radius:12px;padding:8px 12px}
+.cdp-sh-sum{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--sl)}.cdp-sh-sum b{font-size:18px;font-weight:900;color:var(--n)}
+.cdp-sh-acts{display:grid;gap:8px}.cdp-sh-acts .cdp-btn{flex:none;width:100%}
+.cdp-sh-close{position:absolute;top:12px;left:12px;right:auto;width:36px;height:36px;border:0;border-radius:50%;background:var(--bg);color:var(--sl);font-size:20px;line-height:1;padding:0;margin:0;opacity:1;float:none}
+.cdp-btn:focus-visible,.cdp-sh-close:focus-visible,.cdp-qty button:focus-visible{outline:3px solid #78CDFF;outline-offset:2px}
 @media (min-width:768px){
  .cdp-title .elementor-heading-title{font-size:28px!important}
  .cdp-sec h2.elementor-heading-title{font-size:24px!important}
@@ -141,27 +148,27 @@ table.cdp-spec td:first-child{color:var(--sl);font-weight:500;text-align:right;w
  .cdp-trust .elementor-icon-list-items{grid-template-columns:repeat(4,1fr)}
  .cdp-show .elementor-widget-image img{width:200px}
  table.cdp-vs,table.cdp-vs th{font-size:14px}
- .cdp-sheet{align-items:center}.cdp-sheet .box{border-radius:24px;padding:22px 24px;transform:translateY(24px) scale(.96);opacity:0;transition:transform .2s,opacity .2s}
- .cdp-sheet.open .box{opacity:1;transform:none}.cdp-sheet .grab{display:none}
+ .cdp-sheet{align-items:center}.cdp-sh-box{border-radius:24px;padding:22px 24px;transform:translateY(24px) scale(.96);opacity:0;transition:transform .2s,opacity .2s}
+ .cdp-sheet.open .cdp-sh-box{opacity:1;transform:none}.cdp-sh-grab{display:none}
 }
 @media (min-width:1025px){
  .cdp-trust .elementor-icon-list-items{grid-template-columns:1fr 1fr}
  .cdp-gal{position:sticky!important;top:20px;align-self:flex-start}
  .cdp-bar{display:none}.single-product{padding-bottom:0}
 }
-@media (prefers-reduced-motion:reduce){.cdp-sheet .box,.cdp-sheet .dim{transition:none}}
+@media (prefers-reduced-motion:reduce){.cdp-sh-box,.cdp-sh-dim{transition:none}}
 </style>
-<div class="cdp-bar" id="cdp-bar" hidden><div class="p"><del id="cdp-bar-old"></del><b id="cdp-bar-now"></b></div><button type="button" class="cdp-btn" data-cdp-add>افزودن به سبد</button></div>
+<div class="cdp-bar" id="cdp-bar" hidden><div class="cdp-bar-p"><del id="cdp-bar-old"></del><b id="cdp-bar-now"></b></div><button type="button" class="cdp-btn" data-cdp-add>افزودن به سبد</button></div>
 <div class="cdp-sheet" id="cdp-sheet" role="dialog" aria-modal="true" aria-labelledby="cdp-sheet-t" aria-hidden="true">
- <div class="dim" data-close></div>
- <div class="box">
-  <div class="grab"></div>
-  <button type="button" class="close" data-close aria-label="بستن">×</button>
-  <div class="ok" id="cdp-sheet-t"><i>✓</i>به سبد خرید اضافه شد</div>
-  <div class="item"><img id="cdp-sheet-img" alt=""><div><b id="cdp-sheet-name"></b><span id="cdp-sheet-q"></span></div></div>
-  <div class="gifted">🎁 اشتراک طلایی اپ هم همراهش فعال می‌شود</div>
-  <div class="sum"><span>مبلغ قابل پرداخت</span><b id="cdp-sheet-sum"></b></div>
-  <div class="acts">
+ <div class="cdp-sh-dim" data-close></div>
+ <div class="cdp-sh-box">
+  <div class="cdp-sh-grab"></div>
+  <button type="button" class="cdp-sh-close" data-close aria-label="بستن">×</button>
+  <div class="cdp-sh-ok" id="cdp-sheet-t"><i>✓</i>به سبد خرید اضافه شد</div>
+  <div class="cdp-sh-item"><img id="cdp-sheet-img" alt=""><div><b id="cdp-sheet-name"></b><span id="cdp-sheet-q"></span></div></div>
+  <div class="cdp-sh-gift">🎁 اشتراک طلایی اپ هم همراهش فعال می‌شود</div>
+  <div class="cdp-sh-sum"><span>مبلغ قابل پرداخت</span><b id="cdp-sheet-sum"></b></div>
+  <div class="cdp-sh-acts">
    <a class="cdp-btn" href="/checkout/" id="cdp-checkout">تسویه حساب و ادامه خرید</a>
    <button type="button" class="cdp-btn ghost" data-close>ادامه‌ی گشت‌وگذار</button>
   </div>
@@ -171,6 +178,11 @@ table.cdp-spec td:first-child{color:var(--sl);font-weight:500;text-align:right;w
 (function(){
  function ready(f){document.readyState!=='loading'?f():document.addEventListener('DOMContentLoaded',f)}
  ready(function(){
+  // #cdpdebug in the URL: list elements wider than the screen (for diagnosing mobile zoom-out)
+  if(location.hash==='#cdpdebug'){setTimeout(function(){var W=document.documentElement.clientWidth,rows=['viewport '+W+' / page '+document.documentElement.scrollWidth+' / screen '+screen.width];
+   var bad=[];[].forEach.call(document.querySelectorAll('body *'),function(e){var r=e.getBoundingClientRect();if(!r.width||e.closest('#cdp-sheet,#cdp-bar,.cdp-debug')||getComputedStyle(e).position==='fixed')return;if(r.left<-1||r.right>W+1)bad.push({e:e,r:r})});
+   bad.filter(function(b){return !bad.some(function(o){return o.e!==b.e&&b.e.contains(o.e)})}).sort(function(a,b){return b.r.right-a.r.right}).forEach(function(b){var e=b.e;rows.push(e.tagName.toLowerCase()+'.'+String(e.className).trim().split(/\s+/).slice(0,4).join('.')+(e.id?'#'+e.id:'')+'  L'+Math.round(b.r.left)+' R'+Math.round(b.r.right))});
+   var d=document.createElement('div');d.className='cdp-debug';d.textContent=rows.slice(0,12).join('\n');document.body.appendChild(d)},1500)}
   var form=document.querySelector('.cdp-cart'); if(!form) return;
   ['cdp-bar','cdp-sheet'].forEach(function(id){document.body.appendChild(document.getElementById(id))});
   var w=document.querySelector('.elementor-location-single[class*="post-"]'), m=document.body.className.match(/postid-(\d+)/)||(w&&w.className.match(/\bpost-(\d+)\b/)), pid=m?m[1]:'';
