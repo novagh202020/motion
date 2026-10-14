@@ -15,12 +15,14 @@ Song is time-stretched 0.66% so 1 bar = 2.25 s = 67.5 frames. Groove downbeat at
 feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last heartbeat at 885.
 
 ## SFX / mux
-    python3 sfx2.py   (Series C)  |  python3 sfx_ai.py  (AI motion)
+    python3 sfx2.py   (Series C)  |  python3 sfx_ai.py  (AI motion)  |  python3 sfx_ecu.py  (ECU motion; needs song/song_cut.wav for mix_ecu.wav)
     ffmpeg -i silent.mp4 -i mix.wav -map 0:v -map 1:a -c:v copy -af loudnorm=I=-14:TP=-2 -c:a aac -b:a 192k out.mp4
 
 ## Files
 - motion.html          Series C launch motion (8 features)
 - ai_motion.html       AI diagnosis motion (= ai_intro.html + ai_main_part.html)
-- endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر"
+- ecu_motion.html      ECU fault-finding motion: check-engine light -> plug diag -> splash, connect, Bluetooth scan,
+                       connecting popup -> ECU scan finds P0420 -> clear all faults -> light off -> end card
+- endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health}) sets the phone's health %)
 - cover*.html          Instagram / YouTube covers; product_shot.html = white-background site image
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)

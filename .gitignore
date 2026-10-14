@@ -4,3 +4,4 @@ kf/
 *.mp4
 *.wav
 __pycache__/
+out/

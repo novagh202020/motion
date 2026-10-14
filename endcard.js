@@ -1,7 +1,8 @@
 /* Shared end card: diag + phone (home screen) joined by a live link, brand, offer, url.
-   Usage: initEnd(); then call renderEnd(f) every frame (T0 = 817.5). */
+   Usage: initEnd(parent, {health, healthColor}); then call renderEnd(f) every frame (T0 = 817.5). */
 (function(){
 const T0=817.5;
+let H=92;                                         // health % shown on the phone (opts.health)
 const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
 const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
 const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
@@ -39,7 +40,8 @@ const PX=728, PY=500, PS=0.43;                    // phone top-left / scale (600
 const L0=[DX+DW/2-22, DY-10], L1=[PX-6, PY+270];  // link endpoints
 const LINK=`M${L0[0]} ${L0[1]} L${L0[0]+34} ${L0[1]} L${L0[0]+48} ${L0[1]-26} L${L0[0]+64} ${L0[1]+30} L${L0[0]+80} ${L0[1]-34} L${L0[0]+94} ${L0[1]+8} L${L0[0]+104} ${L0[1]} Q${(L0[0]+L1[0])/2+40} ${L0[1]} ${L1[0]} ${L1[1]}`;
 
-window.initEnd=function(parent){
+window.initEnd=function(parent,opts){
+ opts=opts||{}; if(opts.health) H=opts.health;
  const d=document.createElement('div'); d.id='ec'; d.style.cssText='position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:46;pointer-events:none;display:none';
  d.innerHTML=`
  <div id="ecBloom" style="position:absolute;left:-35px;top:380px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.28) 0%,rgba(40,160,255,.10) 40%,rgba(40,160,255,0) 70%)"></div>
@@ -64,6 +66,7 @@ window.initEnd=function(parent){
    background:linear-gradient(90deg,#F6CD5C 0%,#FFEA9C 50%,#E0A82C 100%);color:#4B3005;font-weight:800;font-size:54px;display:flex;align-items:center;gap:18px;white-space:nowrap;direction:rtl;box-shadow:0 18px 40px rgba(20,40,80,.18)">${sv('gift','#4B3005',56)}اشتراک طلایی هدیه بگیر</div>
  <div id="ecUrl" style="position:absolute;left:0;top:1484px;width:1080px;text-align:center;font-weight:700;font-size:56px;color:#506482;direction:ltr">cardiag.ir</div>`;
  (parent||document.getElementById('stage')||document.body).appendChild(d);
+ if(opts.healthColor) document.getElementById('ecNum').style.color=opts.healthColor;
 };
 
 window.renderEnd=function(f){
@@ -78,7 +81,7 @@ window.renderEnd=function(f){
  // phone slides in from right
  const pp=E.oc(seg(t,6,24)); const ph=document.getElementById('ecPhone');
  ph.style.opacity=E.oc(seg(t,6,12)); ph.style.transform=`translateX(${(1-pp)*420}px) scale(${PS}) rotate(${lerp(10,4,pp)}deg)`;
- const h=E.oc(seg(t,22,40)); document.getElementById('ecFill').style.width=(h*92)+'%'; document.getElementById('ecNum').textContent=fa(Math.round(h*92))+'٪';
+ const h=E.oc(seg(t,22,40)); document.getElementById('ecFill').style.width=(h*H)+'%'; document.getElementById('ecNum').textContent=fa(Math.round(h*H))+'٪';
  // link: draws, then live dots + breathing glow
  const lk=document.getElementById('ecLink'), lg=document.getElementById('ecLinkG'); const L=lk.getTotalLength();
  const dr=E.io(seg(t,16,28)); [lk,lg].forEach(p=>{p.style.strokeDasharray=L;p.style.strokeDashoffset=L*(1-dr)});
