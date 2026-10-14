@@ -157,6 +157,33 @@
 .cdp .bar .p small{font-size:12px;color:var(--slate);font-weight:700}
 .cdp .spacer{height:84px}
 
+/* added-to-cart sheet: bottom sheet on phones, centred dialog from 768px */
+.cdp .sheet{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;visibility:hidden}
+.cdp .sheet.open{visibility:visible}
+.cdp .sheet .dim{position:absolute;inset:0;background:rgba(16,32,60,.45);opacity:0;transition:opacity .2s}
+.cdp .sheet.open .dim{opacity:1}
+.cdp .sheet .box{position:relative;width:100%;max-width:480px;background:#fff;border-radius:24px 24px 0 0;padding:10px 18px calc(18px + env(safe-area-inset-bottom));
+ transform:translateY(100%);transition:transform .25s cubic-bezier(.2,.8,.2,1);display:grid;gap:14px;box-shadow:0 -10px 40px rgba(20,40,80,.18)}
+.cdp .sheet.open .box{transform:none}
+.cdp .sheet .grab{width:44px;height:5px;border-radius:3px;background:#DEE6F2;margin:0 auto 2px}
+.cdp .sheet .ok{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;color:var(--green)}
+.cdp .sheet .ok i{width:30px;height:30px;border-radius:50%;background:var(--greenT);display:flex;align-items:center;justify-content:center}
+.cdp .sheet .ok .ico{width:20px;height:20px}
+.cdp .sheet .item{display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:16px;padding:10px}
+.cdp .sheet .item img{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:12px;padding:6px}
+.cdp .sheet .item b{display:block;font-size:14px;font-weight:800;line-height:1.6}
+.cdp .sheet .item span{font-size:13px;color:var(--slate)}
+.cdp .sheet .sum{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--slate)}
+.cdp .sheet .sum b{font-size:18px;font-weight:900;color:var(--navy)}
+.cdp .sheet .gifted{font-size:13px;font-weight:700;color:var(--ink);background:#FFF4D1;border-radius:12px;padding:8px 12px}
+.cdp .sheet .acts{display:grid;gap:8px}
+.cdp .sheet .acts .btn{flex:none;width:100%}
+.cdp .sheet .close{position:absolute;top:12px;left:12px;width:36px;height:36px;border:0;border-radius:50%;background:var(--bg);color:var(--slate);font-size:20px;line-height:1}
+.cdp .btn:focus-visible,.cdp .sheet .close:focus-visible,.cdp .qty button:focus-visible{outline:3px solid #78CDFF;outline-offset:2px}
+@media (min-width:768px){.cdp .sheet{align-items:center}.cdp .sheet .box{border-radius:24px;padding:22px 24px;transform:translateY(24px) scale(.96);opacity:0;transition:transform .2s,opacity .2s}
+ .cdp .sheet.open .box{opacity:1;transform:none}.cdp .sheet .grab{display:none}}
+@media (prefers-reduced-motion:reduce){.cdp .sheet .box,.cdp .sheet .dim{transition:none}}
+
 /* ---------- tablet / desktop ---------- */
 @media (min-width:768px){
  .cdp{font-size:16px}
@@ -230,8 +257,8 @@
     </div>
     <div class="gift"><svg class="ico"><use href="#i-gift"/></svg><div><b>اشتراک طلایی اپ، رایگان و همیشگی</b><span>تعمیرکار هوش مصنوعی و همه‌ی امکانات حرفه‌ای</span></div></div>
     <form class="cart" onsubmit="return false">
-     <div class="qty"><button type="button" aria-label="کم کردن">−</button><input value="۱" aria-label="تعداد"><button type="button" aria-label="زیاد کردن">+</button></div>
-     <button class="btn"><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد خرید</button>
+     <div class="qty"><button type="button" data-q="-1" aria-label="کم کردن">−</button><input id="cdp-qty" value="۱" inputmode="numeric" aria-label="تعداد" readonly><button type="button" data-q="1" aria-label="زیاد کردن">+</button></div>
+     <button type="button" class="btn" data-add><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد خرید</button>
     </form>
    </div>
 
@@ -360,7 +387,7 @@
   <div class="buybox">
    <div class="price"><div><del>۲٬۱۵۰٬۰۰۰ تومان</del><div class="now">۱٬۴۹۰٬۰۰۰<small>تومان</small></div></div><span class="save">۳۱٪ تخفیف</span></div>
    <div class="gift"><svg class="ico"><use href="#i-gift"/></svg><div><b>اشتراک طلایی رایگان</b><span>همراه هر دستگاه</span></div></div>
-   <button class="btn"><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد خرید</button>
+   <button type="button" class="btn" data-add><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد خرید</button>
   </div>
  </aside>
 </div>
@@ -368,7 +395,22 @@
 <div class="spacer"></div>
 <div class="bar">
  <div class="p"><del>۲٬۱۵۰٬۰۰۰</del><b>۱٬۴۹۰٬۰۰۰</b> <small>تومان</small></div>
- <button class="btn"><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد</button>
+ <button type="button" class="btn" data-add><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد</button>
+</div>
+<div class="sheet" id="cdp-sheet" role="dialog" aria-modal="true" aria-labelledby="cdp-sheet-t" aria-hidden="true">
+ <div class="dim" data-close></div>
+ <div class="box">
+  <div class="grab"></div>
+  <button type="button" class="close" data-close aria-label="بستن">×</button>
+  <div class="ok" id="cdp-sheet-t"><i><svg class="ico"><use href="#i-check"/></svg></i>به سبد خرید اضافه شد</div>
+  <div class="item"><img src="img/diag.png" alt="" width="64" height="64"><div><b>دیاگ بلوتوثی کاردیاگ، مدل شخصی</b><span id="cdp-sheet-q">۱ عدد</span></div></div>
+  <div class="gifted">🎁 اشتراک طلایی اپ هم همراهش فعال می‌شود</div>
+  <div class="sum"><span>مبلغ قابل پرداخت</span><b id="cdp-sheet-sum">۱٬۴۹۰٬۰۰۰ تومان</b></div>
+  <div class="acts">
+   <a class="btn" href="https://www.cardiag.ir/checkout/" id="cdp-checkout">تسویه حساب و ادامه خرید</a>
+   <button type="button" class="btn ghost" data-close>ادامه‌ی گشت‌وگذار</button>
+  </div>
+ </div>
 </div>
 </main>
 <script>
@@ -381,6 +423,24 @@
  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
   links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-45% 0px -50% 0px'});
  links.forEach(function(a){var t=document.querySelector(a.getAttribute('href'));if(t)io.observe(t)});
+})();
+
+// quantity stepper + added-to-cart sheet
+(function(){
+ var FA='۰۱۲۳۴۵۶۷۸۹',fa=function(n){return String(n).replace(/\d/g,function(d){return FA[d]})};
+ var money=function(n){return fa(n.toLocaleString('en-US').replace(/,/g,'٬'))};
+ var PRICE=1490000,q=1,inp=document.getElementById('cdp-qty');
+ document.querySelectorAll('.cdp [data-q]').forEach(function(b){b.addEventListener('click',function(){
+  q=Math.min(10,Math.max(1,q+(+b.getAttribute('data-q'))));inp.value=fa(q)})});
+ var sh=document.getElementById('cdp-sheet'),last=null;
+ function open(btn){last=btn;document.getElementById('cdp-sheet-q').textContent=fa(q)+' عدد';
+  document.getElementById('cdp-sheet-sum').textContent=money(PRICE*q)+' تومان';
+  sh.classList.add('open');sh.setAttribute('aria-hidden','false');document.documentElement.style.overflow='hidden';
+  setTimeout(function(){document.getElementById('cdp-checkout').focus()},60)}
+ function close(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');document.documentElement.style.overflow='';if(last)last.focus()}
+ document.querySelectorAll('.cdp [data-add]').forEach(function(b){b.addEventListener('click',function(){open(b)})});
+ sh.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close)});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&sh.classList.contains('open'))close()});
 })();
 </script>
 </body></html>
