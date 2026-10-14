@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>دیاگ بلوتوثی کاردیاگ — پیش‌نمایش صفحه محصول</title>
+<style>
+@font-face{font-family:Vazirmatn;font-weight:400;src:url(../fonts/Vazirmatn-FD-Regular.ttf)}
+@font-face{font-family:Vazirmatn;font-weight:500;src:url(../fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:Vazirmatn;font-weight:700;src:url(../fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:Vazirmatn;font-weight:800;src:url(../fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:Vazirmatn;font-weight:900;src:url(../fonts/Vazirmatn-FD-Black.ttf)}
+
+/* ===== CarDiag product page — every rule is scoped under .cdp so it cannot leak into the theme ===== */
+.cdp{--blue:#2196F3;--deep:#1565C0;--soft:#E3EFFC;--navy:#10203C;--slate:#6E7D96;--line:#DEE6F2;--bg:#F4F8FD;
+ --green:#22A050;--greenT:#DEF6E6;--red:#DC3232;--redT:#FFECEC;--ink:#4B3005;--r:20px;
+ font-family:Vazirmatn,Tahoma,sans-serif;color:var(--navy);direction:rtl;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased}
+.cdp *,.cdp *::before,.cdp *::after{box-sizing:border-box}
+.cdp h1,.cdp h2,.cdp h3,.cdp p,.cdp ul,.cdp ol,.cdp figure{margin:0;padding:0}
+.cdp ul,.cdp ol{list-style:none}
+.cdp a{color:var(--deep);text-decoration:none}
+.cdp img{max-width:100%;height:auto;display:block}
+.cdp .ltr{direction:ltr;unicode-bidi:isolate}
+.cdp .wrap{max-width:1160px;margin:0 auto;padding:0 16px}
+.cdp .ico{width:22px;height:22px;flex:none;fill:currentColor}
+
+/* breadcrumb */
+.cdp .crumb{font-size:13px;color:var(--slate);padding:12px 0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cdp .crumb a{color:var(--slate)}
+.cdp .crumb span{margin:0 6px;opacity:.6}
+
+/* ---------- hero ---------- */
+.cdp .hero{display:grid;gap:16px}
+.cdp .gallery{position:relative;border-radius:24px;background:radial-gradient(120% 90% at 50% 30%,#FFFFFF 0%,#EAF3FD 60%,#DCEBFB 100%);overflow:hidden;aspect-ratio:1/1}
+.cdp .slides{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.cdp .slides::-webkit-scrollbar{display:none}
+.cdp .slide{flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;padding:28px}
+.cdp .slide img{max-height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 18px 28px rgba(20,40,80,.18))}
+.cdp .slide.app img{border-radius:28px}
+.cdp .off{position:absolute;top:14px;right:14px;background:var(--red);color:#fff;font-weight:800;font-size:14px;padding:4px 12px;border-radius:12px}
+.cdp .dots{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:6px}
+.cdp .dots i{width:7px;height:7px;border-radius:4px;background:#B9CDE6}
+.cdp .dots i.on{width:20px;background:var(--blue)}
+
+.cdp h1{font-size:21px;font-weight:900;line-height:1.55}
+.cdp .model{margin-top:4px;font-size:14px;color:var(--slate);font-weight:500}
+.cdp .stock{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:700;color:var(--green);background:var(--greenT);padding:3px 12px;border-radius:12px}
+.cdp .stock::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green)}
+
+.cdp .buybox{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:14px}
+.cdp .price{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.cdp .price del{color:#98A3B8;font-size:14px;font-weight:500}
+.cdp .price .now{font-size:26px;font-weight:900;line-height:1.2}
+.cdp .price .now small{font-size:14px;font-weight:700;color:var(--slate);margin-right:4px}
+.cdp .price .save{font-size:13px;font-weight:700;color:var(--red);background:var(--redT);padding:3px 10px;border-radius:10px;white-space:nowrap}
+.cdp .gift{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:linear-gradient(90deg,#F6CD5C 0%,#FFEA9C 55%,#F2D27A 100%);color:var(--ink)}
+.cdp .gift b{display:block;font-size:15px;font-weight:900;line-height:1.5}
+.cdp .gift span{font-size:12.5px;font-weight:500;line-height:1.6}
+.cdp .gift .ico{width:30px;height:30px}
+.cdp .cart{display:flex;gap:10px}
+.cdp .qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:14px;height:52px;overflow:hidden}
+.cdp .qty button{width:38px;height:100%;border:0;background:var(--bg);font:inherit;font-size:20px;color:var(--navy)}
+.cdp .qty input{width:38px;border:0;text-align:center;font:inherit;font-weight:800;font-size:16px;color:var(--navy);background:#fff}
+.cdp .btn{flex:1;height:52px;border:0;border-radius:14px;background:var(--blue);color:#fff;font:inherit;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 18px rgba(33,150,243,.28)}
+.cdp .btn.ghost{background:#fff;color:var(--deep);border:1.5px solid var(--blue);box-shadow:none}
+
+.cdp .trust{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cdp .trust li{display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:14px;padding:10px;font-size:12.5px;font-weight:700;line-height:1.5}
+.cdp .trust .ico{width:24px;height:24px;color:var(--blue)}
+
+.cdp .fit{display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--r);background:var(--navy);color:#fff}
+.cdp .fit b{display:block;font-size:15px;font-weight:800}
+.cdp .fit span{font-size:12.5px;color:#C9D6EA}
+.cdp .fit a{margin-right:auto;flex:none;background:#fff;color:var(--navy);font-weight:800;font-size:13px;padding:8px 14px;border-radius:12px}
+
+.cdp .lead{font-size:14.5px;color:#33415C}
+
+/* ---------- section nav ---------- */
+.cdp .snav{position:sticky;top:0;z-index:20;background:rgba(251,252,255,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:24px}
+.cdp .snav ul{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;scrollbar-width:none;max-width:1160px;margin:0 auto}
+.cdp .snav ul::-webkit-scrollbar{display:none}
+.cdp .snav a{display:block;white-space:nowrap;font-size:13.5px;font-weight:700;color:var(--slate);padding:6px 14px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+.cdp .snav a.on{color:var(--deep);border-color:var(--blue);background:var(--soft)}
+
+/* ---------- sections ---------- */
+.cdp section{padding:28px 0 4px;scroll-margin-top:60px}
+.cdp h2{font-size:19px;font-weight:900;line-height:1.5;margin-bottom:14px}
+.cdp h2 em{font-style:normal;color:var(--blue)}
+.cdp .sub{font-size:14px;color:var(--slate);margin:-8px 0 16px}
+.cdp .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px}
+
+.cdp .show{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center}
+.cdp .show img{border-radius:22px;box-shadow:0 14px 30px rgba(20,40,80,.16)}
+.cdp .feat{display:grid;gap:10px}
+.cdp .feat li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.7;color:#33415C}
+.cdp .feat li b{color:var(--navy);display:block;font-size:14.5px}
+.cdp .badge{width:40px;height:40px;border-radius:12px;background:var(--soft);color:var(--blue);display:flex;align-items:center;justify-content:center;flex:none}
+
+.cdp .video{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:16/9;background:linear-gradient(135deg,#163A72,#2196F3);display:flex;align-items:center;justify-content:center;color:#fff;margin-top:14px}
+.cdp .video .play{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;color:var(--blue)}
+.cdp .video .cap{position:absolute;bottom:12px;right:14px;font-size:13px;font-weight:700}
+
+.cdp .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cdp .tile{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:6px;align-content:start}
+.cdp .tile b{font-size:14px;font-weight:800;line-height:1.5}
+.cdp .tile p{font-size:12.5px;color:var(--slate);line-height:1.7}
+
+.cdp .steps{counter-reset:s;display:grid;gap:0}
+.cdp .steps li{position:relative;padding:0 52px 20px 0}
+.cdp .steps li::before{counter-increment:s;content:counter(s);position:absolute;right:0;top:0;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:16px}
+.cdp .steps li::after{content:"";position:absolute;right:18px;top:42px;bottom:4px;width:2px;background:var(--line)}
+.cdp .steps li:last-child::after{display:none}
+.cdp .steps b{display:block;font-size:15px;font-weight:800;line-height:2.4}
+.cdp .steps p{font-size:13.5px;color:#33415C}
+
+.cdp .vs{display:grid;gap:8px}
+.cdp .vs .hd,.cdp .vs .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center}
+.cdp .vs .hd span{font-size:12.5px;font-weight:800;color:var(--slate);text-align:center}
+.cdp .vs .hd span:last-child{color:var(--deep)}
+.cdp .vs .row{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 12px}
+.cdp .vs .row b{font-size:13px;font-weight:800;line-height:1.5}
+.cdp .vs .row span{font-size:12.5px;text-align:center;line-height:1.5;color:var(--slate)}
+.cdp .vs .row span.us{color:var(--green);font-weight:800;background:var(--greenT);border-radius:10px;padding:4px 6px}
+
+.cdp .spec{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.cdp .spec div{display:flex;justify-content:space-between;gap:16px;padding:12px 16px;font-size:13.5px;border-bottom:1px solid #EEF2F8}
+.cdp .spec div:last-child{border-bottom:0}
+.cdp .spec dt{color:var(--slate);font-weight:500;flex:none}
+.cdp .spec dd{margin:0;font-weight:700;text-align:left}
+
+.cdp details{background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:8px;overflow:hidden}
+.cdp summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;font-weight:800;font-size:14.5px;line-height:1.6}
+.cdp summary::-webkit-details-marker{display:none}
+.cdp summary::after{content:"";width:9px;height:9px;border-left:2.5px solid var(--slate);border-bottom:2.5px solid var(--slate);transform:rotate(-45deg);flex:none;margin-top:-4px;transition:transform .2s}
+.cdp details[open] summary::after{transform:rotate(135deg);margin-top:4px}
+.cdp details .in{padding:0 16px 14px;font-size:13.5px;color:#33415C}
+.cdp summary small{font-size:12px;color:var(--slate);font-weight:500;margin-right:auto;margin-left:8px}
+.cdp .cars li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px dashed var(--line)}
+.cdp .cars li:first-child{border-top:0}
+.cdp .cars b{font-weight:700;font-size:13.5px}
+.cdp .cars span{font-size:12px;color:var(--slate);text-align:left}
+.cdp .note{font-size:13px;color:#33415C;background:var(--soft);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+
+.cdp .who li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:14px}
+.cdp .who .ico{color:var(--green);margin-top:3px}
+
+.cdp .final{margin:28px 0 8px;border-radius:24px;padding:22px 18px;background:linear-gradient(135deg,#1565C0,#2196F3);color:#fff;display:grid;gap:12px;text-align:center}
+.cdp .final h2{color:#fff;margin:0}
+.cdp .final p{font-size:14px;color:#DCEBFB}
+.cdp .final .btn{background:#fff;color:var(--deep);box-shadow:none}
+
+/* sticky purchase bar (mobile) */
+.cdp .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(20,40,80,.08);
+ padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px}
+.cdp .bar .p{line-height:1.3}
+.cdp .bar .p del{display:block;font-size:12px;color:#98A3B8}
+.cdp .bar .p b{font-size:18px;font-weight:900}
+.cdp .bar .p small{font-size:12px;color:var(--slate);font-weight:700}
+.cdp .spacer{height:84px}
+
+/* ---------- tablet / desktop ---------- */
+@media (min-width:768px){
+ .cdp{font-size:16px}
+ .cdp h1{font-size:28px}
+ .cdp h2{font-size:24px}
+ .cdp .grid2{grid-template-columns:repeat(4,1fr)}
+ .cdp .show{grid-template-columns:200px 1fr;gap:28px}
+ .cdp .vs .row{padding:14px 18px}
+ .cdp .vs .row b,.cdp .vs .row span{font-size:14px}
+ .cdp .trust{grid-template-columns:repeat(4,1fr)}
+}
+@media (min-width:1024px){
+ .cdp .hero{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;align-items:start;padding-top:8px}
+ .cdp .gallery{position:sticky;top:20px}
+ .cdp .info{display:grid;gap:16px}
+ .cdp .trust{grid-template-columns:1fr 1fr}
+ .cdp .body{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}
+ .cdp .aside{position:sticky;top:76px;display:block}
+ .cdp .bar,.cdp .spacer{display:none}
+ .cdp .two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+}
+@media (max-width:1023px){.cdp .aside{display:none}.cdp .info{display:grid;gap:14px}}
+</style>
+</head>
+<body style="margin:0;background:#FBFCFF">
+<!-- site header stays as is (Elementor header #197); this bar only stands in for it in the preview -->
+<div style="height:56px;background:#fff;border-bottom:1px solid #DEE6F2;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-family:Vazirmatn;color:#6E7D96;font-size:13px">
+ <b style="color:#1565C0;font-size:18px;font-weight:900" class="ltr">CarDiag</b><span>هدر فعلی سایت</span></div>
+
+<main class="cdp">
+<svg width="0" height="0" style="position:absolute">
+ <symbol id="i-check" viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></symbol>
+ <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></symbol>
+ <symbol id="i-return" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></symbol>
+ <symbol id="i-truck" viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9 1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
+ <symbol id="i-lang" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></symbol>
+ <symbol id="i-gift" viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></symbol>
+ <symbol id="i-cart" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></symbol>
+ <symbol id="i-car" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></symbol>
+ <symbol id="i-warn" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></symbol>
+ <symbol id="i-bot" viewBox="0 0 24 24"><path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4c1.66 0 3-1.34 3-3s-1.34-3-3-3zM7.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.83 13 9 13s-1.5-.67-1.5-1.5zM16 17H8v-2h8v2zm-1-4c-.83 0-1.5-.67-1.5-1.5S14.17 10 15 10s1.5.67 1.5 1.5S15.83 13 15 13z"/></symbol>
+ <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 13h4l2-6 4 12 3-9 2 3h3v2h-4l-1-1.5-3 9-4-12-1 3.5H3z"/></symbol>
+ <symbol id="i-bt" viewBox="0 0 24 24"><path d="M17.71 7.71 12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z"/></symbol>
+ <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+</svg>
+
+<div class="wrap">
+ <nav class="crumb" aria-label="مسیر"><a href="#">خانه</a><span>/</span><a href="#">دیاگ</a><span>/</span>دیاگ بلوتوثی کاردیاگ</nav>
+
+ <div class="hero">
+  <div class="gallery">
+   <div class="slides">
+    <div class="slide"><img src="img/diag.png" alt="دیاگ بلوتوثی کاردیاگ" width="800" height="578"></div>
+    <div class="slide app"><img src="img/app-ecu.png" alt="خطایابی ECU در اپلیکیشن کاردیاگ" width="300" height="645"></div>
+   </div>
+   <span class="off">۳۱٪ تخفیف</span>
+   <div class="dots"><i class="on"></i><i></i></div>
+  </div>
+
+  <div class="info">
+   <div>
+    <h1>دیاگ بلوتوثی و عیب‌یاب هوش مصنوعی کاردیاگ</h1>
+    <p class="model">مدل شخصی · برای خودروهای ایرانی و خارجی</p>
+    <span class="stock">موجود در انبار</span>
+   </div>
+
+   <div class="buybox" id="buy">
+    <div class="price">
+     <div><del>۲٬۱۵۰٬۰۰۰ تومان</del><div class="now">۱٬۴۹۰٬۰۰۰<small>تومان</small></div></div>
+     <span class="save">۶۶۰ هزار تومان کمتر</span>
+    </div>
+    <div class="gift"><svg class="ico"><use href="#i-gift"/></svg><div><b>اشتراک طلایی اپ، رایگان و همیشگی</b><span>تعمیرکار هوش مصنوعی و همه‌ی امکانات حرفه‌ای</span></div></div>
+    <form class="cart" onsubmit="return false">
+     <div class="qty"><button type="button" aria-label="کم کردن">−</button><input value="۱" aria-label="تعداد"><button type="button" aria-label="زیاد کردن">+</button></div>
+     <button class="btn"><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد خرید</button>
+    </form>
+   </div>
+
+   <ul class="trust">
+    <li><svg class="ico"><use href="#i-shield"/></svg>۶ ماه گارانتی تعویض</li>
+    <li><svg class="ico"><use href="#i-return"/></svg>۵ روز مرجوعی اگر وصل نشد</li>
+    <li><svg class="ico"><use href="#i-truck"/></svg>ارسال به سراسر کشور</li>
+    <li><svg class="ico"><use href="#i-lang"/></svg>اپلیکیشن کاملاً فارسی</li>
+   </ul>
+
+   <div class="fit"><svg class="ico" style="width:30px;height:30px;color:#78CDFF"><use href="#i-car"/></svg>
+    <div><b>به ماشین من وصل می‌شه؟</b><span>حدود ۹۰٪ خودروهای ایرانی و همه‌ی خارجی‌ها</span></div><a href="#cars">لیست خودروها</a></div>
+
+   <p class="lead">کاردیاگ اطلاعات لحظه‌ای موتور، سنسورها و خطاهای ایسیو را می‌خواند و هوش مصنوعی تعمیرکار، علت احتمالی مشکل را به زبان ساده و همراه با راه‌حل به شما می‌گوید؛ قبل از رفتن به تعمیرگاه.</p>
+  </div>
+ </div>
+</div>
+
+<nav class="snav" aria-label="بخش‌های صفحه"><ul>
+ <li><a class="on" href="#app">امکانات</a></li><li><a href="#setup">راه‌اندازی</a></li><li><a href="#vs">مقایسه</a></li>
+ <li><a href="#spec">مشخصات</a></li><li><a href="#cars">خودروها</a></li><li><a href="#faq">سوالات</a></li></ul></nav>
+
+<div class="wrap body">
+ <div>
+  <section id="app">
+   <h2>روی گوشی‌ات <em>چی می‌بینی؟</em></h2>
+   <div class="show">
+    <img src="img/app-ecu.png" alt="نمایش کد خطای P0420 با علل احتمالی در اپلیکیشن کاردیاگ" width="300" height="645" loading="lazy">
+    <ul class="feat">
+     <li><span class="badge"><svg class="ico"><use href="#i-warn"/></svg></span><div><b>خطایابی ایسیو</b>کدهای خطا به فارسی، علت احتمالی و پاک کردن خطا و چراغ چک</div></li>
+     <li><span class="badge"><svg class="ico"><use href="#i-bot"/></svg></span><div><b>تعمیرکار هوش مصنوعی</b>عیب‌یابی به زبان ساده و جواب هر سؤالی درباره ماشینت</div></li>
+     <li><span class="badge"><svg class="ico"><use href="#i-car"/></svg></span><div><b>گزارش سفر</b>ثبت داده‌ها حین رانندگی و گزارش کامل در پایان مسیر</div></li>
+     <li><span class="badge"><svg class="ico"><use href="#i-pulse"/></svg></span><div><b>مانیتورینگ زنده</b>دمای موتور، دور موتور، ولتاژ باتری و دینام، بار موتور</div></li>
+    </ul>
+   </div>
+   <div class="video" role="img" aria-label="ویدیوی معرفی اپلیکیشن"><span class="play"><svg class="ico" style="width:30px;height:30px"><use href="#i-play"/></svg></span><span class="cap">ویدیوی معرفی بخش‌های اپ</span></div>
+  </section>
+
+  <section>
+   <h2>چرا <em>کاردیاگ؟</em></h2>
+   <div class="grid2">
+    <div class="tile"><span class="badge"><svg class="ico"><use href="#i-car"/></svg></span><b>بیش از ۵۰ مدل خودرو</b><p>پراید، پژو، سمند، تیبا، دنا، تارا، شاهین و همه‌ی چینی و خارجی‌ها</p></div>
+    <div class="tile"><span class="badge"><svg class="ico"><use href="#i-bt"/></svg></span><b>اتصال بلوتوثی سریع</b><p>بدون کابل، اتصال خودکار در چند ثانیه</p></div>
+    <div class="tile"><span class="badge"><svg class="ico"><use href="#i-shield"/></svg></span><b>کاملاً ایمن</b><p>فقط اطلاعات را می‌خواند و تنظیمات خودرو را تغییر نمی‌دهد</p></div>
+    <div class="tile"><span class="badge"><svg class="ico"><use href="#i-lang"/></svg></span><b>بدون دانش فنی</b><p>رابط ساده و فارسی برای همه‌ی رانندگان</p></div>
+   </div>
+  </section>
+
+  <section id="setup">
+   <h2>راه‌اندازی در <em>۳ قدم</em></h2>
+   <ol class="steps">
+    <li><b>دستگاه را وصل کنید</b><p>کاردیاگ را به سوکت <span class="ltr">OBD2</span> زیر داشبورد، کنار فرمان بزنید. ابزار یا تخصصی لازم نیست.</p></li>
+    <li><b>اپلیکیشن را نصب کنید</b><p>اپ را رایگان از سایت دانلود کنید؛ اشتراک طلایی خودکار فعال می‌شود.</p></li>
+    <li><b>بلوتوث را روشن کنید</b><p>اپ را باز کنید؛ اتصال در کمتر از ۳۰ ثانیه برقرار می‌شود.</p></li>
+   </ol>
+  </section>
+
+  <section id="vs">
+   <h2>کاردیاگ یا <em>تعمیرگاه؟</em></h2>
+   <div class="vs">
+    <div class="hd"><span></span><span>تعمیرگاه</span><span>کاردیاگ</span></div>
+    <div class="row"><b>هزینه‌ی هر بار دیاگ</b><span>۲۰۰ تا ۴۰۰ هزار تومان</span><span class="us">رایگان</span></div>
+    <div class="row"><b>زمان</b><span>نوبت، رفت‌وآمد و انتظار</span><span class="us">کمتر از ۱ دقیقه</span></div>
+    <div class="row"><b>دسترسی</b><span>فقط در تعمیرگاه</span><span class="us">هر جا، هر وقت</span></div>
+    <div class="row"><b>شفافیت</b><span>وابسته به تعمیرکار</span><span class="us">روی گوشی خودت</span></div>
+    <div class="row"><b>هزینه‌ی سالانه</b><span>۰٫۶ تا ۲٫۴ میلیون تومان</span><span class="us">یک بار خرید</span></div>
+   </div>
+  </section>
+
+  <div class="two">
+   <section id="spec">
+    <h2>مشخصات فنی</h2>
+    <dl class="spec">
+     <div><dt>پروتکل‌ها</dt><dd class="ltr">CAN · KWP2000 · ISO 9141 · J1850</dd></div>
+     <div><dt>اتصال</dt><dd>بلوتوث ۴٫۰</dd></div>
+     <div><dt>سیستم‌عامل</dt><dd>اندروید ۵ به بالا</dd></div>
+     <div><dt>خودروها</dt><dd>بیش از ۵۰ مدل</dd></div>
+     <div><dt>زبان اپ</dt><dd>فارسی</dd></div>
+     <div><dt>جنس</dt><dd>پلاستیک باکیفیت</dd></div>
+     <div><dt>هدیه</dt><dd>اشتراک طلایی + ۷۲ اعتبار هوش مصنوعی</dd></div>
+     <div><dt>گارانتی</dt><dd>۶ ماه تعویض + پشتیبانی فارسی</dd></div>
+    </dl>
+   </section>
+   <section>
+    <h2>مناسب چه کسانی است؟</h2>
+    <ul class="who card">
+     <li><svg class="ico"><use href="#i-check"/></svg>می‌خواهید قبل از تعمیرگاه، دلیل روشن شدن چراغ چک را بدانید</li>
+     <li><svg class="ico"><use href="#i-check"/></svg>قصد خرید خودروی کارکرده دارید و وضعیت فنی‌اش برایتان مهم است</li>
+     <li><svg class="ico"><use href="#i-check"/></svg>نمی‌خواهید هزینه‌ی تعمیرات غیرضروری بدهید</li>
+     <li><svg class="ico"><use href="#i-check"/></svg>می‌خواهید همیشه از سلامت ماشین‌تان باخبر باشید</li>
+    </ul>
+   </section>
+  </div>
+
+  <section id="cars">
+   <h2>خودروهای <em>تست‌شده</em></h2>
+   <p class="note">همه‌ی خودروهای چینی و خارجی بدون محدودیت وصل می‌شوند. از خودروهای داخلی حدود ۹۰٪ پشتیبانی می‌شوند؛ اگر خودروی شما وصل نشد، تا ۵ روز می‌توانید مرجوع کنید.</p>
+   <details open><summary>پژو ۲۰۶<small>۶ مدل</small></summary><div class="in"><ul class="cars">
+    <li><b>تیپ ۲ دستی</b><span>۱۳۸۲ تا ۱۴۰۰</span></li><li><b>تیپ ۲ اتوماتیک</b><span>۱۳۸۲</span></li><li><b>تیپ ۵ دستی</b><span>۱۳۸۴ تا ۱۴۰۲</span></li>
+    <li><b>تیپ ۵ اتوماتیک</b><span>۱۳۹۶، ۱۳۹۷</span></li><li><b>تیپ ۶ اتوماتیک</b><span>۱۳۸۲ تا ۱۳۹۰</span></li><li><b>صندوق‌دار V8</b><span>۱۳۸۶ تا ۱۳۹۶</span></li></ul></div></details>
+   <details><summary>پراید<small>۴ مدل</small></summary><div class="in"><ul class="cars"><li><b>۱۱۱</b><span>۱۳۸۵، ۱۴۰۳، ۱۴۰۴</span></li><li><b>۱۳۱</b><span>۱۳۸۳ تا ۱۴۰۳</span></li><li><b>۱۳۲</b><span>۱۳۸۵، ۱۳۸۹، ۱۴۰۳</span></li><li><b>۱۵۱ وانت</b><span>۱۴۰۳</span></li></ul></div></details>
+   <details><summary>سمند<small>۶ مدل</small></summary><div class="in"><ul class="cars"><li><b>EF7 دوگانه‌سوز</b><span>۱۳۸۷ تا ۱۴۰۳</span></li><li><b>LX EF7</b><span>۱۳۹۲ تا ۱۳۹۹</span></li><li><b>سورن ELX (XU7)</b><span>۱۳۸۴ تا ۱۴۰۱</span></li><li><b>سورن ELX EF7</b><span>۱۳۹۴ تا ۱۴۰۵</span></li><li><b>سورن توربو</b><span>۱۳۹۹ تا ۱۴۰۵</span></li><li><b>سورن پلاس</b><span>۱۳۹۸ تا ۱۴۰۳</span></li></ul></div></details>
+   <details><summary>پژو ۲۰۷، ۴۰۵ و پارس<small>۸ مدل</small></summary><div class="in"><ul class="cars"><li><b>۲۰۷ دستی / اتوماتیک</b><span>۱۳۹۶ تا ۱۴۰۴</span></li><li><b>۲۰۷ پانوراما</b><span>۱۴۰۰، ۱۴۰۲</span></li><li><b>405 GLX</b><span>۱۳۸۴ تا ۱۳۹۸</span></li><li><b>405 SLX</b><span>۱۳۹۰ تا ۱۳۹۸</span></li><li><b>پارس LX / معمولی</b><span>۱۳۸۱ تا ۱۴۰۱</span></li></ul></div></details>
+   <details><summary>تیبا، ساینا، کوییک، شاهین<small>۹ مدل</small></summary><div class="in"><ul class="cars"><li><b>تیبا ۲ / SX / EX</b><span>۱۳۹۳ تا ۱۴۰۲</span></li><li><b>ساینا S</b><span>۱۳۹۶ تا ۱۴۰۵</span></li><li><b>کوییک G / GX / R / S</b><span>۱۳۹۸ تا ۱۴۰۳</span></li><li><b>شاهین دستی</b><span>۱۴۰۲</span></li></ul></div></details>
+   <details><summary>دنا، رنو، ال ۹۰<small>۶ مدل</small></summary><div class="in"><ul class="cars"><li><b>دنا EF7</b><span>۱۳۹۸</span></li><li><b>ساندرو / استپ‌وی اتوماتیک</b><span>۱۳۹۳ تا ۱۳۹۷</span></li><li><b>تندر ۹۰ E1/E2</b><span>۱۳۸۸ تا ۱۳۹۶</span></li></ul></div></details>
+  </section>
+
+  <section id="faq">
+   <h2>سوالات متداول</h2>
+   <details><summary>با کدام گوشی‌ها کار می‌کند؟</summary><div class="in">با گوشی‌های اندروید نسخه‌ی ۵ به بالا. اپلیکیشن رایگان از سایت کاردیاگ دانلود می‌شود.</div></details>
+   <details><summary>نصبش سخت است؟</summary><div class="in">نه. دستگاه را به سوکت OBD2 زیر داشبورد وصل کنید، اپ را نصب و بلوتوث را روشن کنید. اتصال کمتر از یک دقیقه طول می‌کشد.</div></details>
+   <details><summary>به خودرو آسیب می‌زند؟</summary><div class="in">خیر. کاردیاگ فقط اطلاعات را می‌خواند و هیچ تغییری در تنظیمات خودرو ایجاد نمی‌کند.</div></details>
+   <details><summary>با خودروهای خارجی هم کار می‌کند؟</summary><div class="in">بله. با همه‌ی خودروهایی که از استاندارد OBD2 پشتیبانی می‌کنند سازگار است.</div></details>
+   <details><summary>گارانتی دارد؟</summary><div class="in">بله. ۶ ماه گارانتی تعویض دستگاه و پشتیبانی فارسی‌زبان.</div></details>
+   <details><summary>اگر به ماشینم وصل نشد چه؟</summary><div class="in">حدود ۱۰٪ خودروهای ایرانی از استاندارد OBD پشتیبانی نمی‌کنند. اگر خودروی شما جزو این‌هاست، تا ۵ روز می‌توانید مرجوع کنید و مبلغ دستگاه برمی‌گردد.</div></details>
+  </section>
+
+  <div class="final">
+   <h2>مکانیکِ تو جیبت</h2>
+   <p>با خرید دیاگ، اشتراک طلایی اپ را هدیه بگیر</p>
+   <a class="btn" href="#buy"><svg class="ico"><use href="#i-cart"/></svg>خرید با ۳۱٪ تخفیف</a>
+  </div>
+ </div>
+
+ <aside class="aside" aria-label="خرید">
+  <div class="buybox">
+   <div class="price"><div><del>۲٬۱۵۰٬۰۰۰ تومان</del><div class="now">۱٬۴۹۰٬۰۰۰<small>تومان</small></div></div><span class="save">۳۱٪ تخفیف</span></div>
+   <div class="gift"><svg class="ico"><use href="#i-gift"/></svg><div><b>اشتراک طلایی رایگان</b><span>همراه هر دستگاه</span></div></div>
+   <button class="btn"><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد خرید</button>
+  </div>
+ </aside>
+</div>
+
+<div class="spacer"></div>
+<div class="bar">
+ <div class="p"><del>۲٬۱۵۰٬۰۰۰</del><b>۱٬۴۹۰٬۰۰۰</b> <small>تومان</small></div>
+ <button class="btn"><svg class="ico"><use href="#i-cart"/></svg>افزودن به سبد</button>
+</div>
+</main>
+<script>
+// gallery dots follow the swipe; section chips follow the scroll
+(function(){
+ var s=document.querySelector('.cdp .slides'),d=document.querySelectorAll('.cdp .dots i');
+ if(s)s.addEventListener('scroll',function(){var i=Math.round(Math.abs(s.scrollLeft)/s.clientWidth);d.forEach(function(e,k){e.classList.toggle('on',k===i)})},{passive:true});
+ var links=[].slice.call(document.querySelectorAll('.cdp .snav a'));
+ if(!('IntersectionObserver' in window))return;
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+  links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-45% 0px -50% 0px'});
+ links.forEach(function(a){var t=document.querySelector(a.getAttribute('href'));if(t)io.observe(t)});
+})();
+</script>
+</body></html>
