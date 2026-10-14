@@ -1,0 +1,636 @@
+[
+ {
+  "id": "pr000000",
+  "elType": "widget",
+  "settings": {
+   "html": "<style>@media (max-width:767px){.elementor-widget-woocommerce-product-add-to-cart form.cart{display:flex!important;flex-wrap:nowrap;gap:10px;align-items:stretch}.elementor-widget-woocommerce-product-add-to-cart form.cart .quantity{flex:0 0 92px;margin:0!important}.elementor-widget-woocommerce-product-add-to-cart form.cart .quantity input{width:100%!important;height:56px;font-size:18px;text-align:center;border-radius:14px;border:1px solid #D7E4F2}.elementor-widget-woocommerce-product-add-to-cart button.single_add_to_cart_button{flex:1 1 auto;min-height:56px;font-size:18px!important;width:auto!important}.woocommerce div.product .woocommerce-product-gallery{margin-bottom:0!important;width:100%!important}.woocommerce div.product .woocommerce-tabs ul.tabs{display:flex;overflow-x:auto;gap:8px;padding:0!important;margin:0 0 16px!important}.woocommerce div.product .woocommerce-tabs ul.tabs::-webkit-scrollbar{display:none}.woocommerce div.product .woocommerce-tabs ul.tabs::before,.woocommerce div.product .woocommerce-tabs ul.tabs li::before,.woocommerce div.product .woocommerce-tabs ul.tabs li::after{display:none!important}.woocommerce div.product .woocommerce-tabs ul.tabs li{flex:0 0 auto;margin:0!important;border:1px solid #D7E4F2!important;border-radius:12px!important;background:#F4F8FD!important;padding:10px 16px!important}.woocommerce div.product .woocommerce-tabs ul.tabs li.active{background:#E8F3FE!important;border-color:#0A74CF!important}.woocommerce div.product .woocommerce-tabs .panel{padding:0!important}}</style>"
+  },
+  "elements": [],
+  "widgetType": "html"
+ },
+ {
+  "id": "pr000001",
+  "elType": "container",
+  "settings": {
+   "flex_direction": "row",
+   "flex_direction_tablet": "column",
+   "flex_direction_mobile": "column",
+   "flex_wrap": "wrap",
+   "flex_align_items": "flex-start",
+   "flex_gap": {
+    "unit": "px",
+    "size": 53,
+    "column": "53",
+    "row": "53",
+    "isLinked": true
+   },
+   "flex_gap_tablet": {
+    "unit": "px",
+    "size": 28,
+    "column": "28",
+    "row": "28",
+    "isLinked": true
+   },
+   "flex_gap_mobile": {
+    "unit": "px",
+    "size": 22,
+    "column": "22",
+    "row": "22",
+    "isLinked": true
+   },
+   "boxed_width": {
+    "unit": "px",
+    "size": 1180
+   },
+   "padding": {
+    "unit": "px",
+    "top": 40,
+    "right": 20,
+    "bottom": 48,
+    "left": 20,
+    "isLinked": false
+   },
+   "padding_mobile": {
+    "unit": "px",
+    "top": 18,
+    "right": 16,
+    "bottom": 28,
+    "left": 16,
+    "isLinked": false
+   },
+   "content_width": "full",
+   "width": {
+    "unit": "%",
+    "size": 93,
+    "sizes": []
+   },
+   "presetTitle": "کانتینر",
+   "presetIcon": "eicon-container"
+  },
+  "elements": [
+   {
+    "id": "pr000002",
+    "elType": "container",
+    "settings": {
+     "flex_direction": "column",
+     "width": {
+      "unit": "%",
+      "size": 44
+     },
+     "width_tablet": {
+      "unit": "%",
+      "size": 100
+     },
+     "width_mobile": {
+      "unit": "%",
+      "size": 100
+     }
+    },
+    "elements": [
+     {
+      "id": "pr000003",
+      "elType": "widget",
+      "settings": {
+       "border_radius": {
+        "unit": "px",
+        "top": 24,
+        "right": 24,
+        "bottom": 24,
+        "left": 24,
+        "isLinked": true
+       },
+       "border_radius_mobile": {
+        "unit": "px",
+        "top": 18,
+        "right": 18,
+        "bottom": 18,
+        "left": 18,
+        "isLinked": true
+       },
+       "thumbs_border_border": "dotted"
+      },
+      "elements": [],
+      "widgetType": "woocommerce-product-images"
+     }
+    ],
+    "isInner": true
+   },
+   {
+    "id": "pr000010",
+    "elType": "container",
+    "settings": {
+     "flex_direction": "column",
+     "content_width": "full",
+     "width": {
+      "unit": "%",
+      "size": 100
+     },
+     "width_tablet": {
+      "unit": "%",
+      "size": 100
+     },
+     "width_mobile": {
+      "unit": "%",
+      "size": 100
+     },
+     "flex_gap": {
+      "unit": "px",
+      "size": 18,
+      "column": "18",
+      "row": "18",
+      "isLinked": true
+     },
+     "flex_gap_mobile": {
+      "unit": "px",
+      "size": 14,
+      "column": "14",
+      "row": "14",
+      "isLinked": true
+     }
+    },
+    "elements": [
+     {
+      "id": "pr000013",
+      "elType": "widget",
+      "settings": {
+       "price_color": "#0A74CF",
+       "typography_typography": "custom",
+       "typography_font_size": {
+        "unit": "px",
+        "size": 32
+       },
+       "typography_font_size_mobile": {
+        "unit": "px",
+        "size": 27
+       },
+       "typography_font_weight": "800"
+      },
+      "elements": [],
+      "widgetType": "woocommerce-product-price"
+     },
+     {
+      "id": "pr000014",
+      "elType": "widget",
+      "settings": {
+       "text_color": "#16202A",
+       "typography_typography": "custom",
+       "typography_font_size": {
+        "unit": "px",
+        "size": 16
+       },
+       "typography_font_size_mobile": {
+        "unit": "px",
+        "size": 15
+       },
+       "typography_line_height": {
+        "unit": "em",
+        "size": 2.1
+       }
+      },
+      "elements": [],
+      "widgetType": "woocommerce-product-short-description"
+     },
+     {
+      "id": "pr000016",
+      "elType": "widget",
+      "settings": {
+       "button_background_color": "#F57C1F",
+       "button_text_color": "#FFFFFF",
+       "button_border_radius": {
+        "unit": "px",
+        "top": 14,
+        "right": 14,
+        "bottom": 14,
+        "left": 14,
+        "isLinked": true
+       },
+       "button_typography_typography": "custom",
+       "button_typography_font_size": {
+        "unit": "px",
+        "size": 18
+       },
+       "button_typography_font_weight": "800"
+      },
+      "elements": [],
+      "widgetType": "woocommerce-product-add-to-cart"
+     },
+     {
+      "id": "pr000015",
+      "elType": "widget",
+      "settings": {
+       "icon_list": [
+        {
+         "_id": "pl000001",
+         "text": "۶ ماه گارانتی تعویض دستگاه",
+         "selected_icon": {
+          "value": "fas fa-shield-alt",
+          "library": "fa-solid"
+         }
+        },
+        {
+         "_id": "pl000002",
+         "text": "۵ روز مهلت مرجوعی در صورت عدم اتصال",
+         "selected_icon": {
+          "value": "fas fa-undo",
+          "library": "fa-solid"
+         }
+        },
+        {
+         "_id": "pl000003",
+         "text": "اکانت طلایی اپلیکیشن، بدون محدودیت زمانی",
+         "selected_icon": {
+          "value": "fas fa-crown",
+          "library": "fa-solid"
+         }
+        },
+        {
+         "_id": "pl000004",
+         "text": "ارسال پستی به سراسر کشور",
+         "selected_icon": {
+          "value": "fas fa-truck",
+          "library": "fa-solid"
+         }
+        }
+       ],
+       "text_color": "#16202A",
+       "icon_color": "#1F9D6B",
+       "icon_size": {
+        "unit": "px",
+        "size": 15
+       },
+       "typography_typography": "custom",
+       "typography_font_size": {
+        "unit": "px",
+        "size": 15
+       },
+       "typography_font_size_mobile": {
+        "unit": "px",
+        "size": 14
+       },
+       "space_between": {
+        "unit": "px",
+        "size": 12
+       },
+       "_padding": {
+        "unit": "px",
+        "top": 22,
+        "right": 24,
+        "bottom": 22,
+        "left": 24,
+        "isLinked": false
+       },
+       "_padding_mobile": {
+        "unit": "px",
+        "top": 18,
+        "right": 18,
+        "bottom": 18,
+        "left": 18,
+        "isLinked": true
+       },
+       "_background_background": "classic",
+       "_background_color": "#E8F3FE",
+       "_border_radius": {
+        "unit": "px",
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16,
+        "isLinked": true
+       }
+      },
+      "elements": [],
+      "widgetType": "icon-list"
+     },
+     {
+      "id": "pr000017",
+      "elType": "widget",
+      "settings": {
+       "text_color": "#5C6B7A",
+       "typography_typography": "custom",
+       "typography_font_size": {
+        "unit": "px",
+        "size": 14
+       },
+       "typography_font_size_mobile": {
+        "unit": "px",
+        "size": 13
+       }
+      },
+      "elements": [],
+      "widgetType": "woocommerce-product-meta"
+     }
+    ],
+    "isInner": true
+   }
+  ],
+  "isInner": false
+ },
+ {
+  "id": "pr000020",
+  "elType": "container",
+  "settings": {
+   "flex_direction": "column",
+   "boxed_width": {
+    "unit": "px",
+    "size": 1180
+   },
+   "padding": {
+    "unit": "px",
+    "top": 0,
+    "right": 20,
+    "bottom": 64,
+    "left": 20,
+    "isLinked": false
+   },
+   "padding_mobile": {
+    "unit": "px",
+    "top": 0,
+    "right": 16,
+    "bottom": 36,
+    "left": 16,
+    "isLinked": false
+   }
+  },
+  "elements": [
+   {
+    "id": "pr000021",
+    "elType": "widget",
+    "settings": {
+     "tabs_title_color": "#16202A",
+     "tabs_title_color_active": "#0A74CF",
+     "tabs_title_typography_typography": "custom",
+     "tabs_title_typography_font_size": {
+      "unit": "px",
+      "size": 17
+     },
+     "tabs_title_typography_font_size_mobile": {
+      "unit": "px",
+      "size": 15
+     },
+     "tabs_title_typography_font_weight": "700",
+     "tabs_content_color": "#16202A",
+     "tabs_content_typography_typography": "custom",
+     "tabs_content_typography_font_size": {
+      "unit": "px",
+      "size": 16
+     },
+     "tabs_content_typography_font_size_mobile": {
+      "unit": "px",
+      "size": 15
+     },
+     "tabs_content_typography_line_height": {
+      "unit": "em",
+      "size": 2.2
+     }
+    },
+    "elements": [],
+    "widgetType": "woocommerce-product-data-tabs"
+   }
+  ],
+  "isInner": false
+ },
+ {
+  "id": "pr000030",
+  "elType": "container",
+  "settings": {
+   "flex_direction": "row",
+   "flex_direction_tablet": "column",
+   "flex_direction_mobile": "column",
+   "flex_wrap": "wrap",
+   "flex_align_items": "center",
+   "flex_gap": {
+    "unit": "px",
+    "size": 40,
+    "column": "40",
+    "row": "40",
+    "isLinked": true
+   },
+   "flex_gap_mobile": {
+    "unit": "px",
+    "size": 20,
+    "column": "20",
+    "row": "20",
+    "isLinked": true
+   },
+   "boxed_width": {
+    "unit": "px",
+    "size": 1100
+   },
+   "padding": {
+    "unit": "px",
+    "top": 48,
+    "right": 48,
+    "bottom": 48,
+    "left": 48,
+    "isLinked": false
+   },
+   "padding_mobile": {
+    "unit": "px",
+    "top": 26,
+    "right": 20,
+    "bottom": 28,
+    "left": 20,
+    "isLinked": false
+   },
+   "margin": {
+    "unit": "px",
+    "top": 0,
+    "right": 20,
+    "bottom": 72,
+    "left": 20,
+    "isLinked": false
+   },
+   "margin_mobile": {
+    "unit": "px",
+    "top": 0,
+    "right": 16,
+    "bottom": 36,
+    "left": 16,
+    "isLinked": false
+   },
+   "background_background": "classic",
+   "background_color": "#0A74CF",
+   "border_radius": {
+    "unit": "px",
+    "top": 28,
+    "right": 28,
+    "bottom": 28,
+    "left": 28,
+    "isLinked": true
+   },
+   "border_radius_mobile": {
+    "unit": "px",
+    "top": 22,
+    "right": 22,
+    "bottom": 22,
+    "left": 22,
+    "isLinked": true
+   }
+  },
+  "elements": [
+   {
+    "id": "pr000031",
+    "elType": "container",
+    "settings": {
+     "content_width": "full",
+     "width": {
+      "unit": "%",
+      "size": 28
+     },
+     "width_tablet": {
+      "unit": "%",
+      "size": 100
+     },
+     "width_mobile": {
+      "unit": "%",
+      "size": 58
+     }
+    },
+    "elements": [
+     {
+      "id": "pr000032",
+      "elType": "widget",
+      "settings": {
+       "image": {
+        "url": "https://www.cardiag.ir/wp-content/uploads/2026/10/cardiag-app-ecu-errors.webp",
+        "id": 3104,
+        "alt": "نمایش کد خطای ایسیو در اپلیکیشن کاردیاگ",
+        "source": "library"
+       },
+       "image_size": "medium",
+       "align": "center",
+       "border_radius": {
+        "unit": "px",
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16,
+        "isLinked": true
+       }
+      },
+      "elements": [],
+      "widgetType": "image"
+     }
+    ],
+    "isInner": true
+   },
+   {
+    "id": "pr000033",
+    "elType": "container",
+    "settings": {
+     "flex_direction": "column",
+     "content_width": "full",
+     "width": {
+      "unit": "%",
+      "size": 62
+     },
+     "width_tablet": {
+      "unit": "%",
+      "size": 100
+     },
+     "width_mobile": {
+      "unit": "%",
+      "size": 100
+     },
+     "flex_gap": {
+      "unit": "px",
+      "size": 14,
+      "column": "14",
+      "row": "14",
+      "isLinked": true
+     }
+    },
+    "elements": [
+     {
+      "id": "pr000034",
+      "elType": "widget",
+      "settings": {
+       "title": "با همین دستگاه چه چیزی روی گوشی‌ات می‌بینی",
+       "title_color": "#FFFFFF",
+       "typography_typography": "custom",
+       "typography_font_size": {
+        "unit": "px",
+        "size": 30
+       },
+       "typography_font_size_mobile": {
+        "unit": "px",
+        "size": 21
+       },
+       "typography_font_weight": "900",
+       "typography_line_height": {
+        "unit": "em",
+        "size": 1.6
+       }
+      },
+      "elements": [],
+      "widgetType": "heading"
+     },
+     {
+      "id": "pr000035",
+      "elType": "widget",
+      "settings": {
+       "editor": "<p>خطاهای ایسیو با علت احتمالی، داده‌ی زنده‌ی سنسورها، تست باتری و دینام، اصالت کیلومتر، سرویس دوره‌ای و تحلیل هوش مصنوعی — همه به فارسی.</p>",
+       "text_color": "#DCEEFF",
+       "typography_typography": "custom",
+       "typography_font_size": {
+        "unit": "px",
+        "size": 16
+       },
+       "typography_font_size_mobile": {
+        "unit": "px",
+        "size": 15
+       },
+       "typography_line_height": {
+        "unit": "em",
+        "size": 2.1
+       }
+      },
+      "elements": [],
+      "widgetType": "text-editor"
+     },
+     {
+      "id": "pr000036",
+      "elType": "widget",
+      "settings": {
+       "text": "دیدن همه‌ی امکانات اپلیکیشن",
+       "link": {
+        "url": "https://www.cardiag.ir/#emkanat",
+        "is_external": "",
+        "nofollow": ""
+       },
+       "background_color": "#FFFFFF",
+       "button_text_color": "#0763B3",
+       "border_radius": {
+        "unit": "px",
+        "top": 14,
+        "right": 14,
+        "bottom": 14,
+        "left": 14,
+        "isLinked": true
+       },
+       "text_padding": {
+        "unit": "px",
+        "top": 15,
+        "right": 30,
+        "bottom": 15,
+        "left": 30,
+        "isLinked": false
+       },
+       "typography_typography": "custom",
+       "typography_font_size": {
+        "unit": "px",
+        "size": 16
+       },
+       "typography_font_weight": "800",
+       "align_mobile": "justify"
+      },
+      "elements": [],
+      "widgetType": "button"
+     }
+    ],
+    "isInner": true
+   }
+  ],
+  "isInner": false
+ }
+]
