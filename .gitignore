@@ -1,0 +1,6 @@
+# Render outputs
+frames/
+kf/
+*.mp4
+*.wav
+__pycache__/

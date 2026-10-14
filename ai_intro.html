@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag AI Intro</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FBFCFF}
+body{font-family:V,sans-serif;color:#10203C}
+#stage{position:absolute;inset:0;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+.ttl{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;z-index:50}
+.ttl .h{font-weight:900;font-size:84px;line-height:1.15;color:#10203C;white-space:nowrap}
+.ttl .s{font-weight:500;font-size:42px;color:#6E7D96;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:12px;height:72px;padding:0 30px;border-radius:36px;background:#DEF6E6;color:#22A050;font-weight:700;font-size:40px;white-space:nowrap}
+#road,#dash{position:absolute;inset:0}
+</style></head><body>
+<div id="stage">
+ <!-- ===== scene A: road ===== -->
+ <div id="road">
+  <svg id="roadSvg" width="1080" height="1920" class="a" style="left:0;top:0">
+   <defs>
+    <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6E8FB"/><stop offset="1" stop-color="#E9F2FD"/></linearGradient>
+    <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3DDF8"/><stop offset="1" stop-color="#DCEBFB"/></linearGradient>
+    <radialGradient id="celG" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFC446"/><stop offset="1" stop-color="#F28012"/></radialGradient>
+   </defs>
+   <g id="hillsFar"></g>
+   <g id="hillsNear"></g>
+   <g id="trees"></g>
+   <!-- road -->
+   <rect x="0" y="1290" width="1080" height="190" fill="#DCE4EF"/>
+   <rect x="0" y="1290" width="1080" height="8" fill="#C9D4E4"/>
+   <rect x="0" y="1480" width="1080" height="440" fill="#EAF1FA"/>
+   <g id="dashes"></g>
+   <g id="speed"></g>
+   <g id="smoke"></g>
+   <!-- car (faces left) -->
+   <g id="car">
+    <ellipse id="carShadow" cx="0" cy="118" rx="300" ry="20" fill="#142850" opacity=".16"/>
+    <g id="body">
+     <path d="M-300 70 L-300 18 Q-300 -4 -276 -8 L-196 -16 L-138 -70 Q-124 -84 -100 -84 L118 -84 Q142 -84 156 -66 L202 -14 L250 -8 Q276 -2 276 24 L276 70 Q276 86 260 86 L-284 86 Q-300 86 -300 70 Z" fill="#2196F3"/>
+     <path d="M-120 -14 L-92 -60 L-8 -60 L-8 -14 Z M10 -60 L106 -60 L144 -14 L10 -14 Z" fill="#ADD6FA"/>
+     <rect x="-302" y="16" width="26" height="16" rx="5" fill="#FFC446"/>
+     <rect x="254" y="16" width="22" height="16" rx="5" fill="#DC3232" opacity=".85"/>
+     <rect x="-40" y="10" width="34" height="8" rx="4" fill="#1565C0"/>
+     <rect x="276" y="62" width="22" height="12" rx="4" fill="#5F6878"/>
+    </g>
+    <g id="w1" transform="translate(-170 86)"><circle r="50" fill="#10203C"/><circle r="24" fill="#E6EBF2"/><g id="w1s"><rect x="-3" y="-24" width="6" height="48" fill="#ADB8C9"/><rect x="-24" y="-3" width="48" height="6" fill="#ADB8C9"/></g></g>
+    <g id="w2" transform="translate(160 86)"><circle r="50" fill="#10203C"/><circle r="24" fill="#E6EBF2"/><g id="w2s"><rect x="-3" y="-24" width="6" height="48" fill="#ADB8C9"/><rect x="-24" y="-3" width="48" height="6" fill="#ADB8C9"/></g></g>
+   </g>
+   <!-- check engine badge -->
+   <g id="cel" opacity="0">
+    <circle r="64" fill="url(#celG)"/>
+    <circle id="celRing" r="64" fill="none" stroke="#F28012" stroke-width="6" opacity=".5"/>
+    <g transform="translate(-40 -40) scale(3.333)"><path fill="#fff" d="M7,4V6H10V8H7L5,10V13H3V10H1V18H3V15H5V18H8L10,20H18V16H20V19H23V9H20V12H18V8H12V6H15V4H7Z"/></g>
+   </g>
+  </svg>
+  <!-- cold chip -->
+  <div id="cold" class="a rtl" style="left:50%;margin-left:-150px;top:420px;display:flex;align-items:center;gap:12px;height:76px;padding:0 28px;border-radius:38px;background:#fff;border:3px solid #DEE6F2;box-shadow:0 10px 24px rgba(20,40,80,.08);font-weight:800;font-size:38px;color:#1565C0;opacity:0">
+   <svg width="40" height="40" viewBox="0 0 24 24"><path fill="#2196F3" d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L13 15v-2h2l4.66 4.66 1.41-1.42L17.83 13H22z"/></svg>
+   <span>صبح سرد</span><span class="ltr" style="color:#10203C">۳°</span></div>
+ </div>
+
+ <!-- ===== scene B: under the dashboard ===== -->
+ <div id="dash" style="opacity:0">
+  <svg width="1080" height="1920" class="a" style="left:0;top:0">
+   <defs><linearGradient id="pan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A3650"/><stop offset="1" stop-color="#1B2438"/></linearGradient></defs>
+   <g id="dashG">
+    <rect x="-40" y="520" width="1160" height="900" rx="70" fill="url(#pan)"/>
+    <rect x="-40" y="520" width="1160" height="16" rx="8" fill="#3A4866"/>
+    <!-- trim lines -->
+    <rect x="90" y="640" width="900" height="6" rx="3" fill="#33415C"/>
+    <rect x="90" y="1320" width="900" height="6" rx="3" fill="#33415C"/>
+    <!-- OBD port -->
+    <g transform="translate(330 1015)">
+     <path d="M-150 -78 L150 -78 Q168 -78 164 -60 L140 66 Q136 82 118 82 L-118 82 Q-136 82 -140 66 L-164 -60 Q-168 -78 -150 -78 Z" fill="#0E1422" stroke="#5F6878" stroke-width="6"/>
+     <g id="pins"></g>
+     <text x="0" y="140" text-anchor="middle" font-family="V" font-weight="800" font-size="34" fill="#6E7D96">OBD</text>
+    </g>
+   </g>
+  </svg>
+  <div id="flash" class="a" style="left:180px;top:865px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(120,205,255,.95),rgba(120,205,255,0) 70%);opacity:0"></div>
+  <svg id="bt" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="diagWrap" class="a" style="left:0;top:0;width:560px;height:418px;transform-origin:50% 50%">
+   <img src="assets/diag_plug.png" style="width:560px;height:418px;transform:scaleX(-1)">
+  </div>
+  <div id="conn" class="a" style="left:0;top:1500px;width:1080px;text-align:center;opacity:0">
+   <span class="chip rtl"><svg width="44" height="44" viewBox="0 0 24 24"><path fill="#22A050" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg>متصل شد</span>
+  </div>
+ </div>
+
+ <!-- blue wipe to next section -->
+ <div id="wipe" class="a" style="left:0;top:0;width:1080px;height:1920px;background:#2196F3;transform:translateX(1080px)"></div>
+ <div id="next" class="ttl" style="top:860px;opacity:0"><div class="h" style="color:#fff;font-size:92px">۱. خطاها رو بخون</div></div>
+
+ <div id="t1" class="ttl" style="top:150px"><div class="h">ماشینت یه مشکلی داره؟</div><div class="s">نمی‌دونی جدیه یا نه</div></div>
+ <div id="t2" class="ttl" style="top:170px"><div class="h">فقط وصلش کن</div></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
+// song intro kicks (frames); beat at 58.1 is missing in the song -> stall
+const KICK=[7.5,24.4,41.25,75,91.9,108.75,125.6];
+const STALL=58.1;
+const imp=(f,k,d=4)=>f>=k?Math.exp(-(f-k)/d):0;
+
+/* scenery */
+function hills(n,base,amp,w,col){let d=`M-200 ${base} `;for(let i=0;i<=n;i++){const x=-200+i*w/2;d+=`Q${x+w/4} ${base-amp*(i%2?0.6:1)} ${x+w/2} ${base} `}d+=`L${-200+(n+1)*w/2} 1300 L-200 1300 Z`;return `<path d="${d}" fill="${col}"/>`}
+$('hillsFar').innerHTML=hills(12,1150,170,520,'url(#hill1)');
+$('hillsNear').innerHTML=hills(12,1240,120,380,'url(#hill2)');
+const TREES=[];for(let i=0;i<9;i++)TREES.push({x:i*230+40,s:0.8+0.35*((i*7)%5)/5});
+$('trees').innerHTML=TREES.map((t,i)=>`<g id="tr${i}"><rect x="-8" y="-20" width="16" height="70" rx="6" fill="#6E7D96"/><circle cy="-60" r="${54*t.s}" fill="#ADD6FA"/><circle cx="-26" cy="-36" r="${36*t.s}" fill="#9CCBF6"/></g>`).join('');
+$('dashes').innerHTML=Array.from({length:10},(_,i)=>`<rect id="d${i}" y="1380" width="90" height="12" rx="6" fill="#fff"/>`).join('');
+$('pins').innerHTML=[...Array(8)].map((_,i)=>`<rect x="${-112+i*32}" y="-40" width="12" height="22" rx="3" fill="#C9D4E4"/>`).join('')+[...Array(8)].map((_,i)=>`<rect x="${-100+i*28}" y="18" width="12" height="22" rx="3" fill="#C9D4E4"/>`).join('');
+
+/* speed profile and integrated scroll */
+function speed(f){
+ let v=22;
+ KICK.forEach(k=>{ if(f>=k&&f<k+10){ const t=(f-k); v*= t<3?0.25:lerp(0.25,1.25,seg(t,3,10)); } });
+ if(f>=STALL-2&&f<75) v*= f<STALL+4? lerp(1,0.0,seg(f,STALL-2,STALL+4)) : 0.05;   // stall
+ if(f>=118) v*= 1-E.io(seg(f,118,140));                                               // pull over
+ return v;
+}
+const SCROLL=[0];for(let f=1;f<=230;f++)SCROLL[f]=SCROLL[f-1]+speed(f-1);
+const scrollAt=f=>{const i=Math.floor(cl(f,0,229));return lerp(SCROLL[i],SCROLL[i+1],f-i)};
+
+function render(f){
+ /* ---------- scene A ---------- */
+ const A=1-seg(f,140,148);
+ $('road').style.opacity=A; $('road').style.display=A<=0?'none':'block';
+ if(A>0){
+  const s=scrollAt(f);
+  const zoom=1+0.9*E.ic(seg(f,136,148));       // push-in toward the dashboard
+  $('roadSvg').style.transformOrigin='540px 1250px'; $('roadSvg').style.transform=`translateY(-120px) scale(${1.45*zoom})`;
+  $('hillsFar').setAttribute('transform',`translate(${(s*0.15)%520} 0)`);
+  $('hillsNear').setAttribute('transform',`translate(${(s*0.35)%380} 0)`);
+  TREES.forEach((t,i)=>{let x=((t.x+s*0.7)%2070)-200; $('tr'+i).setAttribute('transform',`translate(${x} 1240) scale(${t.s})`)});
+  for(let i=0;i<10;i++){let x=((i*200+s)%2000)-200; $('d'+i).setAttribute('x',x)}
+  // car body jerk on kicks, bigger on stall
+  let jerk=0; KICK.forEach(k=>jerk+=imp(f,k,4)); const st=imp(f,STALL,6)*1.8;
+  const restart=imp(f,75,5)*1.4;
+  const enter=E.oc(seg(f,0,18));
+  const cx=lerp(-380,450,enter)+ (jerk+st)*16 - restart*10;
+  const pitch=(jerk+st)*2.6 - restart*2;          // nose (left) dips on misfire
+  const bob=Math.sin(f*0.9)*1.5*seg(speed(f),2,22);
+  $('car').setAttribute('transform',`translate(${cx} ${1215+bob})`);
+  $('body').setAttribute('transform',`rotate(${-pitch} 200 80)`);
+  const wr=-(s/50)*57.3; $('w1s').setAttribute('transform',`rotate(${wr})`); $('w2s').setAttribute('transform',`rotate(${wr})`);
+  // speed lines when moving normally
+  let sl='';const v=speed(f); if(v>18&&f<118){for(let i=0;i<3;i++){const y=1150+i*46;const x=((i*170+s*1.6)%900)+cx+300;sl+=`<rect x="${x}" y="${y}" width="${70+v*2}" height="8" rx="4" fill="#ADD6FA" opacity="${0.6*seg(v,18,26)}"/>`}}
+  $('speed').innerHTML=sl;
+  // smoke puffs from exhaust on each kick + big cloud on stall
+  let sm='';[...KICK.map(k=>[k,1]),[STALL,2.2],[75,1.6]].forEach(([k,mag])=>{const t=f-k; if(t<0||t>34)return;
+    for(let j=0;j<3;j++){const tt=t-j*2; if(tt<0)continue; const p=tt/34;
+     const x=cx+300+tt*(3.2+j)*(1+0.2*mag)+ (scrollAt(f)-scrollAt(k))*0.3; const y=1215+66-tt*(1.3+j*0.5);
+     const r=(14+tt*1.5)*(0.7+0.3*mag)*(1-j*0.15); sm+=`<circle cx="${x}" cy="${y}" r="${r*1.35}" fill="#6E7D96" opacity="${0.6*(1-p)*(1-j*0.2)}"/>`}});
+  $('smoke').innerHTML=sm;
+  // check-engine badge
+  const cp=seg(f,22,32), co=E.oc(seg(f,22,28));
+  const pulse=KICK.reduce((a,k)=>a+imp(f,k,3),0)+imp(f,STALL,4)*1.5;
+  $('cel').setAttribute('opacity',co);
+  $('cel').setAttribute('transform',`translate(${cx-60} ${1215-215+Math.sin(f/9)*5}) scale(${cp<=0?0.01:lerp(0.4,1,E.back(cp))*(1+0.12*pulse)})`);
+  $('celRing').setAttribute('r',64+pulse*26); $('celRing').setAttribute('opacity',0.55*cl(pulse));
+  // cold chip
+  const cc=E.oc(seg(f,6,16)); $('cold').style.opacity=cc*(1-seg(f,130,140)); $('cold').style.transform=`translateY(${(1-cc)*20}px)`;
+ }
+ /* ---------- titles ---------- */
+ const t1=E.oc(seg(f,26,36))*(1-E.ic(seg(f,134,141))); $('t1').style.opacity=t1; $('t1').style.transform=`translateY(${(1-E.oc(seg(f,26,36)))*28}px)`;
+ const sub=$('t1').querySelector('.s'); sub.style.opacity=E.oc(seg(f,40,50));
+ const t2=E.oc(seg(f,146,156))*(1-seg(f,200,206)); $('t2').style.opacity=t2; $('t2').style.transform=`translateY(${(1-E.oc(seg(f,146,156)))*28}px)`;
+
+ /* ---------- scene B ---------- */
+ const B=seg(f,140,150);
+ $('dash').style.opacity=B; $('dash').style.display=B<=0?'none':'block';
+ if(B>0){
+  const z=lerp(1.15,1,E.oc(seg(f,140,156))); $('dash').style.transform=`scale(${z})`;
+  // diag slides in from the right and plugs into the port at frame 168
+  const PLUG=168;
+  const m=E.io(seg(f,148,PLUG)); const push=f>=PLUG? -Math.sin(seg(f,PLUG,PLUG+6)*Math.PI)*8 : 0;
+  const dx=lerp(1250,395,m)+push, dy=lerp(1000,964,m);
+  const w=$('diagWrap'); w.style.left=(dx-280)+'px'; w.style.top=(dy-209)+'px';
+  w.style.transform=`rotate(${lerp(-10,0,m)}deg) scale(${lerp(1.08,1,m)})`;
+  $('flash').style.opacity=f>=PLUG?Math.exp(-(f-PLUG)/5)*0.9:0;
+  // bluetooth rings after plug-in
+  let r='';if(f>=PLUG+4){for(let i=0;i<3;i++){const ph=((f-PLUG-4)/16+i/3)%1;const R=lerp(180,420,ph);
+    r+=`<path d="M${dx-R*0.8} ${dy-R*0.6} A${R} ${R} 0 0 1 ${dx+R*0.8} ${dy-R*0.6}" fill="none" stroke="#2196F3" stroke-width="${8-4*ph}" stroke-linecap="round" opacity="${(1-ph)*0.85*(1-seg(f,200,208))}"/>`}}
+  $('bt').innerHTML=r;
+  const c=seg(f,176,188); $('conn').style.opacity=E.oc(seg(f,176,182))*(1-seg(f,202,208)); $('conn').style.transform=`scale(${c<=0?0.6:lerp(0.6,1,E.back(c))})`;
+ }
+ /* ---------- wipe into the groove (frame 210 = bar downbeat) ---------- */
+ const wp=E.io(seg(f,199,210)); $('wipe').style.transform=`translateX(${lerp(1080,0,wp)}px)`;
+ const nx=E.oc(seg(f,210,218)); $('next').style.opacity=nx; $('next').style.transform=`scale(${lerp(0.85,1,E.back(seg(f,210,222)))})`;
+}
+window.READY=document.fonts.ready.then(()=>{render(0);return true});
+</script>
+</body></html>

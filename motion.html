@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<title>CarDiag Series C</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:400;src:url(fonts/Vazirmatn-FD-Regular.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+:root{
+ --blue:#2196F3;--deep:#1565C0;--glow:#78CDFF;--bloom:#28A0FF;--soft:#ADD6FA;
+ --navy:#10203C;--slate:#6E7D96;--url:#506482;
+ --amberL:#FFC446;--amber:#F28012;--red:#DC3232;--redT:#FFECEC;
+ --green:#22A050;--greenT:#DEF6E6;--ink:#4B3005;
+ --card:#FFFFFF;--hair:#DEE6F2;--track:#E6EBF2;--device:#181C24;--edge:#5F6878;
+ --appbg:#EEF2F8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FBFCFF}
+body{font-family:V,sans-serif;color:var(--navy)}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;
+ background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.abs{position:absolute}
+.ltr{direction:ltr;unicode-bidi:isolate}
+.rtl{direction:rtl}
+
+/* ---------- titles ---------- */
+#titles{position:absolute;left:0;top:0;width:1080px;height:400px;z-index:50;pointer-events:none}
+.ttl{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;opacity:0}
+.ttl .h{font-weight:900;font-size:84px;line-height:1.15;color:var(--navy);white-space:nowrap;display:inline-block}
+.ttl .s{font-weight:500;font-size:42px;color:var(--slate);margin-top:10px;white-space:nowrap}
+.ttl .h b{color:var(--blue);font-weight:900}
+
+/* ---------- device ---------- */
+#phone{position:absolute;left:240px;top:390px;width:600px;height:1290px;border-radius:78px;
+ background:var(--device);border:3px solid var(--edge);transform-origin:50% 0;
+ box-shadow:0 50px 90px rgba(20,40,80,.28),0 12px 26px rgba(20,40,80,.18);z-index:10}
+#screen{position:absolute;left:11px;top:11px;width:572px;height:1262px;border-radius:66px;overflow:hidden;clip-path:inset(0 round 66px);isolation:isolate;background:var(--appbg)}
+#notch{position:absolute;left:50%;top:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#0b0e13;z-index:30}
+.scr{position:absolute;left:0;top:0;width:572px;height:1262px;background:var(--appbg);direction:rtl;overflow:hidden;font-family:V}
+.sbar{height:48px;display:flex;justify-content:space-between;align-items:center;padding:6px 40px 0;font-weight:700;font-size:19px;direction:ltr}
+.appbar{background:var(--blue);color:#fff}
+.appbar .sbar{color:#fff}
+.abar{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;direction:rtl}
+.abar .t{font-weight:800;font-size:29px;display:flex;align-items:center;gap:14px}
+.abar .help{font-weight:500;font-size:19px;display:flex;align-items:center;gap:6px;opacity:.95}
+.tabs{height:62px;display:flex;background:#F7F8FC;direction:rtl}
+.tabs div{flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;color:#98A3B8;position:relative}
+.tabs div.on{color:var(--blue)}
+.tabs div.on:after{content:"";position:absolute;bottom:0;width:90px;height:4px;border-radius:3px;background:var(--blue)}
+.card{background:#fff;border:2px solid var(--hair);border-radius:24px;margin:14px 18px;padding:18px 20px;box-shadow:0 6px 16px rgba(20,40,80,.05)}
+.btn{height:62px;border-radius:31px;background:var(--blue);color:#fff;font-weight:700;font-size:23px;display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 18px;position:relative;overflow:hidden}
+.btn.o{background:#fff;border:2px solid var(--hair);color:var(--slate)}
+.nav{position:absolute;left:0;bottom:0;width:572px;height:96px;background:var(--blue);display:flex;direction:rtl;padding-bottom:6px}
+.nav div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:17px;gap:4px}
+.nav .home svg{background:rgba(255,255,255,.28);border-radius:16px;padding:3px 18px;width:68px;height:34px}
+.lbl{font-weight:500;font-size:18px;color:var(--slate)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);pointer-events:none;transform:translate(-50%,-50%);width:0;height:0}
+.tapdot{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:5px solid rgba(33,150,243,.9);background:rgba(33,150,243,.15);opacity:0;z-index:40}
+
+/* ---------- floating cards ---------- */
+.fc{position:absolute;left:110px;top:1430px;width:860px;background:#fff;border:3px solid var(--hair);border-radius:40px;
+ box-shadow:0 30px 60px rgba(20,40,80,.20),0 8px 18px rgba(20,40,80,.10);direction:rtl;padding:30px 40px;opacity:0;z-index:20;transform-origin:50% 100%}
+.fc .ct{font-weight:800;font-size:50px;color:var(--navy);line-height:1.2}
+.fc .sub{font-weight:500;font-size:38px;color:var(--slate);line-height:1.3}
+.chip{display:inline-flex;align-items:center;gap:10px;height:66px;padding:0 26px;border-radius:33px;background:var(--greenT);color:var(--green);font-weight:700;font-size:40px;white-space:nowrap}
+.chip.red{background:var(--redT);color:var(--red)}
+.big{font-weight:900;font-size:70px;line-height:1}
+
+/* ---------- misc ---------- */
+.icsq{width:84px;height:84px;border-radius:24px;background:#E3EFFC;display:flex;align-items:center;justify-content:center}
+.tile{position:absolute;width:400px;height:200px;background:#fff;border:3px solid var(--hair);border-radius:36px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+ box-shadow:0 18px 36px rgba(20,40,80,.12);direction:rtl;opacity:0;z-index:15}
+.tile .tl{font-weight:700;font-size:36px;color:var(--navy);white-space:nowrap}
+#gold{position:absolute;left:50%;top:1250px;height:104px;padding:0 54px;border-radius:52px;transform:translateX(-50%);
+ background:linear-gradient(90deg,#F6CD5C 0%,#FFEA9C 50%,#E0A82C 100%);color:var(--ink);font-weight:800;font-size:52px;
+ display:flex;align-items:center;gap:18px;white-space:nowrap;direction:rtl;box-shadow:0 18px 40px rgba(20,40,80,.18);opacity:0}
+</style>
+</head>
+<body>
+<div id="stage">
+ <!-- bloom behind product -->
+ <div id="bloom" class="abs" style="left:90px;top:450px;width:900px;height:900px;border-radius:50%;
+   background:radial-gradient(circle,rgba(40,160,255,.30) 0%,rgba(40,160,255,.12) 38%,rgba(40,160,255,0) 70%);opacity:0"></div>
+
+ <!-- big pulse line (scene 1 + end) -->
+ <svg id="pulseSvg" class="abs" style="left:0;top:0;z-index:2" width="1080" height="1920">
+  <defs><filter id="gl" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+  <g id="pulseG">
+   <path id="pulseGlow" d="" fill="none" stroke="#78CDFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl)" opacity=".55"/>
+   <path id="pulse" d="" fill="none" stroke="#2196F3" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+ </svg>
+
+ <!-- bluetooth rings -->
+ <svg id="bt" class="abs" style="left:0;top:0;z-index:3" width="1080" height="1920"></svg>
+
+ <!-- product -->
+ <div id="prod" class="abs" style="left:0;top:0;width:700px;height:506px;z-index:6;transform-origin:50% 50%">
+   <div id="prodShadow" class="abs" style="left:90px;top:440px;width:520px;height:80px;border-radius:50%;background:radial-gradient(ellipse,rgba(20,40,80,.30),rgba(20,40,80,0) 70%)"></div>
+   <img id="prodImg" src="assets/diag_front.png" class="abs" style="left:0;top:0;width:700px;height:506px">
+   <div id="prodSheen" class="abs" style="left:0;top:0;width:700px;height:506px;
+     -webkit-mask-image:url(assets/diag_front.png);-webkit-mask-size:100% 100%;mask-image:url(assets/diag_front.png);mask-size:100% 100%;
+     background:linear-gradient(105deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.85) 50%,rgba(255,255,255,0) 60%);background-size:300% 100%;background-position:120% 0"></div>
+   <div id="logoGlow" class="abs" style="left:150px;top:200px;width:420px;height:160px;border-radius:50%;
+     background:radial-gradient(ellipse,rgba(120,205,255,.75),rgba(120,205,255,0) 70%);mix-blend-mode:multiply;opacity:0"></div>
+ </div>
+
+ <!-- link line between diag and phone (scene 2) -->
+ <svg id="link" class="abs" style="left:0;top:0;z-index:7" width="1080" height="1920">
+  <path id="linkPath" d="M540 680 L540 742 L522 764 L558 798 L540 820 L540 872" fill="none" stroke="#2196F3" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <g id="linkDots"></g>
+ </svg>
+ <div id="linkChip" class="chip abs" style="left:600px;top:738px;height:62px;font-size:36px;opacity:0;z-index:8;direction:rtl">
+   <svg width="34" height="34" viewBox="0 0 24 24"><path fill="#22A050" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg>متصل شد</div>
+
+ <!-- phone -->
+ <div id="phone"><div id="notch"></div><div id="screen"></div><div id="taps"></div></div>
+
+ <!-- floating cards -->
+ <div id="fcs"></div>
+
+ <!-- recap tiles -->
+ <div id="tiles"></div>
+
+ <!-- end card -->
+ <div id="brand" class="abs ltr" style="left:0;top:1000px;width:1080px;text-align:center;font-weight:900;font-size:126px;color:var(--deep);opacity:0;z-index:12;letter-spacing:-1px">CarDiag AI</div>
+ <div id="withBuy" class="abs rtl" style="left:0;top:1160px;width:1080px;text-align:center;font-weight:500;font-size:40px;color:var(--slate);opacity:0;z-index:12">با خرید دیاگ</div>
+ <div id="gold"><svg width="56" height="56" viewBox="0 0 24 24"><path fill="#4B3005" d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>اشتراک طلایی رایگان</div>
+ <div id="url" class="abs ltr" style="left:0;top:1410px;width:1080px;text-align:center;font-weight:700;font-size:60px;color:var(--url);opacity:0;z-index:12">cardiag.ir</div>
+
+ <div id="titles"></div>
+</div>
+
+<script>
+/* ================= helpers ================= */
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const seg=(f,a,b)=>cl((f-a)/(b-a));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const E={
+ oc:t=>1-Math.pow(1-t,3),
+ io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,
+ ic:t=>t*t*t,
+ back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)},
+};
+const FA='۰۱۲۳۴۵۶۷۸۹';
+const fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
+function num(n,dec=0,sep=false){let s=n.toFixed(dec);let [i,d]=s.split('.');if(sep)i=i.replace(/\B(?=(\d{3})+(?!\d))/g,'٬');return fa(d!==undefined?i+'٫'+d:i)}
+function tf(el,{x=0,y=0,s=1,r=0,o=null}={}){el.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;if(o!==null)el.style.opacity=o}
+// deterministic noise
+const noise=(t,seed)=>Math.sin(t*0.37+seed)*0.6+Math.sin(t*0.91+seed*2.3)*0.4;
+
+const IC={
+ warn:'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+ eye:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
+ gauge:'M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z',
+ car:'M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z',
+ wrench:'M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z',
+ batt:'M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z',
+ cal:'M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z',
+ check:'M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z',
+ home:'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z',
+ add:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
+ more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+ arrow:'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
+ play:'M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z',
+ trash:'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
+ search:'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z',
+ bell:'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z',
+ stop:'M6 6h12v12H6z',
+ timer:'M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z',
+ down:'M7 10l5 5 5-5z',
+ plug:'M16 7V3h-2v4h-4V3H8v4h-.01C6.9 6.99 6 7.89 6 8.98v5.52L9.5 18v3h5v-3l3.5-3.51v-5.5c0-1.1-.9-2-2-2z',
+};
+const svg=(p,c='#2196F3',s=24,extra='')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" ${extra}><path fill="${c}" d="${IC[p]}"/></svg>`;
+
+/* ================= timeline ================= */
+const F_FEAT=210, DUR=67.5, N=8;
+const fs=k=>F_FEAT+DUR*k;          // feature start frame
+const FEATS=[
+ {name:'خطایابی ECU',            sub:'خطاها رو ببین و پاک کن',            icon:'warn'},
+ {name:'مانیتورینگ خودرو',      sub:'سنسورها رو زنده ببین',              icon:'eye'},
+ {name:'داشبورد',                sub:'آمپرها روی گوشیت',                  icon:'gauge'},
+ {name:'سفر',                    sub:'ماشینت حین حرکت تحلیل می‌شه',      icon:'car'},
+ {name:'عیب‌یاب هوش مصنوعی',    sub:'عیب‌یابی ماشینت با هوش مصنوعی',    icon:'wrench'},
+ {name:'تست باتری و دینام',     sub:'سلامت باتری و دینامت رو بسنج',     icon:'batt'},
+ {name:'اصالت کیلومتر',          sub:'کیلومتر واقعی ماشینت رو ببین',      icon:'gauge'},
+ {name:'سرویس دوره‌ای',          sub:'موعد سرویس یادت نمی‌ره',            icon:'cal'},
+];
+const TITLES=[
+ {h:'دیاگ سری <b class="ltr">C</b>', a:20, b:100},
+ {h:'اتصال سریع و پایدار', a:110, b:203},
+ ...FEATS.map((ft,k)=>({h:ft.name, s:ft.sub, a:fs(k)+2, b:k<N-1?fs(k+1)-3:748})),
+ {h:'همه‌ش تو یه اپ', a:756, b:816},
+ {h:'دیاگ سری <b class="ltr">C</b>', a:815, b:99999},
+];
+
+/* ================= build: titles ================= */
+TITLES.forEach((t,i)=>{
+ const d=document.createElement('div');d.className='ttl';d.id='t'+i;
+ d.innerHTML=`<div class="h">${t.h}</div>`+(t.s?`<div class="s">${t.s}</div>`:'');
+ d.style.top=(t.s?132:148)+'px';
+ $('titles').appendChild(d);
+});
+function fitTitles(){document.querySelectorAll('.ttl .h').forEach(h=>{const w=h.scrollWidth;if(w>980)h.style.transform=`scale(${980/w})`;})}
+
+/* ================= build: screens ================= */
+const STATUS_LIGHT=`<div class="sbar" style="color:#10203C"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>`;
+const STATUS=`<div class="sbar"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>`;
+const NAV=`<div class="nav"><div class="home">${svg('home','#fff',28)}<span>خانه</span></div><div>${svg('add','#fff',36)}<span>افزودن خودرو</span></div><div>${svg('more','#fff',34)}<span>بیشتر</span></div></div>`;
+const bar=(t)=>`<div class="appbar">${STATUS}<div class="abar"><div class="t">${svg('arrow','#fff',32)}<span>${t}</span></div><div class="help">${svg('play','#fff',24)}<span>آموزش</span></div></div></div>`;
+const tile=(ic,l)=>`<div class="card" style="margin:0;height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:10px">
+  <div class="icsq" style="width:76px;height:76px;border-radius:20px">${svg(ic,'#2196F3',40)}</div><div style="font-weight:700;font-size:22px">${l}</div></div>`;
+
+const S={};
+// ---- home
+S.home=`<div class="scr" id="sc_home">${STATUS_LIGHT}
+ <div class="card" style="margin-top:8px;padding:20px">
+  <div style="height:72px;border:3px solid #2196F3;border-radius:16px;display:flex;align-items:center;justify-content:space-between;padding:0 20px">
+    <span style="font-weight:800;font-size:30px">۲۰۶</span>${svg('down','#2196F3',40)}</div>
+  <div style="margin-top:18px;font-weight:500;font-size:22px;color:#6E7D96">وضعیت اتصال: <b id="h_stat" style="font-weight:800;color:#DC3232">قطع شده</b></div>
+  <div style="position:relative;margin:22px 8px 6px;height:36px;border-radius:18px;background:#E6EBF2;overflow:hidden" class="ltr">
+    <div id="h_fill" style="position:absolute;left:0;top:0;height:36px;width:0%;border-radius:18px;
+      background:linear-gradient(90deg,#E63C3C 0%,#F59628 35%,#D7C832 65%,#32B455 100%);background-size:452px 36px"></div>
+    <div id="h_txt" style="position:absolute;left:0;top:0;width:100%;height:36px;line-height:36px;text-align:center;font-weight:800;font-size:19px;color:#fff;direction:rtl;text-shadow:0 1px 2px rgba(20,40,80,.35)">سلامت خودرو —</div>
+  </div>
+  <div class="ltr" style="display:flex;justify-content:space-between;padding:0 10px;font-size:15px;color:#98A3B8"><span>۰٪</span><span>۱۰۰٪</span></div>
+  <div style="display:flex;gap:14px;margin-top:20px">
+    <div class="btn" id="h_btn" style="flex:1;margin:0">${svg('plug','#fff',28)}اتصال</div>
+    <div class="btn o" style="flex:1;margin:0">قطع اتصال</div>
+  </div>
+ </div>
+ <div style="padding:10px 26px 6px;font-weight:700;font-size:22px;color:#98A3B8">دسترسی سریع</div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 18px">
+  ${tile('car','سفر')}${tile('warn','خطایابی ECU')}${tile('wrench','عیب‌یاب هوش مصنوعی')}${tile('eye','مانیتورینگ خودرو')}${tile('batt','تست باتری و دینام')}${tile('gauge','اصالت کیلومتر')}
+ </div>${NAV}</div>`;
+
+// ---- 1 ECU
+S.f0=`<div class="scr" id="sc_f0">${bar('خطایابی ECU')}
+ <div class="tabs"><div class="on">اسکن جدید</div><div>تاریخچه</div></div>
+ <div class="btn" id="e_scan" style="margin-top:18px">${svg('search','#fff',28)}<span class="ltr">ECU</span> اسکن</div>
+ <div class="card">
+  <div class="lbl" style="font-size:17px">تاریخ اسکن: ۱۴۰۵/۰۷/۲۰ — ۱۲:۳۴</div>
+  <div style="display:flex;margin-top:14px;text-align:center">
+   <div style="flex:1"><div id="e_pend" style="font-weight:900;font-size:44px;color:#F28012">۱</div><div style="font-weight:700;font-size:19px">خطاهای در انتظار</div></div>
+   <div style="flex:1"><div style="font-weight:900;font-size:44px;color:#22A050">۰</div><div style="font-weight:700;font-size:19px">خطاهای ذخیره شده</div></div>
+  </div>
+  <div class="ltr" style="margin-top:12px;font-size:15px;color:#98A3B8;text-align:center">ECU: Valeo J34P | ISO 14230-4 KWP2000</div>
+ </div>
+ <div id="e_dtc" class="card" style="padding:20px 22px;transform-origin:50% 0">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+   <span class="ltr" style="font-weight:900;font-size:36px;color:#DC3232">P0420</span>
+   <span style="background:#DC3232;color:#fff;font-weight:800;font-size:18px;padding:4px 14px;border-radius:10px">بحرانی</span></div>
+  <div style="display:inline-block;margin-top:10px;background:#EEF1F6;border-radius:14px;padding:4px 14px;font-weight:700;font-size:17px">کنترل آلایندگی و <span class="ltr">EGR</span></div>
+  <div style="margin-top:10px;font-weight:500;font-size:19px;color:#6E7D96">کارایی کاتالیزور پایین‌تر از حد مجاز (بانک ۱)</div>
+  <div style="margin-top:10px;font-weight:700;font-size:18px">علل احتمالی:</div>
+  <div style="font-size:17px;line-height:1.7;color:#33415C">• کاتالیزور مسدود یا فرسوده<br>• سنسور اکسیژن خراب<br>• نشت در اگزوز</div>
+ </div>
+ <div id="e_ok" class="card" style="opacity:0;position:absolute;left:0;right:0;top:470px;text-align:center;padding:30px 20px">
+  <div style="display:inline-flex;width:76px;height:76px;border-radius:50%;background:#DEF6E6;align-items:center;justify-content:center">${svg('check','#22A050',48)}</div>
+  <div style="margin-top:10px;font-weight:800;font-size:26px;color:#22A050">خطایی پیدا نشد</div>
+ </div>
+ <div class="btn o" id="e_clear" style="position:absolute;left:0;right:0;top:1060px;color:#2196F3">${svg('trash','#2196F3',26)}پاک کردن همه خطاها</div>
+ ${NAV}</div>`;
+
+// ---- 2 Monitoring
+const SENS=[['بار موتور','Engine Load'],['دمای آب موتور','Coolant Temp'],['تریم سوخت کوتاه‌مدت','Short Term Fuel Trim'],['فشار منیفولد (مپ)','Intake Manifold Pressure'],['دور موتور','Engine RPM'],['سرعت خودرو','Vehicle Speed'],['آوانس جرقه','Timing Advance'],['دریچه گاز','Throttle Position']];
+S.f1=`<div class="scr" id="sc_f1">${bar('مانیتورینگ خودرو')}
+ <div class="card" style="height:330px;position:relative;overflow:hidden;padding:0">
+  <svg width="532" height="230" viewBox="0 0 532 230" style="position:absolute;left:0;top:18px">
+   <defs><clipPath id="carclip"><rect id="m_clip" x="0" y="0" width="0" height="230"/></clipPath>
+    <linearGradient id="scanG" x1="0" x2="1"><stop offset="0" stop-color="#78CDFF" stop-opacity="0"/><stop offset=".5" stop-color="#78CDFF"/><stop offset="1" stop-color="#78CDFF" stop-opacity="0"/></linearGradient></defs>
+   <g id="carDim" opacity=".28"><use href="#carShape"/></g>
+   <g clip-path="url(#carclip)"><g id="carShape">
+     <path d="M96 150 L96 118 Q96 104 112 102 L160 98 L196 66 Q204 58 218 58 L352 58 Q366 58 374 68 L402 100 L430 104 Q446 108 446 124 L446 150 Q446 160 436 160 L106 160 Q96 160 96 150 Z" fill="#2196F3"/>
+     <path d="M206 98 L224 72 L276 72 L276 98 Z M288 72 L346 72 L368 98 L288 98 Z" fill="#ADD6FA"/>
+     <rect x="96" y="120" width="16" height="10" rx="3" fill="#FFC446"/>
+     <rect x="432" y="120" width="14" height="10" rx="3" fill="#DC3232" opacity=".8"/>
+     <circle cx="170" cy="160" r="30" fill="#10203C"/><circle cx="170" cy="160" r="13" fill="#E6EBF2"/>
+     <circle cx="372" cy="160" r="30" fill="#10203C"/><circle cx="372" cy="160" r="13" fill="#E6EBF2"/>
+   </g></g>
+   <rect id="m_bar" x="0" y="20" width="26" height="190" rx="8" fill="url(#scanG)"/>
+  </svg>
+  <div style="position:absolute;left:0;right:0;top:250px;text-align:center">
+   <div id="m_state" style="font-weight:800;font-size:25px">در حال اسکن...</div>
+   <div id="m_cnt" style="font-weight:500;font-size:19px;color:#6E7D96;margin-top:2px">سنسور ۰ از ۸ بررسی شد</div>
+  </div>
+ </div>
+ <div id="m_list">${SENS.map((s,i)=>`<div class="card" style="margin:8px 18px;padding:10px 18px;display:flex;align-items:center;gap:14px">
+   <div id="m_ck${i}" style="width:30px;height:30px;border-radius:7px;border:3px solid #C9D4E4;display:flex;align-items:center;justify-content:center"></div>
+   <div style="flex:1"><div style="font-weight:700;font-size:20px">${s[0]}</div><div class="ltr" style="font-size:14px;color:#98A3B8;text-align:right">${s[1]}</div></div>
+   <div id="m_v${i}" class="ltr" style="font-weight:800;font-size:21px;color:#2196F3;min-width:96px;text-align:left;opacity:0"></div></div>`).join('')}</div>
+ ${NAV}</div>`;
+
+// ---- 3 Dashboard
+function gaugeSvg(id,max,unit,ticks){
+ const cx=110,cy=110,r=92;
+ let t='';for(let i=0;i<=10;i++){const a=(225-27*i)*Math.PI/180;const r1=r-14,r2=r-(i%5==0?28:22);
+  t+=`<line x1="${cx+r1*Math.cos(a)}" y1="${cy-r1*Math.sin(a)}" x2="${cx+r2*Math.cos(a)}" y2="${cy-r2*Math.sin(a)}" stroke="#B9C4D6" stroke-width="${i%5==0?3:2}"/>`}
+ const lab=ticks.map((v,i)=>{const a=(225-135*i)*Math.PI/180;const rr=r-48;return `<text x="${cx+rr*Math.cos(a)}" y="${cy-rr*Math.sin(a)+5}" text-anchor="middle" font-size="15" fill="#98A3B8" font-family="V">${fa(v)}</text>`}).join('');
+ return `<svg width="220" height="200" viewBox="0 0 220 200">
+  <path d="${arc(cx,cy,r,225,-45)}" fill="none" stroke="#E6EBF2" stroke-width="16" stroke-linecap="round"/>
+  <path id="${id}_a" d="" fill="none" stroke="#2196F3" stroke-width="16" stroke-linecap="round"/>
+  ${t}${lab}
+  <g id="${id}_n" transform="rotate(0 ${cx} ${cy})"><line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy-72}" stroke="#10203C" stroke-width="5" stroke-linecap="round"/></g>
+  <circle cx="${cx}" cy="${cy}" r="12" fill="#10203C"/>
+  <text id="${id}_t" x="${cx}" y="${cy+52}" text-anchor="middle" font-size="30" font-weight="900" fill="#10203C" font-family="V">۰</text>
+  <text x="${cx}" y="${cy+74}" text-anchor="middle" font-size="15" fill="#98A3B8" font-family="V">${unit}</text></svg>`;
+}
+function arc(cx,cy,r,a0,a1){ // degrees, math orientation, a0>a1 clockwise
+ if(Math.abs(a0-a1)<0.01)a1=a0-0.01;
+ const p=a=>[cx+r*Math.cos(a*Math.PI/180),cy-r*Math.sin(a*Math.PI/180)];
+ const [x0,y0]=p(a0),[x1,y1]=p(a1);const large=(a0-a1)>180?1:0;
+ return `M${x0} ${y0} A${r} ${r} 0 ${large} 1 ${x1} ${y1}`;
+}
+S.f2=`<div class="scr" id="sc_f2">${STATUS_LIGHT}
+ <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 28px 6px"><span style="font-weight:900;font-size:32px;color:#2196F3">داشبورد</span>${svg('home','#2196F3',38)}</div>
+ <div class="ltr" style="text-align:right;padding:0 28px;font-weight:700;font-size:21px;color:#22A050">Connected ✓</div>
+ <div class="card" style="margin-top:16px;padding:22px 10px 26px">
+  <div style="font-weight:900;font-size:27px;padding-right:12px">نمایشگرهای زنده</div>
+  <div style="display:flex;justify-content:space-around;margin-top:14px">
+   <div style="text-align:center">${gaugeSvg('g1',8000,'RPM',[0,4000,8000])}<div style="font-weight:800;font-size:21px">دور موتور</div></div>
+   <div style="text-align:center">${gaugeSvg('g2',200,'km/h',[0,100,200])}<div style="font-weight:800;font-size:21px">سرعت (کیلومتر بر ساعت)</div></div>
+  </div>
+  <div style="text-align:center;margin-top:18px">${gaugeSvg('g3',120,'°C',[0,60,120])}<div style="font-weight:800;font-size:21px">دمای خنک‌کننده (<span class="ltr">°C</span>)</div></div>
+ </div>${NAV}</div>`;
+
+// ---- 4 Trip
+const TRIP=[['بار موتور','%',32],['دمای آب موتور','°C',88],['تریم سوخت کوتاه‌مدت','%',2],['سرعت خودرو','km/h',64],['فشار منیفولد (مپ)','kPa',41],['دور موتور','rpm',2350],['دریچه گاز','%',18],['آوانس جرقه','°',14],['دمای هوای ورودی','°C',36],['سنسور اکسیژن ۱','V',0.45],['سنسور اکسیژن ۲','V',0.62],['تریم سوخت بلندمدت','%',3]];
+S.f3=`<div class="scr" id="sc_f3">${bar('سفر')}
+ <div class="tabs"><div class="on">سفر جدید</div><div>تاریخچه</div></div>
+ <div class="btn" style="margin-top:18px;background:#10203C">${svg('stop','#fff',26)}توقف سفر</div>
+ <div style="text-align:center;font-weight:900;font-size:30px;color:#2196F3;display:flex;align-items:center;justify-content:center;gap:8px" class="ltr">${svg('timer','#2196F3',30)}<span id="tr_time">۰۰:۰۰</span></div>
+ <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:14px 18px">
+ ${TRIP.map((p,i)=>`<div class="card" style="margin:0;padding:10px 12px;height:116px">
+    <div style="font-weight:700;font-size:15px;color:#6E7D96;white-space:nowrap;overflow:hidden">${p[0]}</div>
+    <div class="ltr" style="text-align:right;font-weight:900;font-size:25px;margin-top:22px"><span id="tr_v${i}">۰</span> <span style="font-size:16px;color:#98A3B8">${p[1]}</span></div></div>`).join('')}
+ </div>${NAV}</div>`;
+
+// ---- 5 AI
+const AI_TXT='ماشین در حالت سرد بد گاز می‌خوره';
+S.f4=`<div class="scr" id="sc_f4">${bar('عیب‌یاب هوش مصنوعی')}
+ <div class="tabs"><div class="on">تشخیص جدید</div><div>تشخیص‌های قبلی</div></div>
+ <div class="card" style="padding:18px 18px 22px">
+  <div style="display:flex;flex-direction:column;align-items:flex-start;gap:10px">
+   <span style="background:#E3EFFC;color:#1565C0;font-weight:700;font-size:18px;padding:7px 16px;border-radius:16px;border:2px solid #ADD6FA">عیب‌یابی و بررسی مشکل</span>
+   <span style="background:#EEF1F6;font-weight:700;font-size:18px;padding:7px 16px;border-radius:16px">می‌خواهم این ماشین را بخرم</span>
+   <span style="background:#EEF1F6;font-weight:700;font-size:18px;padding:7px 16px;border-radius:16px">می‌خواهم بروم معاینه فنی</span>
+  </div>
+  <div style="margin-top:18px;font-weight:800;font-size:22px;color:#2196F3">توضیح مشکل خودرو</div>
+  <div style="margin-top:10px;height:150px;border:3px solid #2196F3;border-radius:14px;padding:14px 16px;font-weight:700;font-size:22px">
+    <span id="ai_txt"></span><span id="ai_caret" style="display:inline-block;width:3px;height:26px;background:#2196F3;vertical-align:middle;margin-right:2px"></span></div>
+ </div>
+ <div style="display:flex;gap:12px;padding:0 18px">
+  <div class="card" style="flex:1;margin:0;padding:14px"><div style="font-weight:800;font-size:17px">خطاهای خودروی شما</div><div style="font-weight:900;font-size:36px;color:#F28012;margin-top:6px">۱ <span style="font-size:16px;color:#98A3B8;font-weight:500">خطا</span></div></div>
+  <div class="card" style="flex:1;margin:0;padding:14px"><div style="font-weight:800;font-size:17px">تحلیل سفر</div><div style="font-weight:700;font-size:18px;color:#6E7D96;margin-top:14px">آخرین سفر ثبت شده</div></div>
+ </div>
+ <div class="btn" id="ai_btn" style="margin-top:22px">شروع تحلیل هوش مصنوعی</div>
+ ${NAV}</div>`;
+
+// ---- 6 Battery
+const BAT=[['شارژ باتری مناسب است','۱۲٫۵ ولت با موتور خاموش'],['باتری زیر بار استارت سالم است','کمینهٔ ولتاژ هنگام استارت ۱۰٫۰ ولت'],['دینام شارژ می‌کند','۱۳٫۸ ولت در دور آرام'],['دینام زیر بار پایدار است','افت ولتاژ زیر بار فقط ۰٫۰ ولت بود']];
+S.f5=`<div class="scr" id="sc_f5">${bar('تست باتری و دینام')}
+ <div class="card"><div style="font-size:17px;line-height:1.7;color:#33415C">ولتاژ در چهار وضعیت مختلف سنجیده می‌شود: سکون، لحظهٔ استارت، دور آرام و دور بالا با بار.</div>
+  <div style="margin-top:8px;font-weight:800;font-size:21px">نتیجهٔ تست: <span id="b_res" style="color:#98A3B8">در حال تست...</span></div></div>
+ ${BAT.map((b,i)=>`<div class="card" id="b_r${i}" style="margin:10px 18px;display:flex;align-items:center;gap:14px;opacity:.25">
+   <div style="width:44px;height:44px;border-radius:50%;background:#DEF6E6;display:flex;align-items:center;justify-content:center;flex:none">${svg('check','#22A050',28)}</div>
+   <div><div style="font-weight:800;font-size:21px;color:#22A050">${b[0]}</div><div style="font-weight:500;font-size:17px;color:#33415C;margin-top:2px">${b[1]}</div></div></div>`).join('')}
+ <div class="btn">تست دوباره</div>
+ ${NAV}</div>`;
+
+// ---- 7 Km
+S.f6=`<div class="scr" id="sc_f6">${bar('اصالت کیلومتر')}
+ <div class="card" style="margin-top:22px">
+  <div style="font-weight:900;font-size:25px;display:flex;align-items:center;gap:8px">${svg('search','#2196F3',30)}اصالت کیلومتر</div>
+  <div style="margin-top:10px;font-size:17px;line-height:1.75;color:#33415C">شمارنده‌های داخلی ایسیو با پاک‌کردن کد خطا صفر می‌شوند ولی با دستکاری داشبورد نه. مقایسهٔ این دو، ناهمخوانی را نشان می‌دهد.</div>
+  <div class="btn" id="k_btn" style="margin:16px 0 4px">بررسی کن</div>
+ </div>
+ <div class="card" id="k_scan" style="height:150px;display:flex;flex-direction:column;justify-content:center;gap:12px;opacity:0;position:absolute;left:0;right:0;top:500px">
+  ${[0,1,2].map(i=>`<div style="height:16px;border-radius:8px;background:#E6EBF2;overflow:hidden"><div id="k_s${i}" style="height:16px;width:0%;background:#ADD6FA;border-radius:8px"></div></div>`).join('')}
+ </div>
+ <div class="card" id="k_res" style="opacity:0;position:absolute;left:0;right:0;top:500px">
+  <div style="font-weight:800;font-size:23px;color:#22A050">نشانه‌ای از دستکاری دیده نشد</div>
+  <div style="margin-top:8px;font-size:17px;line-height:1.75;color:#33415C">شمارنده‌های داخلی ایسیو با کیلومتر ثبت‌شدهٔ خودرو ناهمخوانی ندارند.</div>
+ </div>
+ ${NAV}</div>`;
+
+// ---- 8 Service
+S.f7=`<div class="scr" id="sc_f7">${bar('سرویس دوره‌ای')}
+ <div class="card" style="margin-top:22px">
+  <div style="font-size:16px;color:#98A3B8">۲۰۶</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+   <div style="font-weight:900;font-size:40px"><span id="sv_km">۳۵۱٬۰۰۳</span> <span style="font-size:24px;font-weight:700">کیلومتر</span></div>
+   <span style="border:2px solid #DEE6F2;border-radius:16px;padding:6px 22px;color:#2196F3;font-weight:700;font-size:18px">اصلاح</span></div>
+  <div style="margin-top:10px;font-size:16px;color:#6E7D96"><span style="color:#22A050">●</span> ثبت خودکار روشن است</div>
+ </div>
+ <div class="card" style="height:68px;display:flex;align-items:center;gap:10px;color:#98A3B8;font-size:20px;padding:0 18px">${svg('search','#98A3B8',30)}جستجوی سرویس...</div>
+ <div class="card" id="sv_card" style="padding:20px">
+  <div style="display:flex;gap:16px;align-items:flex-start">
+   <div class="icsq" style="width:70px;height:70px;border-radius:20px;flex:none">${svg('car','#2196F3',36)}</div>
+   <div style="flex:1"><div style="font-weight:900;font-size:24px">تعویض روغن موتور</div>
+    <div style="font-size:16px;color:#6E7D96;margin-top:4px">۱۴۰۵/۰۷/۰۹ — ۳۴۷٬۰۰۰ کیلومتر</div>
+    <div style="display:inline-block;margin-top:10px;background:#DEF6E6;color:#22A050;font-weight:800;font-size:17px;padding:6px 14px;border-radius:12px">سالم — ۹۹۷ کیلومتر تا سرویس بعدی</div>
+    <div class="ltr" style="margin-top:12px;height:10px;border-radius:5px;background:#E6EBF2;overflow:hidden"><div id="sv_bar" style="height:10px;width:0%;background:#22A050;border-radius:5px"></div></div>
+   </div></div>
+ </div>
+ <div class="btn" style="position:absolute;left:0;right:0;top:1060px">+ افزودن سرویس</div>
+ ${NAV}</div>`;
+
+$('screen').innerHTML=S.home+[0,1,2,3,4,5,6,7].map(k=>S['f'+k]).join('');
+$('taps').innerHTML='<div class="tapdot" id="tap"></div>';
+
+/* ================= build: floating cards ================= */
+const FC=[];
+FC[0]=`<div style="position:relative;height:230px">
+  <div id="fc0a" style="position:absolute;inset:0">
+   <div style="display:flex;align-items:center;justify-content:space-between">
+    <div style="background:#FFECEC;border-radius:24px;padding:10px 30px"><span class="ltr big" style="color:#DC3232">P0420</span></div>
+    <span class="chip red" style="background:#DC3232;color:#fff">بحرانی</span></div>
+   <div class="sub" style="margin-top:22px">کارایی کاتالیزور پایین‌تر از حد مجاز</div></div>
+  <div id="fc0b" style="position:absolute;inset:0;display:flex;align-items:center;gap:30px;opacity:0">
+   <div style="width:150px;height:150px;border-radius:50%;background:#DEF6E6;display:flex;align-items:center;justify-content:center;flex:none">${svg('check','#22A050',100)}</div>
+   <div><div class="ct" style="color:#22A050">خطاها پاک شد</div><div class="sub" style="margin-top:6px">چراغ چک خاموش شد</div></div></div></div>`;
+FC[1]=`<div style="display:flex;justify-content:space-between;align-items:center"><div class="ct">داده زنده</div>
+  <span style="display:inline-flex;align-items:center;gap:12px;font-weight:700;font-size:36px;color:#2196F3"><span id="fc1dot" style="width:22px;height:22px;border-radius:50%;background:#2196F3"></span>LIVE</span></div>
+  <div style="display:flex;justify-content:space-between;margin-top:26px;text-align:center">
+   ${[['دور موتور','rpm'],['دمای آب','°C'],['بار موتور','٪']].map((x,i)=>`<div style="flex:1"><div class="ltr big" style="font-size:62px;color:#10203C" id="fc1v${i}">۰</div><div class="sub" style="font-size:34px;margin-top:8px">${x[0]} <span class="ltr" style="font-size:28px">${x[1]}</span></div></div>`).join('')}</div>`;
+FC[2]=`<div style="display:flex;justify-content:space-around;text-align:center;padding:8px 0">
+   <div><div class="ltr big" style="font-size:96px;color:#10203C" id="fc2a">۰</div><div class="sub">کیلومتر بر ساعت</div></div>
+   <div style="width:3px;background:#DEE6F2;border-radius:2px"></div>
+   <div><div class="ltr big" style="font-size:96px;color:#2196F3" id="fc2b">۰</div><div class="sub">دور در دقیقه</div></div></div>`;
+FC[3]=`<div style="display:flex;justify-content:space-between;align-items:center"><div class="ct">ثبت سفر</div>
+  <span class="ltr" style="font-weight:900;font-size:46px;color:#2196F3" id="fc3t">۰۰:۰۰</span></div>
+  <svg width="780" height="170" viewBox="0 0 780 170" style="margin-top:14px;display:block">
+   <line x1="0" y1="160" x2="780" y2="160" stroke="#E6EBF2" stroke-width="4"/>
+   <line x1="0" y1="85" x2="780" y2="85" stroke="#E6EBF2" stroke-width="3" stroke-dasharray="10 12"/>
+   <path id="fc3area" d="" fill="rgba(33,150,243,.12)"/>
+   <path id="fc3line" d="" fill="none" stroke="#2196F3" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+   <circle id="fc3dot" r="13" fill="#fff" stroke="#2196F3" stroke-width="7"/></svg>`;
+FC[4]=`<div style="position:relative;height:250px">
+  <div id="fc4a" style="position:absolute;inset:0">
+   <div class="ct">در حال تحلیل...</div>
+   <div style="margin-top:22px;display:flex;flex-direction:column;gap:18px">${[0,1,2,3].map(i=>`<div style="height:24px;border-radius:12px;background:#E6EBF2;overflow:hidden;width:${[100,84,94,66][i]}%"><div id="fc4b${i}" style="height:24px;width:0%;background:#ADD6FA;border-radius:12px"></div></div>`).join('')}</div></div>
+  <div id="fc4r" style="position:absolute;inset:0;opacity:0">
+   <div style="display:flex;justify-content:space-between;align-items:center"><div class="ct">مشکل در کاتالیزور</div>
+     <span class="chip red"><span style="width:20px;height:20px;border-radius:50%;background:#DC3232"></span>خیلی جدی</span></div>
+   <div class="sub" style="margin-top:20px">چی باید بکنی؟ بده مکانیک کاتالیزور رو بررسی کنه.</div></div></div>`;
+FC[5]=`<div style="display:flex;align-items:center;gap:34px">
+   <svg width="120" height="200" viewBox="0 0 120 200" style="flex:none">
+    <rect x="38" y="4" width="44" height="22" rx="6" fill="#10203C"/><rect x="6" y="20" width="108" height="176" rx="20" fill="#10203C"/>
+    <clipPath id="bclip"><rect x="20" y="34" width="80" height="148" rx="10"/></clipPath>
+    <rect x="20" y="34" width="80" height="148" rx="10" fill="#26324D"/>
+    <rect id="fc5fill" clip-path="url(#bclip)" x="20" y="182" width="80" height="0" fill="#22A050"/></svg>
+   <div style="flex:1"><div style="display:flex;align-items:baseline;gap:16px"><span class="big" style="font-size:96px" id="fc5v">۰٫۰</span><span class="ct" style="font-size:44px">ولت</span></div>
+    <div class="sub" style="margin-top:6px">با موتور خاموش</div>
+    <span class="chip" id="fc5chip" style="margin-top:16px;opacity:0">${svg('check','#22A050',36)}سالم</span></div></div>`;
+FC[6]=`<div style="text-align:center">
+   <div style="display:flex;align-items:baseline;justify-content:center;gap:20px"><span class="big" style="font-size:104px" id="fc6v">۰</span><span class="sub" style="font-size:42px">کیلومتر</span></div>
+   <span class="chip" id="fc6chip" style="margin-top:22px;opacity:0">${svg('check','#22A050',36)}نشانه‌ای از دستکاری دیده نشد</span></div>`;
+FC[7]=`<div style="display:flex;gap:30px;align-items:center">
+   <div style="width:130px;height:130px;border-radius:36px;background:#E3EFFC;display:flex;align-items:center;justify-content:center;flex:none;transform-origin:50% 10%" id="fc7bell">${svg('bell','#2196F3',78)}</div>
+   <div style="flex:1"><div class="ct">تعویض روغن موتور</div>
+    <div class="sub" style="margin-top:6px"><b style="color:#22A050;font-weight:800">۹۹۷</b> کیلومتر تا سرویس بعدی</div>
+    <div class="ltr" style="margin-top:18px;height:20px;border-radius:10px;background:#E6EBF2;overflow:hidden"><div id="fc7bar" style="height:20px;width:0%;background:#22A050;border-radius:10px"></div></div></div></div>`;
+$('fcs').innerHTML=FC.map((h,k)=>`<div class="fc" id="fc${k}">${h}</div>`).join('');
+
+/* ================= build: recap tiles ================= */
+const TILE_POS=[];
+$('tiles').innerHTML=FEATS.map((ft,k)=>{const col=k%2,row=Math.floor(k/2);
+ const x=col==0?560:120, y=420+row*232; TILE_POS.push([x,y]);
+ return `<div class="tile" id="tl${k}" style="left:${x}px;top:${y}px"><div class="icsq">${svg(ft.icon,'#2196F3',48)}</div><div class="tl">${ft.name}</div></div>`}).join('');
+
+/* ================= pulse paths ================= */
+// scene-1 heartbeat (spike near center) across full width
+const P1='M-20 900 L380 900 L410 900 L432 860 L452 900 L478 900 L506 740 L540 1050 L568 860 L586 920 L604 900 L1100 900';
+const P_END='M-20 1680 L360 1680 L390 1680 L410 1650 L430 1680 L456 1680 L486 1580 L516 1770 L544 1640 L560 1695 L576 1680 L1100 1680';
+$('pulse').setAttribute('d',P1);$('pulseGlow').setAttribute('d',P1);
+let PLEN=$('pulse').getTotalLength();
+let curP='P1';
+function setPulse(d){ if(curP===d)return; curP=d; const p=d==='P1'?P1:P_END;
+ $('pulse').setAttribute('d',p);$('pulseGlow').setAttribute('d',p);PLEN=$('pulse').getTotalLength();}
+const LINKLEN=$('linkPath').getTotalLength();
+
+/* ================= screen state ================= */
+const SCR=['sc_home','sc_f0','sc_f1','sc_f2','sc_f3','sc_f4','sc_f5','sc_f6','sc_f7'];
+function showScreens(f){
+ // which screen index and transition
+ let x={}; SCR.forEach(s=>x[s]=null);
+ const T=7; // half-transition frames
+ if(f<F_FEAT-T){x.sc_home=0;}
+ else{
+  // boundaries: home->f0 at F_FEAT, fk->fk+1 at fs(k+1)
+  const bounds=[F_FEAT,...[1,2,3,4,5,6,7].map(fs)];
+  let shown=false;
+  for(let i=0;i<bounds.length;i++){const b=bounds[i];
+   if(f>=b-T&&f<b+T){const p=E.io(seg(f,b-T,b+T));x[SCR[i]]=p*572;x[SCR[i+1]]=(p-1)*572;shown=true;break;}}
+  if(!shown){let idx=0;for(let i=0;i<bounds.length;i++)if(f>=bounds[i])idx=i+1;x[SCR[idx]]=0;}
+ }
+ SCR.forEach(s=>{const el=$(s);if(x[s]===null){el.style.display='none'}else{el.style.display='block';el.style.transform=`translateX(${x[s]}px)`}});
+}
+function tapEl(f,a,id){ const t=f-a; if(t<-4||t>14) return false;
+ const r=$(id).getBoundingClientRect(), sc=$('screen').getBoundingClientRect(), k=sc.width/572;
+ return tap(f,a,(r.left+r.width/2-sc.left)/k,(r.top+r.height/2-sc.top)/k);
+}
+function tap(f,a,xp,yp){ // tap indicator in screen coords at frame a
+ const t=f-a; if(t<-4||t>14) return false;
+ const el=$('tap'); el.style.left=(11+xp)+'px'; el.style.top=(11+yp)+'px';
+ const o=t<0?seg(t,-4,0):1-seg(t,4,14); const s=t<0?1.2-0.2*seg(t,-4,0):1+0.6*seg(t,0,14);
+ el.style.opacity=o; el.style.transform=`scale(${s})`; return true;
+}
+
+/* intro kicks of the song (frames) */
+const KICK1=[7.5,24.4,41.25,75,91.9,108.75,125.6];
+/* ================= render ================= */
+function render(f){
+ /* ---------- titles ---------- */
+ TITLES.forEach((t,i)=>{const el=$('t'+i);
+  const pin=E.oc(seg(f,t.a,t.a+9)), pout=E.ic(seg(f,t.b-6,t.b));
+  const o=pin*(1-pout); el.style.opacity=o; el.style.transform=`translateY(${(1-pin)*28-pout*14}px)`;
+  el.style.display=o<=0.001?'none':'block';});
+
+ /* ---------- pulse line ---------- */
+ const pg=$('pulseG');
+ if(f<210){
+  setPulse('P1');
+  // draw left->right: 0..30 to spike, 30..58 to end; starts partially visible at f0
+  const drawn = f<24.4 ? lerp(0.12,0.52,E.io(seg(f,0,24.4))) : lerp(0.52,1,E.oc(seg(f,24.4,46)));
+  $('pulse').style.strokeDasharray=PLEN; $('pulse').style.strokeDashoffset=PLEN*(1-drawn);
+  $('pulseGlow').style.strokeDasharray=PLEN; $('pulseGlow').style.strokeDashoffset=PLEN*(1-drawn);
+  const beat = Math.max(Math.exp(-Math.pow((f-24.4)/5,2)), ...KICK1.map(k=>0.45*Math.exp(-Math.pow((f-k)/4,2))));
+  $('pulseGlow').style.opacity=0.35+0.6*beat;
+  const out=seg(f,104,118); pg.style.opacity=1-out;
+ } else if(f>=826){
+  setPulse('P_END');
+  const drawn=E.io(seg(f,826,860));
+  $('pulse').style.strokeDasharray=PLEN; $('pulse').style.strokeDashoffset=PLEN*(1-drawn);
+  $('pulseGlow').style.strokeDasharray=PLEN; $('pulseGlow').style.strokeDashoffset=PLEN*(1-drawn);
+  const beat=Math.exp(-Math.pow((f-868)/5,2))*0.6+Math.exp(-Math.pow((f-885)/4,2));
+  $('pulseGlow').style.opacity=0.35+0.65*beat; pg.style.opacity=1;
+ } else pg.style.opacity=0;
+
+ /* ---------- product ---------- */
+ const prod=$('prod');
+ let px=540,py=900,ps=1,pr=0,po=1;
+ if(f<105){
+  const pop=seg(f,22,42); ps=pop<=0?0.001:lerp(0.55,1,E.back(pop)); po=E.oc(seg(f,22,30));
+  pr=lerp(-7,0,E.oc(pop)); py=900+Math.sin(f/14)*6*seg(f,42,54); ps*=1+0.025*KICK1.reduce((a,k)=>a+(k>30?Math.exp(-Math.pow((f-k)/3,2)):0),0);
+ } else if(f<214){
+  const m=E.io(seg(f,105,124)); px=540; py=lerp(900+Math.sin(105/14)*6,520,m); ps=lerp(1,0.56,m);
+  py+=Math.sin((f-124)/12)*4*seg(f,124,134);
+  const out=E.ic(seg(f,200,214)); py-=out*260; po=1-out;
+ } else if(f>=817){
+  const pop=seg(f,817.5,839); ps=pop<=0?0.001:lerp(0.5,0.86,E.back(pop)); po=E.oc(seg(f,817.5,825)); py=720+Math.sin((f-839)/14)*5*seg(f,839,851); pr=lerp(6,0,E.oc(pop));
+  ps*=1+0.03*Math.exp(-Math.pow((f-868)/3,2))+0.06*Math.exp(-Math.pow((f-885)/3,2));
+ } else po=0;
+ prod.style.display=po<=0.001?'none':'block';
+ prod.style.left=(px-350)+'px'; prod.style.top=(py-253)+'px';
+ prod.style.transform=`scale(${ps}) rotate(${pr}deg)`; prod.style.opacity=po;
+ // sheen sweeps
+ const sh = f<105 ? seg(f,46,70) : (f>=818? seg(f,848,874):0);
+ $('prodSheen').style.backgroundPosition=`${lerp(130,-30,E.io(sh))}% 0`;
+ $('prodSheen').style.opacity=(sh>0&&sh<1)?1:0;
+ // logo glow core
+ const lg = f<105 ? Math.exp(-Math.pow((f-28)/7,2))*0.9+0.25*seg(f,34,54)+KICK1.reduce((a,k)=>a+(k>30?0.35*Math.exp(-Math.pow((f-k)/4,2)):0),0) : (f<214?0.25+0.5*Math.exp(-Math.pow((f-151)/6,2)) : 0.25+0.45*Math.exp(-Math.pow((f-868)/5,2))+0.8*Math.exp(-Math.pow((f-885)/5,2)));
+ $('logoGlow').style.opacity=lg;
+ // bloom
+ const bl=$('bloom');
+ const bo = f<105 ? 0.35+0.9*Math.exp(-Math.pow((f-28)/8,2)) : (f<214? (1-seg(f,105,120))*0.5 : (f>=818? 0.5*seg(f,818,838):0));
+ bl.style.opacity=cl(bo,0,1); bl.style.top=(f>=700?270:450)+'px';
+
+ /* ---------- bluetooth rings ---------- */
+ let rings='';
+ if(f>=124&&f<210){
+  const fade=1-seg(f,196,208), boost=f>=140&&f<152?1:0;
+  for(let i=0;i<3;i++){const per=18;const ph=((f-124)+i*per/3)%per/per;
+   const r=lerp(165,265,ph); const o=(1-ph)*0.8*fade*seg(f,124,130);
+   rings+=`<path d="${arcD(540,520,r,195,345)}" fill="none" stroke="#2196F3" stroke-width="${7-3*ph}" stroke-linecap="round" opacity="${o}"/>`;}
+ }
+ $('bt').innerHTML=rings;
+
+ /* ---------- link line + dots ---------- */
+ const lk=$('link');
+ if(f>=138&&f<212){
+  lk.style.display='block';
+  const d=E.oc(seg(f,142.5,150.5)); const lp=$('linkPath'); lp.style.strokeDasharray=LINKLEN; lp.style.strokeDashoffset=LINKLEN*(1-d);
+  const fade=1-seg(f,198,210); lk.style.opacity=fade;
+  let dots=''; if(f>=150.5){for(let i=0;i<4;i++){const ph=((f-150.5)/9+i/4)%1; const pt=lp.getPointAtLength(ph*LINKLEN);
+    dots+=`<circle cx="${pt.x}" cy="${pt.y}" r="9" fill="#78CDFF" opacity="${Math.sin(ph*Math.PI)}"/>`;}}
+  $('linkDots').innerHTML=dots;
+ } else lk.style.display='none';
+ const lc=$('linkChip'); const lci=E.back(seg(f,151,163)); const lco=seg(f,151,157)*(1-seg(f,196,206));
+ lc.style.opacity=lco; lc.style.transform=`scale(${lerp(0.6,1,lci)})`;
+
+ /* ---------- phone ---------- */
+ const ph=$('phone');
+ let fy=0,fsx=1,fo=1;
+ if(f<108){fo=0}
+ else if(f<214){
+  const e=E.oc(seg(f,108,132)); // from below into S2 pos (top 830, scale .8667)
+  const top=lerp(1990,885,e); fsx=0.8667; fy=top-390;
+  if(f>=196){const m=E.io(seg(f,196,214)); fy=lerp(885-390,0,m); fsx=lerp(0.8667,1,m);}
+ }
+ else if(f<750){fy=0;fsx=1; // subtle breathing
+  fsx=1+0.008*Math.sin((f-214)/20);}
+ else { const m=E.io(seg(f,748,766)); fsx=lerp(1,0.55,m); fy=lerp(0,260,m); fo=1-E.ic(seg(f,752,768)); }
+ ph.style.display=fo<=0.001?'none':'block'; ph.style.opacity=fo; ph.style.transform=`translateY(${fy}px) scale(${fsx})`;
+
+ showScreens(f);
+ let tapShown=false;
+
+ /* ---------- home screen state ---------- */
+ if(f<230){
+  const conn=f>=151;
+  $('h_stat').textContent=conn?'متصل':'قطع شده'; $('h_stat').style.color=conn?'#22A050':'#DC3232';
+  const g=E.oc(seg(f,153,183)); $('h_fill').style.width=(g*92)+'%';
+  $('h_txt').textContent=g>0?('سلامت خودرو '+num(Math.round(g*92))+'٪'):'سلامت خودرو —';
+  tapShown = tapEl(f,142.5,'h_btn') || tapShown;
+  $('h_btn').style.transform=`scale(${1-0.05*Math.exp(-Math.pow((f-143.5)/3,2))})`;
+ }
+
+ /* ---------- features ---------- */
+ for(let k=0;k<N;k++){
+  const a=fs(k), t=f-a;
+  const el=$('fc'+k);
+  // floating card in/out
+  if(t>=6&&t<DUR+2){
+   const pin=seg(t,8,22), pout=seg(t,DUR-9,DUR-1);
+   el.style.display='block'; el.style.opacity=E.oc(seg(t,8,14))*(1-E.ic(pout));
+   el.style.transform=`translateY(${(1-E.oc(pin))*60+E.ic(pout)*30}px) scale(${lerp(0.86,1,E.back(pin))})`;
+  } else {el.style.display='none'}
+  if(t<-8||t>DUR+8) continue;
+  FEAT_ANIM[k](t, (id,at)=>{tapShown = tapEl(f,a+at,id) || tapShown;});
+ }
+ if(!tapShown)$('tap').style.opacity=0;
+
+ /* ---------- recap tiles ---------- */
+ FEATS.forEach((ft,k)=>{const el=$('tl'+k);
+  const st=754+k*2.2; const p=seg(f,st,st+14); const out=seg(f,806,818);
+  if(p<=0||out>=1){el.style.display='none';return}
+  el.style.display='flex';
+  const [x,y]=TILE_POS[k]; const cx=540-200-x, cy=1040-100-y;
+  const e=E.back(p);
+  el.style.opacity=E.oc(seg(f,st,st+6))*(1-out);
+  el.style.transform=`translate(${cx*(1-e)}px,${cy*(1-e)+out*-40}px) scale(${lerp(0.4,1,e)*(1-0.2*out)})`;
+ });
+
+ /* ---------- end card ---------- */
+ const bi=E.oc(seg(f,830,844)); $('brand').style.opacity=bi; $('brand').style.transform=`translateY(${(1-bi)*30}px)`;
+ const wb=E.oc(seg(f,838,850)); $('withBuy').style.opacity=wb; $('withBuy').style.transform=`translateY(${(1-wb)*24}px)`;
+ const gp=seg(f,846,862); $('gold').style.opacity=E.oc(seg(f,846,852)); $('gold').style.transform=`translateX(-50%) scale(${gp<=0?0.6:lerp(0.6,1,E.back(gp))})`;
+ const ui=E.oc(seg(f,856,868)); $('url').style.opacity=ui; $('url').style.transform=`translateY(${(1-ui)*24}px)`;
+}
+function arcD(cx,cy,r,a0,a1){ // screen-angle degrees (0=right, 90=down)
+ const p=a=>[cx+r*Math.cos(a*Math.PI/180),cy+r*Math.sin(a*Math.PI/180)];
+ const [x0,y0]=p(a0),[x1,y1]=p(a1);
+ return `M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}`;
+}
+
+/* ================= per-feature animation ================= */
+const FEAT_ANIM=[
+ // 0 ECU
+ (t,tapAt)=>{
+  tapAt('e_scan',4);
+  $('e_scan').style.transform=`scale(${1-0.05*Math.exp(-Math.pow((t-5)/3,2))})`;
+  const app=E.oc(seg(t,8,18)); const col=E.io(seg(t,38,48));
+  const d=$('e_dtc'); d.style.opacity=app*(1-col); d.style.transform=`translateY(${(1-app)*30}px) scaleY(${1-col*0.4})`;
+  $('e_ok').style.opacity=E.oc(seg(t,44,52));
+  $('e_pend').textContent=t>=44?'۰':'۱'; $('e_pend').style.color=t>=44?'#22A050':'#F28012';
+  tapAt('e_clear',36);
+  $('fc0a').style.opacity=1-seg(t,40,46); $('fc0b').style.opacity=E.oc(seg(t,44,52));
+  $('fc0b').style.transform=`scale(${lerp(0.9,1,E.back(seg(t,44,54)))})`;
+ },
+ // 1 Monitoring
+ (t,tapAt)=>{
+  const sp=seg(t,2,38); const bx=lerp(70,470,E.io(sp));
+  $('m_bar').setAttribute('x',bx-13); $('m_clip').setAttribute('width',bx); $('m_bar').style.opacity=sp<1?1:0;
+  const n=Math.min(8,Math.floor(sp*8+0.0001)+ (sp>0?1:0)); const nn=sp>=1?8:Math.max(0,n-1);
+  $('m_cnt').textContent=`سنسور ${num(sp>=1?8:nn)} از ۸ بررسی شد`;
+  $('m_state').textContent=sp>=1?'اسکن کامل شد':'در حال اسکن...'; $('m_state').style.color=sp>=1?'#22A050':'#10203C';
+  const VALS=[[32,'%'],[88,'°C'],[2,'%'],[41,'kPa'],[2350,'rpm'],[64,'km/h'],[14,'°'],[18,'%']];
+  for(let i=0;i<8;i++){const on=t>=4+i*4.2; const ck=$('m_ck'+i);
+   ck.style.background=on?'#2196F3':'transparent'; ck.style.borderColor=on?'#2196F3':'#C9D4E4';
+   ck.innerHTML=on?svg('check','#fff',22):'';
+   const v=$('m_v'+i); const vo=seg(t,40+i*1.5,46+i*1.5); v.style.opacity=vo;
+   const base=VALS[i][0]; const jit=base*0.04*noise(t,i);
+   v.textContent= (base>=100? num(Math.round(base+jit*1.0),0,true) : num(Math.round(base+jit)))+' '+VALS[i][1];}
+  $('fc1dot').style.opacity=0.35+0.65*(0.5+0.5*Math.sin(t/3));
+  const r=E.oc(seg(t,10,26));
+  $('fc1v0').textContent=num(Math.round((2350+60*noise(t,1))*r/10)*10,0,true);
+  $('fc1v1').textContent=num(Math.round(88*r+noise(t,2)*0.8*r));
+  $('fc1v2').textContent=num(Math.round(32*r+noise(t,3)*2*r));
+ },
+ // 2 Dashboard
+ (t,tapAt)=>{
+  const sweep=E.io(seg(t,4,22)), settle=E.oc(seg(t,22,34));
+  const G=[['g1',8000,2400,60],['g2',200,72,1.5],['g3',120,88,0.6]];
+  const out={};
+  G.forEach(([id,max,val,j],gi)=>{
+   // sweep to max then settle to value (classic needle test)
+   let v = t<22 ? max*sweep : lerp(max,val,settle);
+   if(t>=34) v=val+j*noise(t,gi*3);
+   const frac=cl(v/max); const ang=225-270*frac;
+   $(id+'_a').setAttribute('d',frac>0.003?arc(110,110,92,225,ang):'');
+   $(id+'_n').setAttribute('transform',`rotate(${-135+270*frac} 110 110)`);
+   $(id+'_t').textContent=num(Math.round(id==='g1'?v/10:v)*(id==='g1'?10:1),0,true); out[id]=v;});
+  const r=E.oc(seg(t,12,30));
+  $('fc2a').textContent=num(Math.round(t<34?72*r:out.g2)); $('fc2b').textContent=num(Math.round((t<34?2400*r:out.g1)/10)*10,0,true);
+ },
+ // 3 Trip
+ (t,tapAt)=>{
+  const sec=4+Math.floor(Math.max(0,t)/5); const mm=Math.floor(sec/60), ss=sec%60;
+  const ts=fa(String(mm).padStart(2,'0'))+':'+fa(String(ss).padStart(2,'0'));
+  $('tr_time').textContent=ts; $('fc3t').textContent=ts;
+  TRIP.forEach((p,i)=>{const b=p[2];const v=b+(b<1?0.06:Math.max(1,b*0.05))*noise(t+i*5,i);
+   $('tr_v'+i).textContent=b<1?num(v,2):num(Math.round(b>=1000?v/10:v)*(b>=1000?10:1),0,true);});
+  // chart draw
+  const L=E.io(seg(t,10,58)); const W=780,H=170; const pts=[];
+  const n=Math.max(2,Math.floor(L*60)+1);
+  for(let i=0;i<n;i++){const x=i/60*W*Math.min(1,L*60/(n-1||1)); }
+  const pts2=[]; const steps=60; const lastX=L*W;
+  for(let i=0;i<=steps;i++){const x=i/steps*W; if(x>lastX) break;
+   const y=150-(60+40*Math.sin(i/7)+25*Math.sin(i/2.7+1)+18*Math.sin(i/1.3))*0.95; pts2.push([x,y]);}
+  if(pts2.length<2){pts2.push([0,150]);pts2.push([1,150]);}
+  const dP=pts2.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  $('fc3line').setAttribute('d',dP); const lp=pts2[pts2.length-1];
+  $('fc3area').setAttribute('d',dP+` L${lp[0]} 160 L0 160 Z`);
+  $('fc3dot').setAttribute('cx',lp[0]); $('fc3dot').setAttribute('cy',lp[1]);
+ },
+ // 4 AI
+ (t,tapAt)=>{
+  const ch=Array.from(AI_TXT); const n=Math.floor(cl((t-2)/22)*ch.length);
+  $('ai_txt').textContent=ch.slice(0,n).join('');
+  $('ai_caret').style.opacity=(t<26||Math.floor(t/6)%2==0)?1:0;
+  tapAt('ai_btn',29);
+  $('ai_btn').style.transform=`scale(${1-0.05*Math.exp(-Math.pow((t-30)/3,2))})`;
+  [0,1,2,3].forEach(i=>{$('fc4b'+i).style.width=(E.io(seg(t,14+i*3,40+i*2))*100)+'%';});
+  $('fc4a').style.opacity=1-seg(t,44,49); $('fc4r').style.opacity=E.oc(seg(t,47,54));
+  $('fc4r').style.transform=`translateY(${(1-E.oc(seg(t,47,56)))*16}px)`;
+ },
+ // 5 Battery
+ (t,tapAt)=>{
+  BAT.forEach((b,i)=>{const p=E.oc(seg(t,6+i*7,13+i*7)); const r=$('b_r'+i); r.style.opacity=0.25+0.75*p; r.style.transform=`translateX(${(1-p)*-18}px)`;});
+  const done=t>=34; $('b_res').textContent=done?'سالم':'در حال تست...'; $('b_res').style.color=done?'#22A050':'#98A3B8';
+  const v=12.5*E.oc(seg(t,10,32)); $('fc5v').textContent=num(v,1);
+  const fl=E.oc(seg(t,10,32))*0.86*148; $('fc5fill').setAttribute('y',182-fl); $('fc5fill').setAttribute('height',fl);
+  const c=$('fc5chip'); c.style.opacity=E.oc(seg(t,32,38)); c.style.transform=`scale(${lerp(0.7,1,E.back(seg(t,32,42)))})`;
+ },
+ // 6 Km
+ (t,tapAt)=>{
+  tapAt('k_btn',5);
+  $('k_btn').style.transform=`scale(${1-0.05*Math.exp(-Math.pow((t-6)/3,2))})`;
+  const sc=seg(t,8,12)*(1-seg(t,32,36)); $('k_scan').style.opacity=sc;
+  [0,1,2].forEach(i=>{$('k_s'+i).style.width=(E.io(seg(t,9+i*3,30))*100)+'%';});
+  const rs=E.oc(seg(t,34,42)); $('k_res').style.opacity=rs; $('k_res').style.transform=`translateY(${(1-rs)*20}px)`;
+  const v=Math.round(351003*E.oc(seg(t,10,34))); $('fc6v').textContent=num(v,0,true);
+  const c=$('fc6chip'); c.style.opacity=E.oc(seg(t,34,40)); c.style.transform=`scale(${lerp(0.7,1,E.back(seg(t,34,44)))})`;
+ },
+ // 7 Service
+ (t,tapAt)=>{
+  const p=E.oc(seg(t,10,34))*80; $('sv_bar').style.width=p+'%'; $('fc7bar').style.width=p+'%';
+  const ring=t>=30&&t<52? Math.sin((t-30)*1.3)*14*(1-seg(t,30,52)) : 0;
+  $('fc7bell').style.transform=`rotate(${ring}deg)`;
+ },
+];
+
+window.READY=document.fonts.ready.then(()=>{fitTitles();render(0);return true});
+const q=new URLSearchParams(location.search); if(q.has('f')) window.READY.then(()=>render(+q.get('f')));
+</script>
+<script src="endcard.js"></script>
+<script>
+initEnd();
+const _rC=render;
+render=function(f){_rC(f);['brand','withBuy','gold','url'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none'});
+ if(f>=817){document.getElementById('prod').style.display='none';document.getElementById('bloom').style.opacity=0;}
+ renderEnd(f);};
+</script>
+</body>
+</html>

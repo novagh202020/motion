@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag C Cover</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{font-family:V,sans-serif;background:#FBFCFF}
+#c{position:relative;width:1080px;height:1920px;overflow:hidden;
+ background:radial-gradient(ellipse 900px 760px at 50% 54%,#FFFFFF 0%,rgba(255,255,255,0) 70%),linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}
+.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+/* giant C */
+#bigC{left:0;top:600px;width:1080px;text-align:center;font-family:V;font-weight:900;font-size:860px;line-height:1;
+ background:linear-gradient(180deg,#D6EAFD 0%,#EAF4FE 60%,rgba(236,243,252,0) 92%);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-20px}
+#bloom{left:90px;top:700px;width:900px;height:760px;border-radius:50%;
+ background:radial-gradient(ellipse,rgba(40,160,255,.28) 0%,rgba(40,160,255,.10) 40%,rgba(40,160,255,0) 70%)}
+#prod{left:200px;top:840px;width:680px}
+#shadow{left:265px;top:1290px;width:550px;width:580px;height:90px;border-radius:50%;background:radial-gradient(ellipse,rgba(20,40,80,.32),rgba(20,40,80,0) 70%);filter:blur(4px)}
+#kicker{left:0;top:300px;width:1080px;text-align:center;font-weight:800;font-size:44px;color:#2196F3;letter-spacing:0}
+#title{left:0;top:368px;width:1080px;text-align:center;font-weight:900;font-size:136px;line-height:1.1;color:#10203C;white-space:nowrap}
+#title b{color:#2196F3;font-weight:900}
+#sub{left:0;top:540px;width:1080px;text-align:center;font-weight:500;font-size:44px;line-height:1.45;color:#6E7D96}
+#feat{display:none!important;left:0;top:1440px;width:1080px;display:flex;justify-content:center;gap:22px;direction:rtl}
+.pill{height:72px;padding:0 30px;border-radius:36px;background:#fff;border:3px solid #DEE6F2;display:flex;align-items:center;gap:12px;
+ font-weight:700;font-size:32px;color:#10203C;box-shadow:0 10px 24px rgba(20,40,80,.08);white-space:nowrap}
+.dot{width:14px;height:14px;border-radius:50%;background:#2196F3}
+#brand{left:0;top:1530px;width:1080px;text-align:center;font-weight:900;font-size:64px;color:#1565C0}
+#url{left:0;top:1612px;width:1080px;text-align:center;font-weight:700;font-size:40px;color:#506482}
+#pulse{left:0;top:0}
+</style></head><body>
+<div id="c">
+ <div id="bigC" class="a ltr">C</div>
+ <svg id="pulse" class="a" width="1080" height="1920">
+  <defs><filter id="g" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="8"/></filter>
+   <linearGradient id="fadeL" x1="0" x2="1"><stop offset="0" stop-color="#2196F3" stop-opacity="0"/><stop offset=".22" stop-color="#2196F3"/><stop offset=".78" stop-color="#2196F3"/><stop offset="1" stop-color="#2196F3" stop-opacity="0"/></linearGradient></defs>
+  <path d="M0 1440 L380 1440 L404 1418 L426 1440 L452 1440 L486 1372 L520 1518 L552 1406 L572 1452 L592 1440 L1080 1440" fill="none" stroke="#78CDFF" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" filter="url(#g)" opacity=".45"/>
+  <path d="M0 1440 L380 1440 L404 1418 L426 1440 L452 1440 L486 1372 L520 1518 L552 1406 L572 1452 L592 1440 L1080 1440" fill="none" stroke="url(#fadeL)" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
+ </svg>
+ <div id="bloom" class="a"></div>
+ <div id="shadow" class="a"></div>
+ <img id="prod" class="a" src="assets/diag_front.png">
+
+ <div id="kicker" class="a rtl">دیاگ سری <span class="ltr">C</span> رسید</div>
+ <div id="title" class="a rtl">مکانیکِ <b>تو جیبت</b></div>
+ <div id="sub" class="a rtl">عیب‌یابی خودرو با هوش مصنوعی<br>بدون نیاز به دانش فنی</div>
+
+ <div id="feat" class="a">
+  <div class="pill"><span class="dot"></span>خطایابی</div>
+  <div class="pill"><span class="dot"></span>هوش مصنوعی</div>
+  <div class="pill"><span class="dot"></span>تست باتری</div>
+ </div>
+ <div id="brand" class="a ltr">CarDiag AI</div>
+ <div id="url" class="a ltr">cardiag.ir</div>
+</div>
+</body></html>

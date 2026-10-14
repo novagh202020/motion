@@ -1,0 +1,350 @@
+<style>
+:root{--blue:#2196F3;--deep:#1565C0;--navy:#10203C;--slate:#6E7D96;--hair:#DEE6F2;--appbg:#EEF2F8}
+#phone{position:absolute;left:240px;top:390px;width:600px;height:1290px;border-radius:78px;background:#181C24;border:3px solid #5F6878;transform-origin:50% 0;
+ box-shadow:0 50px 90px rgba(20,40,80,.28),0 12px 26px rgba(20,40,80,.18);z-index:10;display:none}
+#screen{position:absolute;left:11px;top:11px;width:572px;height:1262px;border-radius:66px;overflow:hidden;clip-path:inset(0 round 66px);isolation:isolate;background:var(--appbg)}
+#notch{position:absolute;left:50%;top:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#0b0e13;z-index:30}
+.scr{position:absolute;left:0;top:0;width:572px;height:1262px;background:var(--appbg);direction:rtl;overflow:hidden;font-family:V}
+.sbar{height:48px;display:flex;justify-content:space-between;align-items:center;padding:6px 40px 0;font-weight:700;font-size:19px;direction:ltr}
+.appbar{background:var(--blue);color:#fff}
+.abar{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;direction:rtl}
+.abar .t{font-weight:800;font-size:29px;display:flex;align-items:center;gap:14px}
+.abar .help{font-weight:500;font-size:19px;display:flex;align-items:center;gap:6px}
+.tabs{height:62px;display:flex;background:#F7F8FC}
+.tabs div{flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;color:#98A3B8;position:relative}
+.tabs div.on{color:var(--blue)}
+.tabs div.on:after{content:"";position:absolute;bottom:0;width:90px;height:4px;border-radius:3px;background:var(--blue)}
+.card{background:#fff;border:2px solid var(--hair);border-radius:24px;margin:14px 18px;padding:18px 20px;box-shadow:0 6px 16px rgba(20,40,80,.05)}
+.btn{height:62px;border-radius:31px;background:var(--blue);color:#fff;font-weight:700;font-size:23px;display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 18px}
+.btn.o{background:#fff;border:2px solid var(--hair);color:var(--slate)}
+.nav{position:absolute;left:0;bottom:0;width:572px;height:96px;background:var(--blue);display:flex;padding-bottom:6px}
+.nav div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:17px;gap:4px}
+.tapdot{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:5px solid rgba(33,150,243,.9);background:rgba(33,150,243,.15);opacity:0;z-index:40}
+.fc{position:absolute;left:110px;top:1430px;width:860px;background:#fff;border:3px solid var(--hair);border-radius:40px;
+ box-shadow:0 30px 60px rgba(20,40,80,.20),0 8px 18px rgba(20,40,80,.10);direction:rtl;padding:30px 40px;opacity:0;z-index:20;transform-origin:50% 100%;display:none}
+.fc .ct{font-weight:800;font-size:50px;color:var(--navy);line-height:1.2}
+.fc .sub{font-weight:500;font-size:38px;color:var(--slate);line-height:1.35}
+.big{font-weight:900;font-size:70px;line-height:1}
+.pill{display:inline-flex;align-items:center;gap:10px;height:66px;padding:0 26px;border-radius:33px;font-weight:700;font-size:40px;white-space:nowrap}
+.badge{position:absolute;width:150px;text-align:center;z-index:25;opacity:0;display:none}
+.badge .c{width:124px;height:124px;margin:0 auto;border-radius:50%;background:#fff;border:3px solid var(--hair);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px rgba(20,40,80,.16)}
+.badge .l{margin-top:10px;font-weight:800;font-size:28px;white-space:nowrap}
+#core{position:absolute;left:340px;top:700px;width:400px;height:400px;z-index:22;display:none}
+#mainTitles .ttl{opacity:0}
+#gold{position:absolute;left:50%;top:1250px;height:104px;padding:0 54px;border-radius:52px;transform:translateX(-50%);
+ background:linear-gradient(90deg,#F6CD5C 0%,#FFEA9C 50%,#E0A82C 100%);color:#4B3005;font-weight:800;font-size:52px;
+ display:flex;align-items:center;gap:18px;white-space:nowrap;direction:rtl;box-shadow:0 18px 40px rgba(20,40,80,.18);opacity:0;z-index:30}
+</style>
+<div id="main" class="a" style="left:0;top:0;width:1080px;height:1920px;z-index:40;pointer-events:none">
+ <div id="bloom2" class="a" style="left:90px;top:270px;width:900px;height:900px;border-radius:50%;
+   background:radial-gradient(circle,rgba(40,160,255,.30) 0%,rgba(40,160,255,.12) 38%,rgba(40,160,255,0) 70%);opacity:0"></div>
+ <svg id="pulseEnd" class="a" style="left:0;top:0;z-index:2" width="1080" height="1920">
+  <defs><filter id="gl2" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+  <path id="peG" d="M-20 1680 L360 1680 L390 1680 L410 1650 L430 1680 L456 1680 L486 1580 L516 1770 L544 1640 L560 1695 L576 1680 L1100 1680" fill="none" stroke="#78CDFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl2)" opacity="0"/>
+  <path id="pe" d="M-20 1680 L360 1680 L390 1680 L410 1650 L430 1680 L456 1680 L486 1580 L516 1770 L544 1640 L560 1695 L576 1680 L1100 1680" fill="none" stroke="#2196F3" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+ </svg>
+ <svg id="links" class="a" style="left:0;top:0;z-index:21" width="1080" height="1920"></svg>
+ <div id="phone"><div id="notch"></div><div id="screen"></div><div class="tapdot" id="tap"></div></div>
+ <div id="core">
+  <svg width="400" height="400" viewBox="0 0 400 400">
+   <defs><radialGradient id="coreG" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#78CDFF"/><stop offset=".55" stop-color="#2196F3"/><stop offset="1" stop-color="#1565C0"/></radialGradient>
+   <filter id="cg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter></defs>
+   <circle id="coreGlow" cx="200" cy="200" r="150" fill="#28A0FF" opacity=".35" filter="url(#cg)"/>
+   <circle cx="200" cy="200" r="128" fill="url(#coreG)"/>
+   <circle id="coreRing" cx="200" cy="200" r="160" fill="none" stroke="#2196F3" stroke-width="8" stroke-dasharray="120 60" stroke-linecap="round" opacity=".55"/>
+   <g transform="translate(130 130) scale(5.833)"><path fill="#fff" d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4c1.66 0 3-1.34 3-3s-1.34-3-3-3zM7.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.83 13 9 13s-1.5-.67-1.5-1.5zM16 17H8v-2h8v2zm-1-4c-.83 0-1.5-.67-1.5-1.5S14.17 10 15 10s1.5.67 1.5 1.5S15.83 13 15 13z"/></g>
+  </svg>
+ </div>
+ <div id="anaCard" class="fc" style="top:1210px">
+  <div class="ct">در حال تحلیل...</div>
+  <div style="margin-top:22px;display:flex;flex-direction:column;gap:18px">
+   <div style="height:24px;border-radius:12px;background:#E6EBF2;overflow:hidden"><div id="ab0" style="height:24px;width:0;background:#ADD6FA;border-radius:12px"></div></div>
+   <div style="height:24px;border-radius:12px;background:#E6EBF2;overflow:hidden;width:84%"><div id="ab1" style="height:24px;width:0;background:#ADD6FA;border-radius:12px"></div></div>
+   <div style="height:24px;border-radius:12px;background:#E6EBF2;overflow:hidden;width:66%"><div id="ab2" style="height:24px;width:0;background:#ADD6FA;border-radius:12px"></div></div>
+  </div>
+ </div>
+ <div id="fcs"></div>
+ <div id="badges"></div>
+ <!-- end card -->
+ <div id="prodE" class="a" style="left:0;top:0;width:700px;height:506px;z-index:12;transform-origin:50% 50%;opacity:0;display:none">
+   <div class="a" style="left:90px;top:440px;width:520px;height:80px;border-radius:50%;background:radial-gradient(ellipse,rgba(20,40,80,.30),rgba(20,40,80,0) 70%)"></div>
+   <img src="assets/diag_front.png" class="a" style="left:0;top:0;width:700px;height:506px">
+ </div>
+ <div id="brand" class="a ltr" style="left:0;top:1000px;width:1080px;text-align:center;font-weight:900;font-size:126px;color:#1565C0;opacity:0;z-index:12">CarDiag AI</div>
+ <div id="withBuy" class="a rtl" style="left:0;top:1160px;width:1080px;text-align:center;font-weight:500;font-size:40px;color:#6E7D96;opacity:0;z-index:12">با خرید دیاگ</div>
+ <div id="gold"><svg width="56" height="56" viewBox="0 0 24 24"><path fill="#4B3005" d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>اشتراک طلایی رایگان</div>
+ <div id="url" class="a ltr" style="left:0;top:1410px;width:1080px;text-align:center;font-weight:700;font-size:60px;color:#506482;opacity:0;z-index:12">cardiag.ir</div>
+ <div id="mainTitles"></div>
+</div>
+<script>
+(function(){
+const IC={
+ warn:'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+ car:'M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z',
+ chat:'M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z',
+ check:'M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z',
+ home:'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z', add:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
+ more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+ arrow:'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
+ play:'M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z',
+ trash:'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
+ search:'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z',
+ stop:'M6 6h12v12H6z',
+ timer:'M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z',
+ bot:'M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4c1.66 0 3-1.34 3-3s-1.34-3-3-3zM7.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.83 13 9 13s-1.5-.67-1.5-1.5zM16 17H8v-2h8v2zm-1-4c-.83 0-1.5-.67-1.5-1.5S14.17 10 15 10s1.5.67 1.5 1.5S15.83 13 15 13z',
+ key:'M12.65 10A5.99 5.99 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 0 0 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z',
+};
+const svg=(p,c='#2196F3',s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path fill="${c}" d="${IC[p]}"/></svg>`;
+const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
+const num=(n,dec=0,sep=false)=>{let s=n.toFixed(dec);let [i,d]=s.split('.');if(sep)i=i.replace(/\B(?=(\d{3})+(?!\d))/g,'٬');return fa(d!==undefined?i+'٫'+d:i)};
+const noise=(t,s)=>Math.sin(t*0.37+s)*0.6+Math.sin(t*0.91+s*2.3)*0.4;
+
+/* ---------- timeline (frames; bar = 67.5, groove downbeat at 210) ---------- */
+const B=k=>210+67.5*k;                 // bar k of the groove
+const T_ECU=B(0), T_TRIP=B(2), T_TXT=B(4), T_ANA=B(5), T_RES=B(6), T_RECAP=B(8), T_END=817.5;
+
+/* ---------- screens ---------- */
+const STATUS=`<div class="sbar"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>`;
+const NAV=`<div class="nav"><div>${svg('home','#fff',28)}<span>خانه</span></div><div>${svg('add','#fff',36)}<span>افزودن خودرو</span></div><div>${svg('more','#fff',34)}<span>بیشتر</span></div></div>`;
+const bar=t=>`<div class="appbar">${STATUS}<div class="abar"><div class="t">${svg('arrow','#fff',32)}<span>${t}</span></div><div class="help">${svg('play','#fff',24)}<span>آموزش</span></div></div></div>`;
+const S={};
+S.ecu=`<div class="scr" id="sc_ecu">${bar('خطایابی <span class="ltr">ECU</span>')}
+ <div class="tabs"><div class="on">اسکن جدید</div><div>تاریخچه</div></div>
+ <div class="btn" id="e_scan" style="margin-top:18px;position:relative;overflow:hidden">${svg('search','#fff',28)}<span class="ltr">ECU</span> اسکن
+   <div id="e_prog" style="position:absolute;left:0;bottom:0;height:6px;width:0;background:#78CDFF"></div></div>
+ <div class="card" id="e_sum" style="opacity:.35">
+  <div style="font-weight:500;font-size:17px;color:#6E7D96">تاریخ اسکن: ۱۴۰۵/۰۷/۲۰ — ۲۰:۳۴</div>
+  <div style="display:flex;margin-top:14px;text-align:center">
+   <div style="flex:1"><div id="e_pend" style="font-weight:900;font-size:44px;color:#F28012">۱</div><div style="font-weight:700;font-size:19px">خطاهای در انتظار</div></div>
+   <div style="flex:1"><div style="font-weight:900;font-size:44px;color:#98A3B8">۰</div><div style="font-weight:700;font-size:19px">خطاهای ذخیره شده</div></div>
+  </div>
+ </div>
+ <div id="e_dtc" class="card" style="padding:20px 22px;opacity:0">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+   <span class="ltr" style="font-weight:900;font-size:36px;color:#DC3232">P0420</span>
+   <span style="background:#DC3232;color:#fff;font-weight:800;font-size:18px;padding:4px 14px;border-radius:10px">بحرانی</span></div>
+  <div style="display:inline-block;margin-top:10px;background:#EEF1F6;border-radius:14px;padding:4px 14px;font-weight:700;font-size:17px">کنترل آلایندگی و <span class="ltr">EGR</span></div>
+  <div style="margin-top:10px;font-weight:500;font-size:19px;color:#6E7D96">کارایی کاتالیزور پایین‌تر از حد مجاز (بانک ۱)</div>
+  <div style="margin-top:10px;font-weight:700;font-size:18px">علل احتمالی:</div>
+  <div style="font-size:17px;line-height:1.7;color:#33415C">• کاتالیزور مسدود یا فرسوده<br>• سنسور اکسیژن خراب<br>• نشت در اگزوز</div>
+ </div>${NAV}</div>`;
+const TRIP=[['بار موتور','٪',32],['دمای آب موتور','°C',44],['تریم سوخت کوتاه‌مدت','٪',4],['سرعت خودرو','km/h',46],['فشار منیفولد (مپ)','kPa',41],['دور موتور','rpm',2150],['دریچه گاز','٪',18],['آوانس جرقه','°',14],['دمای هوای ورودی','°C',22],['سنسور اکسیژن ۱','V',0.45],['تریم سوخت بلندمدت','',-1],['سنسور اکسیژن ۲','V',0.62]];
+S.trip=`<div class="scr" id="sc_trip">${bar('سفر')}
+ <div class="tabs"><div class="on">سفر جدید</div><div>تاریخچه</div></div>
+ <div class="btn" style="margin-top:18px;background:#10203C">${svg('stop','#fff',26)}توقف سفر</div>
+ <div class="ltr" style="text-align:center;font-weight:900;font-size:30px;color:#2196F3;display:flex;align-items:center;justify-content:center;gap:8px">${svg('timer','#2196F3',30)}<span id="tr_time">۰۰:۰۰</span></div>
+ <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:14px 18px">
+ ${TRIP.map((p,i)=>`<div class="card" id="tc${i}" style="margin:0;padding:10px 12px;height:116px">
+    <div style="font-weight:700;font-size:15px;color:#6E7D96;white-space:nowrap;overflow:hidden">${p[0]}</div>
+    <div class="ltr" style="text-align:right;font-weight:900;font-size:25px;margin-top:22px"><span id="tv${i}">۰</span> <span style="font-size:16px;color:#98A3B8">${p[1]}</span></div></div>`).join('')}
+ </div>${NAV}</div>`;
+const AI_TXT='ماشین وقتی سرد بد گاز می‌خوره';
+S.txt=`<div class="scr" id="sc_txt">${bar('عیب‌یاب هوش مصنوعی')}
+ <div class="tabs"><div class="on">تشخیص جدید</div><div>تشخیص‌های قبلی</div></div>
+ <div class="card" style="padding:18px 18px 22px">
+  <div style="display:flex;flex-direction:column;align-items:flex-start;gap:10px">
+   <span style="background:#E3EFFC;color:#1565C0;font-weight:700;font-size:18px;padding:7px 16px;border-radius:16px;border:2px solid #ADD6FA">عیب‌یابی و بررسی مشکل</span>
+   <span style="background:#EEF1F6;font-weight:700;font-size:18px;padding:7px 16px;border-radius:16px">می‌خواهم این ماشین را بخرم</span>
+   <span style="background:#EEF1F6;font-weight:700;font-size:18px;padding:7px 16px;border-radius:16px">می‌خواهم بروم معاینه فنی</span></div>
+  <div style="margin-top:18px;font-weight:800;font-size:22px;color:#2196F3">توضیح مشکل خودرو</div>
+  <div id="ai_box" style="margin-top:10px;height:150px;border:3px solid #2196F3;border-radius:14px;padding:14px 16px;font-weight:700;font-size:23px">
+    <span id="ai_txt"></span><span id="ai_caret" style="display:inline-block;width:3px;height:26px;background:#2196F3;vertical-align:middle;margin-right:2px"></span></div>
+ </div>
+ <div style="display:flex;gap:12px;padding:0 18px">
+  <div class="card" style="flex:1;margin:0;padding:14px"><div style="font-weight:800;font-size:17px">خطاهای خودروی شما</div><div style="font-weight:900;font-size:36px;color:#DC3232;margin-top:6px">۱ <span style="font-size:16px;color:#98A3B8;font-weight:500">خطا</span></div></div>
+  <div class="card" style="flex:1;margin:0;padding:14px"><div style="font-weight:800;font-size:17px">تحلیل سفر</div><div style="font-weight:700;font-size:18px;color:#F28012;margin-top:14px">ثبت شد</div></div>
+ </div>
+ <div class="btn" id="ai_btn" style="margin-top:22px">شروع تحلیل هوش مصنوعی</div>${NAV}</div>`;
+S.res=`<div class="scr" id="sc_res"><div class="appbar" style="position:relative;z-index:3">${STATUS}<div class="abar"><div class="t">${svg('arrow','#fff',32)}<span>عیب‌یاب هوشمند</span></div></div></div>
+ <div id="res_in" style="position:absolute;left:0;right:0;top:126px">
+ <div class="card" style="padding:20px 24px">
+  <div style="font-weight:900;font-size:27px;display:flex;align-items:center;gap:10px">${svg('search','#2196F3',30)}چی بررسی کردم؟</div>
+  <div style="margin-top:12px;font-size:19px;line-height:1.75;color:#33415C">
+   <div id="rb0"><b style="color:#10203C">کدهای خطای <span class="ltr">ECU</span>:</b> کد <span class="ltr" style="color:#DC3232;font-weight:800">P0420</span> ثبت شده؛ کارایی کاتالیزور پایین‌تر از حد مجازه.</div>
+   <div id="rb1" style="margin-top:6px"><b style="color:#10203C">داده‌های سفر:</b> تنظیم سوخت بلندمدت <span style="color:#F28012;font-weight:800">بالاست</span>.</div>
+   <div id="rb2" style="margin-top:6px"><b style="color:#10203C">توضیح تو:</b> ماشین وقتی سرد بد گاز می‌خوره.</div>
+  </div></div>
+ <div style="padding:10px 26px 0;font-weight:900;font-size:27px">مشکلاتی که پیدا شد</div>
+ <div class="card" id="rc0" style="padding:22px 24px">
+  <div style="font-weight:900;font-size:27px">مشکل در کاتالیزور</div>
+  <div style="display:inline-flex;align-items:center;gap:10px;margin-top:12px;background:#FFECEC;color:#DC3232;font-weight:800;font-size:21px;padding:6px 16px;border-radius:18px"><span style="width:14px;height:14px;border-radius:50%;background:#DC3232"></span>خیلی جدی</div>
+  <div style="margin-top:14px;font-weight:800;font-size:21px">به زبان ساده چه اتفاقی افتاده؟</div>
+  <div style="margin-top:4px;font-size:19px;line-height:1.7;color:#33415C">یه قطعه توی سیستم اگزوز که وظیفه داره گازهای آلاینده رو کم کنه، درست کار نمی‌کنه.</div>
+  <div style="margin-top:12px;font-weight:800;font-size:21px">چی باید بکنی؟</div>
+  <div style="margin-top:4px;font-size:19px;line-height:1.7;color:#33415C">باید سریعاً بری تعمیرگاه و از مکانیک بخوای کاتالیزور رو بررسی کنه.</div></div>
+ <div class="card" id="rc1" style="padding:20px 24px">
+  <div style="font-weight:900;font-size:25px">مشکل در تنظیم سوخت و هوا</div>
+  <div style="display:inline-flex;align-items:center;gap:10px;margin-top:12px;background:#FFF3DF;color:#F28012;font-weight:800;font-size:21px;padding:6px 16px;border-radius:18px"><span style="width:14px;height:14px;border-radius:50%;background:#F28012"></span>نسبتاً جدی</div></div>
+ </div></div>`;
+document.getElementById('screen').innerHTML=S.ecu+S.trip+S.txt+S.res;
+const SCR=['sc_ecu','sc_trip','sc_txt','sc_res'];
+
+/* ---------- floating cards ---------- */
+const FC=[
+ {id:'fcE',a:T_ECU+26,b:T_TRIP-4,html:`<div style="display:flex;align-items:center;justify-content:space-between">
+   <div style="background:#FFECEC;border-radius:24px;padding:10px 30px"><span class="ltr big" style="color:#DC3232">P0420</span></div>
+   <span class="pill" style="background:#DC3232;color:#fff">بحرانی</span></div>
+   <div class="sub" style="margin-top:20px">کارایی کاتالیزور پایین‌تر از حد مجاز</div>`},
+ {id:'fcT',a:T_TRIP+30,b:T_TXT-4,html:`<div style="display:flex;justify-content:space-between;align-items:center"><div class="ct">ثبت حین رانندگی</div>
+   <span style="display:inline-flex;align-items:center;gap:12px;font-weight:700;font-size:36px;color:#2196F3"><span id="liveDot" style="width:22px;height:22px;border-radius:50%;background:#2196F3"></span>LIVE</span></div>
+   <div style="display:flex;align-items:center;justify-content:space-between;margin-top:22px">
+    <div class="sub">تنظیم سوخت بلندمدت</div>
+    <span class="pill" id="ltftChip" style="background:#FFF3DF;color:#F28012">${svg('warn','#F28012',36)}بالا</span></div>`},
+ {id:'fcR',a:T_RES+34,b:T_RECAP-4,html:`<div style="display:flex;justify-content:space-between;align-items:center"><div class="ct">مشکل در کاتالیزور</div>
+   <span class="pill" style="background:#FFECEC;color:#DC3232"><span style="width:20px;height:20px;border-radius:50%;background:#DC3232"></span>خیلی جدی</span></div>
+   <div class="sub" style="margin-top:18px">بده مکانیک کاتالیزور رو بررسی کنه</div>`},
+];
+document.getElementById('fcs').innerHTML=FC.map(c=>`<div class="fc" id="${c.id}">${c.html}</div>`).join('');
+
+/* ---------- evidence badges ---------- */
+const BD=[
+ {id:'bd0',icon:'warn',col:'#DC3232',bg:'#FFECEC',label:'<span class="ltr">P0420</span>',lc:'#DC3232',from:[540,1560],dock:[30,560],t:T_TRIP-22},
+ {id:'bd1',icon:'car',col:'#F28012',bg:'#FFF3DF',label:'داده سفر',lc:'#F28012',from:[540,1560],dock:[30,800],t:T_TXT-22},
+ {id:'bd2',icon:'chat',col:'#2196F3',bg:'#E3EFFC',label:'توضیح تو',lc:'#1565C0',from:[540,760],dock:[30,1040],t:T_ANA-18},
+];
+document.getElementById('badges').innerHTML=BD.map(b=>`<div class="badge" id="${b.id}"><div class="c" style="background:${b.bg};border-color:${b.bg}">${svg(b.icon,b.col,64)}</div><div class="l" style="color:${b.lc}">${b.label}</div></div>`).join('');
+
+/* ---------- titles ---------- */
+const TT=[
+ {h:'۱. خطاها رو بخون',a:T_ECU+2,b:T_TRIP-3},
+ {h:'۲. روشن کن و حرکت کن',a:T_TRIP+2,b:T_TXT-3},
+ {h:'۳. مشکلت رو بگو',a:T_TXT+2,b:T_ANA-3},
+ {h:'هوش مصنوعی بررسی می‌کنه',a:T_ANA+2,b:T_RES-3},
+ {h:'اینم جوابش',s:'به زبون ساده',a:T_RES+2,b:T_RECAP-3},
+ {h:'مکانیکِ تو جیبت',a:T_RECAP+4,b:T_END-2},
+ {h:'دیاگ سری <b class="ltr" style="color:#2196F3">C</b>',a:T_END-2,b:99999},
+];
+document.getElementById('mainTitles').innerHTML=TT.map((t,i)=>`<div class="ttl" id="mt${i}" style="top:${t.s?132:148}px"><div class="h">${t.h}</div>${t.s?`<div class="s">${t.s}</div>`:''}</div>`).join('');
+
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
+
+function tapAt(f,a,id){const t=f-a; const el=$('tap'); if(t<-4||t>14) return false;
+ const r=$(id).getBoundingClientRect(), sc=$('screen').getBoundingClientRect(), k=sc.width/572;
+ el.style.left=(11+(r.left+r.width/2-sc.left)/k)+'px'; el.style.top=(11+(r.top+r.height/2-sc.top)/k)+'px';
+ el.style.opacity=t<0?seg(t,-4,0):1-seg(t,4,14); el.style.transform=`scale(${t<0?1.2-0.2*seg(t,-4,0):1+0.6*seg(t,0,14)})`; return true;}
+function press(id,f,a){$(id).style.transform=`scale(${1-0.05*Math.exp(-Math.pow((f-a-1)/3,2))})`}
+
+function screens(f){
+ const BND=[T_TRIP,T_TXT,T_RES]; const order=SCR; const T=7; let x={}; order.forEach(s=>x[s]=null);
+ // res screen enters from bottom with phone (handled by phone), ECU->TRIP->TXT by swipe
+ if(f<T_TRIP-T){x.sc_ecu=0}
+ else if(f<T_TRIP+T){const p=E.io(seg(f,T_TRIP-T,T_TRIP+T));x.sc_ecu=p*572;x.sc_trip=(p-1)*572}
+ else if(f<T_TXT-T){x.sc_trip=0}
+ else if(f<T_TXT+T){const p=E.io(seg(f,T_TXT-T,T_TXT+T));x.sc_trip=p*572;x.sc_txt=(p-1)*572}
+ else if(f<T_RES-20){x.sc_txt=0}
+ else {x.sc_res=0}
+ order.forEach(s=>{const el=$(s); if(x[s]===null){el.style.display='none'}else{el.style.display='block';el.style.transform=`translateX(${x[s]}px)`}});
+}
+
+window.renderMain=function(f){
+ const main=$('main');
+ /* titles */
+ TT.forEach((t,i)=>{const el=$('mt'+i);const pin=E.oc(seg(f,t.a,t.a+9)),pout=E.ic(seg(f,t.b-6,t.b));const o=pin*(1-pout);
+  el.style.opacity=o; el.style.display=o<=0.001?'none':'block'; el.style.transform=`translateY(${(1-pin)*28-pout*14}px)`;});
+ /* phone */
+ const ph=$('phone'); let py=0,ps=1,po=1,show=true;
+ if(f<196) show=false;
+ else if(f<214){const e=E.oc(seg(f,196,214)); py=lerp(1600,0,e);}
+ else if(f>=T_ANA-6&&f<T_RES-14){const e=E.io(seg(f,T_ANA-6,T_ANA+10)); py=lerp(0,1700,e); if(e>=1) show=false;}
+ else if(f>=T_RES-14&&f<T_RES+4){const e=E.oc(seg(f,T_RES-14,T_RES+4)); py=lerp(1700,0,e);}
+ else if(f>=T_RECAP-2){const m=E.io(seg(f,T_RECAP-2,T_RECAP+16)); ps=lerp(1,0.55,m); py=lerp(0,260,m); po=1-E.ic(seg(f,T_RECAP+2,T_RECAP+18)); if(po<=0) show=false;}
+ ph.style.display=show?'block':'none'; ph.style.opacity=po; ph.style.transform=`translateY(${py}px) scale(${ps})`;
+ if(show) screens(f);
+ let tapped=false;
+ /* ECU */
+ if(f>=T_ECU-10&&f<T_TRIP+10){const t=f-T_ECU;
+  tapped=tapAt(f,T_ECU+6,'e_scan')||tapped; press('e_scan',f,T_ECU+6);
+  $('e_prog').style.width=(E.io(seg(t,8,24))*100)+'%'; $('e_prog').style.opacity=t<26?1:0;
+  $('e_sum').style.opacity=lerp(.35,1,seg(t,22,28));
+  const d=E.oc(seg(t,24,34)); $('e_dtc').style.opacity=d; $('e_dtc').style.transform=`translateY(${(1-d)*30}px)`;
+ }
+ /* TRIP */
+ if(f>=T_TRIP-10&&f<T_TXT+10){const t=f-T_TRIP;
+  const sec=Math.floor(Math.max(0,t)/2.2)+37; $('tr_time').textContent=fa(String(Math.floor(sec/60)).padStart(2,'0'))+':'+fa(String(sec%60).padStart(2,'0'));
+  TRIP.forEach((p,i)=>{const el=$('tv'+i); if(p[2]<0){el.textContent='بالا';el.style.color='#F28012';return}
+   const b=p[2]; let v=b+(b<1?0.08:Math.max(1,b*0.06))*noise(t+i*7,i); if(i==1) v=b+t*0.06;
+   el.textContent=b<1?num(v,2):num(Math.round(b>=1000?v/10:v)*(b>=1000?10:1),0,true);});
+  const hl=seg(t,40,48); const c=$('tc10'); const pulse=0.5+0.5*Math.sin(t/3);
+  c.style.borderColor=hl>0?`rgba(242,128,18,${hl})`:'#DEE6F2'; c.style.background=hl>0?`rgba(255,243,223,${hl})`:'#fff';
+  c.style.boxShadow=hl>0?`0 0 0 ${4+3*pulse}px rgba(242,128,18,${0.25*hl})`:'none';
+ }
+ /* TEXT */
+ if(f>=T_TXT-10&&f<T_ANA){const t=f-T_TXT;
+  const ch=Array.from(AI_TXT); const n=Math.floor(cl((t-6)/30)*ch.length); $('ai_txt').textContent=ch.slice(0,n).join('');
+  $('ai_caret').style.opacity=(t<38||Math.floor(t/6)%2==0)?1:0;
+  tapped=tapAt(f,T_TXT+44,'ai_btn')||tapped; press('ai_btn',f,T_TXT+44);
+ }
+ /* RESULT screen auto-scroll */
+ if(f>=T_RES-14){const t=f-T_RES;
+  ['rb0','rb1','rb2'].forEach((id,i)=>{const p=E.oc(seg(t,4+i*5,12+i*5)); $(id).style.opacity=0.15+0.85*p;});
+  const sc=E.io(seg(t,26,46)); $('res_in').style.transform=`translateY(${-sc*360}px)`;
+  const r0=E.oc(seg(t,30,40)); $('rc0').style.boxShadow=`0 0 0 ${r0*5}px rgba(220,50,50,${0.18*r0})`;
+ }
+ if(!tapped) $('tap').style.opacity=0;
+
+ /* floating cards */
+ FC.forEach(c=>{const el=$(c.id); if(f<c.a-1||f>c.b+1){el.style.display='none';return}
+  el.style.display='block'; const pin=seg(f,c.a,c.a+14), pout=seg(f,c.b-9,c.b);
+  el.style.opacity=E.oc(seg(f,c.a,c.a+6))*(1-E.ic(pout));
+  el.style.transform=`translateY(${(1-E.oc(pin))*60+E.ic(pout)*30}px) scale(${lerp(0.86,1,E.back(pin))})`;});
+ if($('liveDot')) $('liveDot').style.opacity=0.35+0.65*(0.5+0.5*Math.sin(f/3));
+ const lc=$('ltftChip'); const lt=f-(T_TRIP+30); lc.style.transform=`scale(${lt<10?lerp(0.7,1,E.back(seg(lt,2,14))):1+0.04*Math.sin(lt/3)})`;
+
+ /* analysis core */
+ const core=$('core'); const ca=seg(f,T_ANA+2,T_ANA+14), cz=E.ic(seg(f,T_RES-12,T_RES-2));
+ if(f>=T_ANA&&f<T_RES){core.style.display='block'; const pul=1+0.05*Math.sin((f-T_ANA)/2.6);
+  core.style.opacity=E.oc(seg(f,T_ANA+2,T_ANA+8))*(1-cz); core.style.transform=`scale(${(ca<=0?0.4:lerp(0.4,1,E.back(ca)))*pul*(1-0.4*cz)})`;
+  $('coreRing').setAttribute('transform',`rotate(${(f-T_ANA)*9} 200 200)`);
+  const absorb=[0,1,2].reduce((a,i)=>a+Math.exp(-Math.pow((f-(T_ANA+22+i*5))/3,2)),0);
+  $('coreGlow').setAttribute('opacity',0.35+0.5*absorb);
+ } else core.style.display='none';
+ const ac=$('anaCard'); if(f>=T_ANA+16&&f<T_RES){ac.style.display='block'; const p=seg(f,T_ANA+16,T_ANA+28);
+  ac.style.opacity=E.oc(seg(f,T_ANA+16,T_ANA+22))*(1-seg(f,T_RES-10,T_RES-2)); ac.style.transform=`translateY(${(1-E.oc(p))*50}px) scale(${lerp(0.9,1,E.back(p))})`;
+  [0,1,2].forEach(i=>$('ab'+i).style.width=(E.io(seg(f,T_ANA+20+i*4,T_RES-8))*100)+'%');} else ac.style.display='none';
+
+ /* links (lines from badges to core) */
+ let L=''; if(f>=T_ANA+10&&f<T_ANA+40){BD.forEach((b,i)=>{const p=seg(f,T_ANA+10+i*5,T_ANA+22+i*5); const q=1-seg(f,T_ANA+28+i*4,T_ANA+38);
+   const x0=b.dock[0]+75,y0=b.dock[1]+62,x1=540,y1=900; const xe=lerp(x0,x1,E.io(p)), ye=lerp(y0,y1,E.io(p));
+   L+=`<path d="M${x0} ${y0} L${xe} ${ye}" stroke="${b.col}" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 16" opacity="${0.8*q}"/><circle cx="${xe}" cy="${ye}" r="12" fill="${b.col}" opacity="${q*(p>0&&p<1?1:0)}"/>`;});}
+ /* recap convergence */
+ if(f>=T_RECAP+10&&f<T_END+4){const q=1-seg(f,T_END-10,T_END);BD.forEach((b,i)=>{const p=E.io(seg(f,T_RECAP+18+i*3,T_RECAP+34+i*3));
+   const x0=[270,540,810][i],y0=680+124,x1=540,y1=1140; L+=`<path d="M${x0} ${y0} L${lerp(x0,x1,p)} ${lerp(y0,y1,p)}" stroke="${b.col}" stroke-width="8" stroke-linecap="round" opacity="${0.75*q}"/>`;});}
+ $('links').innerHTML=L;
+
+ /* badges: appear from source, dock left; fly to core in analysis; row in recap */
+ BD.forEach((b,i)=>{const el=$(b.id); let x,y,s=1,o=1;
+  if(f<b.t){el.style.display='none';return}
+  const d=E.io(seg(f,b.t,b.t+16)); x=lerp(b.from[0]-75,b.dock[0],d); y=lerp(b.from[1]-62,b.dock[1],d); s=lerp(0.6,1,E.back(seg(f,b.t,b.t+16))); o=E.oc(seg(f,b.t,b.t+5));
+  if(f>=T_ANA+22+i*5){const a=E.ic(seg(f,T_ANA+22+i*5,T_ANA+32+i*5)); x=lerp(b.dock[0],540-75,a); y=lerp(b.dock[1],900-62,a); s=lerp(1,0.3,a); o=1-seg(f,T_ANA+28+i*5,T_ANA+33+i*5);}
+  if(f>=T_RECAP+6){const r=E.back(seg(f,T_RECAP+6+i*3,T_RECAP+20+i*3)); x=[270,540,810][i]-75; y=lerp(760,680,r); s=lerp(0.5,1.1,r); o=E.oc(seg(f,T_RECAP+6+i*3,T_RECAP+12+i*3))*(1-seg(f,T_END-10,T_END));}
+  el.style.display=o<=0.001?'none':'block'; el.style.opacity=o; el.style.left=x+'px'; el.style.top=y+'px'; el.style.transform=`scale(${s})`;});
+ /* recap answer card reuse fcR position? -> small answer pill */
+ if(!$('ansPill')){const d=document.createElement('div');d.id='ansPill';d.className='a rtl';d.style.cssText='left:0;top:1150px;width:1080px;text-align:center;opacity:0;z-index:24';
+  d.innerHTML=`<span class="pill" style="height:96px;padding:0 44px;font-size:48px;background:#fff;border:3px solid #DEE6F2;color:#10203C;box-shadow:0 20px 44px rgba(20,40,80,.16)">${svg('bot','#2196F3',54)}یه جواب روشن</span>`;$('main').appendChild(d);}
+ const ap=seg(f,T_RECAP+30,T_RECAP+44); $('ansPill').style.opacity=E.oc(seg(f,T_RECAP+30,T_RECAP+36))*(1-seg(f,T_END-10,T_END)); $('ansPill').style.transform=`scale(${ap<=0?0.6:lerp(0.6,1,E.back(ap))})`;
+
+ /* end card */
+ const pe=$('prodE'); if(f>=T_END){pe.style.display='block'; const pop=seg(f,T_END,T_END+22);
+  pe.style.opacity=E.oc(seg(f,T_END,T_END+8)); pe.style.left='190px'; pe.style.top=(720-253+Math.sin((f-840)/14)*5*seg(f,840,852))+'px';
+  pe.style.transform=`scale(${(pop<=0?0.001:lerp(0.5,0.86,E.back(pop)))*(1+0.03*Math.exp(-Math.pow((f-868)/3,2))+0.06*Math.exp(-Math.pow((f-885)/3,2)))}) rotate(${lerp(6,0,E.oc(pop))}deg)`;}
+ else pe.style.display='none';
+ $('bloom2').style.opacity=f>=T_END?0.5*seg(f,T_END,T_END+20):0;
+ const dr=E.io(seg(f,826,860)); ['pe','peG'].forEach(id=>{const p=$(id);const L2=p.getTotalLength();p.style.strokeDasharray=L2;p.style.strokeDashoffset=L2*(1-dr);p.setAttribute('opacity',f>=826?(id==='pe'?1:0.35+0.65*(Math.exp(-Math.pow((f-868)/5,2))*0.6+Math.exp(-Math.pow((f-885)/4,2)))):0)});
+ const bi=E.oc(seg(f,830,844)); $('brand').style.opacity=bi; $('brand').style.transform=`translateY(${(1-bi)*30}px)`;
+ const wb=E.oc(seg(f,838,850)); $('withBuy').style.opacity=wb;
+ const gp=seg(f,846,862); $('gold').style.opacity=E.oc(seg(f,846,852)); $('gold').style.transform=`translateX(-50%) scale(${gp<=0?0.6:lerp(0.6,1,E.back(gp))})`;
+ const ui=E.oc(seg(f,856,868)); $('url').style.opacity=ui;
+};
+})();
+const _renderIntro=render;
+render=function(f){
+ _renderIntro(Math.min(f,212));
+ const fade=1-seg(f,200,214);
+ document.getElementById('road').style.display=f>=148?'none':document.getElementById('road').style.display;
+ const dash=document.getElementById('dash'); if(f>=200){dash.style.opacity=fade; if(fade<=0) dash.style.display='none';}
+ document.getElementById('wipe').style.display='none'; document.getElementById('next').style.display='none';
+ renderMain(f);
+};
+</script>
