@@ -24,5 +24,5 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 - ecu_motion.html      ECU fault-finding motion: check-engine light -> plug diag -> splash, connect, Bluetooth scan,
                        connecting popup -> ECU scan finds P0420 -> clear all faults -> light off -> end card
 - endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health}) sets the phone's health %)
-- cover*.html          Instagram / YouTube covers; product_shot.html = white-background site image
+- cover*.html          Instagram / YouTube covers (cover_ecu.html = ECU post, render: python3 shot.py cover_ecu.html out.png); product_shot.html = white-background site image
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)
