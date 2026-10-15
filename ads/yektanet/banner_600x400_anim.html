@@ -41,21 +41,21 @@ html,body{width:600px;height:400px;overflow:hidden;background:#2793eb}
 #bt{left:0;top:0;overflow:visible}
 
 /* copy (static: always readable) */
-#chip{right:26px;top:56px;height:38px;padding:0 9px 0 15px;border-radius:19px;background:#fff;
-  display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px;color:#10203C;direction:rtl;
-  box-shadow:0 6px 14px rgba(20,40,80,.18);overflow:hidden}
-#chip i{position:relative;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFC446,#F28012);
+#chip{right:26px;top:50px;height:44px;padding:0 7px 0 18px;border-radius:22px;background:linear-gradient(180deg,#FFC446,#F28012);
+  display:flex;align-items:center;gap:9px;font-weight:900;font-size:21px;color:#10203C;direction:rtl;
+  box-shadow:0 6px 14px rgba(20,40,80,.25),inset 0 0 0 2px rgba(255,255,255,.55);overflow:hidden}
+#chip i{position:relative;width:32px;height:32px;border-radius:50%;background:#fff;
   display:flex;align-items:center;justify-content:center}
-#halo{position:absolute;inset:0;border-radius:50%;border:2px solid #F28012}
-#shine{position:absolute;top:0;width:40px;height:38px;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.75),rgba(255,255,255,0))}
-#title{right:26px;top:110px;white-space:nowrap;font-weight:900;font-size:35px;line-height:1.35;direction:rtl;text-shadow:0 2px 10px rgba(16,32,60,.18)}
+#halo{position:absolute;inset:0;border-radius:50%;border:2px solid #fff}
+#shine{position:absolute;top:0;width:44px;height:44px;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.75),rgba(255,255,255,0))}
+#title{right:26px;top:108px;white-space:nowrap;font-weight:900;font-size:35px;line-height:1.35;direction:rtl;text-shadow:0 2px 10px rgba(16,32,60,.18)}
 #title u{text-decoration:none;position:relative}
 #title u b{position:absolute;right:0;bottom:4px;height:5px;border-radius:3px;background:rgba(255,255,255,.45)}
-#sub{right:26px;top:226px;width:285px;font-weight:500;font-size:16px;line-height:1.7;color:#E6F3FF;direction:rtl}
-#brand{right:26px;top:318px;display:flex;align-items:center;gap:10px;direction:ltr}
-#brand .n{font:900 18px V;color:#fff}
-#brand .u{font:700 14px V;color:rgba(255,255,255,.82)}
-#brand .d{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.6)}
+#sub{right:26px;top:222px;width:285px;font-weight:500;font-size:16px;line-height:1.7;color:#E6F3FF;direction:rtl}
+#brand{right:26px;top:304px;height:48px;padding:0 22px;border-radius:24px;background:#1565C0;display:flex;align-items:center;gap:12px;direction:ltr;box-shadow:0 8px 18px rgba(20,40,80,.25)}
+#brand .n{font:900 23px V;color:#fff}
+#brand .u{font:900 21px V;color:#fff}
+#brand .d{width:6px;height:6px;border-radius:50%;background:#78CDFF}
 </style></head><body>
 <div id="c">
   <div class="a ring" style="left:-70px;top:10px;width:430px;height:430px"></div>
@@ -78,7 +78,7 @@ html,body{width:600px;height:400px;overflow:hidden;background:#2793eb}
     <div id="ok">✓ علت و راه‌حل آماده‌ست</div>
   </div>
 
-  <div id="chip" class="a h"><i><span id="halo"></span><svg width="17" height="13" viewBox="0 0 24 18" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M5 5h3V2h7v3h3l2 3h2v5h-2l-2 3H8L5 13H2V7h3z"/></svg></i>چراغ چک روشن شده؟<span id="shine"></span></div>
+  <div id="chip" class="a h"><i><span id="halo"></span><svg width="17" height="13" viewBox="0 0 24 18" fill="none" stroke="#F28012" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"><path d="M5 5h3V2h7v3h3l2 3h2v5h-2l-2 3H8L5 13H2V7h3z"/></svg></i>چراغ چک روشن شده؟<span id="shine"></span></div>
   <div id="title" class="a h">قبل از تعمیرگاه،<br>علتش رو <u>خودت ببین<b id="ul"></b></u></div>
   <div id="sub" class="a b">دیاگ بلوتوثی کاردیاگ رو وصل کن؛ کد خطا و راه‌حل رو فارسی، روی گوشیت ببین.</div>
   <div id="brand" class="a"><span class="n">CarDiag AI</span><span class="d"></span><span class="u">cardiag.ir</span></div>
