@@ -1,0 +1,38 @@
+/* Peyda اگر نصب باشد یا در fonts/ گذاشته شود اولویت دارد؛ در غیر این صورت Vazirmatn FD */
+@font-face{font-family:Peyda;font-weight:900;src:local("Peyda Black"),local("Peyda-Black"),url(../../fonts/Peyda-Black.ttf)}
+@font-face{font-family:V;font-weight:500;src:url(../../fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(../../fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(../../fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(../../fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#2793eb;overflow:hidden}
+#c{position:relative;overflow:hidden;color:#fff;background:#2793eb}
+.a{position:absolute}
+.h{font-family:Peyda,V,sans-serif}
+.ring{border:1.5px solid rgba(255,255,255,.11);border-radius:50%}
+
+/* phone mockup */
+#phone{background:#181C24;box-shadow:inset 0 0 0 1.5px #5F6878,0 10px 18px rgba(20,40,80,.35);transform:rotate(-6deg);transform-origin:50% 60%}
+#scr{overflow:hidden;background:#ECEDF1}
+#scr img{position:absolute;left:0}
+#isl{background:#181C24}
+#st{background:#F3F3F4;color:#22A050;text-align:right;direction:rtl;font-family:V;font-weight:800}
+
+/* error card / tag */
+#card{background:#fff;border:1px solid #DEE6F2;box-shadow:0 8px 16px rgba(20,40,80,.3);direction:rtl;transform-origin:50% 100%;text-align:center;white-space:nowrap}
+#card .code{display:inline-block;background:#FFECEC;color:#DC3232;font-family:'DejaVu Sans',Arial,sans-serif;font-weight:700;letter-spacing:.3px;direction:ltr}
+#card .t{font-family:V;font-weight:800;color:#10203C}
+#ok{display:flex;width:fit-content;margin-inline:auto;align-items:center;background:#DEF6E6;color:#22A050;font-family:V;font-weight:700;white-space:nowrap}
+
+/* check-engine pill */
+#chip{background:linear-gradient(180deg,#FFC446,#F28012);color:#10203C;display:flex;align-items:center;font-weight:900;direction:rtl;white-space:nowrap;
+  box-shadow:0 5px 12px rgba(20,40,80,.25),inset 0 0 0 1.5px rgba(255,255,255,.55);overflow:hidden}
+#chip i{position:relative;flex:none;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}
+#halo{position:absolute;inset:0;border-radius:50%;border:2px solid #fff}
+#shine{position:absolute;top:0;height:100%;width:40px;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.8),rgba(255,255,255,0))}
+
+#title{font-weight:900;direction:rtl;white-space:nowrap;text-shadow:0 2px 8px rgba(16,32,60,.2)}
+#title u{text-decoration:none;position:relative}
+#title u b{position:absolute;right:0;border-radius:3px;background:rgba(255,255,255,.5)}
+
+#brand{background:#1565C0;display:flex;align-items:center;justify-content:center;direction:ltr;color:#fff;font-family:V;font-weight:900;white-space:nowrap}
