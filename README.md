@@ -16,7 +16,10 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 
 ## SFX / mux
     python3 sfx2.py   (Series C)  |  python3 sfx_ai.py  (AI motion)  |  python3 sfx_ecu.py  (ECU motion; needs song/song_cut.wav for mix_ecu.wav)
-    python3 sfx_trip.py (trip analysis motion -> sfx_trip_full.wav, mix_trip.wav)
+    python3 sfx_trip.py (trip analysis motion, 41.25 s -> sfx_trip_full.wav, mix_trip.wav; needs song/song_trip.wav)
+    cd song && python3 extend.py 5 song_trip.wav   # song_cut + 5 repeated groove bars (recap/end card move 11.25 s later)
+    PAGE=trip_motion.html python3 render.py video silent.mp4 0 1238                # longer motions: pass the frame range
+    (audio.py length: CARDIAG_DUR env, default 30; end card start: initEnd(null,{t0}))
     python3 sfx_bat.py  (battery test motion -> sfx_bat_full.wav, mix_bat.wav; song ducked under the slow crank)
     ffmpeg -i silent.mp4 -i mix.wav -map 0:v -map 1:a -c:v copy -af loudnorm=I=-14:TP=-2 -c:a aac -b:a 192k out.mp4
 
@@ -30,7 +33,8 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
                        -> result: battery OK, alternator weak -> "test first, then buy" -> end card
 - trip_motion.html     Trip analysis: car on the road streaming sensor data -> plug diag -> very fast connect -> trip page,
                        ECU scan finds 13 PIDs -> start trip -> 20-min time-lapse, O2/MAP/load/RPM cards pulled out of the phone with live
-                       traces, long-term fuel trim climbs to +18% -> PDF-style report (health 78%, lean mixture) -> PDF pages fan -> end card
+                       traces, long-term fuel trim climbs to +18% -> full report document grows out of the phone and scrolls through
+                       every section of the app's PDF (health 78%, lean mixture, checklist, driving style, what to do) -> PDF fan -> end card (41 s)
 - endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health}) sets the phone's health %)
 - cover*.html          Instagram / YouTube covers (cover_ecu.html = ECU post, cover_bat.html = battery post, render: python3 shot.py cover_ecu.html out.png); product_shot.html = white-background site image
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)

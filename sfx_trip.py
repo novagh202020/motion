@@ -1,6 +1,7 @@
 """SFX + mixes for trip_motion.html (20-minute trip analysis). Writes sfx_trip_full.wav (no-music version),
 sfx_trip_light.wav (UI layer) and, if song/song_cut.wav exists, mix_trip.wav (song + UI layer)."""
 import numpy as np, os
+os.environ.setdefault("CARDIAG_DUR", "41.25")          # 5 extra groove bars (song/extend.py)
 from audio import N, SR, add, whoosh, tick, pop, chime, zap, shimmer, beep, thump, norm, softclip, write, lp_fast, hp_fast, rng
 F = lambda f: f / 30
 B = lambda k: 210 + 67.5 * k
@@ -10,8 +11,9 @@ T_CONN, T_SEARCH = BT(2.75), BT(3.5)
 T_DEV = [BT(4), BT(4.15), BT(4.3), BT(4.45), BT(4.6)]
 T_PICK = BT(5); T_BACK = T_PICK + 4
 T_STEP = [T_BACK + 6, BT(5.75), BT(6.25)]; T_OK = BT(6.75)
-T_TILE, T_SCAN, T_GO, T_FIN, T_REP = BT(7.75), BT(9), BT(12), BT(24), BT(26)
-T_RECAP, T_END = B(8), 817.5
+T_TILE, T_SCAN, T_GO, T_FIN, T_REP = BT(9), BT(13), BT(17), BT(29), BT(31)
+T_RECAP = B(13); T_END = T_RECAP + 67.5
+T_DOC0 = T_REP + 22; T_DOC = lambda i: T_DOC0 + i * (T_RECAP - 62 - T_DOC0) / 10
 T_PULL, T_BACKIN = T_GO + 26, T_FIN - 16
 
 
@@ -82,30 +84,33 @@ def build(full):
     for i in range(4): add(b, whoosh(0.3, 400, 4000, False), F(T_BACKIN + i * 3), 0.10)
     add(b, chime((1318.5, 1661.2, 1975.5), 0.06, 0.8), F(T_FIN + 2), 0.34); add(b, thump(0.4), F(T_FIN + 2), 0.3)
     for i in range(8): add(b, tick(3400, 0.03), F(T_FIN + 12 + i * 2.5), 0.06)
-    # --- report
-    add(b, whoosh(0.35, 500, 5000), F(T_REP), 0.18); add(b, shimmer(0.7), F(T_REP + 10), 0.25)
-    add(b, chime((1568, 2093), 0.05, 0.5), F(T_REP + 34), 0.2)
-    add(b, warn2(), F(T_REP + 54), 0.24)
-    add(b, pop(640, 0.13), F(T_REP + 40), 0.22)
+    # --- report document grows out of the phone and scrolls through every section
+    add(b, whoosh(0.5, 300, 5000), F(T_REP), 0.24); add(b, shimmer(0.8), F(T_DOC(0)), 0.28)
+    add(b, chime((1568, 2093), 0.05, 0.5), F(T_DOC(0) + 26), 0.2)
+    for k in range(1, 11): add(b, whoosh(0.28, 600, 5000), F(T_DOC(k) - 14), 0.07, 0.3 * (-1) ** k)
+    add(b, warn2(), F(T_DOC(3) + 10), 0.22)                     # fuel system: urgent
+    add(b, warn2(), F(T_DOC(7) + 10), 0.18)                     # fault list
+    for i in range(14): add(b, tick(3200 if i not in (2, 6) else 1600, 0.03), F(T_DOC(8) + i * 1.6), 0.08)
+    for i in range(3): add(b, pop(700 + 120 * i, 0.12), F(T_DOC(10) + 4 + i * 5), 0.22)
     # --- recap: PDF pages fan out
     add(b, whoosh(0.5, 300, 3500, False), F(T_RECAP - 4), 0.25)
     for i in range(5): add(b, whoosh(0.18, 800, 6000), F(T_RECAP + 8 + i * 3), 0.12, 0.4 * (i - 2) / 2); add(b, tick(2200, 0.03), F(T_RECAP + 10 + i * 3), 0.10)
     add(b, pop(900, 0.12), F(T_RECAP + 30), 0.25)
     # --- end card
-    add(b, shimmer(0.9), F(846), 0.40); add(b, pop(900, 0.12), F(848), 0.25)
+    add(b, shimmer(0.9), F(T_END + 28.5), 0.40); add(b, pop(900, 0.12), F(T_END + 30.5), 0.25)
     if full:
         add(b, thump(0.5), F(T_END), 0.7); add(b, beep(1046.5, 0.2), F(T_END), 0.18)
-        add(b, beep(1046.5, 0.18), F(868), 0.22); add(b, thump(0.4), F(868), 0.40)
-        add(b, beep(1046.5, 0.18), F(885), 0.30); add(b, thump(0.4), F(885), 0.60)
-        for n in range(16, 33, 4): add(b, thump(0.25), F(BT(n)), 0.18)
+        add(b, beep(1046.5, 0.18), F(T_END + 50.5), 0.22); add(b, thump(0.4), F(T_END + 50.5), 0.40)
+        add(b, beep(1046.5, 0.18), F(T_END + 67.5), 0.30); add(b, thump(0.4), F(T_END + 67.5), 0.60)
+        for n in range(16, int((T_RECAP - 210) / 16.875) + 1, 4): add(b, thump(0.25), F(BT(n)), 0.18)
     return b
 
 
 full, light = norm(softclip(norm(build(True), -1)), -1), norm(build(False), -1)
 write('sfx_trip_full.wav', full); write('sfx_trip_light.wav', light)
-if os.path.exists('song/song_cut.wav'):
+if os.path.exists('song/song_trip.wav'):
     import soundfile as sf
-    song, sr = sf.read('song/song_cut.wav'); song = song[:N]
+    song, sr = sf.read('song/song_trip.wav'); song = song[:N]
     if len(song) < N: song = np.vstack([song, np.zeros((N - len(song), 2))])
     write('mix_trip.wav', norm(softclip(norm(song, -1) + light * 0.55), -1))
 print('ok')

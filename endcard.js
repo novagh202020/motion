@@ -1,7 +1,7 @@
 /* Shared end card: diag + phone (home screen) joined by a live link, brand, offer, url.
-   Usage: initEnd(parent, {health, healthColor}); then call renderEnd(f) every frame (T0 = 817.5). */
+   Usage: initEnd(parent, {health, healthColor, t0}); then call renderEnd(f) every frame (T0 = 817.5). */
 (function(){
-const T0=817.5;
+let T0=817.5;                                   // end-card start frame (opts.t0 for longer motions)
 let H=92;                                         // health % shown on the phone (opts.health)
 const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
 const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
@@ -41,7 +41,7 @@ const L0=[DX+DW/2-22, DY-10], L1=[PX-6, PY+270];  // link endpoints
 const LINK=`M${L0[0]} ${L0[1]} L${L0[0]+34} ${L0[1]} L${L0[0]+48} ${L0[1]-26} L${L0[0]+64} ${L0[1]+30} L${L0[0]+80} ${L0[1]-34} L${L0[0]+94} ${L0[1]+8} L${L0[0]+104} ${L0[1]} Q${(L0[0]+L1[0])/2+40} ${L0[1]} ${L1[0]} ${L1[1]}`;
 
 window.initEnd=function(parent,opts){
- opts=opts||{}; if(opts.health) H=opts.health;
+ opts=opts||{}; if(opts.health) H=opts.health; if(opts.t0) T0=opts.t0;
  const d=document.createElement('div'); d.id='ec'; d.style.cssText='position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:46;pointer-events:none;display:none';
  d.innerHTML=`
  <div id="ecBloom" style="position:absolute;left:-35px;top:380px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.28) 0%,rgba(40,160,255,.10) 40%,rgba(40,160,255,0) 70%)"></div>

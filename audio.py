@@ -1,8 +1,8 @@
 """Synthesize SFX + music for the 30s CarDiag Series C motion. Writes sfx.wav, music_mix.wav."""
-import numpy as np, wave
+import numpy as np, wave, os
 
 SR = 48000
-DUR = 30.0
+DUR = float(os.environ.get("CARDIAG_DUR", 30.0))   # seconds; longer motions set CARDIAG_DUR
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 F = lambda fr: fr / 30.0                       # frame -> seconds
