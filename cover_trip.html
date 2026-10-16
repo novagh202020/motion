@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Trip Cover</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
+#c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+#title{left:0;top:345px;width:1080px;text-align:center;font-weight:900;font-size:96px;line-height:1.1;white-space:nowrap}
+#title b{color:#2196F3;font-weight:900}
+#sub{left:0;top:500px;width:1080px;text-align:center;font-weight:500;font-size:44px;color:#6E7D96}
+.chip{position:absolute;direction:rtl;background:#fff;border:3px solid #DEE6F2;border-radius:30px;box-shadow:0 16px 36px rgba(20,40,80,.14);padding:14px 24px}
+.chip .l{font-weight:700;font-size:28px;color:#6E7D96;white-space:nowrap}
+.chip .v{font-weight:900;font-size:44px;line-height:1.15;direction:ltr;unicode-bidi:isolate;text-align:right;white-space:nowrap}
+#brand{left:0;top:1498px;width:1080px;text-align:center;font-weight:900;font-size:62px;color:#1565C0}
+#url{left:0;top:1572px;width:1080px;text-align:center;font-weight:700;font-size:36px;color:#506482}
+</style></head><body>
+<div id="c"><div id="g" style="position:absolute;inset:0;transform-origin:540px 990px;transform:translateY(-22px) scale(.86)">
+
+ <div id="title" class="a rtl">ماشینت <b>تو راه</b> چی می‌گه؟</div>
+ <div id="sub" class="a rtl">۲۰ دقیقه رانندگی، یه چکاپ کامل</div>
+
+ <svg class="a" style="left:0;top:0;overflow:visible" width="1080" height="1920">
+  <defs>
+   <filter id="sh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="20" stdDeviation="20" flood-color="#142850" flood-opacity=".18"/></filter>
+   <radialGradient id="gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#28A0FF" stop-opacity=".22"/><stop offset="1" stop-color="#28A0FF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- winding route -->
+  <path d="M110 1400 C 260 1400, 250 1210, 420 1200 S 640 1300, 700 1130 S 640 900, 820 860 S 1000 760, 980 640" fill="none" stroke="#DCE4EF" stroke-width="58" stroke-linecap="round"/>
+  <path d="M110 1400 C 260 1400, 250 1210, 420 1200 S 640 1300, 700 1130 S 640 900, 820 860 S 1000 760, 980 640" fill="none" stroke="#2196F3" stroke-width="12" stroke-linecap="round" stroke-dasharray="1 0"/>
+  <path d="M110 1400 C 260 1400, 250 1210, 420 1200 S 640 1300, 700 1130 S 640 900, 820 860 S 1000 760, 980 640" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="18 22" opacity=".9"/>
+  <!-- start / finish -->
+  <circle cx="104" cy="1402" r="22" fill="#fff" stroke="#2196F3" stroke-width="9"/>
+  <g transform="translate(980 640)"><circle r="44" fill="#22A050" filter="url(#sh)"/><path d="M-16 1 L-4 13 L18 -11" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <!-- sensor pins on the route -->
+  <g fill="#2196F3" stroke="#fff" stroke-width="6"><circle cx="420" cy="1200" r="16"/><circle cx="700" cy="1130" r="16"/><circle cx="820" cy="860" r="16"/></g>
+  <!-- car marker -->
+  <g transform="translate(196 1384) rotate(-12) scale(-1 1)" filter="url(#sh)">
+   <rect x="-46" y="-26" width="92" height="52" rx="18" fill="#2196F3"/><rect x="-18" y="-20" width="34" height="40" rx="8" fill="#ADD6FA"/>
+   <rect x="-46" y="-26" width="16" height="10" rx="4" fill="#FFEA9C"/><rect x="-46" y="16" width="16" height="10" rx="4" fill="#FFEA9C"/>
+  </g>
+  <!-- 20-minute timer -->
+  <g transform="translate(330 860)">
+   <circle r="250" fill="url(#gl)"/>
+   <circle r="170" fill="#fff" filter="url(#sh)"/>
+   <circle r="146" fill="none" stroke="#E6EBF2" stroke-width="22"/>
+   <circle r="146" fill="none" stroke="#2196F3" stroke-width="22" stroke-linecap="round" transform="rotate(-90)" stroke-dasharray="917.3" stroke-dashoffset="0"/>
+   <text y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="92" fill="#10203C" direction="ltr" style="direction:ltr">۲۰:۰۰</text>
+   <text y="80" text-anchor="middle" font-family="V" font-weight="700" font-size="32" fill="#6E7D96">دقیقه رانندگی</text>
+  </g>
+ </svg>
+
+ <!-- live sensor chips -->
+ <div class="chip" style="left:620px;top:930px"><div class="l">سنسور اکسیژن</div><div class="v">۰٫۳۲ V</div></div>
+ <div class="chip" style="left:660px;top:1170px"><div class="l">فشار منیفولد</div><div class="v">۴۸ kPa</div></div>
+ <div class="chip" style="left:410px;top:1225px"><div class="l">بار موتور</div><div class="v">۴۱٪</div></div>
+ <div class="chip" style="left:690px;top:690px"><div class="l">تریم سوخت</div><div class="v" style="color:#F28012">+۱۸٪</div></div>
+
+ <!-- report stack -->
+ <div class="a" style="left:66px;top:1062px;width:300px;height:250px">
+  <div class="a" style="left:28px;top:-22px;width:280px;height:250px;background:#fff;border:3px solid #DEE6F2;border-radius:26px;transform:rotate(8deg);box-shadow:0 14px 30px rgba(20,40,80,.12)"></div>
+  <div class="a rtl" style="left:0;top:0;width:290px;background:#fff;border:3px solid #DEE6F2;border-radius:26px;box-shadow:0 20px 44px rgba(20,40,80,.18);padding:18px 20px;transform:rotate(-4deg)">
+   <div style="display:flex;align-items:center;gap:14px;background:#2196F3;border-radius:16px;padding:12px 14px;color:#fff">
+    <div style="flex:1;font-weight:900;font-size:24px;line-height:1.25">گزارش جامع<br>سفر</div>
+    <div style="width:70px;height:70px;border-radius:50%;border:8px solid #fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px">۷۸٪</div></div>
+   <div style="height:16px;border-radius:8px;background:#E6EBF2;margin-top:16px;direction:ltr"><div style="height:16px;width:96%;border-radius:8px;background:#22A050"></div></div>
+   <div style="height:16px;border-radius:8px;background:#E6EBF2;margin-top:10px;direction:ltr"><div style="height:16px;width:54%;border-radius:8px;background:#F28012"></div></div>
+   <div style="margin-top:12px;font-weight:800;font-size:22px;color:#6E7D96">۱۴ سیستم • <span class="ltr">PDF</span></div>
+  </div>
+ </div>
+
+ <div id="brand" class="a ltr">CarDiag AI</div>
+ <div id="url" class="a ltr">cardiag.ir</div>
+</div></div>
+</body></html>
