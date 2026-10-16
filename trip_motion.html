@@ -61,14 +61,14 @@ body{font-family:V,sans-serif;color:#10203C}
 .pc .pl{font-weight:600;font-size:16px;color:#33415C;margin-top:4px;white-space:nowrap}
 .pc .pv{font-weight:900;font-size:26px;color:#10203C;margin-top:12px;text-align:right;direction:ltr;unicode-bidi:isolate;white-space:nowrap}
 /* pulled-out big cards + side cards */
-.bc{position:absolute;background:#fff;border:3px solid var(--hair);border-radius:36px;box-shadow:0 26px 54px rgba(20,40,80,.18),0 6px 14px rgba(20,40,80,.08);direction:rtl;padding:22px 28px;transform-origin:0 0;display:none;z-index:22}
+.bc{position:absolute;background:#fff;border:3px solid var(--hair);border-radius:32px;box-shadow:0 26px 54px rgba(20,40,80,.18),0 6px 14px rgba(20,40,80,.08);direction:rtl;padding:16px 28px;transform-origin:0 0;display:none;z-index:22}
 .bc .hd{display:flex;align-items:center;justify-content:space-between}
-.bc .lb{font-weight:800;font-size:36px;color:#10203C;white-space:nowrap}
+.bc .lb{font-weight:800;font-size:32px;color:#10203C;white-space:nowrap}
 .bc .cd{font-weight:800;font-size:24px;color:#2196F3;background:#E3EFFC;border-radius:12px;padding:2px 12px;direction:ltr}
-.bc .vl{font-weight:900;font-size:58px;line-height:1.15;margin-top:4px;direction:ltr;unicode-bidi:isolate;text-align:right;white-space:nowrap}
-.sc{position:absolute;width:290px;background:#fff;border:3px solid var(--hair);border-radius:32px;box-shadow:0 20px 44px rgba(20,40,80,.16);direction:rtl;padding:20px 24px;display:none;z-index:22}
-.sc .lb{font-weight:700;font-size:30px;color:#6E7D96;white-space:nowrap}
-.sc .vl{font-weight:900;font-size:62px;line-height:1.15;color:#10203C;direction:ltr;unicode-bidi:isolate;text-align:right;white-space:nowrap}
+.bc .vl{font-weight:900;font-size:48px;line-height:1.15;margin-top:0;direction:ltr;unicode-bidi:isolate;text-align:right;white-space:nowrap}
+.sc{position:absolute;width:290px;background:#fff;border:3px solid var(--hair);border-radius:32px;box-shadow:0 20px 44px rgba(20,40,80,.16);direction:rtl;padding:16px 24px;display:none;z-index:22}
+.sc .lb{font-weight:700;font-size:28px;color:#6E7D96;white-space:nowrap}
+.sc .vl{font-weight:900;font-size:54px;line-height:1.15;color:#10203C;direction:ltr;unicode-bidi:isolate;text-align:right;white-space:nowrap}
 /* full report document */
 #doc{position:absolute;left:60px;top:290px;width:960px;height:1580px;border-radius:40px;background:#fff;border:3px solid #DEE6F2;box-shadow:0 40px 80px rgba(20,40,80,.22);overflow:hidden;transform-origin:0 0;display:none;z-index:24;direction:rtl}
 #doc_in{position:relative;padding:30px 34px}
@@ -374,21 +374,25 @@ $('screen').innerHTML=S.splash+S.home+S.conn+S.trip;
 const SCR=['sc_splash','sc_home','sc_conn','sc_trip'];
 
 /* ---------- pulled-out cards (stage coords) ---------- */
-const BIG=[{k:'o21',lb:'سنسور اکسیژن ۱',cd:'14',x:556,y:1160,lo:0,hi:1,u:v=>f2(v)+' V'},
- {k:'map',lb:'فشار منیفولد',cd:'0B',x:60,y:1160,lo:20,hi:100,u:v=>f0(v)+' kPa'},
- {k:'load',lb:'بار موتور',cd:'04',x:556,y:1460,lo:0,hi:100,u:v=>f0(v)+'٪'},
- {k:'rpm',lb:'دور موتور',cd:'0C',x:60,y:1460,lo:600,hi:3200,u:v=>f0(v)+' rpm'}];
-const BW=464, BH=280;
+const BIG=[{k:'o21',lb:'سنسور اکسیژن ۱',cd:'14',x:556,y:1150,lo:0,hi:1,u:v=>f2(v)+' V'},
+ {k:'o22',lb:'سنسور اکسیژن ۲',cd:'15',x:60,y:1150,lo:0,hi:1,u:v=>f2(v)+' V'},
+ {k:'map',lb:'فشار منیفولد',cd:'0B',x:556,y:1370,lo:20,hi:100,u:v=>f0(v)+' kPa'},
+ {k:'load',lb:'بار موتور',cd:'04',x:60,y:1370,lo:0,hi:100,u:v=>f0(v)+'٪'},
+ {k:'rpm',lb:'دور موتور',cd:'0C',x:556,y:1590,lo:600,hi:3200,u:v=>f0(v)+' rpm'},
+ {k:'thr',lb:'دریچه گاز',cd:'11',x:60,y:1590,lo:0,hi:90,u:v=>f0(v)+'٪'}];
+const BW=464, BH=205, GW=408, GH=62;
 $('pull').innerHTML=BIG.map((b,i)=>`<div class="bc" id="bc${i}" style="left:${b.x}px;top:${b.y}px;width:${BW}px;height:${BH}px">
  <div class="hd"><span class="lb">${b.lb}</span><span class="cd">${fa(b.cd)}</span></div>
  <div style="display:flex;align-items:center;justify-content:space-between"><div class="vl" id="bv${i}"></div><div id="bt${i}"></div></div>
- <svg id="bg${i}" width="408" height="92" style="display:block;margin-top:6px"></svg></div>`).join('')+
- `<div class="sc" id="sc0" style="left:40px;top:400px"><div class="lb">زمان سفر</div><div class="vl" id="sv0" style="color:#2196F3">۰۰:۰۰</div>
+ <svg id="bg${i}" width="${GW}" height="${GH}" style="display:block;margin-top:4px"></svg></div>`).join('')+
+ `<div class="sc" id="sc0" style="left:40px;top:390px"><div class="lb">زمان سفر</div><div class="vl" id="sv0" style="color:#2196F3">۰۰:۰۰</div>
    <div style="height:12px;border-radius:6px;background:#E6EBF2;overflow:hidden;margin-top:8px;direction:ltr"><div id="sp0" style="height:12px;width:0;background:#2196F3;border-radius:6px"></div></div>
-   <div style="font-weight:600;font-size:24px;color:#98A3B8;margin-top:8px">هدف: ۲۰ دقیقه</div></div>
-  <div class="sc" id="sc1" style="left:750px;top:400px"><div class="lb">تریم سوخت بلندمدت</div><div class="vl" id="sv1"></div><div id="st1" style="height:56px;margin-top:6px"></div></div>
-  <div class="sc" id="sc2" style="left:40px;top:720px"><div class="lb">مسافت</div><div class="vl" id="sv2"></div></div>
-  <div class="sc" id="sc3" style="left:750px;top:720px"><div class="lb">دمای آب موتور</div><div class="vl" id="sv3"></div></div>`;
+   <div style="display:flex;justify-content:space-between;font-weight:700;font-size:24px;color:#98A3B8;margin-top:8px"><span>مسافت</span><span id="sv6" class="ltr" style="color:#10203C"></span></div></div>
+  <div class="sc" id="sc1" style="left:750px;top:390px"><div class="lb">تریم سوخت بلندمدت</div><div class="vl" id="sv1"></div><div id="st1" style="height:52px;margin-top:4px"></div></div>
+  <div class="sc" id="sc2" style="left:40px;top:640px"><div class="lb">دمای آب موتور</div><div class="vl" id="sv2"></div></div>
+  <div class="sc" id="sc3" style="left:750px;top:640px"><div class="lb">تریم کوتاه‌مدت</div><div class="vl" id="sv3"></div></div>
+  <div class="sc" id="sc4" style="left:40px;top:850px"><div class="lb">دمای هوای ورودی</div><div class="vl" id="sv4"></div></div>
+  <div class="sc" id="sc5" style="left:750px;top:850px"><div class="lb">آوانس جرقه</div><div class="vl" id="sv5"></div></div>`;
 
 /* ---------- pdf fan ---------- */
 const PG=i=>i==0?`<div style="height:84px;border-radius:12px;background:#2196F3;display:flex;align-items:center;justify-content:space-between;padding:0 16px">
@@ -658,8 +662,8 @@ function phone(f){
 }
 
 /* trace of the last n frames for a key */
-function trace(k,f,lo,hi,w=408,h=92,n=96){let d='';for(let j=0;j<=n;j++){const t=f-n+j; const v=V(Math.max(t,T_GO))[k];
- d+=(j?'L':'M')+(j*w/n).toFixed(1)+' '+(h-6-(cl((v-lo)/(hi-lo)))*(h-12)).toFixed(1);} return d;}
+function trace(k,f,lo,hi,w=GW,h=GH,n=96){let d='';for(let j=0;j<=n;j++){const t=f-n+j; const v=V(Math.max(t,T_GO))[k];
+ d+=(j?'L':'M')+(j*w/n).toFixed(1)+' '+(h-5-(cl((v-lo)/(hi-lo)))*(h-10)).toFixed(1);} return d;}
 function pull(f){
  const on=f>=T_PULL-1&&f<T_FIN+14;
  BIG.forEach((b,i)=>{const el=$('bc'+i); if(!on){el.style.display='none';return}
@@ -670,17 +674,18 @@ function pull(f){
   const x=lerp(r.left,b.x,p), y=lerp(r.top,b.y,p), sx=lerp(r.width/BW,1,p), sy=lerp(r.height/BH,1,p);
   el.style.transform=`translate(${x-b.x}px,${y-b.y}px) scale(${sx},${sy})`; el.style.opacity=cl(p*3);
   const v=V(f); $('bv'+i).textContent=b.u(v[b.k]);
-  const lean=b.k=='o21'&&v.L>0.45; $('bt'+i).innerHTML=lean?`<span class="pill" style="height:50px;font-size:28px;padding:0 20px;background:${AMB};color:#fff;transform:scale(${lerp(0.7,1,E.back(cl((v.L-0.45)*6)))})">رقیق</span>`:'';
-  const mid=b.k=='o21'?`<line x1="0" x2="408" y1="${92-6-0.45*80}" y2="${92-6-0.45*80}" stroke="#98A3B8" stroke-width="2" stroke-dasharray="8 8"/>`:'';
-  $('bg'+i).innerHTML=`<rect width="408" height="92" rx="14" fill="#F4F8FD"/>${mid}<path d="${trace(b.k,f,b.lo,b.hi)}" fill="none" stroke="#2196F3" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const lean=b.k=='o21'&&v.L>0.45; $('bt'+i).innerHTML=lean?`<span class="pill" style="height:44px;font-size:26px;padding:0 20px;background:${AMB};color:#fff;transform:scale(${lerp(0.7,1,E.back(cl((v.L-0.45)*6)))})">رقیق</span>`:'';
+  const ym=GH-5-0.45*(GH-10), mid=b.k[0]=='o'?`<line x1="0" x2="${GW}" y1="${ym}" y2="${ym}" stroke="#98A3B8" stroke-width="2" stroke-dasharray="8 8"/>`:'';
+  $('bg'+i).innerHTML=`<rect width="${GW}" height="${GH}" rx="12" fill="#F4F8FD"/>${mid}<path d="${trace(b.k,f,b.lo,b.hi)}" fill="none" stroke="#2196F3" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>`;
  });
  // side cards
  const so=on?E.oc(seg(f,T_PULL+10,T_PULL+20))*(1-seg(f,T_BACKIN,T_BACKIN+8)):0; const v=V(f);
- [0,1,2,3].forEach(i=>{const el=$('sc'+i); vis(el,so); el.style.transform=`translateY(${(1-E.oc(seg(f,T_PULL+10+i*3,T_PULL+22+i*3)))*30}px)`;});
+ [0,1,2,3,4,5].forEach(i=>{const el=$('sc'+i); vis(el,so); el.style.transform=`translateY(${(1-E.oc(seg(f,T_PULL+10+i*3,T_PULL+22+i*3)))*30}px)`;});
  if(so>0){$('sv0').textContent=mmss(v.s); $('sp0').style.width=(v.s/TRIP*100)+'%';
   $('sv1').textContent=sg(v.ltft)+'٪'; $('sv1').style.color=v.ltft>10?AMB:'#10203C';
-  $('st1').innerHTML=v.ltft>12?`<span class="pill" style="height:52px;font-size:28px;padding:0 20px;background:${AMB};color:#fff">مخلوط رقیق</span>`:'';
-  $('sv2').textContent=f1(v.km)+' km'; $('sv3').textContent=f0(v.ect)+' °C';}
+  $('st1').innerHTML=v.ltft>12?`<span class="pill" style="height:48px;font-size:26px;padding:0 20px;background:${AMB};color:#fff">مخلوط رقیق</span>`:'';
+  $('sv6').textContent=f1(v.km)+' km'; $('sv2').textContent=f0(v.ect)+' °C'; $('sv3').textContent=sg(v.stft)+'٪';
+  $('sv4').textContent=f0(v.iat)+' °C'; $('sv5').textContent=f1(v.adv)+'°';}
 }
 function fan(f){
  const w=$('fanW'); const o=E.oc(seg(f,T_RECAP+6,T_RECAP+16))*(1-E.ic(seg(f,T_END-8,T_END+2)));

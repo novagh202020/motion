@@ -79,9 +79,9 @@ def build(full):
     while t < T_FIN - 2:
         add(b, tick(4200, 0.025), F(t), (1.8 if full else 1) * (0.06 + 0.05 * (t - T_GO) / (T_FIN - T_GO))); t += gap; gap = max(1.6, gap * 0.93)
     add(b, riser((T_FIN - T_GO - 8) / 30), F(T_GO + 8), 0.45 if full else 0.22)
-    for i in range(4): add(b, whoosh(0.35, 400, 5000), F(T_PULL + i * 4), 0.14, 0.5 * (-1) ** i)
+    for i in range(6): add(b, whoosh(0.35, 400, 5000), F(T_PULL + i * 4), 0.12, 0.5 * (-1) ** i)
     add(b, pop(820, 0.1), F(T_PULL + 12), 0.15)
-    for i in range(4): add(b, whoosh(0.3, 400, 4000, False), F(T_BACKIN + i * 3), 0.10)
+    for i in range(6): add(b, whoosh(0.3, 400, 4000, False), F(T_BACKIN + i * 3), 0.09)
     add(b, chime((1318.5, 1661.2, 1975.5), 0.06, 0.8), F(T_FIN + 2), 0.34); add(b, thump(0.4), F(T_FIN + 2), 0.3)
     for i in range(8): add(b, tick(3400, 0.03), F(T_FIN + 12 + i * 2.5), 0.06)
     # --- report document grows out of the phone and scrolls through every section
