@@ -11,7 +11,8 @@ T_CONN, T_SEARCH = BT(2.75), BT(3.5)
 T_DEV = [BT(4), BT(4.15), BT(4.3), BT(4.45), BT(4.6)]
 T_PICK = BT(5); T_BACK = T_PICK + 4
 T_STEP = [T_BACK + 6, BT(5.75), BT(6.25)]; T_OK = BT(6.75)
-T_ECU, T_TRIP, T_AI, T_BUY, T_REP = BT(7.75), BT(9.5), BT(12), BT(15), BT(18)
+T_ECU, T_TRIP, T_AI, T_BUY, T_REP = BT(7.5), BT(10.75), BT(14.25), BT(17.25), BT(20.25)
+T_ESCAN, T_EB, T_TB = T_ECU + 10, BT(10), BT(13.5)
 T_RECAP = B(11); T_END = T_RECAP + 67.5
 T_DOC0 = T_REP + 22; T_DOC = lambda i: T_DOC0 + i * (T_RECAP - 62 - T_DOC0) / 6
 
@@ -45,14 +46,17 @@ def build(full):
     for t in T_STEP[1:]: add(b, tick(3000, 0.04), F(t), 0.16)
     add(b, chime((1318.5, 1661.2, 1975.5), 0.06, 0.8), F(T_OK), 0.32)
     # --- montage: ECU scan (0 faults), 20-minute trip (68%)
-    tap(b, T_ECU); add(b, pop(760, 0.1), F(T_ECU + 4), 0.2)
-    for i in range(8): add(b, tick(3600, 0.03), F(T_ECU + 9 + i * 3), 0.07)
-    add(b, chime((1568, 2093), 0.05, 0.5), F(T_ECU + 32), 0.22)
-    tap(b, T_TRIP); add(b, pop(820, 0.1), F(T_TRIP + 6), 0.2)
+    tap(b, T_ECU); add(b, whoosh(0.3, 500, 5000), F(T_ECU + 3), 0.16)
+    tap(b, T_ESCAN)
+    for i in range(5): add(b, tick(3600, 0.03), F(T_ESCAN + 3 + i * 2.6), 0.07)
+    add(b, chime((1568, 2093), 0.05, 0.5), F(T_ESCAN + 14), 0.22)
+    add(b, whoosh(0.3, 500, 5000, False), F(T_EB), 0.14)
+    tap(b, T_TRIP); add(b, whoosh(0.3, 500, 5000), F(T_TRIP + 3), 0.16); add(b, pop(820, 0.1), F(T_TRIP + 6), 0.18)
     t, gap = T_TRIP + 10, 4.0
     while t < T_TRIP + 40: add(b, tick(4200, 0.025), F(t), 0.08); t += gap; gap = max(1.4, gap * 0.85)
     add(b, pop(640, 0.13), F(T_TRIP + 42), 0.22)
     # --- AI troubleshooter, gold badge, "I want to buy this car", typing
+    add(b, whoosh(0.3, 500, 5000, False), F(T_TB), 0.14)
     tap(b, T_AI); add(b, whoosh(0.35, 500, 5000), F(T_AI + 3), 0.18)
     add(b, shimmer(0.6), F(T_AI + 22), 0.3); add(b, chime((1975.5, 2637), 0.05, 0.6), F(T_AI + 24), 0.18)   # gold
     tap(b, T_BUY); add(b, whoosh(0.35, 500, 5000), F(T_BUY + 3), 0.18)

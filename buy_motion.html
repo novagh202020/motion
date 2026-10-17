@@ -171,11 +171,13 @@ const T_PICK=BT(5);
 const T_BACK=T_PICK+4;
 const T_STEP=[T_BACK+6,BT(5.75),BT(6.25)];
 const T_OK=BT(6.75);
-const T_ECU=BT(7.75);                   // tap "خطایابی ECU" -> montage card: scan, 0 faults
-const T_TRIP=BT(9.5);                   // tap "سفر" -> montage card: 20-min trip, health 68%
-const T_AI=BT(12);                      // tap "عیب‌یاب هوش مصنوعی"
-const T_BUY=BT(15);                     // tap "می‌خواهم این ماشین را بخرم" (gold subscription)
-const T_REP=BT(18);                     // the AI answer grows out of the phone
+const T_ECU=BT(7.5);                    // tap "خطایابی ECU" -> ECU page: scan, 0 faults (≈1.4 s)
+const T_ESCAN=T_ECU+10, T_EB=BT(10);    //   tap "اسکن ECU", back to home
+const T_TRIP=BT(10.75);                 // tap "سفر" -> trip page: 20-min time-lapse, health 68% (≈1.6 s)
+const T_TB=BT(13.5);                    //   back to home
+const T_AI=BT(14.25);                   // tap "عیب‌یاب هوش مصنوعی"
+const T_BUY=BT(17.25);                  // tap "می‌خواهم این ماشین را بخرم" (gold subscription)
+const T_REP=BT(20.25);                  // the AI answer grows out of the phone
 const T_RECAP=B(11), T_END=T_RECAP+67.5;// song: 3 extra groove bars (song/extend.py 3)
 const NF=Math.ceil(T_END+82.5);         // 1103 frames ≈ 36.8 s
 const T_DOC0=T_REP+22, N_DOC=7, T_DOC=i=>T_DOC0+i*(T_RECAP-62-T_DOC0)/(N_DOC-1);
@@ -344,8 +346,35 @@ S.chat=`<div class="scr" id="sc_chat"><div class="appbar">${ST_W}<div class="aba
   <div style="flex:1;height:70px;border:2px solid #DEE6F2;border-radius:35px;background:#fff;display:flex;align-items:center;padding:0 24px;font-weight:500;font-size:19px;color:#98A3B8">سوال خود را بنویسید...</div>
   <div style="width:70px;height:70px;border-radius:50%;background:#2196F3;display:flex;align-items:center;justify-content:center">${svg('send','#fff',34)}</div></div>
 </div>`;
-$('screen').innerHTML=S.splash+S.home+S.conn+S.ai+S.chat;
-const SCR=['sc_splash','sc_home','sc_conn','sc_ai','sc_chat'];
+Object.assign(IC,{stop:'M6 6h12v12H6z'});
+S.ecu=`<div class="scr" id="sc_ecu">${bar('خطایابی <span class="ltr">ECU</span>',svg('play','#fff',24)+'<span>آموزش</span>')}
+ <div class="tabs"><div class="on">اسکن جدید</div><div>تاریخچه</div></div>
+ <div class="btn" id="e_scan" style="margin:18px 18px 0;position:relative;overflow:hidden">${svg('search','#fff',28)}<span>اسکن <span class="ltr">ECU</span></span>
+  <div id="e_prog" style="position:absolute;left:0;bottom:0;height:6px;width:0;background:#78CDFF"></div></div>
+ <div class="card" style="padding:18px 20px 16px"><div style="font-weight:500;font-size:17px;color:#6E7D96">تاریخ اسکن: ۱۴۰۵/۰۷/۲۲ — ۱۴:۴۶</div>
+  <div style="display:flex;margin-top:12px;text-align:center">
+   <div style="flex:1"><div style="font-weight:900;font-size:44px;color:#98A3B8;line-height:1.25">۰</div><div style="font-weight:700;font-size:19px">خطاهای ذخیره شده</div></div>
+   <div style="flex:1"><div style="font-weight:900;font-size:44px;color:#98A3B8;line-height:1.25">۰</div><div style="font-weight:700;font-size:19px">خطاهای در انتظار</div></div></div></div>
+ <div id="e_ok" class="card" style="margin:4px 18px 0;padding:34px 22px 30px;text-align:center;opacity:0">
+  <div style="width:96px;height:96px;margin:0 auto;border-radius:50%;background:#DEF6E6;display:flex;align-items:center;justify-content:center">${svg('checkc','#22A050',70)}</div>
+  <div style="margin-top:18px;font-weight:900;font-size:30px;color:#22A050">خطایی پیدا نشد</div>
+  <div style="margin-top:8px;font-weight:500;font-size:19px;color:#6E7D96">خطای فعالی در <span class="ltr">ECU</span> ثبت نشده</div></div>
+ ${NAV}</div>`;
+const TPID=[['04','بار موتور',f=>f0(40+25*Math.sin(f/3))+'٪'],['05','دمای آب موتور',f=>f0(30+59*seg(f,T_TRIP+10,T_TRIP+34))+' °C'],['06','تریم کوتاه‌مدت',f=>'+'+f0(7+2*Math.sin(f/2))+'٪'],
+ ['07','تریم بلندمدت',f=>'+'+f0(4+14*seg(f,T_TRIP+10,T_TRIP+40))+'٪'],['0B','فشار منیفولد',f=>f0(48+30*Math.sin(f/2.6))+' kPa'],['0C','دور موتور',f=>f0(1800+700*Math.sin(f/2.2))+' rpm'],
+ ['0D','سرعت خودرو',f=>f0(45+28*Math.sin(f/4))+' km/h'],['14','سنسور اکسیژن ۱',f=>fa((0.45+0.4*Math.sin(f*1.3)).toFixed(2)).replace('.','٫')+' V'],['11','دریچه گاز',f=>f0(20+15*Math.sin(f/2.4))+'٪']];
+S.trip=`<div class="scr" id="sc_trip">${bar('سفر',svg('play','#fff',24)+'<span>آموزش</span>')}
+ <div class="tabs"><div class="on">سفر جدید</div><div>تاریخچه</div></div>
+ <div style="padding:14px 16px 0">
+  <div class="btn o" style="height:56px;border-radius:28px;color:#98A3B8">${svg('search','#98A3B8',26)}اسکن مجدد</div>
+  <div class="btn" style="margin-top:12px;height:56px;border-radius:28px;background:#D32F2F">${svg('stop','#fff',26)}توقف سفر</div>
+  <div style="height:54px;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:900;font-size:30px;color:#2196F3"><span id="t_time" class="ltr">۰۰:۰۰</span></div></div>
+ <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 16px">
+  ${TPID.map((p,i)=>`<div style="background:#fff;border:2px solid var(--hair);border-radius:16px;height:128px;padding:10px 14px"><div style="font-weight:800;font-size:15px;color:#2196F3;direction:ltr;text-align:right">${fa(p[0])}</div>
+   <div style="font-weight:600;font-size:16px;color:#33415C;margin-top:4px;white-space:nowrap">${p[1]}</div><div id="tp${i}" style="font-weight:900;font-size:26px;margin-top:12px;text-align:right;direction:ltr;unicode-bidi:isolate;white-space:nowrap"></div></div>`).join('')}</div>
+ ${NAV}</div>`;
+$('screen').innerHTML=S.splash+S.home+S.conn+S.ecu+S.trip+S.ai+S.chat;
+const SCR=['sc_splash','sc_home','sc_conn','sc_ecu','sc_trip','sc_ai','sc_chat'];
 
 /* ---------- the AI's answer, readable size (same sections as the app) ---------- */
 const TL='<svg width="44" height="44" viewBox="0 0 24 24"><rect x="7" y="1" width="10" height="22" rx="3" fill="#10203C"/><circle cx="12" cy="6" r="2.4" fill="#DC3232"/><circle cx="12" cy="12" r="2.4" fill="#FFC446"/><circle cx="12" cy="18" r="2.4" fill="#22A050"/></svg>';
@@ -450,7 +479,11 @@ function screens(f){
  else if(f<T_HOME+10) x={sc_splash:0,sc_home:0};
  else if(f<T_CONN+3) x={sc_home:0};
  else if(f<T_BACK) x=slide(f,T_CONN+3,'sc_home','sc_conn',1);
- else if(f<T_AI+3) x=slide(f,T_BACK,'sc_conn','sc_home',-1);
+ else if(f<T_ECU+3) x=slide(f,T_BACK,'sc_conn','sc_home',-1);
+ else if(f<T_EB) x=slide(f,T_ECU+3,'sc_home','sc_ecu',1);
+ else if(f<T_TRIP+3) x=slide(f,T_EB,'sc_ecu','sc_home',-1);
+ else if(f<T_TB) x=slide(f,T_TRIP+3,'sc_home','sc_trip',1);
+ else if(f<T_AI+3) x=slide(f,T_TB,'sc_trip','sc_home',-1);
  else if(f<T_BUY+3) x=slide(f,T_AI+3,'sc_home','sc_ai',1);
  else x=slide(f,T_BUY+3,'sc_ai','sc_chat',1);
  SCR.forEach(s=>{const el=$(s); if(x[s]===undefined){el.style.display='none'}else{el.style.display='block';el.style.transform=`translateX(${x[s]}px)`;el.style.opacity=1}});
@@ -510,6 +543,12 @@ function phone(f){
   T(T_PICK,'c_r0'); const hl=Math.exp(-Math.pow((f-T_PICK-3)/5,2)); $('c_r0').style.boxShadow=`inset 0 0 0 ${3*hl}px rgba(33,150,243,${hl})`;
  }
 
+ /* quick ECU page */
+ if(f>=T_ECU&&f<T_EB+14){T(T_ESCAN,'e_scan'); const p=E.io(seg(f,T_ESCAN+2,T_ESCAN+14)); $('e_prog').style.width=(p*100)+'%'; $('e_prog').style.opacity=p<1?1:0;
+  const k=seg(f,T_ESCAN+14,T_ESCAN+22); $('e_ok').style.opacity=E.oc(k); $('e_ok').style.transform=`scale(${k<=0?0.85:lerp(0.85,1,E.back(k))})`;}
+ /* quick trip page: 20-minute time-lapse */
+ if(f>=T_TRIP&&f<T_TB+14){$('t_time').textContent=mmss(1200*Math.pow(seg(f,T_TRIP+10,T_TRIP+40),1.2)); $('t_time').style.color=f>=T_TRIP+40?'#22A050':'#2196F3';
+  TPID.forEach((q,i)=>{const el=$('tp'+i); el.textContent=q[2](f); el.style.color=(i==3&&f>T_TRIP+28)?AMB:'#10203C';});}
  /* AI troubleshooter */
  if(f>=T_AI&&f<T_BUY+16){
   const g=seg(f,T_AI+22,T_AI+32), gb=$('a_gold'); gb.style.opacity=E.oc(seg(f,T_AI+22,T_AI+28)); gb.style.transform=`scale(${g<=0?0.5:lerp(0.5,1,E.back(g))})`;
@@ -531,10 +570,10 @@ function mont(f){
  const show=(id,a,b)=>{const el=$(id); if(f<a-1||f>b+1){el.style.display='none';return 0}
   el.style.display='block'; const pin=seg(f,a,a+14), pout=seg(f,b-9,b);
   el.style.opacity=E.oc(seg(f,a,a+6))*(1-E.ic(pout)); el.style.transform=`translateY(${(1-E.oc(pin))*60-E.ic(pout)*40}px) scale(${lerp(0.86,1,E.back(pin))})`; return 1};
- if(show('mA',T_ECU+4,T_TRIP+4)){const p=E.io(seg(f,T_ECU+8,T_ECU+32)); $('mAp').style.width=(p*100)+'%';
+ if(show('mA',T_ECU+8,T_TRIP+2)){const p=E.io(seg(f,T_ESCAN+2,T_ESCAN+14)); $('mAp').style.width=(p*100)+'%';
   $('mAs').textContent=p<1?'در حال اسکن ECU...':'خطای فعالی پیدا نشد';
   $('mAc').innerHTML=p<1?'':`<span class="pill" style="background:#DEF6E6;color:${GRN}">${svg('check',GRN,40)}۰ خطا</span>`;}
- if(show('mB',T_TRIP+6,T_AI+4)){const s=1200*Math.pow(seg(f,T_TRIP+10,T_TRIP+40),1.2); $('mBt').textContent=mmss(s);
+ if(show('mB',T_TRIP+6,T_AI+2)){const s=1200*Math.pow(seg(f,T_TRIP+10,T_TRIP+40),1.2); $('mBt').textContent=mmss(s);
   const h=E.io(seg(f,T_TRIP+40,T_TRIP+52)); $('mBh').textContent=f0(HSCORE*h)+'٪'; $('mBh').style.color=HCOL;}
 }
 
