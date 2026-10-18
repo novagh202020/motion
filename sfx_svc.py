@@ -8,7 +8,7 @@ BT = lambda n: 210 + 16.875 * n
 T_PH, T_TILE, T_ADD = 138, BT(0), BT(2)
 T_FLD = [BT(3), BT(3.75), BT(4.5), BT(5.25)]
 T_TYPE0, T_TYPE1, T_SAVE = BT(6), BT(8), BT(8.75)
-T_LAP0, T_LAP1, T_NOTIF = BT(10.5), BT(22), BT(24)
+T_U = [BT(10.5), BT(14.5), BT(18.5)]; T_NOTIF = BT(24)   # three manual km entries (no GPS on a phone)
 T_RECAP, T_END = B(8), 817.5; T_LIST = T_RECAP - 12
 
 
@@ -45,11 +45,14 @@ def build(full):
     n = 24
     for i in range(n): add(b, tick(3200 + 300 * (i % 3), 0.02), F(T_TYPE0 + i * (T_TYPE1 - T_TYPE0) / n), 0.07)
     tap(b, T_SAVE); add(b, chime((1568, 2093), 0.05, 0.6), F(T_SAVE + 8), 0.26)
-    # --- time-lapse: km ticks accelerate, riser, green -> amber
-    t, gap = T_LAP0, 6.0
-    while t < T_LAP1: add(b, tick(4200, 0.025), F(t), (1.6 if full else 1) * 0.07); t += gap; gap = max(1.8, gap * 0.94)
-    add(b, whoosh((T_LAP1 - T_LAP0) / 30, 300, 6000), F(T_LAP0), 0.22 if full else 0.12)
-    add(b, warn2(), F(T_LAP1), 0.26); add(b, thump(0.3), F(T_LAP1), 0.25)
+    # --- days pass; the user enters the km three times; green -> amber on the third
+    for t in T_U:
+        add(b, whoosh(0.25, 800, 6000), F(t - 6), 0.12)              # calendar flips
+        tap(b, t); add(b, pop(700, 0.1), F(t + 5), 0.18)
+        for i in range(6): add(b, tick(3200 + 300 * (i % 3), 0.02), F(t + 8 + i * 2), 0.08)
+        tap(b, t + 22, 0.3)
+        for i in range(6): add(b, tick(4200, 0.02), F(t + 28 + i * 2), (1.6 if full else 1) * 0.06)
+    add(b, warn2(), F(T_U[2] + 38), 0.26); add(b, thump(0.3), F(T_U[2] + 38), 0.25)
     # --- notification
     add(b, notif(), F(T_NOTIF), 0.4); add(b, pop(820, 0.12), F(T_NOTIF + 8), 0.2)
     # --- more services

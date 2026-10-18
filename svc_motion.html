@@ -236,15 +236,17 @@ const T_ADD=BT(2);                      // tap "افزودن سرویس"
 const T_FLD=[BT(3),BT(3.75),BT(4.5),BT(5.25)];   // fields fill: type, date, km, interval
 const T_TYPE0=BT(6), T_TYPE1=BT(8);     // note typed
 const T_SAVE=BT(8.75);                  // tap "ذخیره"
-const T_LAP0=BT(10.5), T_LAP1=BT(22);   // driving time-lapse: 5,000 -> 300 km left
+const T_U=[BT(10.5),BT(14.5),BT(18.5)];  // days pass; user taps «اصلاح» and enters the km (no GPS on a phone)
+const KMS=[351004,352600,354300,355704];
+const T_LAP0=T_U[0], T_LAP1=T_U[2]+40;  // 5,000 -> 300 km left (amber at the 3rd entry)
 const T_NOTIF=BT(24);                   // reminder notification
 const T_LIST=B(8)-12;                   // more services appear
 const T_RECAP=B(8), T_END=817.5;
 const KM0=351004, INT=5000, WARN=300;
 const g3=n=>fa(String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'٬'));
-const lapP=f=>E.io(seg(f,T_LAP0,T_LAP1));
-const left=f=>f<T_LAP0?INT:Math.round(lerp(INT,WARN,lapP(f))/10)*10;
-const kmNow=f=>KM0+INT-left(f);
+const kmNow=f=>{let k=KMS[0];T_U.forEach((t,i)=>{k=lerp(k,KMS[i+1],E.io(seg(f,t+28,t+40)))});return Math.round(k)};
+const left=f=>INT-(kmNow(f)-KM0);
+const lapP=f=>T_U.filter(t=>f>=t+28).length/3;
 const NOTE='روغن از برند ماموت ریختم';
 
 Object.assign(IC,{
@@ -273,10 +275,9 @@ S.svc=`<div class="scr" id="sc_svc">${bar('سرویس دوره‌ای',svg('play
  <div class="card" style="margin:16px 16px 0;padding:20px 22px 22px">
   <div style="display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:17px;color:#6E7D96"><span>۲۰۶</span>${svg('down','#10203C',34)}</div>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span id="s_km" style="font-weight:900;font-size:40px;color:#10203C"></span>
-   <span style="border:2px solid #DEE6F2;border-radius:16px;padding:8px 26px;font-weight:700;font-size:19px;color:#2196F3">اصلاح</span></div>
-  <div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-weight:500;font-size:16.5px;color:#6E7D96"><span style="width:16px;height:16px;border-radius:50%;background:#5CBF6E"></span>ثبت خودکار روشن است (عدد تخمینی است — هر وقت لازم شد اصلاحش کن)</div>
+   <span id="k_edit" style="border:2px solid #DEE6F2;border-radius:16px;padding:8px 26px;font-weight:700;font-size:19px;color:#2196F3;background:#fff">اصلاح</span></div>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-weight:600;font-size:19px"><span>ثبت خودکار کیلومتر با <span class="ltr">GPS</span></span>
-   <span id="s_gps" style="position:relative;width:56px;height:30px;border-radius:15px;background:#90CAF9"><span style="position:absolute;left:28px;top:2px;width:26px;height:26px;border-radius:50%;background:#2196F3"></span></span></div>
+   <span id="s_gps" style="position:relative;width:56px;height:30px;border-radius:15px;background:#E6EBF2"><span style="position:absolute;left:2px;top:2px;width:26px;height:26px;border-radius:50%;background:#98A3B8"></span></span></div>
  </div>
  <div style="margin:16px 16px 0;height:62px;border:2px solid #98A3B8;border-radius:10px;display:flex;align-items:center;gap:12px;padding:0 18px;font-weight:500;font-size:20px;color:#6E7D96">${svg('search','#98A3B8',30)}جستجوی سرویس...</div>
  <div id="s_empty" style="position:absolute;left:0;right:0;top:640px;text-align:center">${svg('wrench','#98A3B8',90)}<div style="margin-top:20px;font-weight:600;font-size:22px;color:#6E7D96">هنوز سرویسی ثبت نشده</div></div>
@@ -299,6 +300,11 @@ S.svc=`<div class="scr" id="sc_svc">${bar('سرویس دوره‌ای',svg('play
   <div style="margin-top:10px;font-weight:500;font-size:16.5px;color:#33415C">وقتی به این مقدار برسی هشدار می‌گیری</div>
   <div class="fld" id="d4" style="height:66px"><span class="lb">توضیح (اختیاری)</span><span class="v"></span><span id="d4c" style="display:inline-block;width:2px;height:28px;background:#2196F3;margin-right:2px"></span></div>
   <div style="display:flex;gap:44px;margin-top:26px;padding-right:8px;font-weight:700;font-size:22px;color:#2196F3;justify-content:flex-start;direction:ltr"><span id="d_save" style="padding:6px 10px;border-radius:10px">ذخیره</span><span>انصراف</span></div>
+ </div>
+ <div id="s_ed" style="position:absolute;left:56px;right:56px;top:300px;background:#ECE8F1;border-radius:30px;padding:28px 28px 22px;opacity:0;z-index:10;box-shadow:0 30px 70px rgba(20,40,80,.3)">
+  <div style="font-weight:800;font-size:28px;color:#10203C">اصلاح کیلومتر</div>
+  <div class="fld" style="border-color:#2196F3"><span class="lb">کیلومتر فعلی خودرو</span><span id="e_v" class="ltr" style="flex:1;text-align:right;font-weight:800"></span><span style="display:inline-block;width:2px;height:28px;background:#2196F3;margin-right:2px"></span></div>
+  <div style="display:flex;gap:44px;margin-top:24px;padding-right:8px;font-weight:700;font-size:22px;color:#2196F3;direction:ltr"><span id="e_save" style="padding:6px 10px;border-radius:10px">ذخیره</span><span>انصراف</span></div>
  </div>
  <div id="s_ntf" class="ntf" style="left:14px;right:14px;top:56px;padding:18px 20px;opacity:0;z-index:12">
   <div style="width:54px;height:54px;border-radius:14px;background:#2196F3;display:flex;align-items:center;justify-content:center;flex:none">${LOGO(40,'#fff',6)}</div>
@@ -329,7 +335,7 @@ $('side').innerHTML=`<div id="sG" class="a rtl" style="left:40px;top:470px;width
 const TT=[
  {h:'یادت رفت روغن عوض کنی؟',a:10,b:T_TILE-4},
  {h:'یه بار ثبتش کن',a:T_TILE-2,b:T_LAP0},
- {h:'کیلومتر خودکار ثبت می‌شه',a:T_LAP0+2,b:T_NOTIF-2},
+ {h:'کیلومتر رو به‌روز کن',a:T_LAP0+2,b:T_NOTIF-2},
  {h:'سر وقت خبرت می‌کنه',a:T_NOTIF,b:T_LIST-2},
  {h:'همه سرویس‌ها یه جا',a:T_LIST,b:T_END-4},
  {h:'دیاگ سری <b class="ltr" style="color:#2196F3">C</b>',a:T_END-2,b:99999},
@@ -380,21 +386,26 @@ function phone(f){
   // list
   const saved=f>=T_SAVE+8; vis($('s_empty'),saved?0:1);
   const c0=$('sv0'), cp=seg(f,T_SAVE+8,T_SAVE+20); c0.style.display=saved?'flex':'none'; c0.style.opacity=E.oc(cp); c0.style.transform=`translateY(${(1-E.oc(cp))*30}px) scale(${lerp(0.9,1,E.back(cp))})`;
-  const L=left(f), warn=L<=WARN, sh=warn?Math.sin((f-T_LAP1)*1.8)*8*Math.exp(-(f-T_LAP1)/6):0;
+  const L=left(f), warn=L<=WARN, tw=T_U[2]+36, sh=warn&&f>tw?Math.sin((f-tw)*1.8)*8*Math.exp(-(f-tw)/6):0;
   if(saved){const st=$('sv0_st'); st.textContent=warn?`نزدیک سرویس — ${g3(L)} کیلومتر مانده`:`سالم — ${g3(L)} کیلومتر تا سرویس بعدی`;
    st.style.color=warn?AMB:GRN; st.style.background=warn?'#FFF4E5':'#DEF6E6'; c0.style.borderColor=warn?'#F9C88A':'';
    $('sv0_pb').style.width=((INT-L)/INT*100)+'%'; $('sv0_pb').style.background=warn?AMB:GRN; if(warn) c0.style.transform=`translateX(${sh}px)`;}
   [1,2,3].forEach(i=>{const el=$('sv'+i), p=seg(f,T_LIST+i*6,T_LIST+i*6+10); el.style.display=f>=T_LIST+i*6?'flex':'none'; el.style.opacity=E.oc(p); el.style.transform=`translateY(${(1-E.oc(p))*30}px)`;});
   $('s_add').style.opacity=f>=T_LIST?0:1;
   // GPS toggle pulse while driving
-  $('s_gps').style.boxShadow=f>=T_LAP0&&f<T_LAP1?`0 0 0 ${6*(0.5+0.5*Math.sin(f/4))}px rgba(33,150,243,.2)`:'none';
+  // manual km entries
+  let eo=0; T_U.forEach((t,i)=>{T(t,'k_edit'); const a=seg(f,t+4,t+10), z=seg(f,t+26,t+32); if(f>=t+4&&f<t+32){eo=E.oc(a)*(1-E.ic(z));
+    const s=fa(String(KMS[i+1])), n=Math.round(s.length*seg(f,t+8,t+20)); $('e_v').textContent=s.slice(0,n);}
+   if(eo>0.5) T(t+22,'e_save'); if(Math.abs(f-t-24)<5) $('e_save').style.background='rgba(33,150,243,.15)';});
+  if(!T_U.some(t=>Math.abs(f-t-24)<5)) $('e_save').style.background='none';
+  $('s_ed').style.opacity=eo; $('s_ed').style.transform=`scale(${lerp(0.92,1,eo)})`; if(eo>0) $('s_dim').style.opacity=Math.max(+$('s_dim').style.opacity||0,eo);
   // notification drop-down
   const ni=seg(f,T_NOTIF,T_NOTIF+10), no=seg(f,T_LIST-14,T_LIST-4); const ntf=$('s_ntf');
   ntf.style.opacity=f>=T_NOTIF?E.oc(ni)*(1-no):0; ntf.style.transform=`translateY(${(1-E.oc(ni))*-160}px)`;
  }
  if(!tapped) $('tap').style.opacity=0;
 }
-const DATES=['۲۶ مهر','۳ آبان','۱۲ آبان','۲۰ آبان','۲۹ آبان','۷ آذر','۱۵ آذر'];
+const DATES=['۲۶ مهر','۵ آبان','۲۰ آبان','۱۵ آذر'];
 function floats(f){
  const show=(id,a,b)=>{const el=$(id); if(f<a-1||f>b+1){el.style.display='none';return 0}
   el.style.display='block'; const pin=seg(f,a,a+14), pout=seg(f,b-9,b);
@@ -402,10 +413,10 @@ function floats(f){
  if(show('fL',T_LAP0+4,T_NOTIF+2)){const L=left(f), warn=L<=WARN;
   $('fLv').textContent=g3(L); $('fLv').style.color=warn?AMB:GRN; $('fLp').style.width=((INT-L)/INT*100)+'%'; $('fLp').style.background=warn?AMB:GRN;
   $('fLs').textContent=warn?'نزدیک سرویس':'سالم'; $('fLs').style.color=warn?'#fff':GRN; $('fLs').style.background=warn?AMB:'#DEF6E6';
-  if(warn){const el=$('fL'); el.style.borderColor='#F9C88A'; el.style.transform+=` translateX(${Math.sin((f-T_LAP1)*1.8)*10*Math.exp(-(f-T_LAP1)/6)}px)`;}}
+  if(warn){const el=$('fL'), tw=T_U[2]+36; el.style.borderColor='#F9C88A'; el.style.transform+=` translateX(${f>tw?Math.sin((f-tw)*1.8)*10*Math.exp(-(f-tw)/6):0}px)`;}}
  show('fN',T_NOTIF+8,T_LIST-2);
- const so=E.oc(seg(f,T_LAP0+6,T_LAP0+16))*(1-seg(f,T_NOTIF-8,T_NOTIF)); ['sG','sC'].forEach(id=>{$(id).style.opacity=so; $(id).style.display=so>0?'block':'none';});
- if(so>0){$('sCv').textContent=DATES[Math.min(6,Math.floor(lapP(f)*6.99))]; $('sG').style.boxShadow=`0 0 0 ${8*(0.5+0.5*Math.sin(f/4))}px rgba(33,150,243,.16),0 16px 36px rgba(20,40,80,.14)`;}
+ const so=E.oc(seg(f,T_LAP0-8,T_LAP0+2))*(1-seg(f,T_NOTIF-8,T_NOTIF)); $('sG').style.display='none'; $('sC').style.opacity=so; $('sC').style.display=so>0?'block':'none';
+ if(so>0){const k=T_U.filter(t=>f>=t-6).length; $('sCv').textContent=DATES[k]; const j=T_U.map(t=>Math.exp(-Math.pow((f-t+6)/4,2))).reduce((a,b)=>a+b,0); $('sC').style.transform=`scale(${1+0.08*j})`;}
 }
 function render(f){
  hook(f); phone(f); floats(f);

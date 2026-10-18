@@ -42,7 +42,7 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
                        the phone: verdict, money issues, negotiation tip, mileage check, what the test can't see, questions for the
                        seller -> recap checklist + gold capsule -> end card (37 s)
 - svc_motion.html      Periodic service: odometer climbs, forgotten oil-change note, oil lamp -> quick access -> periodic service,
-                       add oil change every 5,000 km -> km time-lapse (GPS), card goes green -> amber at 300 km left ->
+                       add oil change every 5,000 km -> days pass, km entered 3x with «اصلاح» (no GPS on a phone), card goes green -> amber at 300 km left ->
                        reminder notification -> more services in the list -> end card (30 s)
 - endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health}) sets the phone's health %)
 - cover*.html          Instagram / YouTube covers (cover_ecu.html = ECU post, cover_bat.html = battery post, render: python3 shot.py cover_ecu.html out.png); product_shot.html = white-background site image
