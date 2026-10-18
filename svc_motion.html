@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Periodic Service</title>
+<style>
+@font-face{font-family:V;font-weight:400;src:url(fonts/Vazirmatn-FD-Regular.ttf)}
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:600;src:url(fonts/Vazirmatn-FD-SemiBold.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+:root{--blue:#2196F3;--deep:#1565C0;--navy:#10203C;--slate:#6E7D96;--hair:#DEE6F2;--appbg:#EEF2F8;--red:#DC3232;--green:#22A050}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FBFCFF}
+body{font-family:V,sans-serif;color:#10203C}
+#stage{position:absolute;inset:0;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+.ttl{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;z-index:50;opacity:0}
+.ttl .h{font-weight:900;font-size:84px;line-height:1.15;color:#10203C;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:12px;height:76px;padding:0 32px;border-radius:38px;background:#DEF6E6;color:#22A050;font-weight:700;font-size:40px;white-space:nowrap}
+
+/* ---------- phone ---------- */
+#phone{position:absolute;left:240px;top:390px;width:600px;height:1290px;border-radius:78px;background:#181C24;border:3px solid #5F6878;transform-origin:50% 0;
+ box-shadow:0 50px 90px rgba(20,40,80,.28),0 12px 26px rgba(20,40,80,.18);z-index:10;display:none}
+#screen{position:absolute;left:11px;top:11px;width:572px;height:1262px;border-radius:66px;overflow:hidden;clip-path:inset(0 round 66px);isolation:isolate;background:var(--appbg)}
+#notch{position:absolute;left:50%;top:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#0b0e13;z-index:30}
+.scr{position:absolute;left:0;top:0;width:572px;height:1262px;background:var(--appbg);direction:rtl;overflow:hidden;font-family:V;display:none}
+.sbar{height:48px;display:flex;justify-content:space-between;align-items:center;padding:6px 40px 0;font-weight:700;font-size:19px;direction:ltr}
+.appbar{background:var(--blue);color:#fff}
+.abar{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;direction:rtl}
+.abar .t{font-weight:800;font-size:29px;display:flex;align-items:center;gap:14px}
+.abar .help{font-weight:500;font-size:19px;display:flex;align-items:center;gap:6px}
+.tabs{height:62px;display:flex;background:#F7F8FC}
+.tabs div{flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;color:#98A3B8;position:relative}
+.tabs div.on{color:var(--blue)}
+.tabs div.on:after{content:"";position:absolute;bottom:0;width:90px;height:4px;border-radius:3px;background:var(--blue)}
+.card{background:#fff;border:2px solid var(--hair);border-radius:24px;margin:14px 18px;padding:18px 20px;box-shadow:0 6px 16px rgba(20,40,80,.05)}
+.btn{height:62px;border-radius:31px;background:var(--blue);color:#fff;font-weight:700;font-size:23px;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn.o{background:#fff;border:2px solid var(--hair);color:var(--slate)}
+.nav{position:absolute;left:0;bottom:0;width:572px;height:96px;background:var(--blue);display:flex;padding-bottom:6px;z-index:5}
+.nav div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:17px;gap:4px}
+.nav .pillon{width:84px;height:38px;border-radius:19px;background:rgba(255,255,255,.26);display:flex;align-items:center;justify-content:center}
+.tapdot{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:5px solid rgba(33,150,243,.9);background:rgba(33,150,243,.15);opacity:0;z-index:40}
+.tile{background:#fff;border:2px solid var(--hair);border-radius:24px;height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-weight:700;font-size:20px;white-space:nowrap}
+.tile .ib{width:62px;height:62px;border-radius:18px;background:#E3EFFC;display:flex;align-items:center;justify-content:center}
+.row{height:112px;display:flex;align-items:center;gap:14px;padding:0 18px;direction:rtl}
+.row .nm{font-weight:800;font-size:23px;color:#C62828;direction:ltr;text-align:right}
+.row .mac{font-weight:500;font-size:16px;color:#6E7D96;direction:ltr;text-align:right;margin-top:2px}
+.row .tg{font-weight:800;font-size:15px;color:#fff;border-radius:8px;padding:3px 10px;text-align:center}
+/* ---------- floating cards ---------- */
+.fc{position:absolute;left:110px;top:1430px;width:860px;background:#fff;border:3px solid var(--hair);border-radius:40px;
+ box-shadow:0 30px 60px rgba(20,40,80,.20),0 8px 18px rgba(20,40,80,.10);direction:rtl;padding:30px 40px;opacity:0;z-index:20;transform-origin:50% 100%;display:none}
+.fc .ct{font-weight:800;font-size:50px;color:var(--navy);line-height:1.2}
+.fc .sub{font-weight:500;font-size:38px;color:var(--slate);line-height:1.35}
+.big{font-weight:900;font-size:70px;line-height:1}
+.pill{display:inline-flex;align-items:center;gap:10px;height:66px;padding:0 26px;border-radius:33px;font-weight:700;font-size:40px;white-space:nowrap}
+</style></head><body>
+<div id="stage">
+<style>
+.qa{background:#fff;border:2px solid var(--hair);border-radius:24px;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-weight:700;font-size:20px;white-space:nowrap}
+.qa .ib{width:74px;height:74px;border-radius:20px;background:#E3EFFC;display:flex;align-items:center;justify-content:center}
+.fld{position:relative;border:2px solid #98A3B8;border-radius:8px;height:70px;margin-top:22px;display:flex;align-items:center;padding:0 20px;font-weight:500;font-size:22px;color:#10203C}
+.fld .lb{position:absolute;top:-14px;right:16px;background:#ECE8F1;padding:0 8px;font-weight:500;font-size:16px;color:#6E7D96}
+.svc{background:#fff;border:2px solid var(--hair);border-radius:24px;margin:14px 16px 0;padding:18px 18px 16px;display:flex;gap:14px;direction:rtl}
+.svc .ic{width:70px;height:70px;border-radius:18px;background:#E3EFFC;display:flex;align-items:center;justify-content:center;flex:none}
+.svc .st{display:inline-block;margin-top:8px;border-radius:10px;padding:5px 14px;font-weight:800;font-size:16px;white-space:nowrap}
+.svc .pb{height:6px;border-radius:3px;background:#E6EBF2;margin-top:10px;overflow:hidden;direction:ltr}
+.svc .pb div{height:6px;border-radius:3px}
+.ntf{position:absolute;direction:rtl;background:#fff;border-radius:26px;box-shadow:0 20px 50px rgba(20,40,80,.28);display:flex;gap:14px;align-items:flex-start}
+</style>
+ <!-- ===== hook: odometer keeps climbing, the oil-change note is forgotten ===== -->
+ <div id="hk" class="a" style="left:0;top:0;width:1080px;height:1920px;opacity:0;transform-origin:540px 960px">
+  <svg width="1080" height="1920" class="a" style="left:0;top:0">
+   <defs><linearGradient id="pan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A3650"/><stop offset="1" stop-color="#1B2438"/></linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="30" stdDeviation="30" flood-color="#142850" flood-opacity=".28"/></filter>
+    <radialGradient id="amb" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFC446" stop-opacity=".75"/><stop offset=".45" stop-color="#F28012" stop-opacity=".28"/><stop offset="1" stop-color="#F28012" stop-opacity="0"/></radialGradient></defs>
+   <rect x="60" y="640" width="960" height="560" rx="120" fill="url(#pan)" filter="url(#sh)"/>
+   <rect x="100" y="656" width="880" height="10" rx="5" fill="#3A4866"/>
+   <!-- oil lamp -->
+   <g transform="translate(830 920)"><circle id="oilHalo" r="150" fill="url(#amb)" opacity="0"/>
+    <g transform="translate(-60 -60) scale(5)"><path id="oilIcon" fill="#3A4866" d="M2 10h5.5l1.5-1.5h3l1.5 1.5h4l3.5-2.5 1 1.2-3.5 3.3v5H2zM20.5 14.5c0 .9.7 1.6 1.5 1.6s1.5-.7 1.5-1.6c0-.8-1.5-2.6-1.5-2.6s-1.5 1.8-1.5 2.6zM8 6h4v1.5H8z"/></g></g>
+  </svg>
+  <div class="a" style="left:150px;top:820px;width:520px;text-align:center">
+   <div style="font-weight:700;font-size:30px;color:#6E7D96">کیلومتر</div>
+   <div id="odo" class="ltr" style="margin-top:8px;height:120px;border-radius:24px;background:#0E1422;border:3px solid #33415C;color:#78CDFF;font-weight:900;font-size:84px;line-height:116px;letter-spacing:4px"></div>
+  </div>
+  <div id="note" class="a rtl" style="left:200px;top:1290px;width:520px;background:#fff;border-radius:10px;box-shadow:0 18px 40px rgba(20,40,80,.18);padding:30px 34px 34px;transform-origin:50% 0;opacity:0">
+   <div style="position:absolute;top:-20px;left:200px;width:120px;height:40px;background:#ADD6FA;opacity:.8;transform:rotate(-4deg)"></div>
+   <div style="font-weight:800;font-size:46px;color:#10203C">تعویض روغن کِی بود؟</div>
+   <div style="font-weight:500;font-size:34px;color:#6E7D96;margin-top:8px">فکر کنم ۳۵۱ هزار…</div>
+  </div>
+ </div>
+
+ <!-- ===== phone ===== -->
+ <div id="side"></div>
+ <div id="phone"><div id="notch"></div><div id="screen"></div><div class="tapdot" id="tap"></div></div>
+ <div id="fcs"></div>
+ <div id="titles"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
+const imp=(f,k,d=4)=>f>=k?Math.exp(-(f-k)/d):0;
+const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
+const vis=(el,o)=>{el.style.opacity=o; el.style.display=o<=0.001?'none':'block';};
+
+/* ---------- timeline (frames @30fps; bar = 67.5, beat = 16.875, groove downbeat at 210) ---------- */
+const B=k=>210+67.5*k, BT=n=>210+16.875*n;
+/* ---------- icons ---------- */
+const IC={
+ warn:'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+ car:'M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z',
+ check:'M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z',
+ checkc:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+ home:'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z', add:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
+ more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+ arrow:'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
+ play:'M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z',
+ trash:'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
+ search:'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z',
+ bt:'M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z',
+ down:'M7 10l5 5 5-5z',
+ plug:'M16 7V3h-2v4h-4V3H8v4h-.01C6.9 6.99 6 7.89 6 8.98v5.52L9.5 18v3h5v-3l3.5-3.51v-5.5c0-1.1-.9-2-2-2z',
+ close:'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
+ wrench:'M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z',
+ eye:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
+ batt:'M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z',
+ trend:'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z',
+ gift:'M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z',
+ medal:'M12 7a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm2.6 9.2L12 14.6l-2.6 1.6.7-3-2.3-2 3-.3L12 8.2l1.2 2.7 3 .3-2.3 2 .7 3zM7 2h10l-2 4H9z',
+};
+const svg=(p,c='#2196F3',s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path fill="${c}" d="${IC[p]}"/></svg>`;
+/* brand mark (car outline + pulse) as on the splash */
+const LOGO=(w,c,sw=7)=>`<svg width="${w}" height="${w*0.36}" viewBox="0 0 400 144"><path class="lg" d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="${c}" stroke-width="${sw*1.6}" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle class="lg" cx="104" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/><circle class="lg" cx="188" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/></svg>`;
+
+/* ---------- screens ---------- */
+const ST_W=`<div class="sbar" style="color:#fff"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>`;
+const ST_D=`<div class="sbar" style="color:#10203C"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>`;
+const NAV=`<div class="nav"><div><span class="pillon">${svg('home','#fff',28)}</span><span>خانه</span></div><div>${svg('add','#fff',36)}<span>افزودن خودرو</span></div><div>${svg('more','#fff',34)}<span>بیشتر</span></div></div>`;
+const bar=(t,help)=>`<div class="appbar">${ST_W}<div class="abar"><div class="t">${svg('arrow','#fff',32)}<span>${t}</span></div><div class="help">${help}</div></div></div>`;
+const HEALTH=72, LG='#5CBF6E';          // health value + light green (per brief)
+const tile=(id,ic,l)=>`<div class="tile" id="${id}"><div class="ib">${svg(ic,'#2196F3',36)}</div><span>${l}</span></div>`;
+const S={};
+S.splash=`<div class="scr" id="sc_splash" style="background:#2196F3">${ST_W}
+ <div id="sp_logo" style="position:absolute;left:96px;top:470px">${LOGO(380,'#fff')}</div>
+ <div id="sp_t1" style="position:absolute;left:0;right:0;top:690px;text-align:center;color:#fff;font-weight:600;font-size:27px">عیب‌یاب خودرو با هوش مصنوعی</div>
+ <div id="sp_t2" class="ltr" style="position:absolute;left:0;right:0;top:744px;text-align:center;color:#ADD6FA;font-weight:700;font-size:32px;letter-spacing:4px">CarDiag AI</div></div>`;
+S.home=`<div class="scr" id="sc_home">${ST_D}
+ <div class="card" style="margin:6px 16px 0;padding:20px 20px 22px">
+  <div style="height:66px;border:3px solid #2196F3;border-radius:16px;display:flex;align-items:center;justify-content:space-between;padding:0 22px"><span style="font-weight:900;font-size:30px">۲۰۶</span>${svg('down','#2196F3',40)}</div>
+  <div style="margin-top:16px;font-weight:500;font-size:22px;color:#6E7D96">وضعیت اتصال: <b id="h_stat" style="font-weight:800;color:#DC3232">قطع شده</b></div>
+  <div style="position:relative;margin:22px auto 0;width:470px;height:40px;direction:ltr">
+   <div style="position:absolute;inset:0;border-radius:20px;background:#E6EBF2"></div>
+   <div style="position:absolute;left:0;top:0;height:40px;width:${HEALTH}%;border-radius:20px;overflow:hidden">
+    <div style="width:470px;height:40px;background:linear-gradient(90deg,#E63C3C 0%,#F59628 35%,#D7C832 65%,#32B455 100%)"></div></div>
+   <div style="position:absolute;left:${HEALTH*0.5}%;top:0;height:40px;display:flex;align-items:center;transform:translateX(-50%);direction:rtl;font-weight:800;font-size:20px;color:#10203C;white-space:nowrap">سلامت خودرو ${fa(HEALTH)}٪</div>
+   <div style="position:absolute;left:${HEALTH}%;top:-4px;width:48px;height:48px;margin-left:-24px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(20,40,80,.25);display:flex;align-items:center;justify-content:center"><div style="width:22px;height:22px;border-radius:50%;background:${LG}"></div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;width:470px;margin:6px auto 0;direction:ltr;font-weight:500;font-size:15px;color:#98A3B8"><span>۰٪</span><span>۱۰۰٪</span></div>
+  <div style="display:flex;gap:16px;margin-top:22px">
+   <div class="btn" id="h_conn" style="flex:1;height:60px">${svg('plug','#fff',28)}<span>اتصال</span></div>
+   <div class="btn o" id="h_disc" style="flex:1;height:60px;color:#98A3B8">${svg('close','#E57373',30)}<span>قطع اتصال</span></div></div>
+ </div>
+ <div id="h_ban" style="position:relative;margin:16px 16px 0;height:150px;border-radius:24px;overflow:hidden;background:linear-gradient(90deg,#0F2650 0%,#163A72 48%,#3E7DC4 78%,#8EC3F0 100%)">
+  <img src="assets/diag_front.png" style="position:absolute;right:18px;top:12px;width:176px;transform:rotate(-12deg);filter:drop-shadow(0 10px 14px rgba(0,0,0,.35))">
+  <div style="position:absolute;right:210px;top:12px;left:16px;color:#fff;text-align:right">
+   <div class="ltr" style="display:flex;justify-content:flex-end;align-items:center;gap:6px;font-weight:800;font-size:15px">CarDiag AI ${LOGO(46,'#fff',6)}</div>
+   <div style="font-weight:600;font-size:16px;margin-top:2px">با خرید دیاگ بلوتوثی کاردیاگ</div>
+   <div style="font-weight:900;font-size:25px;margin-top:2px;background:linear-gradient(90deg,#F6CD5C,#FFEA9C,#E0A82C);-webkit-background-clip:text;background-clip:text;color:transparent">اشتراک طلایی رایگان</div>
+   <div style="font-weight:700;font-size:19px;display:flex;align-items:center;gap:6px">هدیه بگیرید ${svg('gift','#fff',20)}</div>
+  </div>
+  <div style="position:absolute;left:16px;bottom:12px;height:34px;padding:0 16px;border-radius:17px;background:linear-gradient(90deg,#F6CD5C,#FFEA9C,#E0A82C);color:#4B3005;font-weight:800;font-size:15px;display:flex;align-items:center">کلیک کنید</div>
+ </div>
+ <div style="padding:18px 26px 10px;font-weight:700;font-size:22px;color:#98A3B8">دسترسی سریع</div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px">
+  ${tile('h_trip','car','سفر')}${tile('h_ecu','warn','خطایابی <span class="ltr">ECU</span>')}
+  ${tile('h_ai','wrench','عیب‌یاب هوش مصنوعی')}${tile('h_mon','eye','مانیتورینگ خودرو')}
+  ${tile('h_bat','batt','تست باتری و دینام')}${tile('h_trd','trend','روند سلامت خودرو')}
+ </div>${NAV}
+ <div id="h_dim" style="position:absolute;inset:0;background:rgba(238,242,248,.78);opacity:0;z-index:8"></div>
+ <div id="h_pop" style="position:absolute;left:20px;right:20px;top:380px;background:#fff;border-radius:32px;padding:34px 30px 30px;text-align:center;box-shadow:0 30px 70px rgba(20,40,80,.22);opacity:0;z-index:9">
+  <div style="width:124px;height:124px;margin:0 auto;border-radius:50%;background:#2196F3;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 14px rgba(33,150,243,.15)">${LOGO(84,'#fff',6)}</div>
+  <div id="p_ttl" style="margin-top:24px;font-weight:900;font-size:31px;color:#10203C">در حال اتصال</div>
+  <div id="p_step" style="margin-top:10px;height:32px;font-weight:500;font-size:22px;color:#6E7D96"></div>
+  <div style="position:relative;height:66px;margin-top:16px">
+   <svg id="p_spin" width="62" height="62" viewBox="0 0 62 62" style="position:absolute;left:50%;top:2px;margin-left:-31px"><circle cx="31" cy="31" r="25" fill="none" stroke="#2196F3" stroke-width="6" stroke-linecap="round" stroke-dasharray="100 60"/></svg>
+   <div id="p_ok" style="position:absolute;left:50%;top:0;margin-left:-33px;width:66px;height:66px;border-radius:50%;background:#22A050;display:flex;align-items:center;justify-content:center;opacity:0">${svg('check','#fff',44)}</div>
+  </div>
+  <div style="margin-top:16px;font-weight:700;font-size:20px;color:#2196F3">رد کردن و انتخاب دستی</div>
+ </div>
+ <div id="h_toast" style="position:absolute;left:0;right:0;bottom:122px;text-align:center;opacity:0;z-index:9"><span style="display:inline-block;background:rgba(16,32,60,.86);color:#fff;font-weight:600;font-size:18px;padding:10px 22px;border-radius:22px">اتصال به <span class="ltr">OBDII</span> برقرار شد</span></div>
+</div>`;
+const DEV=[['OBDII','۰۱:۲۳:۴۵:۶۷:۸۹:BA',1,1],['OBDBLE','۸۱:۲۳:۴۵:۶۷:۸۹:BA',1,0],['OBDII','۵۱:۱۹:۶۲:۵۷:EE:F۸',0,0],['OBDII','BC:۹A:۷۸:۵۶:۳۴:۱۲',0,0],['OBDII','۰۰:۱۰:CC:F۴:۳۶:۰۳',0,0]];
+S.conn=`<div class="scr" id="sc_conn">${bar('انتخاب دستگاه دیاگ','<span>راهنمای اتصال</span>')}
+ <div class="card" style="margin:16px 16px 0;padding:22px 20px 18px">
+  <div style="display:flex;gap:16px">
+   <div class="btn" id="c_search" style="flex:1.15;height:60px">${svg('bt','#fff',28)}<span>جستجو</span></div>
+   <div class="btn o" id="c_stop" style="flex:1;height:60px;border-radius:10px;color:#98A3B8">توقف</div></div>
+  <div id="c_stat" style="margin-top:16px;height:30px;font-weight:500;font-size:20px;color:#6E7D96"></div>
+  <div style="margin-top:8px;height:5px;border-radius:3px;background:#E6EBF2;overflow:hidden;direction:ltr"><div id="c_prog" style="height:5px;width:0;background:#2196F3;border-radius:3px"></div></div>
+ </div>
+ <div class="card" style="margin:16px 16px 0;padding:0;height:900px;position:relative;overflow:hidden">
+  <div style="height:70px;display:flex;align-items:center;gap:12px;padding:0 22px;border-bottom:2px solid #E6EBF2">${svg('bt','#98A3B8',28)}<span style="font-weight:800;font-size:22px;color:#2196F3">دستگاه‌های یافت شده</span></div>
+  <div id="c_empty" style="position:absolute;left:0;right:0;top:70px;bottom:0">
+   <svg id="c_radar" width="536" height="560" style="position:absolute;left:0;top:60px"></svg>
+   <div style="position:absolute;left:50%;top:286px;margin:-48px 0 0 -48px;width:96px;height:96px;border-radius:50%;background:#E3EFFC;display:flex;align-items:center;justify-content:center">${svg('bt','#2196F3',52)}</div>
+   <div id="c_emptyT" style="position:absolute;left:0;right:0;top:400px;text-align:center;font-weight:600;font-size:21px;color:#98A3B8">هنوز دستگاهی پیدا نشده</div>
+  </div>
+  <div style="padding:8px 0 0">${DEV.map((d,i)=>`<div class="row" id="c_r${i}" style="background:${d[2]?'#E6F4E9':'#FBEAEA'};opacity:0">
+    ${svg('warn','#10203C',44)}
+    <div style="flex:1"><div class="nm">${d[0]}</div><div class="mac">${d[1]}</div>${d[3]?'<div style="font-weight:700;font-size:15px;color:#1565C0;margin-top:2px">★ آخرین اتصال</div>':''}</div>
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:center;width:96px">${d[2]?'<span class="tg" style="background:#22A050">در دسترس</span>':''}<span class="tg" style="background:#DC3232;width:62px">OBD</span></div>
+   </div>`).join('')}</div>
+ </div>${NAV}
+ <div id="c_dim" style="position:absolute;inset:0;background:rgba(16,32,60,.45);opacity:0;z-index:8"></div>
+ <div id="c_perm" style="position:absolute;left:30px;right:30px;top:390px;background:#fff;border-radius:30px;padding:30px 26px 24px;text-align:center;box-shadow:0 30px 70px rgba(20,40,80,.3);opacity:0;z-index:9">
+  <div style="width:64px;height:64px;margin:0 auto;border-radius:50%;background:#E3EFFC;display:flex;align-items:center;justify-content:center">${svg('bt','#2196F3',36)}</div>
+  <div style="margin-top:18px;font-weight:600;font-size:22px;line-height:1.6;color:#10203C">به <b class="ltr">CarDiag AI</b> اجازه می‌دهید دستگاه‌های اطراف را پیدا کند و به آن‌ها وصل شود؟</div>
+  <div id="c_allow" style="margin-top:22px;height:58px;border-radius:29px;background:#2196F3;color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center">اجازه دادن</div>
+  <div style="margin-top:10px;height:58px;border-radius:29px;background:#E3EFFC;color:#1565C0;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center">اجازه ندادن</div>
+ </div>
+</div>`;
+/* ---------- helpers ---------- */
+function tapAt(f,a,id){const t=f-a; const el=$('tap'); if(t<-4||t>14) return false;
+ // position inside the page (ignores the page's own slide), so the ring stays where the finger was
+ const r=$(id).getBoundingClientRect(), pg=$(id).closest('.scr').getBoundingClientRect(), sc=$('screen').getBoundingClientRect(), k=sc.width/572;
+ el.style.left=(11+(r.left+r.width/2-pg.left)/k)+'px'; el.style.top=(11+(r.top+r.height/2-pg.top)/k)+'px';
+ el.style.opacity=t<0?seg(t,-4,0):1-seg(t,4,14); el.style.transform=`scale(${t<0?1.2-0.2*seg(t,-4,0):1+0.6*seg(t,0,14)})`; return true;}
+const press=(id,f,a)=>{$(id).style.transform=`scale(${1-0.05*Math.exp(-Math.pow((f-a-1)/3,2))})`};
+// forward navigation: old page moves right, new page comes from the left (RTL); back is the reverse
+function slide(f,a,from,to,dir){const p=E.io(seg(f,a,a+12)); const o={}; o[from]=dir*p*572; o[to]=dir*(p-1)*572; return p>=1?{[to]:0}:o}
+/* ---------- timeline ---------- */
+const T_PH=138;                         // phone rises with the quick-access grid
+const T_TILE=BT(0);                     // tap "سرویس دوره‌ای" on the groove downbeat
+const T_ADD=BT(2);                      // tap "افزودن سرویس"
+const T_FLD=[BT(3),BT(3.75),BT(4.5),BT(5.25)];   // fields fill: type, date, km, interval
+const T_TYPE0=BT(6), T_TYPE1=BT(8);     // note typed
+const T_SAVE=BT(8.75);                  // tap "ذخیره"
+const T_LAP0=BT(10.5), T_LAP1=BT(22);   // driving time-lapse: 5,000 -> 300 km left
+const T_NOTIF=BT(24);                   // reminder notification
+const T_LIST=B(8)-12;                   // more services appear
+const T_RECAP=B(8), T_END=817.5;
+const KM0=351004, INT=5000, WARN=300;
+const g3=n=>fa(String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'٬'));
+const lapP=f=>E.io(seg(f,T_LAP0,T_LAP1));
+const left=f=>f<T_LAP0?INT:Math.round(lerp(INT,WARN,lapP(f))/10)*10;
+const kmNow=f=>KM0+INT-left(f);
+const NOTE='روغن از برند ماموت ریختم';
+
+Object.assign(IC,{
+ dash:'M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z',
+ head:'M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h4v1h-7v2h6c1.66 0 3-1.34 3-3V10c0-4.97-4.03-9-9-9z',
+ flag:'M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z', plus:'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z',
+ pen:'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
+ bell:'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z',
+ pin:'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z',
+ cal:'M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z',
+});
+const GRN='#22A050', AMB='#F28012';
+const qa=(id,ic,l,c='#2196F3',bg='#E3EFFC')=>`<div class="qa" id="${id}"><div class="ib" style="background:${bg}">${svg(ic,c,40)}</div>${l}</div>`;
+S.qa=`<div class="scr" id="sc_qa">${ST_D}<div style="padding:4px 26px 12px;font-weight:700;font-size:22px;color:#98A3B8">دسترسی سریع</div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px">
+  ${qa('q1','car','سفر')}${qa('q2','warn','خطایابی <span class="ltr">ECU</span>')}${qa('q3','wrench','عیب‌یاب هوش مصنوعی')}${qa('q4','eye','مانیتورینگ خودرو')}
+  ${qa('q5','batt','تست باتری و دینام')}${qa('q6','trend','روند سلامت خودرو')}${qa('q7','dash','داشبورد')}${qa('q8','dash','اصالت کیلومتر')}
+  ${qa('q_svc','car','سرویس دوره‌ای')}${qa('q10','flag','مدیریت اشتراک')}</div>${NAV}</div>`;
+const svcCard=(id,ttl,sub,note,stc,stbg,sttxt,pw,pc)=>`<div class="svc" id="${id}"><div class="ic">${svg('car','#2196F3',36)}</div>
+ <div style="flex:1"><div style="font-weight:900;font-size:22px;color:#10203C">${ttl}</div>
+  <div style="font-weight:500;font-size:16.5px;color:#6E7D96;margin-top:6px">${sub}</div>${note?`<div style="font-weight:500;font-size:16px;color:#98A3B8;margin-top:4px">${note}</div>`:''}
+  <span class="st" id="${id}_st" style="color:${stc};background:${stbg}">${sttxt}</span>
+  <div class="pb"><div id="${id}_pb" style="width:${pw}%;background:${pc}"></div></div></div>
+ <div style="display:flex;gap:16px;align-items:center">${svg('pen','#64B5F6',30)}${svg('trash','#E57373',30)}</div></div>`;
+S.svc=`<div class="scr" id="sc_svc">${bar('سرویس دوره‌ای',svg('play','#fff',24)+'<span>آموزش</span>')}
+ <div class="card" style="margin:16px 16px 0;padding:20px 22px 22px">
+  <div style="display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:17px;color:#6E7D96"><span>۲۰۶</span>${svg('down','#10203C',34)}</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span id="s_km" style="font-weight:900;font-size:40px;color:#10203C"></span>
+   <span style="border:2px solid #DEE6F2;border-radius:16px;padding:8px 26px;font-weight:700;font-size:19px;color:#2196F3">اصلاح</span></div>
+  <div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-weight:500;font-size:16.5px;color:#6E7D96"><span style="width:16px;height:16px;border-radius:50%;background:#5CBF6E"></span>ثبت خودکار روشن است (عدد تخمینی است — هر وقت لازم شد اصلاحش کن)</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-weight:600;font-size:19px"><span>ثبت خودکار کیلومتر با <span class="ltr">GPS</span></span>
+   <span id="s_gps" style="position:relative;width:56px;height:30px;border-radius:15px;background:#90CAF9"><span style="position:absolute;left:28px;top:2px;width:26px;height:26px;border-radius:50%;background:#2196F3"></span></span></div>
+ </div>
+ <div style="margin:16px 16px 0;height:62px;border:2px solid #98A3B8;border-radius:10px;display:flex;align-items:center;gap:12px;padding:0 18px;font-weight:500;font-size:20px;color:#6E7D96">${svg('search','#98A3B8',30)}جستجوی سرویس...</div>
+ <div id="s_empty" style="position:absolute;left:0;right:0;top:640px;text-align:center">${svg('wrench','#98A3B8',90)}<div style="margin-top:20px;font-weight:600;font-size:22px;color:#6E7D96">هنوز سرویسی ثبت نشده</div></div>
+ <div id="s_list">
+  ${svcCard('sv0','تعویض روغن موتور','۱۴۰۵/۰۷/۲۶ — '+g3(KM0)+' کیلومتر',NOTE,GRN,'#DEF6E6','',0,GRN)}
+  ${svcCard('sv1','تعویض فیلتر هوا','۱۴۰۵/۰۵/۱۰ — ۳۴۴٬۲۰۰ کیلومتر','',GRN,'#DEF6E6','سالم — ۸٬۲۰۰ کیلومتر تا سرویس بعدی',45,GRN)}
+  ${svcCard('sv2','تعویض تسمه تایم','۱۴۰۴/۱۱/۰۲ — ۳۲۴٬۵۰۰ کیلومتر','',GRN,'#DEF6E6','سالم — ۲۳٬۵۰۰ کیلومتر تا سرویس بعدی',22,GRN)}
+  ${svcCard('sv3','تعویض لنت ترمز','۱۴۰۵/۰۲/۱۸ — ۳۳۸٬۰۰۰ کیلومتر','',GRN,'#DEF6E6','سالم — ۴٬۷۰۰ کیلومتر تا سرویس بعدی',76,GRN)}
+ </div>
+ <div class="btn" id="s_add" style="position:absolute;left:16px;right:16px;bottom:116px;height:66px;border-radius:24px;font-size:24px">${svg('plus','#fff',30)}افزودن سرویس</div>
+ ${NAV}
+ <div id="s_dim" style="position:absolute;inset:0;background:rgba(16,32,60,.38);opacity:0;z-index:8"></div>
+ <div id="s_dlg" style="position:absolute;left:46px;right:46px;top:170px;background:#ECE8F1;border-radius:34px;padding:30px 30px 24px;opacity:0;z-index:9;box-shadow:0 30px 70px rgba(20,40,80,.3)">
+  <div style="font-weight:800;font-size:31px;color:#10203C">افزودن سرویس</div>
+  <div class="fld" id="d0"><span class="lb">نوع سرویس</span><span class="v" style="flex:1"></span>${svg('down','#6E7D96',34)}</div>
+  <div style="margin-top:16px;font-weight:600;font-size:18px;color:#33415C">تاریخ انجام:</div>
+  <div class="fld" id="d1" style="margin-top:10px;height:50px;border-color:#2196F3;justify-content:center;color:#2196F3"><span class="v"></span></div>
+  <div class="fld" id="d2"><span class="lb">کیلومتر خودرو (اختیاری)</span><span class="v"></span></div>
+  <div class="fld" id="d3"><span class="lb">هر چند کیلومتر یک‌بار؟</span><span class="v"></span></div>
+  <div style="margin-top:10px;font-weight:500;font-size:16.5px;color:#33415C">وقتی به این مقدار برسی هشدار می‌گیری</div>
+  <div class="fld" id="d4" style="height:66px"><span class="lb">توضیح (اختیاری)</span><span class="v"></span><span id="d4c" style="display:inline-block;width:2px;height:28px;background:#2196F3;margin-right:2px"></span></div>
+  <div style="display:flex;gap:44px;margin-top:26px;padding-right:8px;font-weight:700;font-size:22px;color:#2196F3;justify-content:flex-start;direction:ltr"><span id="d_save" style="padding:6px 10px;border-radius:10px">ذخیره</span><span>انصراف</span></div>
+ </div>
+ <div id="s_ntf" class="ntf" style="left:14px;right:14px;top:56px;padding:18px 20px;opacity:0;z-index:12">
+  <div style="width:54px;height:54px;border-radius:14px;background:#2196F3;display:flex;align-items:center;justify-content:center;flex:none">${LOGO(40,'#fff',6)}</div>
+  <div style="flex:1"><div style="display:flex;justify-content:space-between;font-weight:600;font-size:15px;color:#6E7D96"><span class="ltr">CarDiag AI</span><span>الان</span></div>
+   <div style="font-weight:800;font-size:19px;color:#10203C;margin-top:4px">تعویض روغن موتور</div>
+   <div style="font-weight:500;font-size:17px;color:#33415C;margin-top:2px">۳۰۰ کیلومتر دیگه باید روغن عوض بشه</div></div></div>
+</div>`;
+$('screen').innerHTML=S.qa+S.svc;
+const SCR=['sc_qa','sc_svc'];
+
+/* ---------- floating cards ---------- */
+$('fcs').innerHTML=`<div class="fc" id="fL"><div style="display:flex;align-items:center;justify-content:space-between"><div class="ct">تا تعویض روغن</div>
+   <span id="fLs" class="pill" style="background:#DEF6E6;color:${GRN}">سالم</span></div>
+  <div style="display:flex;align-items:baseline;gap:16px;margin-top:10px"><span id="fLv" class="big" style="font-size:96px;color:${GRN}"></span><span class="sub">کیلومتر</span></div>
+  <div style="height:18px;border-radius:9px;background:#E6EBF2;overflow:hidden;margin-top:16px;direction:ltr"><div id="fLp" style="height:18px;width:0;border-radius:9px;background:${GRN}"></div></div></div>
+ <div class="fc" id="fN" style="padding:28px 34px"><div style="display:flex;gap:24px;align-items:flex-start">
+  <div style="width:110px;height:110px;border-radius:28px;background:#2196F3;display:flex;align-items:center;justify-content:center;flex:none">${LOGO(84,'#fff',6)}</div>
+  <div style="flex:1"><div style="display:flex;justify-content:space-between;font-weight:600;font-size:30px;color:#6E7D96"><span class="ltr">CarDiag AI</span><span>الان</span></div>
+   <div class="ct" style="font-size:46px;margin-top:6px;display:flex;align-items:center;gap:12px">${svg('bell',AMB,46)}تعویض روغن موتور</div>
+   <div class="sub" style="color:#10203C;font-weight:600;margin-top:6px">۳۰۰ کیلومتر دیگه باید روغن عوض بشه</div></div></div></div>`;
+/* side chips during the time-lapse: GPS + calendar */
+$('side').innerHTML=`<div id="sG" class="a rtl" style="left:40px;top:470px;width:250px;background:#fff;border:3px solid #DEE6F2;border-radius:30px;box-shadow:0 16px 36px rgba(20,40,80,.14);padding:18px 22px;opacity:0">
+  <div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:28px">${svg('pin','#2196F3',34)}<span class="ltr">GPS</span></div><div style="font-weight:600;font-size:24px;color:#6E7D96;margin-top:6px">ثبت خودکار</div></div>
+ <div id="sC" class="a rtl" style="left:790px;top:470px;width:250px;background:#fff;border:3px solid #DEE6F2;border-radius:30px;box-shadow:0 16px 36px rgba(20,40,80,.14);padding:18px 22px;opacity:0">
+  <div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:28px">${svg('cal','#2196F3',34)}تاریخ</div><div id="sCv" style="font-weight:900;font-size:36px;margin-top:6px"></div></div>`;
+
+/* ---------- titles ---------- */
+const TT=[
+ {h:'یادت رفت روغن عوض کنی؟',a:10,b:T_TILE-4},
+ {h:'یه بار ثبتش کن',a:T_TILE-2,b:T_LAP0},
+ {h:'کیلومتر خودکار ثبت می‌شه',a:T_LAP0+2,b:T_NOTIF-2},
+ {h:'سر وقت خبرت می‌کنه',a:T_NOTIF,b:T_LIST-2},
+ {h:'همه سرویس‌ها یه جا',a:T_LIST,b:T_END-4},
+ {h:'دیاگ سری <b class="ltr" style="color:#2196F3">C</b>',a:T_END-2,b:99999},
+];
+$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl" id="tt${i}" style="top:148px"><div class="h">${t.h}</div></div>`).join('');
+
+/* ---------- scenes ---------- */
+function hook(f){
+ const h=$('hk'); const o=E.oc(seg(f,-8,10))*(1-seg(f,132,146)); if(o<=0){h.style.display='none';return} h.style.display='block'; h.style.opacity=o;
+ h.style.transform=`scale(${lerp(1.06,1,E.oc(seg(f,0,24)))*(1-0.08*E.ic(seg(f,130,146)))})`;
+ // odometer climbs fast, slows near the end (the forgotten change is long overdue)
+ const km=Math.round(lerp(351004,356420,1-Math.pow(1-seg(f,0,120),2.2))); $('odo').textContent=g3(km);
+ const n=$('note'), np=seg(f,14,28), fade=seg(f,60,110);
+ n.style.opacity=E.oc(np)*(1-0.7*fade); n.style.filter=`blur(${fade*3}px)`;
+ n.style.transform=`rotate(${-4+fade*6}deg) translateY(${(1-E.oc(np))*40+fade*30}px)`;
+ const on=f>=96, bl=on?0.6+0.4*Math.cos((f-96)/3):0;
+ $('oilIcon').setAttribute('fill',on&&bl>0.45?'#FFC446':'#3A4866'); $('oilHalo').setAttribute('opacity',on?bl:0);
+}
+function screens(f){
+ let x={};
+ if(f<T_TILE+3) x={sc_qa:0}; else x=slide(f,T_TILE+3,'sc_qa','sc_svc',1);
+ SCR.forEach(s=>{const el=$(s); if(x[s]===undefined){el.style.display='none'}else{el.style.display='block';el.style.transform=`translateX(${x[s]}px)`;el.style.opacity=1}});
+}
+const shrinkK=f=>E.io(seg(f,T_LAP0-6,T_LAP0+10))*(1-E.io(seg(f,T_NOTIF+40,T_NOTIF+56)));
+function phone(f){
+ const ph=$('phone'); let py=0,ps=1,po=1,show=f>=T_PH;
+ if(f<T_PH+18) py=lerp(1600,0,E.oc(seg(f,T_PH,T_PH+18)));
+ if(f>=T_END-10){po=1-seg(f,T_END-10,T_END); if(po<=0) show=false;}
+ const k=shrinkK(f); ps=lerp(1,0.78,k); py+=lerp(0,-40,k);
+ ph.style.display=show?'block':'none'; ph.style.opacity=po; ph.style.transform=`translateY(${py}px) scale(${ps})`;
+ if(!show) return;
+ screens(f);
+ let tapped=false; const T=(a,id)=>{tapped=tapAt(f,a,id)||tapped; press(id,f,a)};
+ T(T_TILE,'q_svc');
+ if(f>=T_TILE){
+  $('s_km').textContent=g3(kmNow(f))+' کیلومتر';
+  T(T_ADD,'s_add');
+  // dialog
+  const din=seg(f,T_ADD+4,T_ADD+14), dout=seg(f,T_SAVE+4,T_SAVE+12), dv=f>=T_ADD+4&&f<T_SAVE+12;
+  const o=dv?E.oc(din)*(1-E.ic(dout)):0; $('s_dim').style.opacity=o; $('s_dlg').style.opacity=o;
+  $('s_dlg').style.transform=`translateY(${(1-E.oc(din))*60+E.ic(dout)*30}px) scale(${lerp(0.94,1,E.oc(din))})`;
+  const V=['تعویض روغن موتور','۱۴۰۵/۰۷/۲۶',fa(KM0),fa(INT)];
+  V.forEach((v,i)=>{const el=$('d'+i), p=seg(f,T_FLD[i],T_FLD[i]+6); el.querySelector('.v').textContent=f>=T_FLD[i]?v:''; el.querySelector('.v').style.opacity=E.oc(p);
+   el.style.borderColor=(f>=T_FLD[i]&&f<T_FLD[i]+12)||i==1?'#2196F3':'#98A3B8';});
+  const nc=Math.round(NOTE.length*seg(f,T_TYPE0,T_TYPE1)); $('d4').querySelector('.v').textContent=NOTE.slice(0,nc);
+  $('d4').style.borderColor=f>=T_TYPE0-2?'#2196F3':'#98A3B8'; $('d4c').style.opacity=f>=T_TYPE0-2&&Math.floor(f/8)%2==0?1:0;
+  if(o>0.5) T(T_SAVE,'d_save'); $('d_save').style.background=Math.abs(f-T_SAVE-2)<5?'rgba(33,150,243,.15)':'none';
+  // list
+  const saved=f>=T_SAVE+8; vis($('s_empty'),saved?0:1);
+  const c0=$('sv0'), cp=seg(f,T_SAVE+8,T_SAVE+20); c0.style.display=saved?'flex':'none'; c0.style.opacity=E.oc(cp); c0.style.transform=`translateY(${(1-E.oc(cp))*30}px) scale(${lerp(0.9,1,E.back(cp))})`;
+  const L=left(f), warn=L<=WARN, sh=warn?Math.sin((f-T_LAP1)*1.8)*8*Math.exp(-(f-T_LAP1)/6):0;
+  if(saved){const st=$('sv0_st'); st.textContent=warn?`نزدیک سرویس — ${g3(L)} کیلومتر مانده`:`سالم — ${g3(L)} کیلومتر تا سرویس بعدی`;
+   st.style.color=warn?AMB:GRN; st.style.background=warn?'#FFF4E5':'#DEF6E6'; c0.style.borderColor=warn?'#F9C88A':'';
+   $('sv0_pb').style.width=((INT-L)/INT*100)+'%'; $('sv0_pb').style.background=warn?AMB:GRN; if(warn) c0.style.transform=`translateX(${sh}px)`;}
+  [1,2,3].forEach(i=>{const el=$('sv'+i), p=seg(f,T_LIST+i*6,T_LIST+i*6+10); el.style.display=f>=T_LIST+i*6?'flex':'none'; el.style.opacity=E.oc(p); el.style.transform=`translateY(${(1-E.oc(p))*30}px)`;});
+  $('s_add').style.opacity=f>=T_LIST?0:1;
+  // GPS toggle pulse while driving
+  $('s_gps').style.boxShadow=f>=T_LAP0&&f<T_LAP1?`0 0 0 ${6*(0.5+0.5*Math.sin(f/4))}px rgba(33,150,243,.2)`:'none';
+  // notification drop-down
+  const ni=seg(f,T_NOTIF,T_NOTIF+10), no=seg(f,T_LIST-14,T_LIST-4); const ntf=$('s_ntf');
+  ntf.style.opacity=f>=T_NOTIF?E.oc(ni)*(1-no):0; ntf.style.transform=`translateY(${(1-E.oc(ni))*-160}px)`;
+ }
+ if(!tapped) $('tap').style.opacity=0;
+}
+const DATES=['۲۶ مهر','۳ آبان','۱۲ آبان','۲۰ آبان','۲۹ آبان','۷ آذر','۱۵ آذر'];
+function floats(f){
+ const show=(id,a,b)=>{const el=$(id); if(f<a-1||f>b+1){el.style.display='none';return 0}
+  el.style.display='block'; const pin=seg(f,a,a+14), pout=seg(f,b-9,b);
+  el.style.opacity=E.oc(seg(f,a,a+6))*(1-E.ic(pout)); el.style.transform=`translateY(${(1-E.oc(pin))*60+E.ic(pout)*30}px) scale(${lerp(0.86,1,E.back(pin))})`; return 1};
+ if(show('fL',T_LAP0+4,T_NOTIF+2)){const L=left(f), warn=L<=WARN;
+  $('fLv').textContent=g3(L); $('fLv').style.color=warn?AMB:GRN; $('fLp').style.width=((INT-L)/INT*100)+'%'; $('fLp').style.background=warn?AMB:GRN;
+  $('fLs').textContent=warn?'نزدیک سرویس':'سالم'; $('fLs').style.color=warn?'#fff':GRN; $('fLs').style.background=warn?AMB:'#DEF6E6';
+  if(warn){const el=$('fL'); el.style.borderColor='#F9C88A'; el.style.transform+=` translateX(${Math.sin((f-T_LAP1)*1.8)*10*Math.exp(-(f-T_LAP1)/6)}px)`;}}
+ show('fN',T_NOTIF+8,T_LIST-2);
+ const so=E.oc(seg(f,T_LAP0+6,T_LAP0+16))*(1-seg(f,T_NOTIF-8,T_NOTIF)); ['sG','sC'].forEach(id=>{$(id).style.opacity=so; $(id).style.display=so>0?'block':'none';});
+ if(so>0){$('sCv').textContent=DATES[Math.min(6,Math.floor(lapP(f)*6.99))]; $('sG').style.boxShadow=`0 0 0 ${8*(0.5+0.5*Math.sin(f/4))}px rgba(33,150,243,.16),0 16px 36px rgba(20,40,80,.14)`;}
+}
+function render(f){
+ hook(f); phone(f); floats(f);
+ TT.forEach((t,i)=>{const el=$('tt'+i);const pin=E.oc(seg(f,t.a,t.a+9)),pout=E.ic(seg(f,t.b-6,t.b));const o=pin*(1-pout);
+  vis(el,o); el.style.transform=`translateY(${(1-pin)*28-pout*14}px)`;});
+ renderEnd(f);
+}
+
+</script>
+<script src="endcard.js"></script>
+<script>
+initEnd(null,{health:HEALTH,healthColor:LG});
+window.READY=document.fonts.ready.then(()=>{render(0);return true});
+</script>
+</body></html>

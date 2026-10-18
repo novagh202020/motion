@@ -16,6 +16,7 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 
 ## SFX / mux
     python3 sfx2.py   (Series C)  |  python3 sfx_ai.py  (AI motion)  |  python3 sfx_ecu.py  (ECU motion; needs song/song_cut.wav for mix_ecu.wav)
+    python3 sfx_svc.py  (periodic service motion, 30 s -> sfx_svc_full.wav, mix_svc.wav)
     python3 sfx_buy.py  (pre-purchase motion, 36.75 s -> sfx_buy_full.wav, mix_buy.wav; needs song/song_buy.wav = extend.py 3)
     python3 sfx_trip.py (trip analysis motion, 41.25 s -> sfx_trip_full.wav, mix_trip.wav; needs song/song_trip.wav)
     cd song && python3 extend.py 5 song_trip.wav   # song_cut + 5 repeated groove bars (recap/end card move 11.25 s later)
@@ -40,6 +41,9 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
                        68%) -> AI troubleshooter, gold-subscription badge, "I want to buy this car" -> the AI answer grows out of
                        the phone: verdict, money issues, negotiation tip, mileage check, what the test can't see, questions for the
                        seller -> recap checklist + gold capsule -> end card (37 s)
+- svc_motion.html      Periodic service: odometer climbs, forgotten oil-change note, oil lamp -> quick access -> periodic service,
+                       add oil change every 5,000 km -> km time-lapse (GPS), card goes green -> amber at 300 km left ->
+                       reminder notification -> more services in the list -> end card (30 s)
 - endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health}) sets the phone's health %)
 - cover*.html          Instagram / YouTube covers (cover_ecu.html = ECU post, cover_bat.html = battery post, render: python3 shot.py cover_ecu.html out.png); product_shot.html = white-background site image
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)
