@@ -9,7 +9,7 @@
 @font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
 @page{size:192mm 99mm;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:192mm;height:99mm;overflow:hidden;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{width:192mm;height:99mm;overflow:hidden;background:#F2BC00;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 body{font-family:V,sans-serif;position:relative}
 svg{position:absolute;left:0;top:0}
 #front{position:absolute;left:26mm;top:3mm;width:140mm;height:70mm;display:flex;align-items:center;justify-content:center;gap:26px;direction:rtl;color:#10203C}
@@ -23,8 +23,8 @@ body.dieline #lines{display:inline}
 </style></head><body>
 <svg width="192mm" height="99mm" viewBox="0 0 192 99">
  <defs><linearGradient id="y" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFD633"/><stop offset=".55" stop-color="#FFCD11"/><stop offset="1" stop-color="#F2BC00"/></linearGradient></defs>
- <!-- ink: walls + 3 mm bleed (tabs stay white, they sit behind the poster) -->
- <rect x="15" y="0" width="162" height="84" fill="#F2BC00"/>
+ <!-- ink: whole sheet incl. tabs + 3 mm bleed, so an imperfect laser cut leaves no white edge -->
+ <rect x="0" y="0" width="192" height="99" fill="#F2BC00"/>
  <rect x="26" y="0" width="140" height="73" fill="url(#y)"/>
  <g id="lines" fill="none" stroke-width=".35">
   <path stroke="#E00000" d="M18 3H174V13L189 18V58L174 63V73H166V81H146L141 96H51L46 81H26V73H18V63L3 58V18L18 13Z"/>
