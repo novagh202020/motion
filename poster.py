@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright
 
 Image.MAX_IMAGE_PIXELS = None
 out = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".")
-dpi = int(sys.argv[2]) if len(sys.argv) > 2 else 150
+dpi = int(sys.argv[2]) if len(sys.argv) > 2 else 300
 out.mkdir(parents=True, exist_ok=True)
 W, H = 2245, 3179                      # 594 x 841 mm at 96 px/in
 segno.make(os.environ.get("QR_URL", "https://cardiag.ir"), error="h").save("assets/qr_cardiag.svg", scale=10, border=0, dark="#10203C")

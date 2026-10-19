@@ -8,45 +8,38 @@
 @font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
 @page{size:594mm 841mm;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:2245px;height:3179px;overflow:hidden;background:#050B1F}
+html,body{width:2245px;height:3179px;overflow:hidden;background:#0F57B5}
 body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 #c{position:relative;width:2245px;height:3179px;overflow:hidden;
- background:
-  radial-gradient(ellipse 1500px 1300px at 50% 46%,rgba(33,110,243,.62) 0%,rgba(21,70,200,.30) 45%,rgba(10,30,110,0) 75%),
-  radial-gradient(ellipse 1300px 700px at 50% 0%,rgba(30,60,160,.45) 0%,rgba(30,60,160,0) 70%),
-  linear-gradient(180deg,#060D26 0%,#0A1C5E 38%,#0D2A8C 62%,#071443 84%,#040A22 100%)}
+ background:linear-gradient(180deg,#2793EB 0%,#0F57B5 100%)}
 .a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
 
-/* light beams */
-.beam{position:absolute;width:260px;height:4200px;transform-origin:50% 0;filter:blur(18px);mix-blend-mode:screen;
- background:linear-gradient(90deg,rgba(33,150,243,0) 0%,rgba(40,160,255,.42) 50%,rgba(33,150,243,0) 100%)}
-.beam.t{width:90px;filter:blur(6px);background:linear-gradient(90deg,rgba(120,205,255,0),rgba(120,205,255,.35),rgba(120,205,255,0))}
 
 /* brand row */
 #brand{left:0;top:120px;width:2245px;display:flex;justify-content:center;align-items:center;gap:40px}
 #brand .en{font-weight:900;font-size:96px;color:#fff;letter-spacing:1px}
-#brand .en b{color:#78CDFF;font-weight:900}
-#brand .sep{width:4px;height:96px;background:rgba(173,214,250,.45);border-radius:2px}
+#brand .en b{color:#FFCD11;font-weight:900}
+#brand .sep{width:4px;height:96px;background:rgba(255,255,255,.55);border-radius:2px}
 #brand .fa{font-weight:900;font-size:96px;color:#fff}
 
 /* headline */
-#title{left:0;top:330px;width:2245px;text-align:center;font-weight:900;font-size:186px;line-height:1.24;color:#FFD21A;white-space:nowrap;
- text-shadow:0 10px 0 #0A1A55,0 0 4px #0A1A55,0 24px 80px rgba(0,0,10,.55),0 0 140px rgba(255,190,0,.25)}
-#sub{left:0;top:860px;width:2245px;text-align:center;font-weight:700;font-size:64px;color:#ADD6FA}
+#title{left:0;top:330px;width:2245px;text-align:center;font-weight:900;font-size:186px;line-height:1.24;color:#FFCD11;white-space:nowrap;
+ text-shadow:0 10px 0 #0B3A80,0 0 4px #0B3A80,0 24px 60px rgba(5,25,70,.45)}
+#sub{left:0;top:860px;width:2245px;text-align:center;font-weight:700;font-size:64px;color:#fff}
 
 /* features box */
 #feat{left:200px;top:1140px;width:1845px;height:330px;border:5px solid rgba(255,255,255,.92);border-radius:56px}
 #featRow{left:200px;top:1040px;width:1845px;display:flex;justify-content:space-around;direction:rtl}
 .f{width:400px;display:flex;flex-direction:column;align-items:center}
 .f .ib{width:200px;height:200px;display:flex;align-items:center;justify-content:center;
- background:radial-gradient(circle,#0F2C8E 0%,#0E2A86 60%,rgba(14,42,134,0) 72%)}
+ border-radius:50%;background:#1E7ED8}
 .f .t{margin-top:26px;text-align:center;font-weight:800;font-size:56px;line-height:1.32;color:#fff;white-space:nowrap}
 
 /* stage */
 #podium{left:-200px;top:2420px;width:2645px;height:620px;border-radius:50%;
- background:radial-gradient(ellipse at 50% 30%,#3A5C8A 0%,#1E3561 40%,#0B1636 75%);box-shadow:0 -6px 0 rgba(173,214,250,.25) inset}
+ background:radial-gradient(ellipse at 50% 30%,#2C74CF 0%,#15509F 40%,#0B3474 75%);box-shadow:0 -6px 0 rgba(173,214,250,.25) inset}
 #podTop{left:-60px;top:2400px;width:2365px;height:420px;border-radius:50%;
- background:radial-gradient(ellipse at 50% 40%,#4F6E99 0%,#2A4572 45%,#14264C 80%);border-top:3px solid rgba(173,214,250,.5)}
+ background:radial-gradient(ellipse at 50% 40%,#4A9BEA 0%,#2468C4 45%,#134A99 80%);border-top:3px solid rgba(173,214,250,.5)}
 .ring{position:absolute;border-radius:50%;border:0 solid #2196F3}
 #ring1{left:-260px;top:2640px;width:2765px;height:420px;border-bottom-width:26px;filter:drop-shadow(0 0 30px #2196F3) drop-shadow(0 0 10px #78CDFF)}
 #ring2{left:-360px;top:2720px;width:2965px;height:460px;border-bottom-width:20px;border-color:#1E7BE0;filter:drop-shadow(0 0 28px #2196F3);opacity:.85}
@@ -69,31 +62,29 @@ body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-
 #prod{left:640px;top:2090px;width:690px;filter:drop-shadow(0 30px 40px rgba(0,0,20,.45))}
 
 /* business-card space (right). Kept clear; ?guide=1 shows its outline */
-#cardZone{left:1330px;top:1640px;width:760px;height:560px;border:5px dashed #FFD21A;border-radius:28px;display:none;
- align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#FFD21A;font-weight:800;font-size:54px;text-align:center}
+#cardZone{left:1330px;top:1640px;width:760px;height:560px;border:5px dashed #FFCD11;border-radius:28px;display:none;
+ align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#FFCD11;font-weight:800;font-size:54px;text-align:center}
 #cardZone small{font-weight:500;font-size:40px;color:#ADD6FA}
 body.guide #cardZone{display:flex}
 
 /* bottom: QR + app name */
 #dl{left:200px;top:2860px;width:1845px;height:280px;display:flex;align-items:center;justify-content:space-between;direction:rtl;
- padding:0 70px 0 40px;border-radius:48px;background:rgba(6,16,52,.72);border:4px solid rgba(120,205,255,.55);
- box-shadow:0 0 60px rgba(33,150,243,.35)}
+ padding:0 70px 0 40px;border-radius:48px;background:rgba(8,38,100,.55);border:4px solid rgba(255,255,255,.6);
+ box-shadow:0 20px 60px rgba(5,25,70,.35)}
 #dl .txt{display:flex;flex-direction:column;gap:6px}
 #dl .k{font-weight:700;font-size:50px;color:#ADD6FA}
 #dl .n{font-weight:900;font-size:96px;line-height:1.1;color:#fff}
-#dl .n b{color:#FFD21A;font-weight:900}
-#dl .u{font-weight:700;font-size:64px;color:#78CDFF;direction:ltr;unicode-bidi:isolate}
+#dl .n b{color:#FFCD11;font-weight:900}
+#dl .u{font-weight:700;font-size:64px;color:#fff;direction:ltr;unicode-bidi:isolate}
 #dl .mid{display:flex;align-items:center;gap:26px;font-weight:800;font-size:52px;color:#fff}
 #qr{width:236px;height:236px;background:#fff;border-radius:28px;padding:18px;box-shadow:0 0 40px rgba(120,205,255,.5)}
 #qr img{width:200px;height:200px;display:block;image-rendering:pixelated}
 </style></head><body>
 <div id="c">
- <div id="beams"></div>
-
  <div id="brand" class="a">
   <svg width="300" height="96" viewBox="0 0 500 160"><path d="M8 118 L100 104 L120 50 L144 140 L166 76 L182 108 L218 102 C240 98 248 58 282 46 L368 40 C398 40 408 82 430 96 L494 86"
-   fill="none" stroke="#2196F3" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
-   <circle cx="268" cy="114" r="14" fill="none" stroke="#2196F3" stroke-width="12"/><circle cx="368" cy="110" r="14" fill="none" stroke="#2196F3" stroke-width="12"/></svg>
+   fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+   <circle cx="268" cy="114" r="14" fill="none" stroke="#fff" stroke-width="12"/><circle cx="368" cy="110" r="14" fill="none" stroke="#fff" stroke-width="12"/></svg>
   <span class="en ltr">CarDiag <b>AI</b></span><span class="sep"></span><span class="fa rtl">کاردیاگ</span>
  </div>
 
@@ -121,7 +112,7 @@ body.guide #cardZone{display:flex}
    <div class="n">کاردیاگ <b class="ltr">CarDiag</b></div>
   </div>
   <div class="mid"><span class="u">cardiag.ir</span>
-   <svg width="120" height="60" viewBox="0 0 120 60"><path d="M10 30h86M74 8l26 22-26 22" fill="none" stroke="#FFD21A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   <svg width="120" height="60" viewBox="0 0 120 60"><path d="M10 30h86M74 8l26 22-26 22" fill="none" stroke="#FFCD11" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
    <span class="rtl">اسکن کن<br>و نصب کن</span>
   </div>
   <div id="qr"><img src="assets/qr_cardiag.svg"></div>
@@ -130,11 +121,6 @@ body.guide #cardZone{display:flex}
 <script>
 if(new URLSearchParams(location.search).get('guide'))document.body.classList.add('guide');
 
-// beams from both top corners toward the stage
-const B=document.getElementById('beams');
-[[-150,-300,-28,'b'],[150,-300,-20,'t'],[380,-300,-36,'t'],[2155,-300,28,'b'],[2065,-300,20,'t'],[1820,-300,36,'t'],[860,-200,-8,'t'],[1385,-200,8,'t']]
- .forEach(([x,y,r,k])=>{const d=document.createElement('div');d.className='beam'+(k==='t'?' t':'');
-  d.style.left=(x-(k==='t'?45:130))+'px';d.style.top=y+'px';d.style.transform=`rotate(${r}deg)`;if(Math.abs(r)<10)d.style.opacity=.55;B.appendChild(d)});
 
 // feature icons (white line art, 24-unit grid)
 const L=(d)=>`<svg width="150" height="150" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
@@ -142,7 +128,7 @@ const FI={
  ai:L('<rect x="13" y="13" width="22" height="22" rx="4"/><path d="M19 13V7M24 13V7M29 13V7M19 41v-6M24 41v-6M29 41v-6M13 19H7M13 24H7M13 29H7M41 19h-6M41 24h-6M41 29h-6"/><path d="M18.5 29.5l3-11h1l3 11M19.6 26h4.8M29 18.5v11"/>'),
  trip:L('<path d="M8 34a17 17 0 1 1 32 0"/><path d="M24 31l8-11"/><circle cx="24" cy="31" r="3"/><path d="M12 22l2.5 1.5M24 15v3M36 22l-2.5 1.5"/><path d="M6 40h36"/>'),
  ecu:L('<path d="M9 21h4l3-4h10l3 4h4v4h3v-3h3v12h-3v-3h-3v5h-5l-3 3H17l-4-4H9z"/><path d="M5 23v10"/><path d="M23 23v5M23 31.5v.5"/>'),
- bat:L('<rect x="6" y="15" width="36" height="24" rx="4"/><path d="M12 15v-4h6v4M30 15v-4h6v4"/><path d="M12 25h6M15 22v6M30 25h6"/><path d="M25 19l-4 8h6l-4 8" stroke="#FFD21A"/>'),
+ bat:L('<rect x="6" y="15" width="36" height="24" rx="4"/><path d="M12 15v-4h6v4M30 15v-4h6v4"/><path d="M12 25h6M15 22v6M30 25h6"/><path d="M25 19l-4 8h6l-4 8" stroke="#FFCD11"/>'),
 };
 const FEAT=[['ai','عیب‌یابی خودرو<br>با هوش مصنوعی'],['trip','تحلیل خودرو<br>در حال حرکت'],['ecu','اسکن و حذف<br>خطاهای <span class="ltr">ECU</span>'],['bat','تست سلامت<br>باتری و دینام']];
 document.getElementById('featRow').innerHTML=FEAT.map(([k,t])=>`<div class="f"><div class="ib">${FI[k]}</div><div class="t">${t}</div></div>`).join('');
