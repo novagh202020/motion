@@ -8,6 +8,7 @@
 @font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
 @font-face{font-family:Lalezar;src:url(fonts/Lalezar-Regular.ttf)}
 @font-face{font-family:Baloo;font-weight:400 800;src:url(fonts/BalooBhaijaan2-VF.ttf)}
+@font-face{font-family:Peyda;font-weight:800;src:url(fonts/Peyda-ExtraBold.ttf)}
 @page{size:594mm 841mm;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:2245px;height:3179px;overflow:hidden;background:#0F57B5}
@@ -33,6 +34,13 @@ body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-
 #titleF span{background:linear-gradient(180deg,#FFF6A8 0%,#FFE03A 38%,#FFC400 62%,#FF9F0A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 body.t-a #title,body.t-a #titleF{font-family:Lalezar;font-weight:400;font-size:218px;line-height:1.2;top:300px}
 body.t-b #title,body.t-b #titleF{font-family:Baloo;font-weight:800;font-size:200px;line-height:1.18;top:330px}
+/* Peyda options */
+body.t-p1 #title,body.t-p1 #titleF,body.t-p2 #title,body.t-p2 #titleF,body.t-p3 #title,body.t-p3 #titleF{font-family:Peyda;font-weight:800;font-size:200px;line-height:1.22;top:315px}
+body.t-p1 #title,body.t-p2 #title{-webkit-text-stroke:0;color:transparent;text-shadow:0 14px 40px rgba(5,25,80,.55),0 4px 10px rgba(5,25,80,.35)}
+body.t-p1 #titleF span,body.t-p2 #titleF span{background:none;color:#FFCD11}
+body.t-p2 #titleF .l1{color:#fff}
+body.t-p3 #title{-webkit-text-stroke:16px #0A2A6B;text-shadow:0 10px 0 #0A2A6B,0 30px 50px rgba(0,10,40,.45)}
+body.t-p3 #titleF span{background:linear-gradient(180deg,#FFE45C 0%,#FFCD11 55%,#FFB300 100%);-webkit-background-clip:text;background-clip:text}
 body.t-b #titleF .l1{background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 50%,#D6EBFF 100%);-webkit-background-clip:text;background-clip:text}
 #sub{left:0;top:860px;width:2245px;text-align:center;font-weight:700;font-size:64px;color:#fff}
 
