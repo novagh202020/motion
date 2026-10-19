@@ -4,9 +4,9 @@ from gen import phone, card, bt, diag, ring, brand, write
 OLD, NEW, OFF = '۲٬۱۰۰٬۰۰۰', '۱٬۴۹۰٬۰۰۰', '۳۰٪ تخفیف'  # exact (2.1M − 1.49M) / 2.1M is 29%; rounded to 30% at the owner's request
 
 
-def title(sep='<br>'):
-    return (f'<div id="title" class="a h">عیب‌یاب <span class="ai">هوش مصنوعی<span class="shine" data-t0="0.3"></span></span>'
-            f'{sep}خودرو</div>')
+def title(sep='<br>', sep1=' '):
+    return (f'<div id="title" class="a h"><span class="ai">عیب‌یاب{sep1}هوش مصنوعی{sep}خودرو'
+            '<span class="shine" data-t0="0.3"></span></span></div>')
 
 
 def sub(text='برای خودروهای ایرانی و خارجی'):
@@ -38,7 +38,7 @@ SIZES[(600, 400)] = (
     "#card .s{margin-top:5px;font:500 11px V;color:#6E7D96}"
     "#ok{margin-right:0;margin-top:7px;height:22px;padding:0 10px;border-radius:11px;font-size:11px}"
     "#brand{right:26px;top:26px;height:36px;padding:0 18px;border-radius:18px;font-size:19px;box-shadow:0 6px 14px rgba(20,40,80,.25)}"
-    "#title{right:26px;top:80px;font-size:35px;line-height:1.45}"
+    "#title{right:26px;top:82px;font-size:34px;line-height:1.3}#title .ai{padding:.12em .38em .08em;border-radius:.4em;text-align:center}"
     "#sub{right:26px;top:190px;font-size:18px}"
     "#price{right:26px;top:238px;padding:10px 18px 8px;border-radius:18px}"
     "#price .r{gap:10px}#price .old{font-size:17px}#badge{font-size:13px;padding:2px 9px;border-radius:9px}"
@@ -50,8 +50,8 @@ SIZES[(600, 400)] = (
 pc, ph = phone(62, 16, 80)
 SIZES[(300, 250)] = (
     "#c{background:radial-gradient(circle at 25% 65%,#4AACFA 0%,rgba(74,172,250,0) 45%),#2793eb}" + pc +
-    "#title{left:0;top:9px;width:300px;text-align:center;font-size:20.5px;line-height:1.3}"
-    "#sub{left:0;top:42px;width:300px;text-align:center;font-size:12.5px}"
+    "#title{left:0;top:8px;width:300px;text-align:center;font-size:20px;line-height:1.3}#title .ai{padding:.08em .4em .04em}"
+    "#sub{left:0;top:45px;width:300px;text-align:center;font-size:12.5px}"
     "#card{left:6px;top:116px;width:84px;padding:4px 4px 5px;border-radius:8px}"
     "#card .t{font-size:7px;margin-bottom:3px}#card .code{border-radius:5px;padding:0 5px;font-size:12px}"
     "#ok{margin-top:3px;height:12px;padding:0 4px;border-radius:6px;font-size:6px}"
@@ -66,7 +66,7 @@ SIZES[(300, 250)] = (
 SIZES[(728, 90)] = (
     "#c{background:radial-gradient(ellipse at 28% 50%,#4AACFA 0%,rgba(74,172,250,0) 40%),#2793eb}"
     "#brand{left:12px;top:25px;height:40px;padding:0 16px;border-radius:20px;font-size:20px;box-shadow:0 6px 14px rgba(20,40,80,.25)}"
-    "#title{right:14px;top:9px;font-size:25px;line-height:1.35}"
+    "#title{right:14px;top:9px;font-size:24px;line-height:1.3}#title .ai{padding:.06em .38em .02em}"
     "#sub{right:14px;top:52px;font-size:14px}"
     "#price{left:232px;top:13px;padding:6px 11px 4px;border-radius:12px}"
     "#price .r{gap:7px}#price .old{font-size:12px}#badge{font-size:10px;padding:1px 6px;border-radius:6px}"
@@ -76,7 +76,7 @@ SIZES[(728, 90)] = (
 # ---- 468x60 ----
 SIZES[(468, 60)] = (
     "#c{background:radial-gradient(ellipse at 18% 50%,#4AACFA 0%,rgba(74,172,250,0) 40%),#2793eb}"
-    "#title{right:8px;top:4px;font-size:19.5px;line-height:1.35}"
+    "#title{right:8px;top:4px;font-size:18.5px;line-height:1.3}#title .ai{padding:.04em .35em 0}"
     "#sub{right:8px;top:36px;font-size:11px}"
     "#price{left:74px;top:6px;padding:4px 8px 3px;border-radius:9px}"
     "#price .r{gap:5px}#price .old{font-size:9px}#badge{font-size:7.5px;padding:0 4px;border-radius:4px}"
@@ -87,9 +87,9 @@ SIZES[(468, 60)] = (
 SIZES[(300, 100)] = (
     "#c{background:radial-gradient(ellipse at 18% 45%,#4AACFA 0%,rgba(74,172,250,0) 50%),#2793eb}"
     "#brand{left:8px;top:74px;height:21px;padding:0 10px;border-radius:11px;font-size:13px;box-shadow:0 4px 10px rgba(20,40,80,.25)}"
-    "#title{right:8px;top:5px;font-size:15px;line-height:1.35}"
-    "#sub{right:8px;top:29px;font-size:9.5px}"
-    "#price{right:8px;top:47px;padding:4px 9px 3px;border-radius:9px}"
+    "#title{right:8px;top:5px;font-size:14.5px;line-height:1.3}#title .ai{padding:.04em .35em 0}"
+    "#sub{right:8px;top:31px;font-size:9.5px}"
+    "#price{right:8px;top:49px;padding:4px 9px 3px;border-radius:9px}"
     "#price .r{gap:5px}#price .old{font-size:9px}#badge{font-size:7.5px;padding:0 4px;border-radius:4px}"
     "#price .new{font-size:20px;line-height:1.1}#price .tm{font-size:9.5px;margin-right:3px}",
     ring(-40, -30, 170) + diag(6, 6, 88, 1) + brand() + title(sep=' ') + sub() + price())
@@ -98,8 +98,8 @@ SIZES[(300, 100)] = (
 pc, ph = phone(80, 16, 176)
 SIZES[(120, 600)] = (
     "#c{background:radial-gradient(ellipse at 50% 52%,#4AACFA 0%,rgba(74,172,250,0) 45%),#2793eb}" + pc +
-    "#title{left:0;top:16px;width:120px;text-align:center;font-size:24px;line-height:1.42}#title .ai{font-size:.74em;padding:0 .25em}"
-    "#sub{left:0;top:128px;width:120px;text-align:center;font-size:11px;line-height:1.5;white-space:normal}"
+    "#title{left:0;top:18px;width:120px;text-align:center;font-size:18px;line-height:1.45}#title .ai{padding:.25em .3em .15em;border-radius:.5em}"
+    "#sub{left:0;top:104px;width:120px;text-align:center;font-size:11px;line-height:1.5;white-space:normal}"
     "#card{left:8px;top:236px;width:104px;padding:6px 5px 7px;border-radius:10px}"
     "#card .t{font-size:9px;margin-bottom:4px}#card .code{border-radius:6px;padding:0 7px;font-size:16px}"
     "#ok{margin-top:4px;height:14px;padding:0 5px;border-radius:7px;font-size:7.4px}"
@@ -108,7 +108,7 @@ SIZES[(120, 600)] = (
     "#price .new{font-size:19px;line-height:1.25}#price .tm{font-size:12px}"
     "#brand{left:0;top:548px;width:120px;height:52px;font-size:19px;box-shadow:0 -4px 12px rgba(20,40,80,.18)}",
     ring(-60, 170, 240) + ph + bt(120, 600, 64, 356, 8, 44, 2.6) + diag(14, 340, 98) + tag() +
-    title().replace('عیب‌یاب <span', 'عیب‌یاب<br><span') + sub('برای خودروهای<br>ایرانی و خارجی') + price(stack_tm=True) + brand())
+    title(sep1='<br>') + sub('برای خودروهای<br>ایرانی و خارجی') + price(stack_tm=True) + brand())
 
 if __name__ == '__main__':
     write(SIZES, 'price')
