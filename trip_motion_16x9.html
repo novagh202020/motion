@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Trip Analysis 16:9</title>
+<style>
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#FBFCFF}
+body{font-family:V,sans-serif;color:#10203C}
+#bg{position:absolute;inset:0;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+/* the vertical motion, scaled to full height (1920 -> 1080) */
+#mv{position:absolute;left:1160px;top:0;width:1080px;height:1920px;border:0;transform:scale(.5625);transform-origin:0 0}
+#shade{position:absolute;left:1160px;top:0;width:607.5px;height:1080px;box-shadow:-30px 0 60px rgba(20,40,80,.06)}
+#side{position:absolute;left:120px;top:0;width:960px;height:1080px;direction:rtl;text-align:right}
+#brand{position:absolute;right:0;top:110px;display:flex;align-items:center;gap:18px;direction:ltr;font-weight:900;font-size:44px;color:#1565C0}
+.tt{position:absolute;right:0;top:0;width:960px;height:1080px;display:flex;align-items:center;justify-content:flex-end;opacity:0}
+.tt .h{font-weight:900;font-size:112px;line-height:1.18;color:#10203C;white-space:nowrap}
+.tt .h b{color:#2196F3}
+#url{position:absolute;right:0;bottom:96px;font-weight:700;font-size:36px;color:#506482;direction:ltr}
+#pulse{position:absolute;left:0;top:0}
+</style></head><body>
+<div id="bg"></div>
+<svg id="pulse" width="1920" height="1080"><path d="M120 812 L520 812 L548 772 L576 858 L604 742 L632 812 L1080 812" fill="none" stroke="#2196F3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".25"/></svg>
+<div id="side">
+ <div id="brand"><svg width="120" height="43" viewBox="0 0 400 144"><path d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="#2196F3" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><circle cx="104" cy="114" r="16" fill="none" stroke="#2196F3" stroke-width="10"/><circle cx="188" cy="114" r="16" fill="none" stroke="#2196F3" stroke-width="10"/></svg>CarDiag AI</div>
+ <div id="tts"></div>
+ <div id="url">cardiag.ir</div>
+</div>
+<div id="shade"></div>
+<iframe id="mv" src="trip_motion.html" scrolling="no"></iframe>
+<script>
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a));
+const oc=t=>1-Math.pow(1-t,3), ic=t=>t*t*t;
+let W, TT;
+// titles live on the left in landscape (bigger), same timing as the vertical motion
+const OPEN='صدای <b>قلب</b><br>ماشینتو شنیدی؟';
+window.READY=new Promise(res=>{document.getElementById('mv').addEventListener('load',async()=>{
+ W=document.getElementById('mv').contentWindow; await W.READY; await document.fonts.ready;
+ TT=W.eval('TT').map((t,i)=>({...t,h:i==0?OPEN:t.h.replace(/،\s*/,'،<br>')}));
+ W.document.getElementById('titles').style.display='none';
+ document.getElementById('tts').innerHTML=TT.map((t,i)=>`<div class="tt" id="t${i}"><div class="h">${t.h}</div></div>`).join('');
+ // one line per row: shrink a title until its widest line fits the 980 px column
+ document.querySelectorAll('.tt .h').forEach(h=>{h.parentNode.style.display='flex'; const w=h.scrollWidth; if(w>980) h.style.fontSize=(112*980/w)+'px'; h.parentNode.style.display='none';});
+ render(0); res(true);});});
+function render(f){
+ W.render(f);
+ TT.forEach((t,i)=>{const el=document.getElementById('t'+i); const pin=oc(seg(f,t.a,t.a+9)), pout=ic(seg(f,t.b-6,t.b)); const o=pin*(1-pout);
+  el.style.opacity=o; el.style.display=o<=0.001?'none':'flex'; el.style.transform=`translateY(${(1-pin)*36-pout*18}px)`;});
+}
+</script>
+</body></html>

@@ -1,6 +1,7 @@
 """Render motion.html frames.
 usage: python render.py frames 0,30,60 outdir     -> PNG keyframes
        python render.py video out.mp4 [start end]  -> silent H.264 via ffmpeg pipe
+       VW=1920 VH=1080 PAGE=... for landscape wrappers
 """
 import os, sys, subprocess, pathlib, time
 os.environ.setdefault("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
@@ -12,7 +13,7 @@ URL = (HERE / os.environ.get("PAGE", "motion.html")).as_uri()
 
 def page_ctx(p):
     b = p.chromium.launch(args=["--disable-web-security", "--allow-file-access-from-files", "--force-color-profile=srgb"])
-    pg = b.new_page(viewport={"width": 1080, "height": 1920}, device_scale_factor=1)
+    pg = b.new_page(viewport={"width": int(os.environ.get("VW", 1080)), "height": int(os.environ.get("VH", 1920))}, device_scale_factor=1)
     errs = []
     pg.on("console", lambda m: errs.append(m.text) if m.type == "error" else None)
     pg.on("pageerror", lambda e: errs.append(str(e)))
