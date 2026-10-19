@@ -30,10 +30,11 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 
 ## Files
 - motion.html          Series C launch motion (8 features)
-- motion60.html        1-minute app tour on the full song: intro + connect, then 10 sections x 2 bars (bar 1 = the app screen,
-                       bar 2 = "what it does" card, 3 lines on the beats): ECU, monitoring, dashboard, trip, AI troubleshooter, battery,
-                       mileage check, periodic service, health trend (68% -> 86% over 6 scans), pre-purchase check (gold) ->
-                       recap: 12 quick-access tiles on eighth notes, flash on the break -> end card on the outro, last heartbeat on the final hit
+- motion60.html        1-minute app tour on the full song. Intro «عیب‌یابی هوش مصنوعی کاردیاگ / مکانیک تو جیبِت!» + fast connect, then
+                       8 sections in order of importance (SEC table, on the bar grid; bar 2 of each = "what it does" card, 3 lines on the beats):
+                       trip (bars 3-6: 20-min time-lapse, then the PDF report grows out of the phone, one section per beat), ECU, AI
+                       troubleshooter (bars 9-11: type, analyse on the break, full answer on the drop), battery, health trend, mileage,
+                       monitoring (13 sensors on eighth notes), periodic service -> recap: 8 tiles -> end card, last heartbeat on the final hit
 - ai_motion.html       AI diagnosis motion (= ai_intro.html + ai_main_part.html)
 - ecu_motion.html      ECU fault-finding motion: check-engine light -> plug diag -> splash, connect, Bluetooth scan,
                        connecting popup -> ECU scan finds P0420 -> clear all faults -> light off -> end card

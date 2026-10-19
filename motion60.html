@@ -82,6 +82,31 @@ body{font-family:V,sans-serif;color:var(--navy)}
 .goldp{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:20px;background:linear-gradient(90deg,#F6CD5C,#FFEA9C,#E0A82C);color:var(--ink);font-weight:800;font-size:17px;white-space:nowrap}
 .tile.t3{width:300px;height:216px;gap:18px;border-radius:34px}
 .tile.t3 .tl{font-size:30px}
+/* full report document */
+#doc{position:absolute;left:60px;top:320px;width:960px;height:1540px;border-radius:40px;background:#fff;border:3px solid #DEE6F2;box-shadow:0 40px 80px rgba(20,40,80,.22);overflow:hidden;transform-origin:0 0;display:none;z-index:24;direction:rtl}
+#doc_in{position:relative;padding:30px 34px}
+.dh{display:flex;align-items:center;gap:26px;border-radius:30px;background:linear-gradient(135deg,#1E88E5,#2196F3);color:#fff;padding:34px 36px}
+.ds{display:flex;align-items:center;gap:16px;margin:34px 0 14px;padding:18px 24px;background:#F4F6FA;border-radius:20px;font-weight:800;font-size:38px;color:#1565C0}
+.ds:before{content:"";width:8px;height:38px;border-radius:4px;background:#2196F3}
+.dr{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:0 8px;padding:14px 6px;border-bottom:2px solid #E6EBF2;font-size:31px}
+.dr span{color:#6E7D96;font-weight:500;white-space:nowrap}.dr b{font-weight:800;text-align:left}
+.db{display:flex;align-items:center;gap:20px;margin:16px 8px;font-size:31px;font-weight:700}
+.db .l{width:220px;white-space:nowrap}.db .v{width:90px;text-align:left;font-weight:900}
+.db .tr,.tr2{flex:1;height:36px;border-radius:18px;background:#E6EBF2;overflow:hidden;direction:ltr}
+.tr2{height:30px}
+.fi{height:100%;width:0;border-radius:18px}
+.dn{margin:14px 8px 0;font-size:28px;color:#6E7D96}
+.dc{margin:18px 0;border:3px solid #E6EBF2;border-radius:24px;overflow:hidden;background:#fff}
+.dc .h{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 24px;font-weight:800;font-size:33px}
+.dc .b{padding:16px 24px 22px;font-size:29px;line-height:1.7;color:#33415C}
+.dp{font-weight:800;font-size:24px;padding:5px 18px;border-radius:14px;white-space:nowrap}
+.dt{margin:0 4px;border-radius:18px;overflow:hidden;border:2px solid #E6EBF2}
+.dt .th,.tr3{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;padding:14px 20px;font-size:28px;text-align:center}
+.dt .th{background:#2196F3;color:#fff;font-weight:800}
+.tr3{border-top:2px solid #EEF2F8;font-weight:700}
+.tr3 span:first-child,.dt .th span:first-child{text-align:right}
+.ck2{display:flex;justify-content:space-between;align-items:center;margin:0 4px;padding:12px 22px;border-right:8px solid;border-bottom:2px solid #EEF2F8;font-size:29px;font-weight:700}
+.td{display:flex;align-items:center;gap:20px;margin:14px 4px;padding:20px 22px;border-radius:20px;background:#F4F6FA;border-right:8px solid;font-size:30px;font-weight:700}
 #gold{position:absolute;left:50%;top:1250px;height:104px;padding:0 54px;border-radius:52px;transform:translateX(-50%);
  background:linear-gradient(90deg,#F6CD5C 0%,#FFEA9C 50%,#E0A82C 100%);color:var(--ink);font-weight:800;font-size:52px;
  display:flex;align-items:center;gap:18px;white-space:nowrap;direction:rtl;box-shadow:0 18px 40px rgba(20,40,80,.18);opacity:0}
@@ -139,6 +164,7 @@ body{font-family:V,sans-serif;color:var(--navy)}
  <div id="gold"><svg width="56" height="56" viewBox="0 0 24 24"><path fill="#4B3005" d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>اشتراک طلایی رایگان</div>
  <div id="url" class="abs ltr" style="left:0;top:1410px;width:1080px;text-align:center;font-weight:700;font-size:60px;color:var(--url);opacity:0;z-index:12">cardiag.ir</div>
 
+ <div id="doc"><div id="doc_in"></div></div>
  <div id="titles"></div>
 </div>
 
@@ -193,14 +219,15 @@ const svg=(p,c='#2196F3',s=24,extra='')=>`<svg width="${s}" height="${s}" viewBo
 /* ================= timeline ================= */
 // music grid: bar = 67.5 frames, beat = 16.875; motion bar m downbeat = 7.5+67.5m (= song bar m+1, song/song_full.wav)
 // each section = 2 bars: bar 1 the app screen, bar 2 "what it does" (3 lines on the beats)
-const F_FEAT=210, DUR=135, HALF=67.5, BEAT=16.875, N=10;
-const fs=k=>F_FEAT+DUR*k;          // feature start frame
-const T_RECAP=fs(N), T_END=T_RECAP+135;           // 1560 (bar 23) / 1695 (bar 25, outro)
+const F_FEAT=210, HALF=67.5, BEAT=16.875;
+const B=m=>7.5+HALF*m;                            // bar m downbeat (frame)
+const T_RECAP=B(23), T_END=B(25);                 // 1560 (bar 23) / 1695 (bar 25, outro)
+const T_DOC0=B(5);                                // trip: the PDF report grows out of the phone (bars 5-6)
 const F_HIT=T_END+135;                            // 1830: the song's final hit (last heartbeat)
 const END_BEATS=[[T_END+50.5,.6],[T_END+67.5,1],[F_HIT-17,.6],[F_HIT,1]];
 const endBeat=f=>END_BEATS.reduce((a,[b,m])=>a+m*Math.exp(-Math.pow((f-b)/(m<1?5:4),2)),0);
 const FEATS=[
- {name:'خطایابی ECU',            sub:'خطاها رو ببین و پاک کن',            icon:'warn'},
+ {name:'خطایابی <span class="ltr">ECU</span>',            sub:'خطاها رو ببین و پاک کن',            icon:'warn'},
  {name:'مانیتورینگ خودرو',      sub:'سنسورها رو زنده ببین',              icon:'eye'},
  {name:'داشبورد',                sub:'آمپرها روی گوشیت',                  icon:'gauge'},
  {name:'سفر',                    sub:'ماشینت حین حرکت تحلیل می‌شه',      icon:'car'},
@@ -211,10 +238,22 @@ const FEATS=[
  {name:'روند سلامت خودرو',      sub:'پیشرفت ماشینت رو ببین',             icon:'trend'},
  {name:'بررسی قبل از خرید',     sub:'کارشناس جیبی ماشین دست‌دوم',        icon:'tag'},
 ];
+// sections in order of importance: k = FEATS/screen index, m = first bar, n = bars, ex = bar of the "what it does" card,
+// fc = floating-card window (frames from the section start)
+const SEC=[
+ {k:3,m:3, n:4,ex:1,fc:[6,HALF]},                 // trip (+ PDF report on its bars 3-4)
+ {k:0,m:7, n:2,ex:1,fc:[6,HALF]},                 // ECU
+ {k:4,m:9, n:3,ex:1,fc:null},                     // AI: type, analyse on the break (bar 10), full answer on the drop (bar 11)
+ {k:5,m:12,n:2,ex:1,fc:[6,HALF]},                 // battery
+ {k:8,m:14,n:2,ex:1,fc:[6,HALF]},                 // health trend
+ {k:6,m:16,n:2,ex:1,fc:[6,HALF]},                 // mileage
+ {k:1,m:18,n:3,ex:2,fc:[6,2*HALF]},               // monitoring, 13 sensors
+ {k:7,m:21,n:2,ex:1,fc:[6,HALF]},                 // periodic service
+];
 const L=s=>`<span class="ltr">${s}</span>`;
 const HOW=[
  ['کد خطا رو پیدا کن','توضیح فارسی بگیر','با یه لمس پاکش کن'],
- ['۸ سنسور مهم موتور','مقدار زنده‌ی هر کدوم','وضعیت کامل با یه اسکن'],
+ ['۱۳ سنسور مهم موتور','مقدار زنده‌ی هر کدوم','یه اسکن، وضعیت کامل'],
  ['دور موتور و سرعت','دمای آب لحظه‌به‌لحظه','آمپرهای زنده روی گوشی'],
  ['۲۰ دقیقه رانندگی','۱۲ سنسور زنده','گزارش کامل '+L('PDF')],
  ['مشکل رو فارسی بنویس','با خطاها و سفرت تحلیل می‌کنه','بهت می‌گه چی کار کنی'],
@@ -224,15 +263,15 @@ const HOW=[
  ['هر اسکن ثبت می‌شه','روند ماه‌به‌ماه سلامت','ببین تعمیر جواب داده یا نه'],
  ['حکم نهایی خرید','ایرادهای پول‌خور','سر چی چونه بزنی'],
 ];
-// recap: the 12 quick-access tiles of the app
-const APP=[['car','سفر'],['warn','خطایابی '+L('ECU')],['wrench','عیب‌یاب هوش مصنوعی'],['eye','مانیتورینگ خودرو'],['batt','تست باتری و دینام'],['trend','روند سلامت خودرو'],
- ['gauge','داشبورد'],['search','اصالت کیلومتر'],['cal','سرویس دوره‌ای'],['medal','مدیریت اشتراک'],['headset','پشتیبانی'],['gift','دریافت اعتبار رایگان']];
+// recap: one tile per section
+const APP=SEC.map(s=>[FEATS[s.k].icon,FEATS[s.k].name]);
+const BRAND={h:'عیب‌یابی هوش مصنوعی کاردیاگ', s:'مکانیک تو جیبِت!'};
 const TITLES=[
- {h:'دیاگ سری <b class="ltr">C</b>', a:20, b:100},
- {h:'اتصال سریع و پایدار', a:110, b:203},
- ...FEATS.map((ft,k)=>({h:ft.name, s:ft.sub, a:fs(k)+2, b:k<N-1?fs(k+1)-3:T_RECAP-2})),
+ {...BRAND, a:20, b:203},
+ ...SEC.flatMap((s,i)=>{const ft=FEATS[s.k], a=B(s.m)+2, z=i<SEC.length-1?B(s.m+s.n)-3:T_RECAP-2;
+  return s.k===3?[{h:ft.name,s:ft.sub,a,b:B(5)-3},{h:'آخرش این گزارش دستته',s:'گزارش کامل '+L('PDF')+' سفرت',a:B(5)+2,b:z}]:[{h:ft.name,s:ft.sub,a,b:z}]}),
  {h:'همه‌ش تو یه اپ', a:T_RECAP+6, b:T_END-1},
- {h:'دیاگ سری <b class="ltr">C</b>', a:T_END-2, b:99999},
+ {...BRAND, a:T_END-2, b:99999},
 ];
 
 /* ================= build: titles ================= */
@@ -306,10 +345,13 @@ S.f0=`<div class="scr" id="sc_f0">${bar('خطایابی ECU')}
  ${NAV}</div>`;
 
 // ---- 2 Monitoring
-const SENS=[['بار موتور','Engine Load'],['دمای آب موتور','Coolant Temp'],['تریم سوخت کوتاه‌مدت','Short Term Fuel Trim'],['فشار منیفولد (مپ)','Intake Manifold Pressure'],['دور موتور','Engine RPM'],['سرعت خودرو','Vehicle Speed'],['آوانس جرقه','Timing Advance'],['دریچه گاز','Throttle Position']];
+const SENS=[['بار موتور','Engine Load',32,'%'],['دمای آب موتور','Coolant Temp',88,'°C'],['تریم سوخت کوتاه‌مدت','Short Term Fuel Trim',2,'%'],['تریم سوخت بلندمدت','Long Term Fuel Trim',3,'%'],
+ ['فشار منیفولد (مپ)','Intake Manifold Pressure',41,'kPa'],['دور موتور','Engine RPM',2350,'rpm'],['سرعت خودرو','Vehicle Speed',64,'km/h'],['آوانس جرقه','Timing Advance',14,'°'],
+ ['دمای هوای ورودی','Intake Air Temp',36,'°C'],['دریچه گاز','Throttle Position',18,'%'],['سنسور اکسیژن ۱','O2 Sensor 1',0.45,'V'],['سنسور اکسیژن ۲','O2 Sensor 2',0.62,'V'],['مسافت با چراغ چک','Distance with MIL',0,'km']];
+const NS=SENS.length, ROWH=64;
 S.f1=`<div class="scr" id="sc_f1">${bar('مانیتورینگ خودرو')}
- <div class="card" style="height:330px;position:relative;overflow:hidden;padding:0">
-  <svg width="532" height="230" viewBox="0 0 532 230" style="position:absolute;left:0;top:18px">
+ <div class="card" style="height:286px;position:relative;overflow:hidden;padding:0">
+  <svg width="532" height="230" viewBox="0 0 532 230" style="position:absolute;left:0;top:0px">
    <defs><clipPath id="carclip"><rect id="m_clip" x="0" y="0" width="0" height="230"/></clipPath>
     <linearGradient id="scanG" x1="0" x2="1"><stop offset="0" stop-color="#78CDFF" stop-opacity="0"/><stop offset=".5" stop-color="#78CDFF"/><stop offset="1" stop-color="#78CDFF" stop-opacity="0"/></linearGradient></defs>
    <g id="carDim" opacity=".28"><use href="#carShape"/></g>
@@ -323,15 +365,15 @@ S.f1=`<div class="scr" id="sc_f1">${bar('مانیتورینگ خودرو')}
    </g></g>
    <rect id="m_bar" x="0" y="20" width="26" height="190" rx="8" fill="url(#scanG)"/>
   </svg>
-  <div style="position:absolute;left:0;right:0;top:250px;text-align:center">
+  <div style="position:absolute;left:0;right:0;top:206px;text-align:center">
    <div id="m_state" style="font-weight:800;font-size:25px">در حال اسکن...</div>
-   <div id="m_cnt" style="font-weight:500;font-size:19px;color:#6E7D96;margin-top:2px">سنسور ۰ از ۸ بررسی شد</div>
+   <div id="m_cnt" style="font-weight:500;font-size:19px;color:#6E7D96;margin-top:2px">سنسور ۰ از ۱۳ بررسی شد</div>
   </div>
  </div>
- <div id="m_list">${SENS.map((s,i)=>`<div class="card" style="margin:8px 18px;padding:10px 18px;display:flex;align-items:center;gap:14px">
+ <div style="position:absolute;left:0;right:0;top:428px;bottom:96px;overflow:hidden"><div id="m_list">${SENS.map((s,i)=>`<div class="card" style="margin:6px 18px;height:${ROWH-12}px;padding:0 18px;display:flex;align-items:center;gap:14px">
    <div id="m_ck${i}" style="width:30px;height:30px;border-radius:7px;border:3px solid #C9D4E4;display:flex;align-items:center;justify-content:center"></div>
-   <div style="flex:1"><div style="font-weight:700;font-size:20px">${s[0]}</div><div class="ltr" style="font-size:14px;color:#98A3B8;text-align:right">${s[1]}</div></div>
-   <div id="m_v${i}" class="ltr" style="font-weight:800;font-size:21px;color:#2196F3;min-width:96px;text-align:left;opacity:0"></div></div>`).join('')}</div>
+   <div style="flex:1"><div style="font-weight:700;font-size:19px;line-height:1.25">${s[0]}</div><div class="ltr" style="font-size:13px;color:#98A3B8;text-align:right">${s[1]}</div></div>
+   <div id="m_v${i}" class="ltr" style="font-weight:800;font-size:21px;color:#2196F3;min-width:96px;text-align:left;opacity:0"></div></div>`).join('')}</div></div>
  ${NAV}</div>`;
 
 // ---- 3 Dashboard
@@ -397,7 +439,7 @@ S.f4=`<div class="scr" id="sc_f4">${bar('عیب‌یاب هوش مصنوعی')}
   <div class="card" style="flex:1;margin:0;padding:14px"><div style="font-weight:800;font-size:17px">خطاهای خودروی شما</div><div style="font-weight:900;font-size:36px;color:#F28012;margin-top:6px">۱ <span style="font-size:16px;color:#98A3B8;font-weight:500">خطا</span></div></div>
   <div class="card" style="flex:1;margin:0;padding:14px"><div style="font-weight:800;font-size:17px">تحلیل سفر</div><div style="font-weight:700;font-size:18px;color:#6E7D96;margin-top:14px">آخرین سفر ثبت شده</div></div>
  </div>
- <div class="btn" id="ai_btn" style="margin-top:22px">شروع تحلیل هوش مصنوعی</div>
+ <div class="btn" id="ai_btn" style="margin-top:22px"><div id="ai_prog" style="position:absolute;right:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.30)"></div><span id="ai_bl" style="position:relative">شروع تحلیل هوش مصنوعی</span></div>
  ${NAV}</div>`;
 
 // ---- 6 Battery
@@ -493,7 +535,29 @@ S.f9=`<div class="scr" id="sc_f9">${bar('بررسی قبل از خرید')}
  </div>
  ${NAV}</div>`;
 
-$('screen').innerHTML=S.home+[0,1,2,3,4,5,6,7,8,9].map(k=>S['f'+k]).join('');
+// ---- AI answer (as in the app)
+const pill=(t,c,bg)=>`<div style="display:inline-flex;align-items:center;gap:10px;margin-top:10px;background:${bg};color:${c};font-weight:800;font-size:20px;padding:5px 16px;border-radius:18px"><span style="width:14px;height:14px;border-radius:50%;background:${c}"></span>${t}</div>`;
+const qa=(q,a)=>`<div style="margin-top:12px;font-weight:800;font-size:20px">${q}</div><div style="margin-top:2px;font-size:18px;line-height:1.7;color:#33415C">${a}</div>`;
+S.f4r=`<div class="scr" id="sc_f4r"><div class="appbar" style="position:relative;z-index:3">${STATUS}<div class="abar"><div class="t">${svg('arrow','#fff',32)}<span>عیب‌یاب هوشمند</span></div></div></div>
+ <div id="q_in" style="position:absolute;left:0;right:0;top:126px">
+ <div class="card" style="padding:18px 22px">
+  <div style="font-weight:900;font-size:25px;display:flex;align-items:center;gap:10px">${svg('search','#2196F3',30)}چی بررسی کردم؟</div>
+  <div style="margin-top:10px;font-size:18px;line-height:1.75;color:#33415C">
+   <div id="qb0"><b style="color:#10203C">کدهای خطای <span class="ltr">ECU</span>:</b> کد <span class="ltr" style="color:#DC3232;font-weight:800">P0420</span> ثبت شده؛ کارایی کاتالیزور پایین‌تر از حد مجازه.</div>
+   <div id="qb1" style="margin-top:4px"><b style="color:#10203C">داده‌های سفر:</b> تنظیم سوخت بلندمدت <span style="color:#F28012;font-weight:800">بالاست</span>.</div>
+   <div id="qb2" style="margin-top:4px"><b style="color:#10203C">توضیح تو:</b> ماشین وقتی سرد بد گاز می‌خوره.</div></div></div>
+ <div id="qh" style="padding:8px 26px 0;font-weight:900;font-size:25px">مشکلاتی که پیدا شد</div>
+ <div class="card" id="qc0" style="padding:18px 22px">
+  <div style="font-weight:900;font-size:25px">مشکل در کاتالیزور</div>${pill('خیلی جدی','#DC3232','#FFECEC')}
+  ${qa('به زبان ساده چه اتفاقی افتاده؟','یه قطعه توی سیستم اگزوز که وظیفه داره گازهای آلاینده رو کم کنه، درست کار نمی‌کنه.')}
+  ${qa('چی باید بکنی؟','باید سریعاً بری تعمیرگاه و از مکانیک بخوای کاتالیزور رو بررسی کنه.')}</div>
+ <div class="card" id="qc1" style="padding:18px 22px">
+  <div style="font-weight:900;font-size:25px">مشکل در تنظیم سوخت و هوا</div>${pill('نسبتاً جدی','#F28012','#FFF3DF')}
+  ${qa('به زبان ساده چه اتفاقی افتاده؟','موتور سوخت کمتری از لازم می‌گیره؛ احتمالاً هوای اضافه وارد موتور می‌شه.')}
+  ${qa('چی باید بکنی؟','نشتی هوا، انژکتورها و سنسور اکسیژن رو بده بررسی کنن.')}</div>
+ </div>${NAV}</div>`;
+
+$('screen').innerHTML=S.home+[0,1,2,3,4,5,6,7,8,9].map(k=>S['f'+k]).join('')+S.f4r;
 $('taps').innerHTML='<div class="tapdot" id="tap"></div>';
 
 /* ================= build: floating cards ================= */
@@ -563,9 +627,9 @@ $('fcs').innerHTML=FC.map((h,k)=>`<div class="fc" id="fc${k}">${h}</div>`).join(
 
 /* ================= build: recap tiles ================= */
 const TILE_POS=[];
-$('tiles').innerHTML=APP.map(([ic,l],k)=>{const col=k%3,row=Math.floor(k/3);
- const x=[720,390,60][col], y=470+row*246; TILE_POS.push([x,y]);
- return `<div class="tile t3" id="tl${k}" style="left:${x}px;top:${y}px"><div class="icsq">${svg(ic,'#2196F3',48)}</div><div class="tl">${l}</div></div>`}).join('');
+$('tiles').innerHTML=APP.map(([ic,l],k)=>{const col=k%2,row=Math.floor(k/2);
+ const x=[560,120][col], y=470+row*240; TILE_POS.push([x,y]);
+ return `<div class="tile" id="tl${k}" style="left:${x}px;top:${y}px"><div class="icsq">${svg(ic,'#2196F3',48)}</div><div class="tl">${l}</div></div>`}).join('');
 
 /* ================= pulse paths ================= */
 // scene-1 heartbeat (spike near center) across full width
@@ -579,7 +643,9 @@ function setPulse(d){ if(curP===d)return; curP=d; const p=d==='P1'?P1:P_END;
 const LINKLEN=$('linkPath').getTotalLength();
 
 /* ================= screen state ================= */
-const SCR=['sc_home',...FEATS.map((_,k)=>'sc_f'+k)];
+const SCR=['sc_home',...FEATS.map((_,k)=>'sc_f'+k),'sc_f4r'];
+const SEQ=['sc_home','sc_f3','sc_f0','sc_f4','sc_f4r','sc_f5','sc_f8','sc_f6','sc_f1','sc_f7'];
+const BOUNDS=[B(3),B(7),B(9),B(11),B(12),B(14),B(16),B(18),B(21)];
 function showScreens(f){
  // which screen index and transition
  let x={}; SCR.forEach(s=>x[s]=null);
@@ -587,11 +653,11 @@ function showScreens(f){
  if(f<F_FEAT-T){x.sc_home=0;}
  else{
   // boundaries: home->f0 at F_FEAT, fk->fk+1 at fs(k+1)
-  const bounds=[F_FEAT,...FEATS.slice(1).map((_,k)=>fs(k+1))];
+  const bounds=BOUNDS;
   let shown=false;
   for(let i=0;i<bounds.length;i++){const b=bounds[i];
-   if(f>=b-T&&f<b+T){const p=E.io(seg(f,b-T,b+T));x[SCR[i]]=p*572;x[SCR[i+1]]=(p-1)*572;shown=true;break;}}
-  if(!shown){let idx=0;for(let i=0;i<bounds.length;i++)if(f>=bounds[i])idx=i+1;x[SCR[idx]]=0;}
+   if(f>=b-T&&f<b+T){const p=E.io(seg(f,b-T,b+T));x[SEQ[i]]=p*572;x[SEQ[i+1]]=(p-1)*572;shown=true;break;}}
+  if(!shown){let idx=0;for(let i=0;i<bounds.length;i++)if(f>=bounds[i])idx=i+1;x[SEQ[idx]]=0;}
  }
  SCR.forEach(s=>{const el=$(s);if(x[s]===null){el.style.display='none'}else{el.style.display='block';el.style.transform=`translateX(${x[s]}px)`}});
 }
@@ -643,8 +709,8 @@ function render(f){
   const pop=seg(f,22,42); ps=pop<=0?0.001:lerp(0.55,1,E.back(pop)); po=E.oc(seg(f,22,30));
   pr=lerp(-7,0,E.oc(pop)); py=900+Math.sin(f/14)*6*seg(f,42,54); ps*=1+0.025*KICK1.reduce((a,k)=>a+(k>30?Math.exp(-Math.pow((f-k)/3,2)):0),0);
  } else if(f<214){
-  const m=E.io(seg(f,105,124)); px=540; py=lerp(900+Math.sin(105/14)*6,520,m); ps=lerp(1,0.56,m);
-  py+=Math.sin((f-124)/12)*4*seg(f,124,134);
+  const m=E.io(seg(f,104,116)); px=540; py=lerp(900+Math.sin(105/14)*6,520,m); ps=lerp(1,0.56,m);
+  py+=Math.sin((f-116)/12)*4*seg(f,116,126);
   const out=E.ic(seg(f,200,214)); py-=out*260; po=1-out;
  } else if(f>=T_END){
   const pop=seg(f,T_END,T_END+21.5); ps=pop<=0?0.001:lerp(0.5,0.86,E.back(pop)); po=E.oc(seg(f,817.5,825)); py=720+Math.sin((f-839)/14)*5*seg(f,839,851); pr=lerp(6,0,E.oc(pop));
@@ -693,7 +759,7 @@ function render(f){
  let fy=0,fsx=1,fo=1;
  if(f<108){fo=0}
  else if(f<214){
-  const e=E.oc(seg(f,108,132)); // from below into S2 pos (top 830, scale .8667)
+  const e=E.back(seg(f,108,120)); // fast, from below into S2 pos (top 885, scale .8667)
   const top=lerp(1990,885,e); fsx=0.8667; fy=top-390;
   if(f>=196){const m=E.io(seg(f,196,214)); fy=lerp(885-390,0,m); fsx=lerp(0.8667,1,m);}
  }
@@ -716,29 +782,28 @@ function render(f){
  }
 
  /* ---------- features ---------- */
- for(let k=0;k<N;k++){
-  const a=fs(k), t=f-a;
+ SEC.forEach((s,si)=>{const k=s.k, a=B(s.m), D=s.n*HALF, t=f-a;
   const el=$('fc'+k);
-  // floating card in/out
-  if(t>=6&&t<HALF+2){
-   const pin=seg(t,8,22), pout=seg(t,HALF-9,HALF-1);
-   el.style.display='block'; el.style.opacity=E.oc(seg(t,8,14))*(1-E.ic(pout));
+  if(s.fc&&t>=s.fc[0]&&t<s.fc[1]+2){const [u,v]=s.fc;
+   const pin=seg(t,u+2,u+16), pout=seg(t,v-9,v-1);
+   el.style.display='block'; el.style.opacity=E.oc(seg(t,u+2,u+8))*(1-E.ic(pout));
    el.style.transform=`translateY(${(1-E.oc(pin))*60+E.ic(pout)*30}px) scale(${lerp(0.86,1,E.back(pin))})`;
-  } else {el.style.display='none'}
-  const ex=$('ex'+k);
-  if(t>=HALF-6&&t<DUR+2){
-   const pin=seg(t,HALF-6,HALF+8), pout=seg(t,DUR-9,DUR-1);
-   ex.style.display='block'; ex.style.opacity=E.oc(seg(t,HALF-6,HALF))*(1-E.ic(pout));
+  } else el.style.display='none';
+  const ex=$('ex'+k), E0=s.ex*HALF, E1=E0+HALF;
+  if(t>=E0-6&&t<E1+2){
+   const pin=seg(t,E0-6,E0+8), pout=seg(t,E1-9,E1-1);
+   ex.style.display='block'; ex.style.opacity=E.oc(seg(t,E0-6,E0))*(1-E.ic(pout));
    ex.style.transform=`translateY(${(1-E.oc(pin))*70+E.ic(pout)*30}px) scale(${lerp(0.88,1,E.back(pin))})`;
-   for(let i=0;i<3;i++){const b=HALF+i*BEAT, p=seg(t,b-2,b+10), r=$('ex'+k+'r'+i);
+   for(let i=0;i<3;i++){const b=E0+i*BEAT, p=seg(t,b-2,b+10), r=$('ex'+k+'r'+i);
     r.style.opacity=E.oc(seg(t,b-2,b+4)); r.style.transform=`translateX(${(1-E.oc(p))*-50}px)`;
     const n=r.firstChild; const hit=Math.exp(-Math.pow((t-b-1)/4,2));
     n.style.transform=`scale(${(p<=0?0.4:lerp(0.4,1,E.back(p)))*(1+0.12*hit)})`;
     n.style.boxShadow=`0 0 0 ${10*hit}px rgba(33,150,243,${0.25*hit})`;}
   } else ex.style.display='none';
-  if(t<-8||t>DUR+8) continue;
+  if(t<-8||t>D+8) return;
   FEAT_ANIM[k](t, (id,at)=>{tapShown = tapEl(f,a+at,id) || tapShown;});
- }
+ });
+ doc(f);
  if(!tapShown)$('tap').style.opacity=0;
 
  /* ---------- recap tiles ---------- */
@@ -746,7 +811,7 @@ function render(f){
   const st=T_RECAP+4+k*BEAT/2; const p=seg(f,st-2,st+12); const out=seg(f,T_END-8,T_END+4);
   if(p<=0||out>=1){el.style.display='none';return}
   el.style.display='flex';
-  const [x,y]=TILE_POS[k]; const cx=540-150-x, cy=960-108-y;
+  const [x,y]=TILE_POS[k]; const cx=540-200-x, cy=960-100-y;
   const e=E.back(p);
   const fl=[T_RECAP+HALF+2*BEAT,T_RECAP+HALF+3*BEAT].reduce((a,b)=>a+Math.exp(-Math.pow((f-b-1-k*0.35)/4,2)),0)+Math.exp(-Math.pow((f-st-4)/4,2))*0.6;
   el.style.opacity=E.oc(seg(f,st-2,st+4))*(1-out);
@@ -781,20 +846,21 @@ const FEAT_ANIM=[
   $('fc0a').style.opacity=1-seg(t,40,46); $('fc0b').style.opacity=E.oc(seg(t,44,52));
   $('fc0b').style.transform=`scale(${lerp(0.9,1,E.back(seg(t,44,54)))})`;
  },
- // 1 Monitoring
+ // 1 Monitoring: 13 sensors checked on eighth notes, the list follows
  (t,tapAt)=>{
-  const sp=seg(t,2,38); const bx=lerp(70,470,E.io(sp));
+  const ON=i=>4+i*BEAT/2, END=ON(NS-1)+4;
+  const sp=seg(t,2,END); const bx=lerp(70,470,E.io(sp));
   $('m_bar').setAttribute('x',bx-13); $('m_clip').setAttribute('width',bx); $('m_bar').style.opacity=sp<1?1:0;
-  const n=Math.min(8,Math.floor(sp*8+0.0001)+ (sp>0?1:0)); const nn=sp>=1?8:Math.max(0,n-1);
-  $('m_cnt').textContent=`سنسور ${num(sp>=1?8:nn)} از ۸ بررسی شد`;
-  $('m_state').textContent=sp>=1?'اسکن کامل شد':'در حال اسکن...'; $('m_state').style.color=sp>=1?'#22A050':'#10203C';
-  const VALS=[[32,'%'],[88,'°C'],[2,'%'],[41,'kPa'],[2350,'rpm'],[64,'km/h'],[14,'°'],[18,'%']];
-  for(let i=0;i<8;i++){const on=t>=4+i*4.2; const ck=$('m_ck'+i);
+  let n=0; for(let i=0;i<NS;i++) if(t>=ON(i)) n=i+1;
+  $('m_cnt').textContent=`سنسور ${num(n)} از ۱۳ بررسی شد`;
+  $('m_state').textContent=n>=NS?'اسکن کامل شد':'در حال اسکن...'; $('m_state').style.color=n>=NS?'#22A050':'#10203C';
+  for(let i=0;i<NS;i++){const on=t>=ON(i); const ck=$('m_ck'+i);
    ck.style.background=on?'#2196F3':'transparent'; ck.style.borderColor=on?'#2196F3':'#C9D4E4';
    ck.innerHTML=on?svg('check','#fff',22):'';
-   const v=$('m_v'+i); const vo=seg(t,40+i*1.5,46+i*1.5); v.style.opacity=vo;
-   const base=VALS[i][0]; const jit=base*0.04*noise(t,i);
-   v.textContent= (base>=100? num(Math.round(base+jit*1.0),0,true) : num(Math.round(base+jit)))+' '+VALS[i][1];}
+   const v=$('m_v'+i); v.style.opacity=seg(t,ON(i)+1,ON(i)+6);
+   const [,,base,u]=SENS[i]; const jit=base*0.04*noise(t,i);
+   v.textContent=(base<1&&base>0? num(base+0.05*noise(t,i),2) : base>=100? num(Math.round((base+jit)/10)*10,0,true) : num(Math.round(base+jit)))+' '+u;}
+  const sc=E.io(seg(t,ON(6),ON(NS-1)+2))*(NS-8.2)*ROWH; $('m_list').style.transform=`translateY(${-sc}px)`;
   $('fc1dot').style.opacity=0.35+0.65*(0.5+0.5*Math.sin(t/3));
   const r=E.oc(seg(t,10,26));
   $('fc1v0').textContent=num(Math.round((2350+60*noise(t,1))*r/10)*10,0,true);
@@ -819,7 +885,7 @@ const FEAT_ANIM=[
  },
  // 3 Trip
  (t,tapAt)=>{
-  const sec=4+Math.floor(Math.max(0,t)/5); const mm=Math.floor(sec/60), ss=sec%60;
+  const sec=Math.round(4+1196*E.io(seg(t,4,60))); const mm=Math.floor(sec/60), ss=sec%60;
   const ts=fa(String(mm).padStart(2,'0'))+':'+fa(String(ss).padStart(2,'0'));
   $('tr_time').textContent=ts; $('fc3t').textContent=ts;
   TRIP.forEach((p,i)=>{const b=p[2];const v=b+(b<1?0.06:Math.max(1,b*0.05))*noise(t+i*5,i);
@@ -837,16 +903,19 @@ const FEAT_ANIM=[
   $('fc3area').setAttribute('d',dP+` L${lp[0]} 160 L0 160 Z`);
   $('fc3dot').setAttribute('cx',lp[0]); $('fc3dot').setAttribute('cy',lp[1]);
  },
- // 4 AI
+ // 4 AI (3 bars): type the problem, tap, analyse on the break, the full answer slides in on the drop
  (t,tapAt)=>{
-  const ch=Array.from(AI_TXT); const n=Math.floor(cl((t-2)/22)*ch.length);
+  const ch=Array.from(AI_TXT); const n=Math.floor(cl((t-4)/28)*ch.length);
   $('ai_txt').textContent=ch.slice(0,n).join('');
-  $('ai_caret').style.opacity=(t<26||Math.floor(t/6)%2==0)?1:0;
-  tapAt('ai_btn',29);
-  $('ai_btn').style.transform=`scale(${1-0.05*Math.exp(-Math.pow((t-30)/3,2))})`;
-  [0,1,2,3].forEach(i=>{$('fc4b'+i).style.width=(E.io(seg(t,14+i*3,40+i*2))*100)+'%';});
-  $('fc4a').style.opacity=1-seg(t,44,49); $('fc4r').style.opacity=E.oc(seg(t,47,54));
-  $('fc4r').style.transform=`translateY(${(1-E.oc(seg(t,47,56)))*16}px)`;
+  $('ai_caret').style.opacity=(t<34||Math.floor(t/6)%2==0)?1:0;
+  tapAt('ai_btn',36);
+  $('ai_btn').style.transform=`scale(${1-0.05*Math.exp(-Math.pow((t-37)/3,2))})`;
+  $('ai_bl').textContent=t>=38?'در حال تحلیل...':'شروع تحلیل هوش مصنوعی';
+  $('ai_prog').style.width=(E.io(seg(t,38,2*HALF-2))*100)+'%';
+  const r=t-2*HALF;
+  ['qb0','qb1','qb2','qh','qc0','qc1'].forEach((id,i)=>{const a=[4,8,12,18,20,34][i]; const p=E.oc(seg(r,a,a+8)); const el=$(id);
+   el.style.opacity=r<0?0:p; el.style.transform=`translateY(${(1-p)*24}px)`;});
+  $('q_in').style.transform=`translateY(${-E.io(seg(r,30,62))*300}px)`;
  },
  // 5 Battery
  (t,tapAt)=>{
@@ -901,7 +970,96 @@ const FEAT_ANIM=[
  },
 ];
 
-window.READY=document.fonts.ready.then(()=>{fitTitles();render(0);return true});
+
+/* ================= trip: PDF report document (same sections as the app's PDF) ================= */
+const f0=v=>fa(Math.round(v)), HEALTH=78, LG='#5CBF6E', AMB='#F28012', AMBT='#FFF4E5';
+const CHK=[['گرم شدن موتور',0],['دمای موتور',0],['مخلوط سوخت (فقیر)','رقیق، بررسی شود'],['مخلوط سوخت (غنی)',0],['پایداری دور خلاص',0],['بار موتور در توقف',0],['نشتی سیستم هوا','احتمال نشتی'],
+ ['سوخت‌رسانی',0],['سنسور فشار منیفولد',0],['احتراق (مشکل سوخت)',0],['احتراق (مشکل جرقه)',0],['شیر حرارتی (ترموستات)',0],['توان موتور',0],['هماهنگی سنسورهای هوا',0]];
+const GRN='#22A050', GT='#DEF6E6', NAVY='#10203C', SL='#6E7D96';
+const pillD=(t,c,bg)=>`<span class="dp" style="color:${c};background:${bg}">${t}</span>`;
+const OK=pillD('سالم',GRN,'#fff'), ATT=pillD('نیاز به توجه',AMB,'#fff'), URG=pillD('بررسی فوری',AMB,'#fff');
+const dcard=(id,t,p,tint,edge,body)=>`<div class="dc" id="${id}" style="border-right:8px solid ${edge}"><div class="h" style="background:${tint}"><span>${t}</span>${p}</div><div class="b">${body}</div></div>`;
+const drow=(a,b,c=NAVY)=>`<div class="dr"><span>${a}</span><b style="color:${c}">${b}</b></div>`;
+const dbar=(id,lb,w,c,lab)=>`<div class="db"><span class="l">${lb}</span><div class="tr"><div class="fi" id="${id}" data-w="${w}" style="background:${c}"></div></div><span class="v" style="color:${c}">${lab}</span></div>`;
+const STY=[['در جا',15,'#78909C'],['شهری متوقف',20,'#F59628'],['شهری روان',35,'#2196F3'],['بزرگراه',30,GRN],['تهاجمی',0,'#DC3232']];
+const DOC=`
+<div id="dk_top" class="dh">
+ <div style="flex:1"><div class="ltr" style="font-weight:800;font-size:30px;color:#ADD6FA;text-align:right">CarDiag</div>
+  <div style="font-weight:900;font-size:50px;margin-top:4px">گزارش جامع تحلیل سفر</div>
+  <div style="font-weight:700;font-size:31px;margin-top:10px">پژو ۲۰۶ تیپ ۲ دستی (۱۳۸۹)</div>
+  <div style="font-weight:500;font-size:29px;margin-top:4px;color:#DCEBFB">۲۰ مهر ۱۴۰۵ — ۲۰ دقیقه و ۰۰ ثانیه</div>
+  <div style="font-weight:500;font-size:29px;color:#DCEBFB">۱۴٫۲ کیلومتر • ۱۲۰۰ نمونه‌برداری</div></div>
+ <div style="position:relative;width:220px;text-align:center"><svg width="220" height="220" viewBox="0 0 128 128"><circle cx="64" cy="64" r="52" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="11"/>
+  <circle id="d_ring" cx="64" cy="64" r="52" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" transform="rotate(-90 64 64)" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+  <div id="d_num" style="position:absolute;left:0;right:0;top:72px;font-weight:900;font-size:64px">۰٪</div><div style="font-weight:700;font-size:28px">سلامت کلی</div></div>
+</div>
+<div id="dk_sum"><div class="ds">خلاصه سریع</div>
+ ${drow('وضعیت کلی','چند نکته برای پیگیری',AMB)}${drow('موارد نیاز به توجه','۲ مورد',AMB)}${drow('مشکل فوری','۱ مورد — سوخت‌رسانی',AMB)}
+ ${drow('مهم‌ترین توصیه','انژکتور، سنسور اکسیژن و نشتی هوا')}${drow('ایرادات خودرو','۱ ایراد مهم',AMB)}</div>
+<div id="dk_score"><div class="ds">امتیازات سلامت</div>
+ ${dbar('d_b0','سلامت کلی',HEALTH,LG,fa(HEALTH)+'٪')}${dbar('d_b1','موتور',96,GRN,'۹۶٪')}${dbar('d_b2','سیستم سوخت',54,AMB,'۵۴٪')}
+ <div class="dn">مصرف تخمینی: ۸٫۴ لیتر در ۱۰۰ کیلومتر</div></div>
+<div id="dk_eng"><div class="ds">تحلیل عملکرد موتور</div>
+ ${dcard('d_c0','یکنواختی موتور',OK,'#EEF8F1',GRN,'موتور در طول سفر آرام و پایدار کار کرد. احتراق ناقص دیده نشد.')}
+ ${dcard('d_c1','گرم شدن موتور',OK,'#EEF8F1',GRN,'موتور در ۸ دقیقه به دمای کاری <b>۸۹ °C</b> رسید (حد این خودرو: ۹۲).')}</div>
+<div id="dk_fuel">${dcard('d_fuel','سیستم سوخت‌رسانی',URG,AMBT,AMB,`<b style="color:${NAVY}">مخلوط سوخت رقیق — تریم بلندمدت <span class="ltr">+۱۸٪</span></b><br><span style="color:${SL}">سنسور اکسیژن ۱ در بیشتر سفر رقیق نشان داد (میانگین ۰٫۳۲ ولت). مشکل پایدار است، نه لحظه‌ای.</span><br><b style="color:${AMB}">◄ نشتی هوا، انژکتورها و سنسور اکسیژن بررسی شوند.</b>`)}</div>
+<div id="dk_air">${dcard('d_c2','مسیر هوای ورودی موتور',ATT,AMBT,AMB,`فشار منیفولد در دور آرام <b>۳۴ <span class="ltr">kPa</span></b> بود؛ کمی بالاتر از حد انتظار.<br><b style="color:${AMB}">◄ احتمال نشتی هوا بعد از دریچه گاز.</b>`)}
+ <div class="dc" id="d_c3" style="border-right:8px solid ${GRN}"><div class="h" style="background:#EEF8F1"><span>فشار وارد بر موتور</span>${OK}</div>
+  <div class="b"><div class="tr2"><div class="fi" id="d_b3" data-w="42" style="background:${GRN}"></div></div><div style="display:flex;justify-content:space-between;margin-top:8px"><span>فشار روی موتور در این سفر متوسط بود.</span><span style="color:${SL}">شدت فشار: ۴۲٪</span></div></div></div>
+ ${dcard('d_c4','بازده موتور',OK,'#EEF8F1',GRN,'بازده حجمی ۸۶٪ — در محدوده‌ی طبیعی.')}
+ <div class="dc" style="border-right:8px solid ${AMB}"><div class="h" style="background:${AMBT}"><span>پایداری کلی موتور</span>${ATT}</div>
+  <div class="b">${[['دور موتور','طبیعی',1],['بار کاری','متوسط',1],['تنظیم سوخت','بالا',0],['دمای آب خنک‌کننده','۸۹ °C (حد: ۹۲)',1]].map(r=>`<div class="dr" style="margin:0;padding:10px 0"><span>${r[0]}</span><b>${r[1]}</b><b style="color:${r[2]?GRN:AMB};width:40px;text-align:left">${r[2]?'✓':'⚠'}</b></div>`).join('')}</div></div>
+ ${dcard('d_c5','سلامت گیربکس',OK,'#EEF8F1',GRN,'لغزش گیربکس دیده نشد (۹ دقیقه رانندگی بالای ۲۵ کیلومتر بر ساعت).')}</div>
+<div id="dk_drv"><div class="ds">تحلیل سبک رانندگی</div>
+ ${STY.map((r,i)=>dbar('d_s'+i,r[0],r[1],r[2],fa(r[1])+'٪')).join('')}
+ ${dcard('d_c6','تأثیر سبک رانندگی',OK,'#EEF8F1',GRN,'رانندگی آرام و اقتصادی. مصرف سوخت و فرسایش قطعات در حداقل.')}</div>
+<div id="dk_stat"><div class="ds">آمار دقیق سفر</div>
+ <div class="dt"><div class="th"><span>پارامتر</span><span>حداکثر</span><span>میانگین</span><span>حداقل</span></div>
+  ${[['سرعت (km/h)','۷۹','۴۲','۰'],['دور موتور (rpm)','۲۹۵۰','۱۸۵۰','۸۰۰'],['بار موتور (٪)','۸۸','۴۱','۱۵'],['دمای آب (°C)','۸۹','۷۶','۲۵'],['فشار منیفولد (kPa)','۹۵','۴۸','۲۶']].map(r=>`<div class="tr3"><span>${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span><span>${r[3]}</span></div>`).join('')}
+  <div class="tr3"><span>تنظیم سوخت</span><span style="grid-column:span 3">کوتاه <span class="ltr">+۷٪</span> — بلند <span class="ltr">+۱۸٪</span></span></div>
+  <div class="tr3" style="background:${AMBT}"><span>وضعیت سوخت</span><span style="grid-column:span 3;color:${AMB};font-weight:800">رقیق — احتمال نشتی هوا</span></div></div>
+ <div class="ds">سنسورهای پیشرفته</div>
+ ${drow('فشار ورودی هوا (MAP)','میانگین ۴۸ kPa')}${drow('سنسور اکسیژن ۱','۰٫۳۲ ولت — رقیق',AMB)}${drow('سنسور اکسیژن ۲','۰٫۴۸ ولت — کاتالیزور سالم',GRN)}${drow('احتراق ناقص','مشاهده نشد',GRN)}</div>
+<div id="dk_err"><div class="ds">ایرادات خودرو</div>
+ ${dcard('d_err','سوخت‌رسانی ناکافی — مخلوط هوا-سوخت رقیق',pillD('مهم',AMB,'#fff'),AMBT,AMB,`موتور سوخت کافی دریافت نمی‌کند؛ هوای اضافه وارد می‌شود.<br><b style="color:${AMB}">← انژکتورها، پمپ بنزین، سنسور اکسیژن و واشر منیفولد را بررسی کنید.</b><br><span style="color:${SL}">مقدار ثبت‌شده: تریم <span class="ltr">+۱۸٪</span> — در ۷۲٪ سفر دیده شد</span>`)}</div>
+<div id="dk_chk"><div class="ds">چک‌لیست ۱۴ سیستم</div>
+ ${CHK.map((c,i)=>`<div class="ck2" id="d_k${i}" style="border-right-color:${c[1]?AMB:GRN}"><span>${c[0]}</span>${c[1]?pillD(c[1],AMB,AMBT):pillD('سالم',GRN,GT)}</div>`).join('')}</div>
+<div id="dk_conf">${dcard('d_c7','هشدار زودهنگام',ATT,AMBT,AMB,'تریم سوخت بلندمدت در حال افزایش است.<br><b style="color:'+AMB+'">◄ در سفرهای بعدی پایش ادامه یابد.</b>')}
+ <div class="ds">مصرف، هزینه و محیط زیست</div>${drow('مصرف تخمینی','۸٫۴ لیتر در ۱۰۰ کیلومتر')}${drow('سوخت این سفر','حدود ۱٫۲ لیتر')}${drow('CO₂ این سفر','حدود ۲٫۸ کیلوگرم')}
+ ${dcard('d_c8','میزان اطمینان به تحلیل',OK,'#EEF8F1',GRN,'اطمینان از تحلیل بالاست (<b>۹۴٪</b>). همه‌ی سنسورها داده فرستادند.')}
+ ${drow('مدت سفر (۲۰ دقیقه)','کافی',GRN)}${drow('تعداد اندازه‌گیری‌ها','۱۲۰۰',GRN)}${drow('سنسورهای بدون داده','۰',GRN)}</div>
+<div id="dk_todo"><div class="ds">چه کار کنم؟ (به ترتیب اولویت)</div>
+ ${[['فوری','انژکتورها، سنسور اکسیژن و واشر منیفولد را بررسی کنید.'],['فوری','نشتی هوای ورودی موتور را پیدا و رفع کنید.'],['بعدی','بعد از تعمیر یک سفر ۲۰ دقیقه‌ای دیگر ثبت کنید.']].map((r,i)=>`<div class="td" id="d_t${i}" style="border-right-color:${i<2?AMB:'#2196F3'}">${pillD(r[0],i<2?AMB:'#2196F3',i<2?AMBT:'#E3EFFC')}<span>${r[1]}</span></div>`).join('')}
+ <div style="height:1000px"></div></div>`;
+$('doc_in').innerHTML=DOC;
+const DSTOP=['dk_top','dk_score','dk_fuel','dk_drv','dk_err','dk_chk','dk_todo'];
+const T_DOC=i=>T_DOC0+14+i*BEAT;                  // one section per beat
+const DOC_VH=1540; let DST=[], DTRIG=[], SC0={left:254,top:400,width:572};
+function docLayout(){
+ const dv=$('doc'); dv.style.display='block'; dv.style.visibility='hidden';
+ const max=$('doc_in').scrollHeight-DOC_VH;
+ DST=DSTOP.map(id=>Math.min(max,Math.max(0,$(id).offsetTop-(id==='dk_todo'?DOC_VH-560:24))));
+ DTRIG=[...document.querySelectorAll('#doc_in .fi,#doc_in .ck2,#doc_in .td,#doc_in .dc')].map(el=>{
+  let top=0,e=el; while(e&&e.id!=='doc_in'){top+=e.offsetTop;e=e.offsetParent} const i=DST.findIndex(s=>top<s+DOC_VH-120); return {el,t:T_DOC(Math.max(0,i))+(i<=0?6:0)+(el.classList.contains('ck2')?[...el.parentNode.children].indexOf(el)*0.9:0)};});
+ dv.style.display='none'; dv.style.visibility='';
+}
+function docScroll(f){let y=DST[0];DST.forEach((s,i)=>{if(i){const a=T_DOC(i)-10; y=lerp(y,s,E.io(seg(f,a,a+10)))}});return y}
+function doc(f){
+ const d=$('doc'); const on=f>=T_DOC0&&f<B(7)+3; if(!on){d.style.display='none';return} d.style.display='block';
+ // grows out of the phone screen, goes back into it on bar 7
+ const r0=$('screen').getBoundingClientRect(); if(r0.width>0) SC0=r0; const sc=SC0;
+ const g=E.io(seg(f,T_DOC0,T_DOC0+16))*(1-E.io(seg(f,B(7)-13,B(7)+3)));
+ const X=60,Y=320,W=960; const x=lerp(sc.left,X,g), y=lerp(sc.top,Y,g), s=lerp(sc.width/W,1,g);
+ d.style.transform=`translate(${x-X}px,${y-Y}px) scale(${s})`; d.style.opacity=cl(g*3);
+ $('doc_in').style.transform=`translateY(${-docScroll(f)}px)`;
+ const rg=E.io(seg(f,T_DOC(0),T_DOC(0)+20)); $('d_ring').setAttribute('stroke-dashoffset',326.7*(1-rg*HEALTH/100)); $('d_num').textContent=f0(HEALTH*rg)+'٪';
+ DTRIG.forEach(o=>{const p=seg(f,o.t,o.t+12), el=o.el;
+  if(el.classList.contains('fi')) el.style.width=(E.oc(p)*(+el.dataset.w))+'%';
+  else if(el.classList.contains('dc')){const amb=el.style.borderRightColor.indexOf('242')>=0; el.style.boxShadow=amb?`0 0 0 ${5*Math.exp(-Math.pow((f-o.t-10)/7,2))}px rgba(242,128,18,.45)`:'none';}
+  else {el.style.opacity=lerp(0.15,1,E.oc(p)); el.style.transform=`translateX(${(1-E.oc(p))*-30}px)`;}});
+}
+
+window.READY=document.fonts.ready.then(()=>{fitTitles();docLayout();render(0);return true});
 const q=new URLSearchParams(location.search); if(q.has('f')) window.READY.then(()=>render(+q.get('f')));
 </script>
 <script src="endcard.js"></script>
