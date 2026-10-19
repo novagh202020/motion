@@ -61,11 +61,34 @@ body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-
 #prodGlow{left:540px;top:2040px;width:900px;height:620px;border-radius:50%;background:radial-gradient(ellipse,rgba(40,160,255,.45),rgba(40,160,255,0) 68%)}
 #prod{left:640px;top:2090px;width:690px;filter:drop-shadow(0 30px 40px rgba(0,0,20,.45))}
 
-/* business-card space (right). Kept clear; ?guide=1 shows its outline */
-#cardZone{left:1330px;top:1640px;width:760px;height:560px;border:5px dashed #FFCD11;border-radius:28px;display:none;
- align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#FFCD11;font-weight:800;font-size:54px;text-align:center}
-#cardZone small{font-weight:500;font-size:40px;color:#ADD6FA}
-body.guide #cardZone{display:flex}
+/* business-card box (right): physical 14 x 7 cm pocket glued at #box, vertical cards stick out 2 cm above it.
+   final: box area left as background; ?guide=1 outlines it; ?mock=1 shows box face + card; ?box=1 = box face print file */
+#box{left:1446px;top:1776px;width:529px;height:265px;display:none;z-index:3}
+#cardTop{left:1606px;top:1700px;width:208px;height:321px;display:none;z-index:2}
+body.guide #box,body.guide #cardTop{display:block;border:4px dashed #FFCD11;border-radius:10px}
+body.guide #box::after{content:"باکس ۱۴ × ۷ سانتی‌متر";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+ font-weight:800;font-size:40px;color:#FFCD11;direction:rtl}
+body.guide #cardTop{border-color:#fff;height:76px}
+body.mock #box,body.box #box{display:flex}
+body.mock #cardTop{display:block}
+#box{align-items:center;justify-content:center;gap:26px;direction:rtl;background:linear-gradient(180deg,#FFD633 0%,#FFCD11 55%,#F2BC00 100%);
+ border-radius:10px;color:#10203C;box-shadow:0 18px 40px rgba(5,25,70,.45)}
+#box .pc{font-weight:900;font-size:150px;line-height:1;letter-spacing:-2px}
+#box .tx{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding-top:6px}
+#box .l1{font-weight:800;font-size:46px;line-height:1.15}
+#box .l2{font-weight:900;font-size:66px;line-height:1.1;color:#1565C0}
+#box .l3{font-weight:700;font-size:34px;line-height:1.25}
+#cardTop{border-radius:10px;background:#1565C0;box-shadow:0 10px 24px rgba(5,25,70,.4)}
+#cardTop svg{position:absolute;left:24px;top:16px}
+body.box{width:529px;height:265px}
+body.box #c{width:529px;height:265px;background:none}
+body.box #c>*:not(#box){display:none!important}
+body.box #box{left:0;top:0;border-radius:0;box-shadow:none}
+
+/* address under the box */
+#addr{left:1290px;top:2085px;width:840px;text-align:center;direction:rtl}
+#addr .h{display:flex;align-items:center;justify-content:center;gap:16px;font-weight:900;font-size:64px;color:#FFCD11;line-height:1.2}
+#addr .b{font-weight:700;font-size:46px;color:#fff;line-height:1.45;margin-top:6px}
 
 /* bottom: QR + app name */
 #dl{left:200px;top:2860px;width:1845px;height:280px;display:flex;align-items:center;justify-content:space-between;direction:rtl;
@@ -104,7 +127,14 @@ body.guide #cardZone{display:flex}
  <div id="prodShadow" class="a"></div>
  <img id="prod" class="a" src="assets/diag_front_hd.png">
 
- <div id="cardZone" class="a rtl">جای باکس کارت ویزیت<small>حدود ۲۰ × ۱۵ سانتی‌متر<br>در نسخه نهایی خالی است</small></div>
+ <div id="cardTop" class="a"><svg width="160" height="48" viewBox="0 0 500 150"><path d="M8 118 L100 104 L120 50 L144 140 L166 76 L182 108 L218 102 C240 98 248 58 282 46 L368 40 C398 40 408 82 430 96 L494 86"
+   fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+   <circle cx="268" cy="114" r="14" fill="none" stroke="#fff" stroke-width="13"/><circle cx="368" cy="110" r="14" fill="none" stroke="#fff" stroke-width="13"/></svg></div>
+ <div id="box" class="a"><div class="pc">۱۰٪</div><div class="tx"><div class="l1">تخفیف هدیه</div><div class="l2">نارون</div><div class="l3">برای مشتریان عزیز</div></div></div>
+ <div id="addr" class="a">
+  <div class="h"><svg width="56" height="56" viewBox="0 0 24 24"><path fill="#FFCD11" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>تست رایگان حضوری</div>
+  <div class="b">قزوین، مجتمع تجاری نیایش<br>طبقه منفی ۱</div>
+ </div>
 
  <div id="dl" class="a">
   <div class="txt">
@@ -119,7 +149,7 @@ body.guide #cardZone{display:flex}
  </div>
 </div>
 <script>
-if(new URLSearchParams(location.search).get('guide'))document.body.classList.add('guide');
+for(const k of ['guide','mock','box'])if(new URLSearchParams(location.search).get(k))document.body.classList.add(k);
 
 
 // feature icons (white line art, 24-unit grid)

@@ -1,5 +1,6 @@
 # A1 poster render: python3 poster.py [out_dir] [dpi]   (QR target: QR_URL env, default https://cardiag.ir)
-# -> poster_a1.pdf (print), poster_a1_<dpi>dpi.jpg, poster_a1_guide.jpg (business-card zone outlined)
+# -> poster_a1.pdf (print), poster_a1_<dpi>dpi.jpg, poster_a1_guide.jpg (box zone outlined),
+#    poster_a1_mock.jpg (box + card preview), box_front_14x7.pdf / _<dpi>dpi.jpg (box face print)
 import os, sys, pathlib
 os.environ.setdefault("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
 import segno
@@ -29,4 +30,9 @@ with sync_playwright() as p:
     shot(pg, "", out / f"poster_a1_{dpi}dpi.jpg", dpi / 96)
     pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=0.5)
     shot(pg, "?guide=1", out / "poster_a1_guide.jpg", 0.5)
+    shot(pg, "?mock=1", out / "poster_a1_mock.jpg", 0.5)
+    # business-card box face, 14 x 7 cm
+    pg = b.new_page(viewport={"width": 529, "height": 265}, device_scale_factor=dpi / 96)
+    shot(pg, "?box=1", out / f"box_front_14x7_{dpi}dpi.jpg", dpi / 96)
+    pg.pdf(path=str(out / "box_front_14x7.pdf"), width="140mm", height="70mm", print_background=True, prefer_css_page_size=False)
     b.close()
