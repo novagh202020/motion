@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Service Cover</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
+#c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+#title{left:0;top:236px;width:1080px;text-align:center;font-weight:900;font-size:146px;line-height:1.1;white-space:nowrap}
+#title b{color:#F28012;font-weight:900}
+#sub{left:0;top:576px;width:1080px;text-align:center;font-weight:700;font-size:52px;color:#6E7D96}
+.card{position:absolute;direction:rtl;background:#fff;border:3px solid #DEE6F2;border-radius:40px;box-shadow:0 24px 54px rgba(20,40,80,.16)}
+#brand{left:0;top:1566px;width:1080px;text-align:center;font-weight:900;font-size:62px;color:#1565C0}
+#url{left:0;top:1638px;width:1080px;text-align:center;font-weight:700;font-size:36px;color:#506482}
+</style></head><body>
+<div id="c">
+ <div id="title" class="a rtl">یادت رفت<br><b>روغن</b> عوض کنی؟</div>
+ <div id="sub" class="a rtl">کاردیاگ سر وقت یادت میندازه</div>
+
+ <!-- reminder notification -->
+ <div class="card" style="left:90px;top:676px;width:900px;padding:24px 30px;display:flex;gap:22px;align-items:center;transform:rotate(-2deg)">
+  <div style="width:100px;height:100px;border-radius:26px;background:#2196F3;display:flex;align-items:center;justify-content:center;flex:none">
+   <svg width="80" height="29" viewBox="0 0 400 144"><path d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><circle cx="104" cy="114" r="16" fill="none" stroke="#fff" stroke-width="9"/><circle cx="188" cy="114" r="16" fill="none" stroke="#fff" stroke-width="9"/></svg></div>
+  <div style="flex:1"><div style="display:flex;justify-content:space-between;font-weight:600;font-size:28px;color:#6E7D96"><span class="ltr">CarDiag AI</span><span>الان</span></div>
+   <div style="display:flex;align-items:center;gap:12px;font-weight:900;font-size:42px;margin-top:4px"><svg width="42" height="42" viewBox="0 0 24 24"><path fill="#2196F3" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>یادآوری کیلومتر</div>
+   <div style="font-weight:600;font-size:34px;color:#33415C;margin-top:4px">۲ هفته گذشت؛ کیلومتر رو به‌روز کن</div></div>
+ </div>
+
+ <svg class="a" style="left:0;top:0;overflow:visible" width="1080" height="1920">
+  <defs><filter id="sh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#142850" flood-opacity=".18"/></filter>
+   <radialGradient id="amb" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFC446" stop-opacity=".55"/><stop offset=".5" stop-color="#F28012" stop-opacity=".18"/><stop offset="1" stop-color="#F28012" stop-opacity="0"/></radialGradient></defs>
+  <!-- countdown ring: 300 km left -->
+  <g transform="translate(540 1116)">
+   <circle r="250" fill="url(#amb)"/>
+   <circle r="190" fill="#fff" filter="url(#sh)"/>
+   <circle r="160" fill="none" stroke="#E6EBF2" stroke-width="26"/>
+   <circle r="160" fill="none" stroke="#F28012" stroke-width="26" stroke-linecap="round" transform="rotate(-90)" stroke-dasharray="1005.3" stroke-dashoffset="60.3"/>
+   <text y="34" text-anchor="middle" font-family="V" font-weight="900" font-size="116" fill="#F28012">۳۰۰</text>
+   <text y="92" text-anchor="middle" font-family="V" font-weight="700" font-size="32" fill="#6E7D96">کیلومتر مانده</text>
+  </g>
+  <!-- oil lamp (left) -->
+  <g transform="translate(166 1116)">
+   <circle r="94" fill="#2A3650" filter="url(#sh)"/>
+   <g transform="translate(-54 -54) scale(4.5)"><path fill="#FFC446" d="M2 10h5.5l1.5-1.5h3l1.5 1.5h4l3.5-2.5 1 1.2-3.5 3.3v5H2zM20.5 14.5c0 .9.7 1.6 1.5 1.6s1.5-.7 1.5-1.6c0-.8-1.5-2.6-1.5-2.6s-1.5 1.8-1.5 2.6zM8 6h4v1.5H8z"/></g>
+  </g>
+ </svg>
+ <!-- calendar (right) -->
+ <div class="card" style="left:806px;top:1020px;width:206px;padding:20px 18px;text-align:center;border-radius:32px">
+  <svg width="54" height="54" viewBox="0 0 24 24"><path fill="#2196F3" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+  <div style="font-weight:900;font-size:40px;margin-top:4px">۸ آذر</div></div>
+
+ <!-- service card -->
+ <div class="card" style="left:110px;top:1352px;width:860px;padding:16px 30px;display:flex;gap:22px;align-items:center;border-color:#F9C88A">
+  <div style="width:84px;height:84px;border-radius:22px;background:#E3EFFC;display:flex;align-items:center;justify-content:center;flex:none"><svg width="48" height="48" viewBox="0 0 24 24"><path fill="#2196F3" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div>
+  <div style="flex:1"><div style="font-weight:900;font-size:40px">تعویض روغن موتور</div>
+   <div style="display:inline-block;margin-top:8px;border-radius:14px;padding:4px 18px;background:#FFF4E5;color:#F28012;font-weight:800;font-size:30px">نزدیک سرویس</div>
+   <div style="height:12px;border-radius:6px;background:#E6EBF2;margin-top:14px;overflow:hidden;direction:ltr"><div style="height:12px;width:94%;border-radius:6px;background:#F28012"></div></div></div>
+ </div>
+
+ <div id="brand" class="a ltr">CarDiag AI</div>
+ <div id="url" class="a ltr">cardiag.ir</div>
+</div>
+</body></html>
