@@ -36,3 +36,17 @@ body{background:#2793eb;overflow:hidden}
 #title u b{position:absolute;right:0;border-radius:3px;background:rgba(255,255,255,.5)}
 
 #brand{background:#1565C0;display:flex;align-items:center;justify-content:center;direction:ltr;color:#fff;font-family:V;font-weight:900;white-space:nowrap}
+
+/* price campaign */
+.shine{position:absolute;top:0;height:100%;width:44px;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.85),rgba(255,255,255,0))}
+#title .ai{display:inline-block;position:relative;overflow:hidden;background:#fff;color:#1565C0;border-radius:.28em;padding:0 .2em;line-height:1.2;text-shadow:none;
+  box-shadow:0 4px 12px rgba(20,40,80,.22)}
+#title .ai .shine{background:linear-gradient(100deg,rgba(120,205,255,0),rgba(120,205,255,.55),rgba(120,205,255,0))}
+#sub{direction:rtl;white-space:nowrap;font-family:V;font-weight:700;color:#E6F3FF}
+#price{background:#fff;color:#10203C;direction:rtl;overflow:hidden;font-family:V;box-shadow:0 8px 18px rgba(20,40,80,.28);white-space:nowrap}
+#price .r{display:flex;align-items:center}
+#price .old{position:relative;color:#6E7D96;font-weight:700}
+#price .old::after{content:'';position:absolute;left:-3%;right:-3%;top:52%;height:.11em;border-radius:1px;background:#DC3232;transform:rotate(-7deg)}
+#badge{background:#DC3232;color:#fff;font-weight:800;display:inline-block}
+#price .new{font-weight:900;color:#10203C;letter-spacing:-.01em}
+#price .tm{font-weight:700;color:#6E7D96}

@@ -148,6 +148,13 @@ TPL = '''<!doctype html>
 '''
 
 here = pathlib.Path(__file__).parent
-for (W, H), (css, html) in SIZES.items():
-    (here / f'banner_{W}x{H}.html').write_text(TPL.format(W=W, H=H, css=css.replace('}', '}\n'), html=html))
-print('ok', len(SIZES))
+
+
+def write(sizes, prefix):
+    for (W, H), (css, html) in sizes.items():
+        (here / f'{prefix}_{W}x{H}.html').write_text(TPL.format(W=W, H=H, css=css.replace('}', '}\n'), html=html))
+    print('ok', len(sizes))
+
+
+if __name__ == '__main__':
+    write(SIZES, 'banner')

@@ -16,6 +16,11 @@ function frame(t){
   // check-engine halo: pulse every 1.5s
   const p=(t%1.5)/1.5;
   if($('halo')){$('halo').style.transform=`scale(${1+p*0.9})`;$('halo').style.opacity=(1-p)*.9;}
+  // generic shines: .shine sweeps its parent once per loop, starting at data-t0
+  document.querySelectorAll('.shine').forEach(el=>{const w=el.parentElement.offsetWidth,t0=+(el.dataset.t0||.2);
+    const s=seg(t,t0,t0+.8);el.style.right=(-50+s*(w+100))+'px';el.style.opacity=s>0&&s<1?1:0;});
+  // discount badge: soft pulse every 1.5s
+  if($('badge')){const b=Math.max(0,Math.sin(((t+.4)%1.5)/1.5*Math.PI*2));$('badge').style.transform=`scale(${1+.08*b})`;}
   // shine across the check-engine pill 0.2–0.9s
   if($('shine')){const s=seg(t,.2,.9);$('shine').style.right=(-60+s*(chipW+120))+'px';$('shine').style.opacity=s>0&&s<1?1:0;}
   // underline under «خودت ببین»
