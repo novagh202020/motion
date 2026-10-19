@@ -6,6 +6,8 @@
 @font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
 @font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
 @font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+@font-face{font-family:Lalezar;src:url(fonts/Lalezar-Regular.ttf)}
+@font-face{font-family:Baloo;font-weight:400 800;src:url(fonts/BalooBhaijaan2-VF.ttf)}
 @page{size:594mm 841mm;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:2245px;height:3179px;overflow:hidden;background:#0F57B5}
@@ -23,8 +25,15 @@ body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-
 #brand .fa{font-weight:900;font-size:96px;color:#fff}
 
 /* headline */
-#title{left:0;top:330px;width:2245px;text-align:center;font-weight:900;font-size:186px;line-height:1.24;color:#FFCD11;white-space:nowrap;
- text-shadow:0 10px 0 #0B3A80,0 0 4px #0B3A80,0 24px 60px rgba(5,25,70,.45)}
+#title,#titleF{left:0;top:330px;width:2245px;text-align:center;font-weight:900;font-size:186px;line-height:1.24;white-space:nowrap}
+#title span,#titleF span{display:block}
+/* back layer: outline + extruded shadow; front layer: gradient fill */
+#title{color:#0A2A6B;-webkit-text-stroke:28px #0A2A6B;
+ text-shadow:0 4px 0 #0A2A6B,0 8px 0 #0A2A6B,0 12px 0 #08235A,0 16px 0 #08235A,0 20px 0 #071D4A,0 40px 60px rgba(0,10,40,.55)}
+#titleF span{background:linear-gradient(180deg,#FFF6A8 0%,#FFE03A 38%,#FFC400 62%,#FF9F0A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+body.t-a #title,body.t-a #titleF{font-family:Lalezar;font-weight:400;font-size:218px;line-height:1.2;top:300px}
+body.t-b #title,body.t-b #titleF{font-family:Baloo;font-weight:800;font-size:200px;line-height:1.18;top:330px}
+body.t-b #titleF .l1{background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 50%,#D6EBFF 100%);-webkit-background-clip:text;background-clip:text}
 #sub{left:0;top:860px;width:2245px;text-align:center;font-weight:700;font-size:64px;color:#fff}
 
 /* features box */
@@ -111,7 +120,8 @@ body.box #box{left:0;top:0;border-radius:0;box-shadow:none}
   <span class="en ltr">CarDiag <b>AI</b></span><span class="sep"></span><span class="fa rtl">کاردیاگ</span>
  </div>
 
- <div id="title" class="a rtl">عیب‌یاب هوش مصنوعی<br>خودروهای ایرانی و خارجی</div>
+ <div id="title" class="a rtl"><span class="l1">عیب‌یاب هوش مصنوعی</span><span class="l2">خودروهای ایرانی و خارجی</span></div>
+ <div id="titleF" class="a rtl"></div>
  <div id="sub" class="a rtl">دیاگ بلوتوثی + اپلیکیشن فارسی کاردیاگ؛ مکانیک تو جیبِت!</div>
 
  <div id="feat" class="a"></div>
@@ -149,6 +159,8 @@ body.box #box{left:0;top:0;border-radius:0;box-shadow:none}
  </div>
 </div>
 <script>
+document.getElementById('titleF').innerHTML=document.getElementById('title').innerHTML;
+document.body.classList.add('t-'+(new URLSearchParams(location.search).get('t')||'a'));
 for(const k of ['guide','mock','box'])if(new URLSearchParams(location.search).get(k))document.body.classList.add(k);
 
 
