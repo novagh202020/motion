@@ -20,6 +20,7 @@ body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-
 
 /* brand row */
 #brand{left:0;top:120px;width:2245px;display:flex;justify-content:center;align-items:center;gap:40px}
+#brand .mark{height:92px;display:block}
 #brand .en{font-weight:900;font-size:96px;color:#fff;letter-spacing:1px}
 #brand .en b{color:#FFCD11;font-weight:900}
 #brand .sep{width:4px;height:96px;background:rgba(255,255,255,.55);border-radius:2px}
@@ -86,7 +87,7 @@ body.guide #box,body.guide #cardTop{display:block;border:4px dashed #FFCD11;bord
 body.guide #box::after{content:"باکس ۱۴ × ۷ سانتی‌متر";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
  font-weight:800;font-size:40px;color:#FFCD11;direction:rtl}
 body.guide #cardTop{border-color:#fff;height:76px;background:none;box-shadow:none}
-body.guide #cardTop svg{display:none}
+body.guide #cardTop img{display:none}
 body.mock #box,body.box #box{display:flex}
 body.guide #box{background:none!important;box-shadow:none}
 body.guide #box>*{display:none}
@@ -101,7 +102,7 @@ body.mock #cardTop{display:block}
 #box .l2{font-weight:900;font-size:66px;line-height:1.1;color:#1565C0}
 #box .l3{font-weight:700;font-size:34px;line-height:1.25}
 #cardTop{border-radius:10px;background:#1565C0;box-shadow:0 10px 24px rgba(5,25,70,.4)}
-#cardTop svg{position:absolute;left:24px;top:16px}
+#cardTop img{position:absolute;left:24px;top:18px;width:160px}
 body.box{width:529px;height:265px}
 body.box #c{width:529px;height:265px;background:none}
 body.box #c>*:not(#box){display:none!important}
@@ -121,9 +122,7 @@ body.box #box{left:0;top:0;border-radius:0;box-shadow:none}
 </style></head><body>
 <div id="c">
  <div id="brand" class="a">
-  <svg width="300" height="96" viewBox="0 0 500 160"><path d="M8 118 L100 104 L120 50 L144 140 L166 76 L182 108 L218 102 C240 98 248 58 282 46 L368 40 C398 40 408 82 430 96 L494 86"
-   fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
-   <circle cx="268" cy="114" r="14" fill="none" stroke="#fff" stroke-width="12"/><circle cx="368" cy="110" r="14" fill="none" stroke="#fff" stroke-width="12"/></svg>
+  <img class="mark" src="assets/logo_mark_white.png">
   <span class="en ltr">CarDiag <b>AI</b></span><span class="sep"></span><span class="fa rtl">کاردیاگ</span>
  </div>
 
@@ -144,9 +143,7 @@ body.box #box{left:0;top:0;border-radius:0;box-shadow:none}
  <div id="prodShadow" class="a"></div>
  <img id="prod" class="a" src="assets/diag_front_hd.png">
 
- <div id="cardTop" class="a"><svg width="160" height="48" viewBox="0 0 500 150"><path d="M8 118 L100 104 L120 50 L144 140 L166 76 L182 108 L218 102 C240 98 248 58 282 46 L368 40 C398 40 408 82 430 96 L494 86"
-   fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-   <circle cx="268" cy="114" r="14" fill="none" stroke="#fff" stroke-width="13"/><circle cx="368" cy="110" r="14" fill="none" stroke="#fff" stroke-width="13"/></svg></div>
+ <div id="cardTop" class="a"><img src="assets/logo_mark_white.png"></div>
  <div id="box" class="a"><div class="pc">۱۰٪</div><div class="tx"><div class="l1">تخفیف هدیه</div><div class="l2">نارون</div><div class="l3">برای مشتریان عزیز</div></div></div>
 <!-- slits for the box tabs (box_sheet.html): 52 mm at the box sides, 102 mm under it; 1 mm = 3.7795 px -->
  <svg id="slits" class="a" style="left:0;top:0" width="2245" height="3179">
