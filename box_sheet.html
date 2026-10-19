@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Card Box Sheet</title>
+<style>
+/* business-card pocket, die-cut on its own heavier sheet. Sheet 192 x 99 mm = 186 x 93 mm cut + 3 mm bleed.
+   front 140 x 70 | side + bottom walls 8 mm (fold back) | tabs 15 mm go through slits in the poster (52 mm side, 102 mm bottom).
+   ?dieline=1 draws cut (red solid) and fold (blue dashed) lines. render: python3 poster.py */
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+@page{size:192mm 99mm;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:192mm;height:99mm;overflow:hidden;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:V,sans-serif;position:relative}
+svg{position:absolute;left:0;top:0}
+#front{position:absolute;left:26mm;top:3mm;width:140mm;height:70mm;display:flex;align-items:center;justify-content:center;gap:26px;direction:rtl;color:#10203C}
+#front .pc{font-weight:900;font-size:150px;line-height:1;letter-spacing:-2px}
+#front .tx{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding-top:6px}
+#front .l1{font-weight:800;font-size:46px;line-height:1.15}
+#front .l2{font-weight:900;font-size:66px;line-height:1.1;color:#1565C0}
+#front .l3{font-weight:700;font-size:34px;line-height:1.25}
+#lines{display:none}
+body.dieline #lines{display:inline}
+</style></head><body>
+<svg width="192mm" height="99mm" viewBox="0 0 192 99">
+ <defs><linearGradient id="y" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFD633"/><stop offset=".55" stop-color="#FFCD11"/><stop offset="1" stop-color="#F2BC00"/></linearGradient></defs>
+ <!-- ink: walls + 3 mm bleed (tabs stay white, they sit behind the poster) -->
+ <rect x="15" y="0" width="162" height="84" fill="#F2BC00"/>
+ <rect x="26" y="0" width="140" height="73" fill="url(#y)"/>
+ <g id="lines" fill="none" stroke-width=".35">
+  <path stroke="#E00000" d="M18 3H174V13L189 18V58L174 63V73H166V81H146L141 96H51L46 81H26V73H18V63L3 58V18L18 13Z"/>
+  <path stroke="#0060E0" stroke-dasharray="2 1.5" d="M26 3V73M166 3V73M26 73H166M18 13V63M174 13V63M46 81H146"/>
+ </g>
+</svg>
+<div id="front"><div class="pc">۱۰٪</div><div class="tx"><div class="l1">تخفیف هدیه</div><div class="l2">نارون</div><div class="l3">برای مشتریان عزیز</div></div></div>
+<script>if(new URLSearchParams(location.search).get('dieline'))document.body.classList.add('dieline');</script>
+</body></html>

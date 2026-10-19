@@ -1,6 +1,7 @@
 # A1 poster render: python3 poster.py [out_dir] [dpi]   (QR target: QR_URL env, default https://cardiag.ir)
 # -> poster_a1.pdf (print), poster_a1_<dpi>dpi.jpg, poster_a1_guide.jpg (box zone outlined),
-#    poster_a1_mock.jpg (box + card preview), box_front_14x7.pdf / _<dpi>dpi.jpg (box face print)
+#    poster_a1_mock.jpg (box + card preview), poster_a1_cutguide.pdf (A1 with slit positions),
+#    box_sheet_print.pdf / box_sheet_dieline.pdf / box_sheet_dieline_<dpi>dpi.jpg (die-cut card box)
 import os, sys, pathlib
 os.environ.setdefault("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
 import segno
@@ -31,8 +32,15 @@ with sync_playwright() as p:
     pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=0.5)
     shot(pg, "?guide=1", out / "poster_a1_guide.jpg", 0.5)
     shot(pg, "?mock=1", out / "poster_a1_mock.jpg", 0.5)
-    # business-card box face, 14 x 7 cm
-    pg = b.new_page(viewport={"width": 529, "height": 265}, device_scale_factor=dpi / 96)
-    shot(pg, "?box=1", out / f"box_front_14x7_{dpi}dpi.jpg", dpi / 96)
-    pg.pdf(path=str(out / "box_front_14x7.pdf"), width="140mm", height="70mm", print_background=True, prefer_css_page_size=False)
+    pg = b.new_page(viewport={"width": W, "height": H})
+    pg.goto(page + "?guide=1"); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(600)
+    pg.pdf(path=str(out / "poster_a1_cutguide.pdf"), width="594mm", height="841mm", print_background=True, prefer_css_page_size=True)
+    # business-card box sheet (die-cut): print file, dieline file, dieline preview
+    box = pathlib.Path("box_sheet.html").resolve().as_uri()
+    pg = b.new_page(viewport={"width": 726, "height": 375}, device_scale_factor=dpi / 96)
+    for q, name in (("", "box_sheet_print"), ("?dieline=1", "box_sheet_dieline")):
+        pg.goto(box + q); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(400)
+        pg.pdf(path=str(out / f"{name}.pdf"), width="192mm", height="99mm", print_background=True, prefer_css_page_size=True)
+    png = str(out / "box_sheet_dieline.png"); pg.screenshot(path=png)
+    Image.open(png).convert("RGB").save(out / f"box_sheet_dieline_{dpi}dpi.jpg", quality=95, dpi=(dpi, dpi)); os.remove(png)
     b.close()

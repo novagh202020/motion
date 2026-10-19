@@ -38,7 +38,7 @@ body.t-b #title,body.t-b #titleF{font-family:Baloo;font-weight:800;font-size:200
 body.t-p1 #title,body.t-p1 #titleF,body.t-p2 #title,body.t-p2 #titleF,body.t-p3 #title,body.t-p3 #titleF{font-family:Peyda;font-weight:800;font-size:200px;line-height:1.22;top:315px}
 body.t-p1 #title,body.t-p2 #title{-webkit-text-stroke:0;color:transparent;text-shadow:0 14px 40px rgba(5,25,80,.55),0 4px 10px rgba(5,25,80,.35)}
 body.t-p1 #titleF span,body.t-p2 #titleF span{background:none;color:#FFCD11}
-body.t-p2 #titleF .l1{color:#fff}
+body.t-p2 #titleF .l2{color:#fff}
 body.t-p3 #title{-webkit-text-stroke:16px #0A2A6B;text-shadow:0 10px 0 #0A2A6B,0 30px 50px rgba(0,10,40,.45)}
 body.t-p3 #titleF span{background:linear-gradient(180deg,#FFE45C 0%,#FFCD11 55%,#FFB300 100%);-webkit-background-clip:text;background-clip:text}
 body.t-b #titleF .l1{background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 50%,#D6EBFF 100%);-webkit-background-clip:text;background-clip:text}
@@ -85,8 +85,13 @@ body.t-b #titleF .l1{background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 50%,#D
 body.guide #box,body.guide #cardTop{display:block;border:4px dashed #FFCD11;border-radius:10px}
 body.guide #box::after{content:"باکس ۱۴ × ۷ سانتی‌متر";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
  font-weight:800;font-size:40px;color:#FFCD11;direction:rtl}
-body.guide #cardTop{border-color:#fff;height:76px}
+body.guide #cardTop{border-color:#fff;height:76px;background:none;box-shadow:none}
+body.guide #cardTop svg{display:none}
 body.mock #box,body.box #box{display:flex}
+body.guide #box{background:none!important;box-shadow:none}
+body.guide #box>*{display:none}
+#slits{display:none;z-index:4}
+body.guide #slits{display:block}
 body.mock #cardTop{display:block}
 #box{align-items:center;justify-content:center;gap:26px;direction:rtl;background:linear-gradient(180deg,#FFD633 0%,#FFCD11 55%,#F2BC00 100%);
  border-radius:10px;color:#10203C;box-shadow:0 18px 40px rgba(5,25,70,.45)}
@@ -149,6 +154,12 @@ body.box #box{left:0;top:0;border-radius:0;box-shadow:none}
    fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
    <circle cx="268" cy="114" r="14" fill="none" stroke="#fff" stroke-width="13"/><circle cx="368" cy="110" r="14" fill="none" stroke="#fff" stroke-width="13"/></svg></div>
  <div id="box" class="a"><div class="pc">۱۰٪</div><div class="tx"><div class="l1">تخفیف هدیه</div><div class="l2">نارون</div><div class="l3">برای مشتریان عزیز</div></div></div>
+<!-- slits for the box tabs (box_sheet.html): 52 mm at the box sides, 102 mm under it; 1 mm = 3.7795 px -->
+ <svg id="slits" class="a" style="left:0;top:0" width="2245" height="3179">
+  <g stroke="#E00000" stroke-width="6" stroke-linecap="round"><path d="M1446 1810V2006.5M1975 1810V2006.5M1518 2041H1903"/></g>
+  <g fill="#fff" font-family="V" font-weight="800" font-size="30" text-anchor="middle" direction="rtl">
+   <text x="1395" y="1915">برش ۵۲</text><text x="2030" y="1915">برش ۵۲</text><text x="1710" y="2025">برش ۱۰۲ میلی‌متر</text></g>
+ </svg>
  <div id="addr" class="a">
   <div class="h"><svg width="56" height="56" viewBox="0 0 24 24"><path fill="#FFCD11" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>تست رایگان حضوری</div>
   <div class="b">قزوین، مجتمع تجاری نیایش<br>طبقه منفی ۱</div>
@@ -168,7 +179,7 @@ body.box #box{left:0;top:0;border-radius:0;box-shadow:none}
 </div>
 <script>
 document.getElementById('titleF').innerHTML=document.getElementById('title').innerHTML;
-document.body.classList.add('t-'+(new URLSearchParams(location.search).get('t')||'a'));
+document.body.classList.add('t-'+(new URLSearchParams(location.search).get('t')||'p2'));
 for(const k of ['guide','mock','box'])if(new URLSearchParams(location.search).get(k))document.body.classList.add(k);
 
 
