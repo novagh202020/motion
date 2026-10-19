@@ -22,11 +22,18 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
     cd song && python3 extend.py 5 song_trip.wav   # song_cut + 5 repeated groove bars (recap/end card move 11.25 s later)
     PAGE=trip_motion.html python3 render.py video silent.mp4 0 1238                # longer motions: pass the frame range
     (audio.py length: CARDIAG_DUR env, default 30; end card start: initEnd(null,{t0}))
+    python3 sfx60.py    (1-minute app tour, 62.2 s -> sfx60_full.wav, mix60.wav; needs song/song_full.wav)
+    cd song && python3 full.py      # -> song_full.wav: the whole track from motion 0 (no edits; breaks at bars 10 / 24, final hit 61.0 s)
+    PAGE=motion60.html python3 render.py video silent.mp4 0 1866
     python3 sfx_bat.py  (battery test motion -> sfx_bat_full.wav, mix_bat.wav; song ducked under the slow crank)
     ffmpeg -i silent.mp4 -i mix.wav -map 0:v -map 1:a -c:v copy -af loudnorm=I=-14:TP=-2 -c:a aac -b:a 192k out.mp4
 
 ## Files
 - motion.html          Series C launch motion (8 features)
+- motion60.html        1-minute app tour on the full song: intro + connect, then 10 sections x 2 bars (bar 1 = the app screen,
+                       bar 2 = "what it does" card, 3 lines on the beats): ECU, monitoring, dashboard, trip, AI troubleshooter, battery,
+                       mileage check, periodic service, health trend (68% -> 86% over 6 scans), pre-purchase check (gold) ->
+                       recap: 12 quick-access tiles on eighth notes, flash on the break -> end card on the outro, last heartbeat on the final hit
 - ai_motion.html       AI diagnosis motion (= ai_intro.html + ai_main_part.html)
 - ecu_motion.html      ECU fault-finding motion: check-engine light -> plug diag -> splash, connect, Bluetooth scan,
                        connecting popup -> ECU scan finds P0420 -> clear all faults -> light off -> end card
@@ -44,6 +51,6 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 - svc_motion.html      Periodic service: odometer climbs, forgotten oil-change note, oil lamp -> quick access -> periodic service,
                        add oil change every 5,000 km -> every 2 weeks a time-based reminder notification -> km entered with «اصلاح» (no GPS on a phone),
                        card goes green -> amber at 300 km left -> more services in the list -> end card (30 s)
-- endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health}) sets the phone's health %)
+- endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health,t0,beats}): phone health %, start frame, heartbeat frames)
 - cover*.html          Instagram / YouTube covers (cover_ecu.html = ECU post, cover_bat.html = battery post, render: python3 shot.py cover_ecu.html out.png); product_shot.html = white-background site image
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)
