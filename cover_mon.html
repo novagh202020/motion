@@ -10,25 +10,54 @@ html,body{width:1080px;height:1920px;overflow:hidden}
 body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
 #c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
 .a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
-#title{left:0;top:262px;width:1080px;text-align:center;font-weight:900;font-size:124px;line-height:1.1;white-space:nowrap}
+#title{left:0;top:150px;width:1080px;text-align:center;font-weight:900;font-size:118px;line-height:1.12;white-space:nowrap}
 #title b{color:#2196F3;font-weight:900}
-#live{left:0;top:640px;width:1080px;text-align:center}
-#live span{display:inline-flex;align-items:center;gap:16px;height:74px;padding:0 34px;border-radius:37px;background:#E3EFFC;color:#2196F3;font-weight:800;font-size:38px}
-#grid{left:110px;top:780px;width:860px;display:grid;grid-template-columns:1fr 1fr;gap:28px;direction:rtl}
-.s{background:#fff;border:3px solid #DEE6F2;border-radius:40px;box-shadow:0 24px 54px rgba(20,40,80,.14);padding:30px 34px 32px;height:300px}
-.s .n{font-weight:700;font-size:38px;color:#6E7D96}
-.s .v{font-weight:900;font-size:110px;line-height:1.1;margin-top:18px;direction:ltr;text-align:right}
-.s .u{font-weight:700;font-size:40px;color:#6E7D96;margin-left:10px}
-#brand{left:0;top:1560px;width:1080px;text-align:center;font-weight:900;font-size:62px;color:#1565C0}
+/* the monitoring page, at cover size */
+#app{left:70px;top:480px;width:940px;height:1300px;border-radius:60px;background:#EEF2F8;border:3px solid #DEE6F2;overflow:hidden;
+ box-shadow:0 40px 80px rgba(20,40,80,.18),0 10px 24px rgba(20,40,80,.08);direction:rtl}
+#bar{height:132px;background:#2196F3;display:flex;align-items:center;justify-content:space-between;padding:0 44px}
+#bar .t{display:flex;align-items:center;gap:18px;color:#fff;font-weight:800;font-size:48px}
+#bar .lv{display:inline-flex;align-items:center;gap:12px;height:58px;padding:0 24px;border-radius:29px;background:#fff;color:#2196F3;font-weight:800;font-size:30px;direction:ltr}
+#st{text-align:center;font-weight:800;font-size:32px;color:#22A050;margin:24px 0 22px}
+.g{display:grid;gap:24px;padding:0 36px}
+.c{background:#fff;border:3px solid #DEE6F2;border-radius:32px;text-align:center}
+.c .p{font-weight:800;color:#2196F3;direction:ltr}
+.c .n{font-weight:700;color:#10203C}
+.c .h{height:3px;background:#E6EBF2}
+.c .v{font-weight:900;color:#10203C;direction:ltr;line-height:1.05}
+.c .u{font-weight:500;color:#6E7D96;direction:ltr}
+#big{grid-template-columns:1fr 1fr}
+#big .c{padding:18px 20px 16px}
+#big .p{font-size:28px}#big .n{font-size:38px;margin-top:2px}#big .h{margin:12px 24px}#big .v{font-size:104px}#big .u{font-size:32px}
+#big .c.on{border-color:#ADD6FA;box-shadow:0 0 0 10px rgba(33,150,243,.10)}
+#big .c.on .v{color:#2196F3}
+#small{grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:24px}
+#small .c{padding:12px 10px 10px}
+#small .p{font-size:22px}#small .n{font-size:25px;margin-top:4px;white-space:nowrap}#small .h{margin:8px 16px}#small .v{font-size:54px}#small .u{font-size:22px}
+#fade{position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg,rgba(238,242,248,0),#EEF2F8 85%)}
+#brand{left:0;top:1812px;width:1080px;text-align:center;font-weight:900;font-size:56px;color:#1565C0}
 </style></head><body>
 <div id="c">
  <div id="title" class="a rtl">سنسورهای ماشینتو<br><b>زنده</b> ببین</div>
- <div id="live" class="a rtl"><span><svg width="26" height="26"><circle cx="13" cy="13" r="12" fill="#2196F3"/></svg>همه‌ی سنسورها، لحظه‌به‌لحظه</span></div>
- <div id="grid" class="a">
-  <div class="s"><div class="n">دور موتور</div><div class="v">۸۵۰<span class="u">rpm</span></div></div>
-  <div class="s"><div class="n">دمای آب موتور</div><div class="v">۸۸<span class="u">°C</span></div></div>
-  <div class="s"><div class="n">سنسور اکسیژن ۱</div><div class="v">۰٫۴۵<span class="u">V</span></div></div>
-  <div class="s"><div class="n">ولتاژ باتری</div><div class="v">۱۴٫۱<span class="u">V</span></div></div>
+ <div id="app" class="a">
+  <div id="bar"><div class="t"><svg width="46" height="46" viewBox="0 0 24 24"><path fill="#fff" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>مانیتورینگ خودرو</div>
+   <span class="lv"><svg width="22" height="22"><circle cx="11" cy="11" r="10" fill="#2196F3"/></svg>LIVE</span></div>
+  <div id="st">✓ در حال خواندن — چرخه: ۲۴</div>
+  <div id="big" class="g">
+   <div class="c"><div class="p">۰C</div><div class="n">دور موتور</div><div class="h"></div><div class="v">۸۵۰</div><div class="u">rpm</div></div>
+   <div class="c on"><div class="p">۰۴</div><div class="n">بار موتور</div><div class="h"></div><div class="v">۲۴</div><div class="u">%</div></div>
+   <div class="c"><div class="p">RV</div><div class="n">ولتاژ باتری / دینام</div><div class="h"></div><div class="v">۱۴٫۱</div><div class="u">V</div></div>
+   <div class="c"><div class="p">۱۴</div><div class="n">سنسور اکسیژن ۱</div><div class="h"></div><div class="v">۰٫۴۵</div><div class="u">V</div></div>
+  </div>
+  <div id="small" class="g">
+   <div class="c"><div class="p">۰۵</div><div class="n">دمای آب موتور</div><div class="h"></div><div class="v">۸۸</div><div class="u">°C</div></div>
+   <div class="c"><div class="p">۰B</div><div class="n">فشار منیفولد</div><div class="h"></div><div class="v">۳۴</div><div class="u">kPa</div></div>
+   <div class="c"><div class="p">۰E</div><div class="n">آوانس جرقه</div><div class="h"></div><div class="v">۱۲</div><div class="u">°</div></div>
+   <div class="c"><div class="p">۰۷</div><div class="n">تریم بلندمدت</div><div class="h"></div><div class="v">۳</div><div class="u">%</div></div>
+   <div class="c"><div class="p">۱۱</div><div class="n">دریچه گاز</div><div class="h"></div><div class="v">۱۵</div><div class="u">%</div></div>
+   <div class="c"><div class="p">۰F</div><div class="n">دمای هوای ورودی</div><div class="h"></div><div class="v">۳۶</div><div class="u">°C</div></div>
+  </div>
+  <div id="fade"></div>
  </div>
  <div id="brand" class="a ltr">CarDiag AI</div>
 </div>
