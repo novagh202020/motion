@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<title>CarDiag Telegram</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+:root{--blue:#2196F3;--deep:#1565C0;--navy:#10203C;--slate:#6E7D96;--url:#506482;--green:#22A050;--greenT:#DEF6E6;--hair:#DEE6F2;--device:#181C24;--edge:#5F6878}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FBFCFF}
+body{font-family:V,sans-serif;color:var(--navy)}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.ltr{direction:ltr;unicode-bidi:isolate}.rtl{direction:rtl}
+#titles{position:absolute;left:0;top:0;width:1080px;height:400px;z-index:50;pointer-events:none}
+.ttl{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;opacity:0}
+.ttl .h{font-weight:900;font-size:84px;line-height:1.15;color:var(--navy);white-space:nowrap;display:inline-block}
+.ttl .s{font-weight:500;font-size:42px;color:var(--slate);margin-top:10px;white-space:nowrap}
+#phone{position:absolute;left:240px;top:390px;width:600px;height:1290px;border-radius:78px;background:var(--device);border:3px solid var(--edge);transform-origin:50% 0;
+ box-shadow:0 50px 90px rgba(20,40,80,.28),0 12px 26px rgba(20,40,80,.18);z-index:10}
+#screen{position:absolute;left:11px;top:11px;width:572px;height:1262px;border-radius:66px;overflow:hidden;clip-path:inset(0 round 66px);isolation:isolate;background:#E9F0F8;direction:rtl}
+#notch{position:absolute;left:50%;top:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#0b0e13;z-index:30}
+.sbar{height:48px;display:flex;justify-content:space-between;align-items:center;padding:6px 40px 0;font-weight:700;font-size:19px;direction:ltr;color:#fff}
+.post{margin:16px 22px;background:#fff;border-radius:26px;overflow:hidden;box-shadow:0 6px 16px rgba(20,40,80,.08);transform-origin:50% 100%}
+.post .th{position:relative;height:560px;overflow:hidden}
+.post .th img{width:100%;height:auto;display:block}
+.post .du{position:absolute;left:16px;top:16px;height:38px;padding:0 14px;border-radius:19px;background:rgba(16,32,60,.55);color:#fff;font-weight:700;font-size:19px;display:flex;align-items:center;gap:6px;direction:ltr}
+.post .pl{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;background:rgba(16,32,60,.45);display:flex;align-items:center;justify-content:center}
+.post .cp{padding:14px 20px 16px}
+.post .c1{font-weight:800;font-size:23px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.post .c2{font-weight:500;font-size:18px;color:var(--slate);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tapdot{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:5px solid rgba(33,150,243,.9);background:rgba(33,150,243,.15);opacity:0;z-index:40}
+.ex{position:absolute;left:90px;top:1376px;width:900px;background:#fff;border:3px solid var(--hair);border-radius:40px;
+ box-shadow:0 30px 60px rgba(20,40,80,.20),0 8px 18px rgba(20,40,80,.10);direction:rtl;padding:22px 40px;opacity:0;z-index:21;transform-origin:50% 100%}
+.exr{display:flex;align-items:center;gap:28px;height:108px;font-weight:800;font-size:48px;color:var(--navy);white-space:nowrap}
+.exr+.exr{border-top:2px solid #EEF2F8}
+.exn{width:74px;height:74px;border-radius:50%;background:var(--blue);color:#fff;font-weight:900;font-size:42px;display:flex;align-items:center;justify-content:center;flex:none}
+</style>
+</head>
+<body>
+<div id="stage">
+ <!-- intro: heartbeat line, a paper plane rides its tip -->
+ <svg id="pulseSvg" class="a" style="left:0;top:0;z-index:12" width="1080" height="1920">
+  <defs><filter id="gl" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+  <g id="pulseG">
+   <path id="pulseGlow" d="" fill="none" stroke="#78CDFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl)" opacity=".55"/>
+   <path id="pulse" d="" fill="none" stroke="#2196F3" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g id="plane"><circle r="62" fill="#2196F3" opacity=".14"/><g transform="translate(-40 -40) scale(3.33)"><path fill="#2196F3" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></g></g>
+ </svg>
+
+ <div id="phone"><div id="notch"></div><div id="screen"></div><div id="taps"><div class="tapdot" id="tap"></div></div></div>
+ <div id="exs"></div>
+
+ <!-- end card -->
+ <div id="ecBloom" class="a" style="left:190px;top:330px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.30) 0%,rgba(40,160,255,.10) 42%,rgba(40,160,255,0) 70%);opacity:0;z-index:5"></div>
+ <svg id="ecRing" class="a" style="left:290px;top:430px;z-index:6;opacity:0;overflow:visible" width="500" height="500" viewBox="0 0 500 500">
+  <circle cx="250" cy="250" r="236" fill="none" stroke="#ADD6FA" stroke-width="6" stroke-dasharray="4 22" stroke-linecap="round" id="ecDash"/>
+  <circle cx="250" cy="250" r="190" fill="#2196F3"/>
+  <circle cx="250" cy="250" r="190" fill="url(#ecG)"/>
+  <defs><radialGradient id="ecG" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#78CDFF" stop-opacity=".9"/><stop offset=".55" stop-color="#2196F3" stop-opacity="0"/></radialGradient></defs>
+  <g id="ecPlane" transform="translate(250 250)"><g transform="translate(-100 -96) scale(8.4)"><path fill="#fff" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></g></g>
+  <g id="ecOrbit"><circle cx="250" cy="14" r="16" fill="#1565C0"/></g>
+ </svg>
+ <div id="ecHandle" class="a ltr" style="left:0;top:1010px;width:1080px;text-align:center;font-weight:900;font-size:132px;color:var(--deep);opacity:0;z-index:7;letter-spacing:-1px">@cardiagai</div>
+ <div id="ecSub" class="a rtl" style="left:0;top:1196px;width:1080px;text-align:center;font-weight:700;font-size:50px;color:var(--slate);opacity:0;z-index:7">کانال تلگرام کاردیاگ</div>
+ <div id="ecBrand" class="a ltr" style="left:0;top:1330px;width:1080px;text-align:center;font-weight:900;font-size:66px;color:var(--deep);opacity:0;z-index:7">CarDiag AI</div>
+ <div id="ecUrl" class="a ltr" style="left:0;top:1424px;width:1080px;text-align:center;font-weight:700;font-size:44px;color:var(--url);opacity:0;z-index:7">cardiag.ir</div>
+
+ <div id="titles"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
+const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
+const IC={arrow:'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
+ bell:'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z',
+ check:'M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z', play:'M8 5v14l11-7z', plane:'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z',
+ eye:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'};
+const svg=(p,c='#2196F3',s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path fill="${c}" d="${IC[p]}"/></svg>`;
+const LOGO=(s,c='#fff')=>`<svg width="${s}" height="${s*0.36}" viewBox="0 0 400 144"><path d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="${c}" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><circle cx="104" cy="114" r="16" fill="none" stroke="${c}" stroke-width="10"/><circle cx="188" cy="114" r="16" fill="none" stroke="${c}" stroke-width="10"/></svg>`;
+const AVA=s=>`<div style="width:${s}px;height:${s}px;border-radius:50%;background:#2196F3;border:${Math.round(s/20)}px solid #fff;display:flex;align-items:center;justify-content:center;flex:none">${LOGO(s*0.66)}</div>`;
+
+/* ================= music grid (song/song_cut.wav) =================
+   bar = 67.5 frames, beat = 16.875; bar m downbeat = 7.5 + 67.5m. Groove from bar 3 (frame 210), break on bar 11, outro bar 12, final hit 885 */
+const HALF=67.5, BEAT=16.875, B=m=>7.5+HALF*m;
+const KICK1=[7.5,24.4,41.25,75,91.9,108.75,125.6];
+const T_PH=100, T_LAND=122;                       // phone up (fast), plane lands in the channel page
+const T_POST=i=>B(3+i);                           // one post per bar (bars 3-6)
+const T_EX=B(7), T_JOIN=B(9)+8, T_NTF=B(10), T_OUT=B(11), T_END=B(12);
+const BEATS=[[868,.6],[885,1]], beatAt=f=>BEATS.reduce((a,[b,m])=>a+m*Math.exp(-Math.pow((f-b)/(m<1?5:4),2)),0);
+
+const TITLES=[
+ {h:'ماشینتو بهتر بشناس', s:'کانال تلگرام کاردیاگ', a:20, b:203},
+ {h:'هر هفته یه ویدیوی تازه', s:'کوتاه، کاربردی، به زبون ساده', a:B(3)+2, b:B(7)-3},
+ {h:'تو کانال چی پیدا می‌کنی؟', a:B(7)+2, b:B(9)-3},
+ {h:'عضو شو، زودتر باخبر شو', s:'با هر ویدیوی تازه اعلان می‌گیری', a:B(9)+2, b:T_OUT-3},
+ {h:'مکانیک تو جیبِت!', a:T_OUT+2, b:99999},
+];
+TITLES.forEach((t,i)=>{const d=document.createElement('div');d.className='ttl';d.id='t'+i;
+ d.innerHTML=`<div class="h">${t.h}</div>`+(t.s?`<div class="s">${t.s}</div>`:''); d.style.top=(t.s?132:148)+'px'; $('titles').appendChild(d);});
+function fitTitles(){document.querySelectorAll('.ttl .h').forEach(h=>{const w=h.scrollWidth;if(w>980)h.style.transform=`scale(${980/w})`;})}
+
+/* ================= channel page ================= */
+// posts, oldest first (the newest lands at the bottom, as in the channel)
+const POSTS=[
+ ['p1','۰:۳۰','چرا ماشینت ریپ می‌زنه؟','هوش مصنوعی کاردیاگ به زبون ساده بهت می‌گه'],
+ ['p2','۰:۳۰','باتری نو انداختی، باز روشن نشد؟','خیلی وقتا مشکل از دینامه، نه باتری'],
+ ['p3','۰:۴۱','ماشینت تو راه چی می‌گه؟','۲۰ دقیقه رانندگی، یه چکاپ کامل'],
+ ['p0','۱:۰۲','عیب‌یابی هوش مصنوعی کاردیاگ','همه‌ی بخش‌های اپ در یک دقیقه'],
+];
+$('screen').innerHTML=`
+ <div style="position:absolute;left:0;right:0;top:0;height:126px;background:#2196F3;z-index:5">
+  <div class="sbar"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>
+  <div style="height:78px;display:flex;align-items:center;gap:16px;padding:0 22px">
+   ${svg('arrow','#fff',32)}${AVA(58)}
+   <div style="flex:1;color:#fff"><div style="font-weight:800;font-size:23px;white-space:nowrap">هوش مصنوعی خودرو - کاردیاگ</div>
+    <div style="font-weight:500;font-size:17px;opacity:.9">کانال • <span class="ltr">@cardiagai</span></div></div>
+   <div id="bell" style="position:relative;transform-origin:50% 10%">${svg('bell','#fff',34)}<span id="bellDot" style="position:absolute;right:-2px;top:0;width:13px;height:13px;border-radius:50%;background:#fff;opacity:0"></span></div>
+  </div></div>
+ <div style="position:absolute;left:0;right:0;top:126px;bottom:112px;overflow:hidden">
+  <div id="feed" style="position:absolute;left:0;right:0;top:0">
+   <div id="info" style="margin:22px 22px 6px;background:#fff;border-radius:26px;padding:30px 26px 26px;text-align:center;box-shadow:0 6px 16px rgba(20,40,80,.08)">
+    <div style="display:flex;justify-content:center">${AVA(130)}</div>
+    <div style="font-weight:900;font-size:30px;margin-top:16px">هوش مصنوعی خودرو - کاردیاگ</div>
+    <div class="ltr" style="font-weight:700;font-size:22px;color:#2196F3;margin-top:4px">@cardiagai</div>
+    <div style="font-weight:500;font-size:20px;line-height:1.7;color:#33415C;margin-top:12px">ویدیوهای کوتاه عیب‌یابی خودرو با هوش مصنوعی<br>مکانیک تو جیبِت!</div></div>
+   ${POSTS.map((p,i)=>`<div class="post" id="po${i}"><div class="th"><img src="assets/tg/${p[0]}.jpg"><span class="du">${svg('play','#fff',20)}${p[1]}</span><span class="pl">${svg('play','#fff',58)}</span></div>
+    <div class="cp"><div class="c1">${p[2]}</div><div class="c2">${p[3]}</div></div></div>`).join('')}
+  </div></div>
+ <div id="ntf" style="position:absolute;left:18px;right:18px;top:60px;z-index:8;background:#fff;border-radius:26px;box-shadow:0 20px 50px rgba(20,40,80,.28);padding:16px 18px;display:flex;gap:14px;align-items:center;opacity:0">
+  ${AVA(64)}<div style="flex:1"><div style="display:flex;justify-content:space-between;font-weight:700;font-size:17px;color:#6E7D96"><span>هوش مصنوعی خودرو - کاردیاگ</span><span>الان</span></div>
+   <div style="font-weight:800;font-size:21px;margin-top:2px">ویدیوی تازه منتشر شد</div></div></div>
+ <div style="position:absolute;left:0;right:0;bottom:0;height:112px;background:#fff;display:flex;align-items:center;padding:0 26px 10px">
+  <div id="join" style="flex:1;height:72px;border-radius:36px;background:#2196F3;color:#fff;font-weight:800;font-size:27px;display:flex;align-items:center;justify-content:center;gap:12px">
+   <span id="joinI" style="display:none">${svg('check','#fff',34)}</span><span id="joinT">عضو شو</span></div></div>`;
+
+/* "what you get" card */
+const HOW=['ویدیوهای کوتاه آموزشی','عیب‌یابی به زبون ساده','امکانات تازه‌ی اپ، زودتر از همه'];
+$('exs').innerHTML=`<div class="ex" id="ex">${HOW.map((r,i)=>`<div class="exr" id="exr${i}"><span class="exn">${fa(i+1)}</span><span>${r}</span></div>`).join('')}</div>`;
+
+/* ================= intro pulse ================= */
+const P1='M-20 900 L330 900 L360 900 L382 860 L402 900 L428 900 L456 740 L490 1050 L518 860 L536 920 L554 900 L800 900';
+const P_END='M-20 1680 L360 1680 L390 1680 L410 1650 L430 1680 L456 1680 L486 1580 L516 1770 L544 1640 L560 1695 L576 1680 L1100 1680';
+let curP=''; function setPulse(d){if(curP===d)return;curP=d;$('pulse').setAttribute('d',d);$('pulseGlow').setAttribute('d',d)}
+setPulse(P1);
+let FEED=[];                                      // feed scroll target after the info card / each post
+function layout(){const vis=1262-126-112;
+ const bottoms=[$('info'),...POSTS.map((_,i)=>$('po'+i))].map(el=>el.offsetTop+el.offsetHeight+16);
+ FEED=bottoms.map(b=>Math.max(0,b-vis));}
+function feedY(f){let y=FEED[0]; POSTS.forEach((_,i)=>{y=lerp(y,FEED[i+1],E.oc(seg(f,T_POST(i)-2,T_POST(i)+14)))});
+ return y-E.io(seg(f,T_EX+10,T_JOIN-14))*(FEED[4]-FEED[2])*0.5;}   // drifts back up while the card explains
+function tapAt(f,a,el){const t=f-a, d=$('tap'); if(t<-4||t>14){return false}
+ const r=el.getBoundingClientRect(), sc=$('screen').getBoundingClientRect(), k=sc.width/572;
+ d.style.left=(11+(r.left+r.width/2-sc.left)/k)+'px'; d.style.top=(11+(r.top+r.height/2-sc.top)/k)+'px';
+ d.style.opacity=t<0?seg(t,-4,0):1-seg(t,4,14); d.style.transform=`scale(${t<0?1.2-0.2*seg(t,-4,0):1+0.6*seg(t,0,14)})`; return true;}
+
+function render(f){
+ TITLES.forEach((t,i)=>{const el=$('t'+i); const pin=E.oc(seg(f,t.a,t.a+9)), pout=E.ic(seg(f,t.b-6,t.b));
+  const o=pin*(1-pout); el.style.opacity=o; el.style.transform=`translateY(${(1-pin)*28-pout*14}px)`; el.style.display=o<=0.001?'none':'block';});
+
+ /* ---- pulse + paper plane ---- */
+ const pg=$('pulseG'), pl=$('plane'), pe=$('pulse'), L=pe.getTotalLength();
+ if(f<T_LAND+2){
+  setPulse(P1);
+  const drawn=f<24.4?lerp(0.12,0.55,E.io(seg(f,0,24.4))):lerp(0.55,1,E.oc(seg(f,24.4,50)));
+  [pe,$('pulseGlow')].forEach(p=>{p.style.strokeDasharray=L;p.style.strokeDashoffset=L*(1-drawn)});
+  const beat=Math.max(Math.exp(-Math.pow((f-24.4)/5,2)),...KICK1.map(k=>0.45*Math.exp(-Math.pow((f-k)/4,2))));
+  $('pulseGlow').style.opacity=0.35+0.6*beat; pg.style.opacity=1-seg(f,96,110);
+  const p=pe.getPointAtLength(drawn*L), q=pe.getPointAtLength(Math.max(0,drawn*L-14));
+  let x=p.x, y=p.y, ang=Math.atan2(p.y-q.y,p.x-q.x)*180/Math.PI, s=1+0.12*beat, o=1;
+  // lift off on the kick at 91.9, curve up and dive into the phone
+  const fl=E.io(seg(f,92,T_LAND)); if(fl>0){const u=fl, x0=800,y0=900,cx=1010,cy=420,x1=540,y1=1000;
+   x=(1-u)*(1-u)*x0+2*(1-u)*u*cx+u*u*x1; y=(1-u)*(1-u)*y0+2*(1-u)*u*cy+u*u*y1;
+   const dx=2*(1-u)*(cx-x0)+2*u*(x1-cx), dy=2*(1-u)*(cy-y0)+2*u*(y1-cy); ang=Math.atan2(dy,dx)*180/Math.PI;
+   s=lerp(1.25,0.35,E.ic(u))*(1+0.25*Math.sin(u*Math.PI)); o=1-seg(f,T_LAND-6,T_LAND);}
+  pl.style.display='block'; pl.setAttribute('transform',`translate(${x} ${y}) rotate(${ang}) scale(${s})`); pl.setAttribute('opacity',o*seg(f,2,8));
+ } else if(f>=T_END+8){
+  setPulse(P_END); pl.style.display='none';
+  const drawn=E.io(seg(f,T_END+8,T_END+42)); [pe,$('pulseGlow')].forEach(p=>{p.style.strokeDasharray=L;p.style.strokeDashoffset=L*(1-drawn)});
+  $('pulseGlow').style.opacity=0.35+0.65*beatAt(f); pg.style.opacity=1;
+ } else {pg.style.opacity=0; pl.style.display='none';}
+
+ /* ---- phone: fast rise, leaves on the break ---- */
+ const ph=$('phone'); let fy=0,fs=1,fo=1;
+ if(f<T_PH) fo=0;
+ else if(f<T_OUT-2){const e=E.oc(seg(f,T_PH,T_PH+12)); fy=lerp(1600,0,e)-18*Math.sin(Math.PI*seg(f,T_PH+10,T_PH+18)); fs=1+0.008*Math.sin((f-120)/20);}
+ else {const m=E.io(seg(f,T_OUT-2,T_OUT+16)); fs=lerp(1,0.55,m); fy=lerp(0,300,m); fo=1-E.ic(seg(f,T_OUT+2,T_OUT+18));}
+ ph.style.display=fo<=0.001?'none':'block'; ph.style.opacity=fo; ph.style.transform=`translateY(${fy}px) scale(${fs})`;
+
+ /* ---- channel page ---- */
+ const ip=E.back(seg(f,T_LAND-4,T_LAND+10)); $('info').style.transform=`scale(${f<T_LAND-4?0.6:lerp(0.6,1,ip)})`; $('info').style.opacity=E.oc(seg(f,T_LAND-4,T_LAND+2));
+ POSTS.forEach((_,i)=>{const p=seg(f,T_POST(i)-2,T_POST(i)+12), el=$('po'+i);
+  el.style.opacity=E.oc(seg(f,T_POST(i)-2,T_POST(i)+4)); el.style.transform=`translateY(${(1-E.oc(p))*80}px) scale(${lerp(0.9,1,E.back(p))})`;});
+ $('feed').style.transform=`translateY(${-feedY(f)}px)`;
+ // join -> joined, bell rings, new-video notification
+ const tapped=f>=T_JOIN+1, j=$('join');
+ j.style.transform=`scale(${1-0.05*Math.exp(-Math.pow((f-T_JOIN-1)/3,2))})`;
+ j.style.background=tapped?'#22A050':'#2196F3'; $('joinT').textContent=tapped?'عضو شدی':'عضو شو'; $('joinI').style.display=tapped?'inline-flex':'none';
+ let shown=tapAt(f,T_JOIN,j);
+ const ring=f>=T_JOIN+12&&f<T_JOIN+44?Math.sin((f-T_JOIN-12)*1.3)*16*(1-seg(f,T_JOIN+12,T_JOIN+44)):0;
+ $('bell').style.transform=`rotate(${ring}deg)`; $('bellDot').style.opacity=seg(f,T_JOIN+12,T_JOIN+16);
+ const n=E.back(seg(f,T_NTF,T_NTF+14)); const ntf=$('ntf'); ntf.style.opacity=E.oc(seg(f,T_NTF,T_NTF+6))*(1-seg(f,T_OUT-8,T_OUT));
+ ntf.style.transform=`translateY(${(1-n)*-150}px)`;
+ if(!shown) $('tap').style.opacity=0;
+
+ /* ---- "what you get" card: one row per beat ---- */
+ const ex=$('ex'), E0=T_EX, E1=B(9);
+ if(f>=E0-6&&f<E1+2){const pin=seg(f,E0-6,E0+8), pout=seg(f,E1-9,E1-1);
+  ex.style.display='block'; ex.style.opacity=E.oc(seg(f,E0-6,E0))*(1-E.ic(pout));
+  ex.style.transform=`translateY(${(1-E.oc(pin))*70+E.ic(pout)*30}px) scale(${lerp(0.88,1,E.back(pin))})`;
+  for(let i=0;i<3;i++){const b=E0+i*BEAT*2, p=seg(f,b-2,b+10), r=$('exr'+i);
+   r.style.opacity=E.oc(seg(f,b-2,b+4)); r.style.transform=`translateX(${(1-E.oc(p))*-50}px)`;
+   const nn=r.firstChild, hit=Math.exp(-Math.pow((f-b-1)/4,2));
+   nn.style.transform=`scale(${(p<=0?0.4:lerp(0.4,1,E.back(p)))*(1+0.12*hit)})`; nn.style.boxShadow=`0 0 0 ${10*hit}px rgba(33,150,243,${0.25*hit})`;}
+ } else ex.style.display='none';
+
+ /* ---- end: the plane in a blue circle on the break, then @cardiagai on the outro ---- */
+ const beat=beatAt(f);
+ const cp=seg(f,T_OUT+6,T_OUT+26), rg=$('ecRing');
+ rg.style.opacity=E.oc(seg(f,T_OUT+6,T_OUT+12));
+ rg.style.transform=`translateY(${lerp(140,0,E.io(seg(f,T_OUT+30,T_END+10)))}px) scale(${(cp<=0?0.3:lerp(0.3,1,E.back(cp)))*(1+0.05*beat)})`;
+ $('ecPlane').setAttribute('transform',`translate(${250+Math.sin(f/12)*6} ${250+Math.cos(f/15)*5}) rotate(${-8+3*Math.sin(f/10)}) scale(${1+0.06*beat})`);
+ $('ecOrbit').setAttribute('transform',`rotate(${(f-T_OUT)*2.4} 250 250)`); $('ecDash').setAttribute('transform',`rotate(${-(f-T_OUT)*0.6} 250 250)`);
+ $('ecBloom').style.opacity=0.8*seg(f,T_OUT+6,T_OUT+24)*(1+0.5*beat);
+ [['ecHandle',T_END,T_END+12,34],['ecSub',T_END+8,T_END+20,26],['ecBrand',T_END+18,T_END+30,24],['ecUrl',T_END+24,T_END+36,22]].forEach(([id,a,b,dy])=>{
+  const e=E.oc(seg(f,a,b)), el=$(id); el.style.opacity=e; el.style.transform=`translateY(${(1-e)*dy}px) scale(${id==='ecHandle'?1+0.04*beat:1})`;});
+}
+
+window.READY=document.fonts.ready.then(()=>Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r}))))
+ .then(()=>{fitTitles();layout();render(0);return true});
+const q=new URLSearchParams(location.search); if(q.has('f')) window.READY.then(()=>render(+q.get('f')));
+</script>
+</body>
+</html>
