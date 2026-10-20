@@ -91,13 +91,15 @@ body.guide #box>*{display:none}
 #slits{display:none;z-index:4}
 body.guide #slits{display:block}
 body.mock #cardTop{display:block}
-#box{align-items:center;justify-content:center;gap:26px;direction:rtl;background:linear-gradient(180deg,#FFD633 0%,#FFCD11 55%,#F2BC00 100%);
+#box{align-items:center;justify-content:center;flex-direction:column;gap:0;direction:rtl;background:linear-gradient(180deg,#FFD633 0%,#FFCD11 55%,#F2BC00 100%);
  border-radius:10px;color:#10203C;box-shadow:0 18px 40px rgba(5,25,70,.45)}
-#box .pc{font-weight:900;font-size:150px;line-height:1;letter-spacing:-2px}
-#box .tx{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding-top:6px}
-#box .l1{font-weight:800;font-size:46px;line-height:1.15}
-#box .l2{font-weight:900;font-size:66px;line-height:1.1;color:#1565C0}
-#box .l3{font-weight:700;font-size:34px;line-height:1.25}
+#box .r1{display:flex;align-items:center;gap:22px}
+#box .pc{font-weight:900;font-size:96px;line-height:1;letter-spacing:-2px}
+#box .l1{font-weight:800;font-size:50px;line-height:1.1}
+#box .l2{font-weight:900;font-size:42px;line-height:1.2;color:#1565C0;margin-top:4px}
+#box .code{display:flex;align-items:center;gap:12px;margin-top:10px;padding:4px 22px 6px;border-radius:14px;background:#10203C;color:#fff;
+ font-weight:700;font-size:27px;line-height:1.2;border:2px dashed rgba(255,205,17,.7)}
+#box .code b{font-weight:900;font-size:38px;color:#FFCD11;letter-spacing:4px;direction:ltr;unicode-bidi:isolate}
 #cardTop{border-radius:10px;background:#1565C0;box-shadow:0 10px 24px rgba(5,25,70,.4)}
 #cardTop img{position:absolute;left:24px;top:18px;width:160px}
 body.box{width:529px;height:265px}
@@ -141,7 +143,7 @@ body.box #box{left:0;top:0;border-radius:0;box-shadow:none}
  <img id="prod" class="a" src="assets/diag_front_hd.png">
 
  <div id="cardTop" class="a"><img src="assets/logo_mark_white.png"></div>
- <div id="box" class="a"><div class="pc">۱۰٪</div><div class="tx"><div class="l1">تخفیف هدیه</div><div class="l2">نارون</div><div class="l3">برای مشتریان عزیز</div></div></div>
+ <div id="box" class="a"><div class="r1"><div class="pc">۱۰٪</div><div class="l1">تخفیف هدیه</div></div><div class="l2">لوازم تحریر ایران پخش</div><div class="code">کد تخفیف:<b>iran</b></div></div>
 <!-- slits for the box tabs (box_sheet.html): 52 mm at the box sides, 102 mm under it; 1 mm = 3.7795 px -->
  <svg id="slits" class="a" style="left:0;top:0" width="2245" height="3179">
   <g stroke="#E00000" stroke-width="6" stroke-linecap="round"><path d="M1446 1810V2006.5M1975 1810V2006.5M1518 2041H1903"/></g>

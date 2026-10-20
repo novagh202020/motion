@@ -12,12 +12,14 @@
 html,body{width:192mm;height:99mm;overflow:hidden;background:#F2BC00;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 body{font-family:V,sans-serif;position:relative}
 svg{position:absolute;left:0;top:0}
-#front{position:absolute;left:26mm;top:3mm;width:140mm;height:70mm;display:flex;align-items:center;justify-content:center;gap:26px;direction:rtl;color:#10203C}
-#front .pc{font-weight:900;font-size:150px;line-height:1;letter-spacing:-2px}
-#front .tx{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding-top:6px}
-#front .l1{font-weight:800;font-size:46px;line-height:1.15}
-#front .l2{font-weight:900;font-size:66px;line-height:1.1;color:#1565C0}
-#front .l3{font-weight:700;font-size:34px;line-height:1.25}
+#front{position:absolute;left:26mm;top:3mm;width:140mm;height:70mm;display:flex;flex-direction:column;align-items:center;justify-content:center;direction:rtl;color:#10203C}
+#front .r1{display:flex;align-items:center;gap:22px}
+#front .pc{font-weight:900;font-size:96px;line-height:1;letter-spacing:-2px}
+#front .l1{font-weight:800;font-size:50px;line-height:1.1}
+#front .l2{font-weight:900;font-size:42px;line-height:1.2;color:#1565C0;margin-top:4px}
+#front .code{display:flex;align-items:center;gap:12px;margin-top:10px;padding:4px 22px 6px;border-radius:14px;background:#10203C;color:#fff;
+ font-weight:700;font-size:27px;line-height:1.2;border:2px dashed rgba(255,205,17,.7)}
+#front .code b{font-weight:900;font-size:38px;color:#FFCD11;letter-spacing:4px;direction:ltr;unicode-bidi:isolate}
 #lines{display:none}
 body.dieline #lines{display:inline}
 </style></head><body>
@@ -31,6 +33,6 @@ body.dieline #lines{display:inline}
   <path stroke="#0060E0" stroke-dasharray="2 1.5" d="M26 3V73M166 3V73M26 73H166M18 13V63M174 13V63M46 81H146"/>
  </g>
 </svg>
-<div id="front"><div class="pc">۱۰٪</div><div class="tx"><div class="l1">تخفیف هدیه</div><div class="l2">نارون</div><div class="l3">برای مشتریان عزیز</div></div></div>
+<div id="front"><div class="r1"><div class="pc">۱۰٪</div><div class="l1">تخفیف هدیه</div></div><div class="l2">لوازم تحریر ایران پخش</div><div class="code">کد تخفیف:<b>iran</b></div></div>
 <script>if(new URLSearchParams(location.search).get('dieline'))document.body.classList.add('dieline');</script>
 </body></html>
