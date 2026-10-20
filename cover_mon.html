@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Monitoring Cover</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
+#c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+#title{left:0;top:250px;width:1080px;text-align:center;font-weight:900;font-size:150px;line-height:1.1;white-space:nowrap}
+#title b{color:#2196F3;font-weight:900}
+#live{left:0;top:640px;width:1080px;text-align:center}
+#live span{display:inline-flex;align-items:center;gap:16px;height:74px;padding:0 34px;border-radius:37px;background:#E3EFFC;color:#2196F3;font-weight:800;font-size:38px}
+#grid{left:110px;top:780px;width:860px;display:grid;grid-template-columns:1fr 1fr;gap:28px;direction:rtl}
+.s{background:#fff;border:3px solid #DEE6F2;border-radius:40px;box-shadow:0 24px 54px rgba(20,40,80,.14);padding:30px 34px 32px;height:300px}
+.s .n{font-weight:700;font-size:38px;color:#6E7D96}
+.s .v{font-weight:900;font-size:110px;line-height:1.1;margin-top:18px;direction:ltr;text-align:right}
+.s .u{font-weight:700;font-size:40px;color:#6E7D96;margin-left:10px}
+#brand{left:0;top:1560px;width:1080px;text-align:center;font-weight:900;font-size:62px;color:#1565C0}
+</style></head><body>
+<div id="c">
+ <div id="title" class="a rtl">ماشینتو<br><b>زنده</b> ببین</div>
+ <div id="live" class="a rtl"><span><svg width="26" height="26"><circle cx="13" cy="13" r="12" fill="#2196F3"/></svg>۱۴ سنسور، لحظه‌به‌لحظه</span></div>
+ <div id="grid" class="a">
+  <div class="s"><div class="n">دور موتور</div><div class="v">۸۵۰<span class="u">rpm</span></div></div>
+  <div class="s"><div class="n">دمای آب موتور</div><div class="v">۸۸<span class="u">°C</span></div></div>
+  <div class="s"><div class="n">سنسور اکسیژن ۱</div><div class="v">۰٫۴۵<span class="u">V</span></div></div>
+  <div class="s"><div class="n">ولتاژ باتری</div><div class="v">۱۴٫۱<span class="u">V</span></div></div>
+ </div>
+ <div id="brand" class="a ltr">CarDiag AI</div>
+</div>
+</body></html>
