@@ -10,55 +10,72 @@ html,body{width:1080px;height:1920px;overflow:hidden}
 body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
 #c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
 .a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
-#title{left:0;top:150px;width:1080px;text-align:center;font-weight:900;font-size:118px;line-height:1.12;white-space:nowrap}
+/* everything that matters sits inside the 3:4 profile-grid crop (y 240..1680) */
+#title{left:0;top:268px;width:1080px;text-align:center;font-weight:900;font-size:112px;line-height:1.1;white-space:nowrap}
 #title b{color:#2196F3;font-weight:900}
-/* the monitoring page, at cover size */
-#app{left:70px;top:480px;width:940px;height:1300px;border-radius:60px;background:#EEF2F8;border:3px solid #DEE6F2;overflow:hidden;
- box-shadow:0 40px 80px rgba(20,40,80,.18),0 10px 24px rgba(20,40,80,.08);direction:rtl}
-#bar{height:132px;background:#2196F3;display:flex;align-items:center;justify-content:space-between;padding:0 44px}
-#bar .t{display:flex;align-items:center;gap:18px;color:#fff;font-weight:800;font-size:48px}
-#bar .lv{display:inline-flex;align-items:center;gap:12px;height:58px;padding:0 24px;border-radius:29px;background:#fff;color:#2196F3;font-weight:800;font-size:30px;direction:ltr}
-#st{text-align:center;font-weight:800;font-size:32px;color:#22A050;margin:24px 0 22px}
-.g{display:grid;gap:24px;padding:0 36px}
-.c{background:#fff;border:3px solid #DEE6F2;border-radius:32px;text-align:center}
+/* the monitoring page behind, a little faded */
+#app{left:110px;top:560px;width:860px;height:1010px;border-radius:56px;background:#EEF2F8;border:3px solid #DEE6F2;overflow:hidden;
+ box-shadow:0 30px 60px rgba(20,40,80,.12);direction:rtl}
+#bar{height:116px;background:#2196F3;display:flex;align-items:center;justify-content:space-between;padding:0 40px}
+#bar .t{display:flex;align-items:center;gap:16px;color:#fff;font-weight:800;font-size:42px}
+#bar .lv{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 22px;border-radius:26px;background:#fff;color:#2196F3;font-weight:800;font-size:27px;direction:ltr}
+#st{text-align:center;font-weight:800;font-size:29px;color:#22A050;margin-top:20px}
+.c{background:#fff;border:3px solid #DEE6F2;border-radius:30px;text-align:center}
 .c .p{font-weight:800;color:#2196F3;direction:ltr}
 .c .n{font-weight:700;color:#10203C}
-.c .h{height:3px;background:#E6EBF2}
 .c .v{font-weight:900;color:#10203C;direction:ltr;line-height:1.05}
 .c .u{font-weight:500;color:#6E7D96;direction:ltr}
-#big{grid-template-columns:1fr 1fr}
-#big .c{padding:18px 20px 16px}
-#big .p{font-size:28px}#big .n{font-size:38px;margin-top:2px}#big .h{margin:12px 24px}#big .v{font-size:104px}#big .u{font-size:32px}
-#big .c.on{border-color:#ADD6FA;box-shadow:0 0 0 10px rgba(33,150,243,.10)}
+#small{position:absolute;left:30px;right:30px;top:772px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;opacity:.8}
+#small .c{padding:12px 8px 10px}
+#small .p{font-size:20px}#small .n{font-size:23px;white-space:nowrap}#small .v{font-size:48px;margin-top:4px}#small .u{font-size:20px}
+#fade{position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(180deg,rgba(238,242,248,0),#EEF2F8 80%)}
+/* the 4 main sensors, larger than the page: they pop out of it */
+#big{left:56px;top:770px;width:968px;display:grid;grid-template-columns:1fr 1fr;gap:24px;direction:rtl}
+#big .c{position:relative;height:262px;padding:20px 26px 0;text-align:right;overflow:hidden;
+ box-shadow:0 34px 60px rgba(20,40,80,.20),0 8px 18px rgba(20,40,80,.10)}
+#big .hd{display:flex;justify-content:space-between;align-items:baseline}
+#big .n{font-size:36px}#big .p{font-size:26px}
+#big .v{font-size:100px;margin-top:6px;text-align:right}
+#big .v .u{display:inline;font-size:34px;font-weight:700;margin-left:12px}
+#big svg{position:absolute;left:0;bottom:0}
+#big .c.on{border-color:#90CAF9;box-shadow:0 0 0 12px rgba(33,150,243,.12),0 34px 60px rgba(20,40,80,.22)}
 #big .c.on .v{color:#2196F3}
-#small{grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:24px}
-#small .c{padding:12px 10px 10px}
-#small .p{font-size:22px}#small .n{font-size:25px;margin-top:4px;white-space:nowrap}#small .h{margin:8px 16px}#small .v{font-size:54px}#small .u{font-size:22px}
-#fade{position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg,rgba(238,242,248,0),#EEF2F8 85%)}
-#brand{left:0;top:1812px;width:1080px;text-align:center;font-weight:900;font-size:56px;color:#1565C0}
+#brand{left:0;top:1596px;width:1080px;text-align:center;font-weight:900;font-size:54px;color:#1565C0}
 </style></head><body>
 <div id="c">
  <div id="title" class="a rtl">سنسورهای ماشینتو<br><b>زنده</b> ببین</div>
  <div id="app" class="a">
-  <div id="bar"><div class="t"><svg width="46" height="46" viewBox="0 0 24 24"><path fill="#fff" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>مانیتورینگ خودرو</div>
-   <span class="lv"><svg width="22" height="22"><circle cx="11" cy="11" r="10" fill="#2196F3"/></svg>LIVE</span></div>
+  <div id="bar"><div class="t"><svg width="42" height="42" viewBox="0 0 24 24"><path fill="#fff" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>مانیتورینگ خودرو</div>
+   <span class="lv"><svg width="20" height="20"><circle cx="10" cy="10" r="9" fill="#2196F3"/></svg>LIVE</span></div>
   <div id="st">✓ در حال خواندن — چرخه: ۲۴</div>
-  <div id="big" class="g">
-   <div class="c"><div class="p">۰C</div><div class="n">دور موتور</div><div class="h"></div><div class="v">۸۵۰</div><div class="u">rpm</div></div>
-   <div class="c on"><div class="p">۰۴</div><div class="n">بار موتور</div><div class="h"></div><div class="v">۲۴</div><div class="u">%</div></div>
-   <div class="c"><div class="p">RV</div><div class="n">ولتاژ باتری / دینام</div><div class="h"></div><div class="v">۱۴٫۱</div><div class="u">V</div></div>
-   <div class="c"><div class="p">۱۴</div><div class="n">سنسور اکسیژن ۱</div><div class="h"></div><div class="v">۰٫۴۵</div><div class="u">V</div></div>
-  </div>
-  <div id="small" class="g">
-   <div class="c"><div class="p">۰۵</div><div class="n">دمای آب موتور</div><div class="h"></div><div class="v">۸۸</div><div class="u">°C</div></div>
-   <div class="c"><div class="p">۰B</div><div class="n">فشار منیفولد</div><div class="h"></div><div class="v">۳۴</div><div class="u">kPa</div></div>
-   <div class="c"><div class="p">۰E</div><div class="n">آوانس جرقه</div><div class="h"></div><div class="v">۱۲</div><div class="u">°</div></div>
-   <div class="c"><div class="p">۰۷</div><div class="n">تریم بلندمدت</div><div class="h"></div><div class="v">۳</div><div class="u">%</div></div>
-   <div class="c"><div class="p">۱۱</div><div class="n">دریچه گاز</div><div class="h"></div><div class="v">۱۵</div><div class="u">%</div></div>
-   <div class="c"><div class="p">۰F</div><div class="n">دمای هوای ورودی</div><div class="h"></div><div class="v">۳۶</div><div class="u">°C</div></div>
+  <div id="small">
+   <div class="c"><div class="p">۰۵</div><div class="n">دمای آب موتور</div><div class="v">۸۸</div><div class="u">°C</div></div>
+   <div class="c"><div class="p">۰B</div><div class="n">فشار منیفولد</div><div class="v">۳۴</div><div class="u">kPa</div></div>
+   <div class="c"><div class="p">۰E</div><div class="n">آوانس جرقه</div><div class="v">۱۲</div><div class="u">°</div></div>
+   <div class="c"><div class="p">۰۷</div><div class="n">تریم بلندمدت</div><div class="v">۳</div><div class="u">%</div></div>
+   <div class="c"><div class="p">۱۱</div><div class="n">دریچه گاز</div><div class="v">۱۵</div><div class="u">%</div></div>
+   <div class="c"><div class="p">۰F</div><div class="n">دمای هوای ورودی</div><div class="v">۳۶</div><div class="u">°C</div></div>
   </div>
   <div id="fade"></div>
  </div>
+ <div id="big" class="a"></div>
  <div id="brand" class="a ltr">CarDiag AI</div>
 </div>
+<script>
+// 4 main sensors with a small live trace: rpm steady wobble, load small swings, voltage flat, front O2 swinging lean/rich
+const BIG=[['۰C','دور موتور','۸۵۰','rpm',i=>0.5+0.08*Math.sin(i*0.9)+0.05*Math.sin(i*2.3),0],
+ ['۰۴','بار موتور','۲۴','%',i=>0.5+0.14*Math.sin(i*0.55)+0.06*Math.sin(i*1.9),0],
+ ['RV','ولتاژ باتری / دینام','۱۴٫۱','V',i=>0.5+0.02*Math.sin(i*1.3),0],
+ ['۱۴','سنسور اکسیژن ۱','۰٫۴۵','V',i=>0.5+0.4*Math.sin(i*1.05)*(0.85+0.15*Math.sin(i*0.31)),1]];
+const W=472, H=78;
+document.getElementById('big').innerHTML=BIG.map(([p,n,v,u,fn,on])=>{
+ const pts=[...Array(41)].map((_,i)=>[i/40*W, H-6-fn(i)*(H-14)]);
+ const d=pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');
+ const col=on?'#2196F3':'#90CAF9';
+ return `<div class="c${on?' on':''}"><div class="hd"><span class="n">${n}</span><span class="p">${p}</span></div>
+  <div class="v">${v}<span class="u">${u}</span></div>
+  <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><path d="${d} L${W} ${H} L0 ${H} Z" fill="${on?'rgba(33,150,243,.12)':'rgba(144,202,249,.14)'}"/>
+   <path d="${d}" fill="none" stroke="${col}" stroke-width="${on?5:4}" stroke-linecap="round" stroke-linejoin="round"/>
+   <circle cx="${pts[40][0]-6}" cy="${pts[40][1]}" r="${on?9:7}" fill="#fff" stroke="${col}" stroke-width="4"/></svg></div>`}).join('');
+</script>
 </body></html>
