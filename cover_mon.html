@@ -40,6 +40,8 @@ body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
 #big svg{position:absolute;left:0;bottom:0}
 #big .c.on{border-color:#90CAF9;box-shadow:0 0 0 12px rgba(33,150,243,.12),0 34px 60px rgba(20,40,80,.22)}
 #big .c.on .v{color:#2196F3}
+#big .c.wr{border-color:#F9C88A}
+#big .c.wr .v{color:#F28012}
 #brand{left:0;top:1596px;width:1080px;text-align:center;font-weight:900;font-size:54px;color:#1565C0}
 </style></head><body>
 <div id="c">
@@ -62,19 +64,19 @@ body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
  <div id="brand" class="a ltr">CarDiag AI</div>
 </div>
 <script>
-// 4 main sensors with a small live trace: rpm steady wobble, load small swings, voltage flat, front O2 swinging lean/rich
+// 4 main sensors with a small live trace: rpm steady wobble, load small swings, voltage sagging (amber), front O2 swinging lean/rich
 const BIG=[['۰C','دور موتور','۸۵۰','rpm',i=>0.5+0.08*Math.sin(i*0.9)+0.05*Math.sin(i*2.3),0],
  ['۰۴','بار موتور','۲۴','%',i=>0.5+0.14*Math.sin(i*0.55)+0.06*Math.sin(i*1.9),0],
- ['RV','ولتاژ باتری / دینام','۱۴٫۱','V',i=>0.5+0.02*Math.sin(i*1.3),0],
+ ['RV','ولتاژ باتری / دینام','۱۲٫۸','V',i=>0.92-0.8*Math.pow(i/40,1.6)+0.03*Math.sin(i*1.7),2],     // engine running but only 12.8 V: the alternator isn't charging
  ['۱۴','سنسور اکسیژن ۱','۰٫۴۵','V',i=>0.5+0.4*Math.sin(i*1.05)*(0.85+0.15*Math.sin(i*0.31)),1]];
 const W=472, H=78;
 document.getElementById('big').innerHTML=BIG.map(([p,n,v,u,fn,on])=>{
  const pts=[...Array(41)].map((_,i)=>[i/40*W, H-6-fn(i)*(H-14)]);
  const d=pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');
- const col=on?'#2196F3':'#90CAF9';
- return `<div class="c${on?' on':''}"><div class="hd"><span class="n">${n}</span><span class="p">${p}</span></div>
+ const col=on===2?'#F28012':(on?'#2196F3':'#90CAF9');
+ return `<div class="c${on===1?' on':(on===2?' wr':'')}"><div class="hd"><span class="n">${n}</span><span class="p">${p}</span></div>
   <div class="v">${v}<span class="u">${u}</span></div>
-  <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><path d="${d} L${W} ${H} L0 ${H} Z" fill="${on?'rgba(33,150,243,.12)':'rgba(144,202,249,.14)'}"/>
+  <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><path d="${d} L${W} ${H} L0 ${H} Z" fill="${on===2?'rgba(242,128,18,.12)':(on?'rgba(33,150,243,.12)':'rgba(144,202,249,.14)')}"/>
    <path d="${d}" fill="none" stroke="${col}" stroke-width="${on?5:4}" stroke-linecap="round" stroke-linejoin="round"/>
    <circle cx="${pts[40][0]-6}" cy="${pts[40][1]}" r="${on?9:7}" fill="#fff" stroke="${col}" stroke-width="4"/></svg></div>`}).join('');
 </script>
