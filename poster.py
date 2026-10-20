@@ -1,7 +1,5 @@
-# A1 poster render: python3 poster.py [out_dir] [dpi]   (QR target: QR_URL env, default https://cardiag.ir)
-# -> poster_a1.pdf (print), poster_a1_<dpi>dpi.jpg, poster_a1_guide.jpg (box zone outlined),
-#    poster_a1_mock.jpg (box + card preview), poster_a1_cutguide.pdf (A1 with slit positions),
-#    box_sheet_print.pdf / box_sheet_dieline.pdf / box_sheet_dieline_<dpi>dpi.jpg (die-cut card box)
+# A1 poster render: python3 poster.py [out_dir] [dpi]   (coupon QR target: QR_URL env, default https://www.cardiag.ir/?coupon=IRAN)
+# -> poster_a1.pdf (print), poster_a1_<dpi>dpi.jpg, poster_a1_preview.jpg
 import os, sys, pathlib
 os.environ.setdefault("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
 import segno
@@ -13,7 +11,7 @@ out = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".")
 dpi = int(sys.argv[2]) if len(sys.argv) > 2 else 300
 out.mkdir(parents=True, exist_ok=True)
 W, H = 2245, 3179                      # 594 x 841 mm at 96 px/in
-segno.make(os.environ.get("QR_URL", "https://cardiag.ir"), error="h").save("assets/qr_cardiag.svg", scale=10, border=0, dark="#10203C")
+segno.make(os.environ.get("QR_URL", "https://www.cardiag.ir/?coupon=IRAN"), error="q").save("assets/qr_coupon.svg", scale=10, border=0, dark="#10203C")
 page = pathlib.Path("poster_a1.html").resolve().as_uri()
 
 def shot(pg, q, path, scale):
@@ -30,17 +28,5 @@ with sync_playwright() as p:
     pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=dpi / 96)
     shot(pg, "", out / f"poster_a1_{dpi}dpi.jpg", dpi / 96)
     pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=0.5)
-    shot(pg, "?guide=1", out / "poster_a1_guide.jpg", 0.5)
-    shot(pg, "?mock=1", out / "poster_a1_mock.jpg", 0.5)
-    pg = b.new_page(viewport={"width": W, "height": H})
-    pg.goto(page + "?guide=1"); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(600)
-    pg.pdf(path=str(out / "poster_a1_cutguide.pdf"), width="594mm", height="841mm", print_background=True, prefer_css_page_size=True)
-    # business-card box sheet (die-cut): print file, dieline file, dieline preview
-    box = pathlib.Path("box_sheet.html").resolve().as_uri()
-    pg = b.new_page(viewport={"width": 726, "height": 375}, device_scale_factor=dpi / 96)
-    for q, name in (("", "box_sheet_print"), ("?dieline=1", "box_sheet_dieline")):
-        pg.goto(box + q); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(400)
-        pg.pdf(path=str(out / f"{name}.pdf"), width="192mm", height="99mm", print_background=True, prefer_css_page_size=True)
-    png = str(out / "box_sheet_dieline.png"); pg.screenshot(path=png)
-    Image.open(png).convert("RGB").save(out / f"box_sheet_dieline_{dpi}dpi.jpg", quality=95, dpi=(dpi, dpi)); os.remove(png)
+    shot(pg, "", out / "poster_a1_preview.jpg", 0.5)
     b.close()

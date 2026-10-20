@@ -46,7 +46,8 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
                        card goes green -> amber at 300 km left -> more services in the list -> end card (30 s)
 - endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health}) sets the phone's health %)
 - cover*.html          Instagram / YouTube covers (cover_ecu.html = ECU post, cover_bat.html = battery post, render: python3 shot.py cover_ecu.html out.png); product_shot.html = white-background site image
-- poster_a1.html      A1 print poster (594x841 mm): headline, 4 features, app phone + diag on stage, 14x7 cm business-card box zone on the right
-                       (?guide=1 outlines it + tab slits, ?mock=1 previews it) + address, QR + app name. Render: python3 poster.py out_dir 300 (QR_URL env sets the link)
-- box_sheet.html       die-cut card pocket for the poster (own sheet): 140x70 front, 8 mm walls, tabs into the poster slits
+- poster_a1.html      A1 print poster (594x841 mm): Peyda title, 4 features, app phone + diag on stage, yellow discount card with
+                       coupon QR (QR_URL env, default https://www.cardiag.ir/?coupon=IRAN) + free-test address, site address.
+                       Render: python3 poster.py out_dir 300
+- box_sheet.html       (no longer rendered) die-cut card pocket: 140x70 front, 8 mm walls, tabs into poster slits
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)
