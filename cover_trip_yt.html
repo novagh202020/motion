@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Trip YouTube</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1280px;height:720px;overflow:hidden}
+body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
+#c{position:relative;width:1280px;height:720px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+/* right: the question, big */
+#title{right:56px;top:74px;width:560px;text-align:right;font-weight:900;font-size:104px;line-height:1.08;direction:rtl;white-space:nowrap}
+#title b{color:#2196F3;font-weight:900}
+#sub{right:58px;top:440px;width:560px;text-align:right;font-weight:700;font-size:34px;color:#6E7D96;direction:rtl}
+#brand{right:58px;top:590px;font-weight:900;font-size:44px;color:#1565C0}
+/* left: the car on a heart monitor */
+#mon{left:44px;top:56px;width:610px;height:560px;border-radius:44px;background:linear-gradient(160deg,#16294A 0%,#0E1A30 100%);border:4px solid #33415C;
+ box-shadow:0 40px 80px rgba(20,40,80,.30),0 10px 24px rgba(20,40,80,.18);overflow:hidden;direction:rtl}
+#mon .hd{position:absolute;left:30px;right:30px;top:24px;display:flex;justify-content:space-between;align-items:center}
+#mon .car{display:flex;align-items:center;gap:12px;font-weight:700;font-size:25px;color:#ADD6FA}
+#mon .tm{font-weight:900;font-size:40px;color:#78CDFF;direction:ltr}
+#mon .grid{position:absolute;left:0;right:0;top:92px;height:250px;opacity:.5;
+ background-image:linear-gradient(rgba(120,205,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(120,205,255,.10) 1px,transparent 1px);background-size:40px 40px}
+.vt{position:absolute;top:368px;width:220px;height:160px;border-radius:24px;background:#1C3058;border:2px solid #2B4470;padding:16px 16px 0;text-align:right}
+.vt .l{font-weight:700;font-size:21px;color:#ADD6FA;white-space:nowrap}
+.vt .v{font-weight:900;font-size:56px;line-height:1.15;margin-top:10px;direction:ltr;text-align:right}
+.vt .u{font-size:24px;font-weight:700;margin-left:6px}
+/* PDF report sticking out of the monitor */
+#pdf{left:26px;top:446px;width:196px;height:220px;background:#fff;border-radius:18px;box-shadow:0 20px 40px rgba(20,40,80,.30);transform:rotate(-8deg);padding:16px 16px;direction:rtl}
+#pdf .hb{height:66px;border-radius:12px;background:linear-gradient(135deg,#1E88E5,#2196F3);display:flex;align-items:center;justify-content:space-between;padding:0 12px;color:#fff;font-weight:800;font-size:17px}
+#pdf .ln{height:10px;border-radius:5px;background:#E6EBF2;margin-top:12px}
+#pdf .tag{position:absolute;right:-16px;bottom:18px;height:44px;padding:0 16px;border-radius:12px;background:#1565C0;color:#fff;font-weight:900;font-size:24px;display:flex;align-items:center;direction:ltr;box-shadow:0 8px 18px rgba(21,101,192,.35)}
+</style></head><body>
+<div id="c">
+ <div id="mon" class="a">
+  <div class="hd"><span class="car"><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#78CDFF" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>در حال رانندگی</span>
+   <span class="tm">۲۰:۰۰</span></div>
+  <div class="grid"></div>
+  <svg class="a" style="left:0;top:92px" width="610" height="250" viewBox="0 0 610 250">
+   <defs><filter id="gl" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="7"/></filter></defs>
+   <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path id="ecg" d="M0 150 L120 150 L140 150 L156 128 L172 150 L200 150 L226 40 L258 222 L284 102 L300 162 L316 150 L410 150 L424 150 L436 134 L448 150 L466 150 L486 70 L508 198 L526 128 L538 156 L552 150 L610 150" stroke="#78CDFF" stroke-width="20" filter="url(#gl)" opacity=".6"/>
+    <path d="M0 150 L120 150 L140 150 L156 128 L172 150 L200 150 L226 40 L258 222 L284 102 L300 162 L316 150 L410 150 L424 150 L436 134 L448 150 L466 150 L486 70 L508 198 L526 128 L538 156 L552 150 L610 150" stroke="#2196F3" stroke-width="9"/>
+   </g>
+   <circle cx="552" cy="150" r="13" fill="#fff" stroke="#2196F3" stroke-width="6"/>
+  </svg>
+  <div class="vt" style="right:28px"><div class="l">سلامت کلی</div><div class="v" style="color:#5CBF6E">۷۸<span class="u">%</span></div></div>
+  <div class="vt" style="right:268px"><div class="l">تریم سوخت</div><div class="v" style="color:#F59628">+۱۸<span class="u">%</span></div></div>
+ </div>
+ <div id="pdf" class="a"><div class="hb"><span>گزارش سفر</span><span style="font-weight:900;font-size:20px">۷۸٪</span></div>
+  <div class="ln" style="width:90%"></div><div class="ln" style="width:70%;background:#FFE3C2"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:55%;background:#D4F0DC"></div>
+  <span class="tag">PDF</span></div>
+ <div id="title" class="a">صدای <b>قلب</b><br>ماشینتو<br>شنیدی؟</div>
+ <div id="sub" class="a">۲۰ دقیقه رانندگی، یه چکاپ کامل</div>
+ <div id="brand" class="a ltr">CarDiag AI</div>
+</div>
+</body></html>
