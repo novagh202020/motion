@@ -26,6 +26,7 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
     cd song && python3 full.py      # -> song_full.wav: the whole track from motion 0 (no edits; breaks at bars 10 / 24, final hit 61.0 s)
     PAGE=motion60.html python3 render.py video silent.mp4 0 1866
     python3 sfx_tg.py   (Telegram channel promo, 30 s -> sfx_tg_full.wav, mix_tg.wav; song_cut.wav grid)
+    python3 sfx_insp.py (technical-inspection motion, 41.25 s -> sfx_insp_full.wav, mix_insp.wav; needs song/song_trip.wav = extend.py 5)
     python3 sfx_mon.py  (live monitoring motion, 36.75 s -> sfx_mon_full.wav, mix_mon.wav; needs song/song_buy.wav = extend.py 3)
     python3 sfx_bat.py  (battery test motion -> sfx_bat_full.wav, mix_bat.wav; song ducked under the slow crank)
     ffmpeg -i silent.mp4 -i mix.wav -map 0:v -map 1:a -c:v copy -af loudnorm=I=-14:TP=-2 -c:a aac -b:a 192k out.mp4
@@ -54,6 +55,11 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 - svc_motion.html      Periodic service: odometer climbs, forgotten oil-change note, oil lamp -> quick access -> periodic service,
                        add oil change every 5,000 km -> every 2 weeks a time-based reminder notification -> km entered with «اصلاح» (no GPS on a phone),
                        card goes green -> amber at 300 km left -> more services in the list -> end card (30 s)
+- insp_motion.html     Technical-inspection check (redesigned look): 206 hatchback in the inspection queue, «مردود» stamp, rewind ->
+                       line-art plug-in -> fast connect -> 1-2-3 step strip: ECU scan finds P0420, 20-min trip (the 206 smokes and bounces
+                       down the street, O2 sensors swing together), AI troubleshooter «می‌خواهم بروم معاینه فنی» -> the inspection prediction
+                       grows out of the phone (20% pass, what fails you, grey risks, to-do, what it can't see) -> after the repair the gauge
+                       swings to 85% -> through the gate, «قبول» -> end card (41 s)
 - mon_motion.html      Live monitoring: driver's questions -> plug diag -> fast connect -> ~1 s visible press on «مانیتورینگ خودرو» ->
                        «اسکن», 14 sensors found -> list: tick 13 on eighth notes, confirm -> «شروع خواندن»: 13 live cards refresh every
                        709 ms -> stop, «اسکن مجدد», tick 3 (battery/alternator, O2 1, O2 2) -> 3 live cards + big LIVE card -> end card (37 s)
