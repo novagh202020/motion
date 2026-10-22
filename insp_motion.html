@@ -555,7 +555,7 @@ function scene(f){
  $('arm').setAttribute('transform',`translate(0 -150) rotate(${arm})`);
  $('ghost').style.display=hook?'block':'none';
  $('smk').innerHTML=hook?smoke(f,cx+216,1150,1,dense):'';
- $('lane').setAttribute('transform',`translate(${gate?-((f*6)%180):0} 0)`);
+ $('lane').setAttribute('transform','translate(0 0)');
  // stamps: «مردود» drops on the kick, the rewind lifts it; «قبول» lands on the beat
  const fd=seg(f,90,100), up=E.io(seg(f,114,134));
  $('stF').setAttribute('opacity',hook?E.oc(seg(f,90,94))*(1-up):0);
@@ -674,9 +674,9 @@ function mont(f){
 }
 /* step 2 card: the 206 bouncing down the street, puffing smoke */
 function street(f){
- const sk=[...Array(6)].map((_,i)=>{const x=((i*170-f*5)%1020+1020)%1020-120, h=[120,170,90,150,110,140][i];
+ const sk=[...Array(6)].map((_,i)=>{const x=((i*170+f*5)%1020+1020)%1020-120, h=[120,170,90,150,110,140][i];
   return `<rect x="${x}" y="${330-h}" width="120" height="${h}" rx="10" fill="#E3EFFC"/>${[...Array(Math.floor(h/40))].map((_,j)=>`<rect x="${x+22}" y="${330-h+18+j*40}" width="22" height="16" rx="3" fill="#fff"/><rect x="${x+72}" y="${330-h+18+j*40}" width="22" height="16" rx="3" fill="#fff"/>`).join('')}`;}).join('');
- const dash=[...Array(7)].map((_,i)=>`<rect x="${((i*150-f*14)%1050+1050)%1050-120}" y="402" width="80" height="10" rx="5" fill="#fff"/>`).join('');
+ const dash=[...Array(7)].map((_,i)=>`<rect x="${((i*150+f*14)%1050+1050)%1050-120}" y="402" width="80" height="10" rx="5" fill="#fff"/>`).join('');
  const bump=Math.abs(Math.sin(f*0.55))*7+(f%40<6?(6-f%40)*2:0), tilt=Math.sin(f*0.55)*1.4;
  const sp=-f*24;
  const car=CAR206.replace(/<g class="sp">/g,`<g class="sp" transform="rotate(${sp})">`);
