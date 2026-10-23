@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Inspection Cover</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
+#c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+/* title and brand stay inside the 3:4 profile-grid crop (y 240..1680) */
+#title{left:0;top:262px;width:1080px;text-align:center;font-weight:900;font-size:112px;line-height:1.16;white-space:nowrap}
+#title b{font-weight:900;color:#10203C;padding:0 14px;background:linear-gradient(180deg,transparent 58%,rgba(34,160,80,.30) 58%,rgba(34,160,80,.30) 90%,transparent 90%)}
+#brand{left:0;top:1592px;width:1080px;text-align:center;font-weight:900;font-size:54px;color:#1565C0}
+</style></head><body>
+<div id="c">
+ <div id="title" class="a rtl">با این ابزار،<br>معاینه فنی<br><b>مردود نمیشی</b></div>
+ <svg class="a" style="left:0;top:0" width="1080" height="1920">
+  <defs><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#28A0FF" stop-opacity=".35"/><stop offset="1" stop-color="#28A0FF" stop-opacity="0"/></radialGradient></defs>
+  <!-- inspection hall, line-art -->
+  <path d="M120 900 L540 790 L960 900" fill="none" stroke="#C9D8EC" stroke-width="10" stroke-linejoin="round"/>
+  <rect x="140" y="890" width="800" height="420" rx="24" fill="#fff" stroke="#C9D8EC" stroke-width="5"/>
+  <rect x="350" y="812" width="380" height="78" rx="18" fill="#2196F3"/>
+  <text x="540" y="864" text-anchor="middle" font-family="V" font-weight="900" font-size="36" fill="#fff" direction="rtl">مرکز معاینه فنی</text>
+  <rect x="300" y="990" width="480" height="320" rx="8" fill="#F4F8FD" stroke="#C9D8EC" stroke-width="5"/>
+  <g stroke="#DEE6F2" stroke-width="4"><line x1="306" y1="1028" x2="774" y2="1028"/><line x1="306" y1="1068" x2="774" y2="1068"/><line x1="306" y1="1108" x2="774" y2="1108"/><line x1="306" y1="1148" x2="774" y2="1148"/><line x1="306" y1="1188" x2="774" y2="1188"/><line x1="306" y1="1228" x2="774" y2="1228"/><line x1="306" y1="1268" x2="774" y2="1268"/></g>
+  <rect x="-20" y="1310" width="1120" height="230" fill="#E4ECF6"/>
+  <g fill="#fff"><rect x="-40" y="1420" width="96" height="12" rx="6"/><rect x="140" y="1420" width="96" height="12" rx="6"/><rect x="320" y="1420" width="96" height="12" rx="6"/><rect x="500" y="1420" width="96" height="12" rx="6"/><rect x="680" y="1420" width="96" height="12" rx="6"/><rect x="860" y="1420" width="96" height="12" rx="6"/><rect x="1040" y="1420" width="96" height="12" rx="6"/><rect x="1220" y="1420" width="96" height="12" rx="6"/></g>
+  <!-- raised barrier -->
+  <g transform="translate(170 1310)"><rect x="-14" y="-160" width="28" height="160" rx="7" fill="#33415C"/>
+   <g transform="translate(0 -140) rotate(-78)"><rect x="0" y="-11" width="330" height="22" rx="11" fill="#fff" stroke="#33415C" stroke-width="4"/>
+    <rect x="26" y="-8" width="36" height="16" fill="#2196F3"/><rect x="98" y="-8" width="36" height="16" fill="#2196F3"/><rect x="170" y="-8" width="36" height="16" fill="#2196F3"/><rect x="242" y="-8" width="36" height="16" fill="#2196F3"/></g></g>
+  <!-- the 206, rolling out through the gate -->
+  <g transform="translate(690 1280) scale(1.05)"><g class="c206">
+ <ellipse cx="-24" cy="122" rx="300" ry="18" fill="#142850" opacity=".10"/>
+ <path d="M-262 62 L-264 26 Q-262 4 -240 -2 L-176 -24 Q-156 -30 -136 -38 L-80 -90 Q-66 -102 -44 -104 L84 -104 Q118 -102 140 -86 L198 -38 Q210 -28 212 -10 L216 44 Q216 72 198 76 L-246 76 Q-264 74 -262 62 Z" fill="#2196F3"/>
+ <path d="M-262 40 L216 40 L216 52 L-262 52 Z" fill="#1565C0" opacity=".55"/>
+ <path d="M-112 -40 L-66 -86 Q-58 -92 -44 -92 L-6 -92 L-6 -40 Z M8 -92 L82 -92 Q112 -90 130 -78 L172 -40 L8 -40 Z" fill="#ADD6FA"/>
+ <path d="M-2 -40 L-2 70" stroke="#1565C0" stroke-width="4" opacity=".5"/><rect x="-30" y="-12" width="30" height="7" rx="3.5" fill="#1565C0"/>
+ <path d="M-256 8 Q-232 -8 -192 -20 L-184 -10 Q-220 4 -254 18 Z" fill="#FFEA9C"/>
+ <path d="M196 -30 L210 -14 L212 10 L200 8 Z" fill="#DC3232" opacity=".85"/>
+ <path d="M-96 -44 L-110 -54 L-120 -46 L-104 -38 Z" fill="#1565C0"/>
+ <g class="wh" transform="translate(-160 76)"><circle r="46" fill="#10203C"/><circle r="24" fill="#E6EBF2"/><g class="sp"><rect x="-3" y="-22" width="6" height="44" rx="3" fill="#98A3B8"/><rect x="-22" y="-3" width="44" height="6" rx="3" fill="#98A3B8"/></g><circle r="7" fill="#6E7D96"/></g>
+ <g class="wh" transform="translate(134 76)"><circle r="46" fill="#10203C"/><circle r="24" fill="#E6EBF2"/><g class="sp"><rect x="-3" y="-22" width="6" height="44" rx="3" fill="#98A3B8"/><rect x="-22" y="-3" width="44" height="6" rx="3" fill="#98A3B8"/></g><circle r="7" fill="#6E7D96"/></g>
+</g></g>
+  <!-- stamps: the old «مردود» crossed out, the new «قبول» on top -->
+  <g transform="translate(330 1060) rotate(8)" opacity=".45">
+   <rect x="-150" y="-56" width="300" height="112" rx="20" fill="rgba(255,255,255,.85)" stroke="#F28012" stroke-width="9"/>
+   <text y="24" text-anchor="middle" font-family="V" font-weight="900" font-size="64" fill="#F28012">مردود</text>
+   <line x1="-140" y1="38" x2="140" y2="-38" stroke="#F28012" stroke-width="10" stroke-linecap="round"/></g>
+  <g transform="translate(720 1030) rotate(-12)">
+   <rect x="-200" y="-78" width="400" height="156" rx="28" fill="rgba(255,255,255,.92)" stroke="#22A050" stroke-width="13"/>
+   <rect x="-178" y="-56" width="356" height="112" rx="16" fill="none" stroke="#22A050" stroke-width="4" stroke-dasharray="14 10"/>
+   <text y="30" text-anchor="middle" font-family="V" font-weight="900" font-size="88" fill="#22A050">قبول</text></g>
+  <!-- "this tool": the diag, in front -->
+  <circle cx="230" cy="1420" r="230" fill="url(#glow)"/>
+ </svg>
+ <img src="assets/diag_front.png" class="a" style="left:40px;top:1300px;width:380px;transform:rotate(-8deg);filter:drop-shadow(0 26px 30px rgba(20,40,80,.28))">
+ <div id="brand" class="a ltr">CarDiag AI</div>
+</div>
+</body></html>
