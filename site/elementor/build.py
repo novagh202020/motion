@@ -105,6 +105,7 @@ gift_p = re.search(r'<h2>هدیه ویژه خرید.*?</h2>(<p>.*?</p>)', OLD).g
 
 cars = []
 for brand, ul in re.findall(r'<p><strong>([^<]+)</strong></p><ul>(.*?)</ul>', OLD):
+    if 'پراید' in brand: continue
     rows = []
     for li in re.findall(r'<li>(.*?)</li>', ul):
         mm = re.match(r'(.*?)\s*\(سال‌های\s*(.*?)\)$', li)
@@ -135,7 +136,7 @@ product = [C('cdp-body-inner', [
     sec('why', [
         heading('چرا <span>کاردیاگ؟</span>'),
         C('cdp-tiles', [
-            ibox('fas fa-car-side', 'بیش از ۵۰ مدل خودرو', 'پراید، پژو، سمند، تیبا، دنا، تارا، شاهین و همه‌ی چینی و خارجی‌ها'),
+            ibox('fas fa-car-side', 'بیش از ۵۰ مدل خودرو', 'پژو، سمند، تیبا، دنا، تارا، شاهین و همه‌ی چینی و خارجی‌ها'),
             ibox('fab fa-bluetooth-b', 'اتصال بلوتوثی سریع', 'بدون کابل، اتصال خودکار در چند ثانیه'),
             ibox('fas fa-shield-alt', 'کاملاً ایمن', 'فقط اطلاعات را می‌خواند و تنظیمات خودرو را تغییر نمی‌دهد'),
             ibox('fas fa-language', 'بدون دانش فنی', 'رابط ساده و فارسی برای همه‌ی رانندگان'),
@@ -176,7 +177,103 @@ product = [C('cdp-body-inner', [
       g=12, flex_align_items='stretch'),
 ], g=0)]
 
-for name, data in (('template_3124', template), ('product_2560', product)):
+# ---------------------------------------------------------------- app guide page (free / paid / credits / cars)
+_css = re.search(r'<style>(.*?)</style>', assets, re.S).group(1).splitlines()
+_keep = ('.cdp,', '.cdp *', '.cdp-sec', '.cdp-feat', '.cdp-tiles', 'ol.cdp-steps', 'table.cdp', '.cdp-who', '.cdp-note', '.cdp-acc', '.cdp-final')
+guide_css = '\n'.join(l for l in _css if l.startswith(_keep) and 'elementor-3124' not in l)
+guide_css += """
+.cdp-guide{max-width:100%;overflow-x:clip;font-family:Vazirmatn,inherit}
+.cdp-guide.e-con,.cdp-guide .cdp-sec.e-con,.cdp-guide .cdp-final.e-con{--padding-left:0px;--padding-right:0px}
+.cdp-guide .e-con,.cdp-guide .elementor-widget,.cdp-guide .elementor-widget-container{min-width:0!important;max-width:100%}
+.cdp-guide table{width:100%!important;table-layout:fixed!important}
+.cdp-guide .cdp-sec{padding:28px 0 4px!important}
+.cdp-lead-g p{font-size:14.5px;line-height:2;color:#33415C;margin:0}
+.cdp-free .elementor-icon{background:var(--gt)!important;color:var(--g)!important}
+.cdp-plans{display:grid!important;grid-template-columns:1fr;gap:10px}
+.cdp-plans>.elementor-widget{background:#fff;border:1px solid var(--l);border-radius:18px;padding:14px;margin:0!important;width:auto!important}
+.cdp-plans .elementor-icon-box-wrapper{display:flex!important;gap:10px;text-align:right!important;align-items:flex-start}
+.cdp-plans .elementor-icon-box-icon{margin:0!important}
+.cdp-plans .elementor-icon{width:40px;height:40px;border-radius:12px;background:var(--s);color:var(--b)!important;font-size:18px!important;display:flex!important;align-items:center;justify-content:center;padding:0!important}
+.cdp-plans .cdp-gold .elementor-icon{background:linear-gradient(90deg,#F6CD5C,#FFEA9C,#E0A82C);color:var(--ink)!important}
+.cdp-plans .elementor-icon-box-title{margin:0!important;font-size:14.5px!important;font-weight:800!important;color:var(--n)!important}
+.cdp-plans .elementor-icon-box-description{margin:0!important;font-size:13px!important;color:var(--sl)!important;line-height:1.7}
+.cdp-guide .cdp-sec h1.elementor-heading-title{font-size:24px!important;font-weight:900!important;line-height:1.5!important;color:var(--n)!important;margin:0 0 6px}
+.cdp-guide .cdp-sec h1 span{color:var(--b)}
+@media (min-width:768px){.cdp-plans{grid-template-columns:repeat(3,1fr)}.cdp-tiles{grid-template-columns:repeat(3,1fr)}.cdp-guide .cdp-sec h1.elementor-heading-title{font-size:30px!important}.cdp-guide .cdp-sec h2.elementor-heading-title{font-size:24px!important}}
+"""
+BUY = {"url": "/product/cardiag/", "is_external": "", "nofollow": ""}
+guide = [C('cdp-guide', [
+    W('html', 'cdp-assets', html='<style>' + guide_css + '</style>'),
+    sec('guide-top', [
+        heading('اپ کاردیاگ؛ <span>چی رایگانه، چی پولیه؟</span>', size='h1'),
+        text('<p>اپ کاردیاگ را رایگان از سایت دانلود می‌کنی. بعضی بخش‌هایش همیشه رایگانه و بعضی‌ها با اعتبار یا اشتراک کار می‌کنند. اینجا ساده توضیح دادیم کدوم کدومه، ۷۲ اعتبار یعنی چی، و با خرید دیاگ چی می‌گیری.</p>', 'cdp-lead-g'),
+    ]),
+    sec('free', [
+        heading('بخش‌های <span>رایگان</span>'),
+        text('<p>این بخش‌ها اعتبار مصرف نمی‌کنند و هر چند بار خواستی می‌تونی ازشون استفاده کنی:</p>'),
+        C('cdp-feat cdp-free', [
+            ibox('fas fa-exclamation-triangle', 'خطایابی ایسیو', 'کدهای خطا به فارسی، علت احتمالی و پاک کردن خطا و چراغ چک'),
+            ibox('fas fa-heartbeat', 'مانیتورینگ زنده', 'دمای موتور، دور موتور، ولتاژ باتری و دینام، بار موتور'),
+            ibox('fas fa-car-battery', 'تست باتری و دینام', 'سالم بودن باتری و شارژ دینام را بسنج'),
+            ibox('fas fa-chart-line', 'روند سلامت خودرو', 'سلامت ماشین را در گذر زمان ببین'),
+        ], g=12),
+    ]),
+    sec('paid', [
+        heading('بخش‌های <span>پولی</span>'),
+        text('<p>این دو بخش با اعتبار کار می‌کنند. <b>هر بار استفاده، یک اعتبار</b> کم می‌کند:</p>'),
+        C('cdp-feat', [
+            ibox('fas fa-robot', 'تعمیرکار هوش مصنوعی', 'عیب‌یابی به زبان ساده، جواب هر سؤالی درباره ماشینت و بررسی خودرو قبل از خرید'),
+            ibox('fas fa-route', 'گزارش سفر', 'ثبت داده‌ها حین رانندگی و گزارش کامل در پایان مسیر'),
+        ], g=12),
+    ]),
+    sec('credits', [
+        heading('۷۲ اعتبار <span>یعنی چی؟</span>'),
+        text('<p>اعتبار، شارژ مصرفیِ بخش‌های پولی اپه. هر بار که از تعمیرکار هوش مصنوعی یا گزارش سفر استفاده کنی، یک اعتبار از حسابت کم می‌شه. با خرید دیاگ، ۷۲ اعتبار هدیه می‌گیری؛ یعنی ۷۲ بار استفاده، در هر ترکیبی که دوست داری.</p>'),
+        text('<table class="cdp-spec"><tbody>'
+             '<tr><td>یک پرسش از هوش مصنوعی</td><td>۱ اعتبار</td></tr>'
+             '<tr><td>یک سفر</td><td>۱ اعتبار</td></tr>'
+             '<tr><td>خطایابی، مانیتورینگ، تست باتری، روند سلامت</td><td>رایگان</td></tr>'
+             '<tr><td>هدیه‌ی خرید دیاگ</td><td>۷۲ اعتبار</td></tr></tbody></table>'),
+        text('<p>مثلاً ۴۰ بار از هوش مصنوعی بپرسی و ۳۲ سفر ثبت کنی. اعتبارت که تموم شد، می‌تونی اشتراک بگیری.</p>', 'cdp-note'),
+    ]),
+    sec('plans', [
+        heading('اشتراک <span>برنزی، نقره‌ای، طلایی</span>'),
+        text('<p>از داخل اپ، بخش «اشتراک»، یکی از سه اشتراک را بخر. با خرید دیاگ هم اشتراک طلایی رایگان و همیشگی هدیه می‌گیری.</p>'),
+        C('cdp-plans', [
+            ibox('fas fa-medal', 'اشتراک برنزی', 'از بخش اشتراک اپ'),
+            ibox('fas fa-medal', 'اشتراک نقره‌ای', 'از بخش اشتراک اپ'),
+            ibox('fas fa-medal', 'اشتراک طلایی', 'هدیه‌ی خرید دیاگ، رایگان و همیشگی', 'cdp-gold'),
+        ], g=10),
+    ]),
+    sec('gets', [
+        heading('با خرید کاردیاگ <span>چی می‌گیری؟</span>'),
+        ilist([('دیاگ بلوتوثی کاردیاگ (مدل شخصی، بلوتوث ۴٫۰)', 'fas fa-check'),
+               ('اشتراک طلایی اپ، رایگان و همیشگی', 'fas fa-check'),
+               ('۷۲ اعتبار هوش مصنوعی و سفر', 'fas fa-check'),
+               ('۶ ماه گارانتی تعویض و پشتیبانی فارسی', 'fas fa-check'),
+               ('۵ روز مرجوعی اگر به ماشینت وصل نشد', 'fas fa-check')], 'cdp-who'),
+    ]),
+    sec('gear', [
+        heading('به <span>تجهیزات دیگه</span> هم نیاز دارم؟'),
+        text('<p><b>نه.</b> فقط این سه تا لازمه:</p>'
+             '<ol class="cdp-steps">'
+             '<li><b>دیاگ کاردیاگ</b>به سوکت OBD2 زیر داشبورد، کنار فرمان وصل می‌شه. ابزار یا تخصص لازم نیست.</li>'
+             '<li><b>گوشی اندروید ۵ به بالا</b>فعلاً اپ فقط برای اندرویده.</li>'
+             '<li><b>اپ کاردیاگ و بلوتوث روشن</b>اپ رایگانه و اتصال در کمتر از ۳۰ ثانیه برقرار می‌شه.</li></ol>'
+             '<p>کابل و لپ‌تاپ نمی‌خوای. کاردیاگ فقط اطلاعات را می‌خونه و تنظیمات خودرو را تغییر نمی‌ده.</p>'),
+    ]),
+    sec('cars', [
+        heading('چه <span>خودروهایی</span> می‌تونن استفاده کنن؟'),
+        text('<p>همه‌ی خودروهای چینی و خارجی بدون محدودیت وصل می‌شوند. از خودروهای داخلی حدود ۹۰٪ پشتیبانی می‌شوند؛ '
+             'اگر خودروی شما وصل نشد، تا ۵ روز می‌توانید مرجوع کنید و مبلغ دستگاه برمی‌گردد. فهرست زیر بخشی از خودروهای تست‌شده است.</p>', 'cdp-note'),
+        accordion(cars),
+    ]),
+    C('cdp-final', [heading('مکانیکِ تو جیبت', '', 'h2'), text('<p>دیاگ رو بخر، اشتراک طلایی هدیه بگیر</p>'),
+                    W('button', '', text='مشاهده و خرید دیاگ', link=BUY, align='justify')],
+      g=12, flex_align_items='stretch'),
+], g=0)]
+
+for name, data in (('template_3124', template), ('product_2560', product), ('app_guide', guide)):
     out = HERE / f'{name}.json'
     out.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')))
     print(name, len(out.read_text()), 'chars')
