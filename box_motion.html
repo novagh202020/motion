@@ -177,12 +177,13 @@ const LOGO=(w,c='#fff',sw=7)=>`<svg width="${w}" height="${w*0.36}" viewBox="0 0
  <circle cx="104" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/><circle cx="188" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/></svg>`;
 const COIN=s=>`<span class="coin" style="width:${s}px;height:${s}px">${LOGO(s*0.62,'#fff',6)}</span>`;
 
-/* ================= music grid (song/song_box.wav = extend.py 9): bar 67.5, beat 16.875 =================
-   groove from bar 3 (frame 210); break at 1357.5; end card 1425; final hits 1475.5 / 1492.5 */
+/* ================= music grid (song/song_box.wav = song/box_cut.py: the whole song, one groove-B phrase out) =================
+   bar 67.5, beat 16.875; groove A bars 3-9, break 10, groove B 11-19, break 20, outro 21-22 (end card), final hit bar 23 */
 const HALF=67.5, BEAT=16.875, B=m=>7.5+HALF*m;
 const KICK=[7.5,24.4,41.25,75,91.9,108.75,125.6];
-const T_DIAG=B(3), T_PLUG=B(5), T_CARD=B(6), T_PH=B(7), T_FREE=B(8), T_PAID=B(10), T_CRED=B(12), T_MIX=B(14), T_PLANS=B(15), T_TRUST=B(17), T_COMP=B(19), T_END=B(21);
-const NF=1507;
+const T_DIAG=B(3), T_PLUG=B(5), T_CARD=B(6), T_PH=B(7), T_FREE=B(8), T_PAID=B(10), T_CRED=B(12), T_MIX=B(13), T_PLANS=B(15), T_TRUST=B(17), T_COMP=B(19), T_END=B(21);
+const F_HIT=B(23), NF=1596;
+const END_BEATS=[[T_END+50.5,.6],[T_END+67.5,1],[F_HIT-17,.6],[F_HIT,1]];
 
 const TITLES=[
  {h:'با خرید کاردیاگ',s:'چی برات ارسال میشه؟',a:12,b:T_DIAG-3,big:1},
@@ -190,8 +191,8 @@ const TITLES=[
  {h:'۲. کارت <b>فعال‌سازی</b>',s:'اشتراک طلایی: ۷۲ اعتبار',a:T_CARD+2,b:T_FREE-3},
  {h:'اپ کاردیاگ <b>رایگانه</b>',s:'این بخش‌ها همیشه رایگانن',a:T_FREE+2,b:T_PAID-3},
  {h:'این دوتا <b>با اعتبار</b>',s:'هر بار استفاده، ۱ اعتبار',a:T_PAID+2,b:T_CRED-3},
- {h:'۷۲ اعتبار <b>یعنی چی؟</b>',a:T_CRED+2,b:T_MIX-3},
- {h:'هر <b>ترکیبی</b> که خواستی',a:T_MIX+2,b:T_PLANS-3},
+ {h:'۷۲ اعتبار <b>یعنی چی؟</b>',a:T_CRED+2,b:T_MIX+BEAT-3},
+ {h:'هر <b>ترکیبی</b> که خواستی',a:T_MIX+BEAT+2,b:T_PLANS-3},
  {h:'اعتبارت <b>تموم</b> شد؟',s:'از بخش اشتراک اپ',a:T_PLANS+2,b:T_TRUST-3},
  {h:'خیالت <b>راحت</b> باشه',a:T_TRUST+2,b:T_COMP-3},
  {h:'به ماشین من <b>می‌خوره</b>؟',a:T_COMP+2,b:T_END-3},
@@ -323,23 +324,23 @@ function sApp(f){ if(!layer('sApp',T_FREE-6,T_CRED+4)) return;
 }
 function sCred(f){ if(!layer('sCred',T_CRED-4,T_PLANS+4)) return;
  const out=seg(f,T_PLANS-8,T_PLANS+2), pin=E.oc(seg(f,T_CRED,T_CRED+14));
- const n=72-(f>=T_CRED+2*BEAT+10?1:0)-(f>=T_CRED+5*BEAT+10?1:0);
- const shown=f<T_MIX?n:72;
+ const n=72-(f>=T_CRED+0.5*BEAT+10?1:0)-(f>=T_CRED+2*BEAT+10?1:0);
+ const shown=f<T_MIX+BEAT?n:72;
  // coin stack (12 visible coins; two fly off)
  let st=''; for(let i=0;i<12;i++){const cy=900-i*30-(1-pin)*100; st+=`<ellipse cx="300" cy="${cy+12}" rx="150" ry="44" fill="#1565C0"/><ellipse cx="300" cy="${cy}" rx="150" ry="44" fill="url(#cg)" stroke="#fff" stroke-width="4"/>`;}
  const flyC=(a,tx,ty)=>{const p=E.io(seg(f,a,a+12)); if(p<=0||p>=1) return ''; const x=lerp(300,tx,p), y=lerp(570,ty,p)-Math.sin(p*Math.PI)*180;
   return `<ellipse cx="${x}" cy="${y}" rx="${lerp(150,40,p)}" ry="${lerp(44,40,p)}" fill="url(#cg)" stroke="#fff" stroke-width="4"/>`;};
  $('stack').innerHTML=`<defs><radialGradient id="cg" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#78CDFF"/><stop offset=".6" stop-color="#2196F3"/><stop offset="1" stop-color="#1565C0"/></radialGradient></defs>
-  <g opacity="${pin*(1-out)}">${st}</g>`+flyC(T_CRED+2*BEAT,900,1160)+flyC(T_CRED+5*BEAT,900,1355);
- const nm=$('cNum'); nm.textContent=fa(shown); nm.style.opacity=pin*(1-out); nm.style.transform=`scale(${1+0.08*Math.exp(-Math.pow((f-T_CRED-2*BEAT-10)/4,2))+0.08*Math.exp(-Math.pow((f-T_CRED-5*BEAT-10)/4,2))})`;
+  <g opacity="${pin*(1-out)}">${st}</g>`+flyC(T_CRED+0.5*BEAT,900,1160)+flyC(T_CRED+2*BEAT,900,1355);
+ const nm=$('cNum'); nm.textContent=fa(shown); nm.style.opacity=pin*(1-out); nm.style.transform=`scale(${1+0.08*Math.exp(-Math.pow((f-T_CRED-0.5*BEAT-10)/4,2))+0.08*Math.exp(-Math.pow((f-T_CRED-2*BEAT-10)/4,2))})`;
  $('cLbl').style.opacity=pin*(1-out);
- const u1=$('useAI'), p1=seg(f,T_CRED+2*BEAT,T_CRED+2*BEAT+12); pop(u1,p1,30); u1.style.opacity=E.oc(cl(p1*2))*(1-seg(f,T_MIX-8,T_MIX));
- [0,1,2,3,4].forEach(i=>{const q=seg(f,T_CRED+3*BEAT+i*4,T_CRED+3*BEAT+i*4+6); const e=$('q'+i); e.style.opacity=E.oc(q); e.style.display='inline-block'; e.style.transform=`scale(${q<=0?0.4:lerp(0.4,1,E.back(q))})`;});
- const u2=$('useTrip'), p2=seg(f,T_CRED+5*BEAT,T_CRED+5*BEAT+12); pop(u2,p2,30); u2.style.opacity=E.oc(cl(p2*2))*(1-seg(f,T_MIX-8,T_MIX));
- const mx=$('mix'), pm=seg(f,T_MIX,T_MIX+12); pop(mx,pm,30); mx.style.opacity=E.oc(cl(pm*2))*(1-out);
- $('mxA').style.width=(E.io(seg(f,T_MIX+10,T_MIX+10+BEAT*1.5))*40/72*100)+'%';
- $('mxB').style.width=(E.io(seg(f,T_MIX+10+BEAT*2,T_MIX+10+BEAT*3.5))*32/72*100)+'%';
- const t=seg(f,T_MIX+10+BEAT*4,T_MIX+20+BEAT*4); $('mxT').style.opacity=E.oc(t); $('mxT').style.transform=`scale(${lerp(0.8,1,E.back(t))})`;
+ const u1=$('useAI'), p1=seg(f,T_CRED+0.5*BEAT,T_CRED+0.5*BEAT+12); pop(u1,p1,30); u1.style.opacity=E.oc(cl(p1*2))*(1-seg(f,T_MIX+BEAT-8,T_MIX+BEAT));
+ [0,1,2,3,4].forEach(i=>{const q=seg(f,T_CRED+1.1*BEAT+i*3,T_CRED+1.1*BEAT+i*3+6); const e=$('q'+i); e.style.opacity=E.oc(q); e.style.display='inline-block'; e.style.transform=`scale(${q<=0?0.4:lerp(0.4,1,E.back(q))})`;});
+ const u2=$('useTrip'), p2=seg(f,T_CRED+2*BEAT,T_CRED+2*BEAT+12); pop(u2,p2,30); u2.style.opacity=E.oc(cl(p2*2))*(1-seg(f,T_MIX+BEAT-8,T_MIX+BEAT));
+ const mx=$('mix'), pm=seg(f,T_MIX+BEAT,T_MIX+BEAT+12); pop(mx,pm,30); mx.style.opacity=E.oc(cl(pm*2))*(1-out);
+ $('mxA').style.width=(E.io(seg(f,T_MIX+BEAT+6,T_MIX+2*BEAT+6))*40/72*100)+'%';
+ $('mxB').style.width=(E.io(seg(f,T_MIX+2*BEAT+6,T_MIX+3*BEAT+6))*32/72*100)+'%';
+ const t=seg(f,T_MIX+6+BEAT*3.5,T_MIX+16+BEAT*3.5); $('mxT').style.opacity=E.oc(t); $('mxT').style.transform=`scale(${lerp(0.8,1,E.back(t))})`;
 }
 function sPlans(f){ if(!layer('sPlans',T_PLANS-4,T_TRUST+4)) return;
  const out=seg(f,T_TRUST-8,T_TRUST+2);
@@ -347,7 +348,7 @@ function sPlans(f){ if(!layer('sPlans',T_PLANS-4,T_TRUST+4)) return;
 }
 function sTrust(f){ if(!layer('sTrust',T_TRUST-4,T_COMP+4)) return;
  const out=seg(f,T_COMP-8,T_COMP+2), c=$('trust'), pin=seg(f,T_TRUST,T_TRUST+12); pop(c,pin,40); c.style.opacity=E.oc(cl(pin*2))*(1-out);
- TR.forEach((r,i)=>{const a=T_TRUST+8+i*2*BEAT, p=seg(f,a,a+10), el=$('tr'+i); el.style.opacity=lerp(0.15,1,E.oc(p));
+ TR.forEach((r,i)=>{const a=T_TRUST+8+i*1.4*BEAT, p=seg(f,a,a+10), el=$('tr'+i); el.style.opacity=lerp(0.15,1,E.oc(p));
   const ic=el.querySelector('.c'); ic.style.transform=`scale(${p<=0?0.5:lerp(0.5,1,E.back(p))})`; ic.style.boxShadow=`0 0 0 ${10*Math.exp(-Math.pow((f-a-4)/4,2))}px rgba(34,160,80,.22)`;});
  document.querySelectorAll('#trust .tx').forEach(t=>{const w=t.scrollWidth; if(w>700){t.style.display='inline-block';t.style.transform=`scale(${700/w})`;t.style.transformOrigin='100% 50%';}});
 }
@@ -390,7 +391,7 @@ function render(f){
 </script>
 <script src="endcard.js"></script>
 <script>
-initEnd(null,{t0:T_END});
+initEnd(null,{t0:T_END,beats:END_BEATS});
 window.READY=document.fonts.ready.then(()=>{fitTitles();render(0);return true});
 const q=new URLSearchParams(location.search); if(q.has('f')) window.READY.then(()=>render(+q.get('f')));
 </script>

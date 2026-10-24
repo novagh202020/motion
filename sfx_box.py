@@ -1,13 +1,14 @@
-"""SFX + mixes for box_motion.html (what ships with CarDiag, 50.25 s). Writes sfx_box_full.wav (no-music version),
-sfx_box_light.wav (UI layer) and, if song/song_box.wav exists (song/extend.py 9), mix_box.wav (song + UI layer)."""
+"""SFX + mixes for box_motion.html (what ships with CarDiag, 53.2 s). Writes sfx_box_full.wav (no-music version),
+sfx_box_light.wav (UI layer) and, if song/song_box.wav exists (song/box_cut.py), mix_box.wav (song + UI layer)."""
 import numpy as np, os
-os.environ.setdefault("CARDIAG_DUR", "50.25")
+os.environ.setdefault("CARDIAG_DUR", "53.2")
 from audio import N, SR, add, whoosh, tick, pop, chime, zap, shimmer, beep, thump, norm, softclip, write, lp_fast, rng
 F = lambda f: f / 30
 HALF, BEAT = 67.5, 16.875
 B = lambda m: 7.5 + HALF * m
 T_DIAG, T_PLUG, T_CARD, T_PH, T_FREE, T_PAID = B(3), B(5), B(6), B(7), B(8), B(10)
-T_CRED, T_MIX, T_PLANS, T_TRUST, T_COMP, T_END = B(12), B(14), B(15), B(17), B(19), B(21)
+T_CRED, T_MIX, T_PLANS, T_TRUST, T_COMP, T_END = B(12), B(13), B(15), B(17), B(19), B(21)
+F_HIT = B(23)
 
 
 def zipper(d=2.2):
@@ -51,13 +52,13 @@ def build(full):
     for i in range(2): add(b, pop(700, 0.11), F(T_PAID + 10 + i * 2 * BEAT), 0.24, 0.3); add(b, coin(), F(T_PAID + 22 + i * 2 * BEAT), 0.18)
     # 72 credits: stack, two coins spent, the mix bar
     add(b, shimmer(0.6), F(T_CRED + 2), 0.26)
-    for t in (T_CRED + 2 * BEAT, T_CRED + 5 * BEAT): add(b, whoosh(0.3, 800, 5000), F(t), 0.14); add(b, coin(), F(t + 10), 0.2)
-    for i in range(5): add(b, pop(900 + 60 * i, 0.08), F(T_CRED + 3 * BEAT + i * 4), 0.14)
-    add(b, whoosh(0.5, 300, 4000), F(T_MIX + 10), 0.16); add(b, whoosh(0.5, 300, 4000), F(T_MIX + 10 + 2 * BEAT), 0.16)
-    add(b, chime((1318.5, 1661.2, 1975.5), 0.06, 0.8), F(T_MIX + 10 + 4 * BEAT), 0.26)
+    for t in (T_CRED + 0.5 * BEAT, T_CRED + 2 * BEAT): add(b, whoosh(0.3, 800, 5000), F(t), 0.14); add(b, coin(), F(t + 10), 0.2)
+    for i in range(5): add(b, pop(900 + 60 * i, 0.08), F(T_CRED + 1.1 * BEAT + i * 3), 0.14)
+    add(b, whoosh(0.5, 300, 4000), F(T_MIX + BEAT + 6), 0.16); add(b, whoosh(0.5, 300, 4000), F(T_MIX + 2 * BEAT + 6), 0.16)
+    add(b, chime((1318.5, 1661.2, 1975.5), 0.06, 0.8), F(T_MIX + 3.5 * BEAT + 6), 0.26)
     # plans, peace of mind, compatibility
     for i in range(2): add(b, whoosh(0.35, 500, 5000), F(T_PLANS + 4 + i * 2 * BEAT), 0.16)
-    for i in range(4): add(b, tick(3000, 0.04), F(T_TRUST + 8 + i * 2 * BEAT), 0.2); add(b, beep(1318.5 + 120 * i, 0.08), F(T_TRUST + 9 + i * 2 * BEAT), 0.06)
+    for i in range(4): add(b, tick(3000, 0.04), F(T_TRUST + 8 + i * 1.4 * BEAT), 0.2); add(b, beep(1318.5 + 120 * i, 0.08), F(T_TRUST + 9 + i * 1.4 * BEAT), 0.06)
     for i in range(2): add(b, whoosh(0.5, 300, 4000), F(T_COMP + 8 + i * 2 * BEAT), 0.14)
     add(b, pop(820, 0.1), F(T_COMP + 5 * BEAT), 0.2); add(b, pop(900, 0.1), F(T_COMP + 6 * BEAT), 0.2)
     # end card
@@ -66,6 +67,8 @@ def build(full):
         add(b, thump(0.5), F(T_END), 0.7); add(b, beep(1046.5, 0.2), F(T_END), 0.18)
         add(b, beep(1046.5, 0.18), F(T_END + 50.5), 0.22); add(b, thump(0.4), F(T_END + 50.5), 0.40)
         add(b, beep(1046.5, 0.18), F(T_END + 67.5), 0.30); add(b, thump(0.4), F(T_END + 67.5), 0.60)
+        add(b, beep(1046.5, 0.18), F(F_HIT - 17), 0.22); add(b, thump(0.4), F(F_HIT - 17), 0.40)
+        add(b, beep(1046.5, 0.18), F(F_HIT), 0.30); add(b, thump(0.4), F(F_HIT), 0.60)
         for n in range(0, int((B(20) - 210) / BEAT) + 1, 4): add(b, thump(0.25), F(210 + BEAT * n), 0.16)
         for k in (7.5, 41.25, 75, 108.75): add(b, thump(0.3), F(k), 0.22)
     return b
