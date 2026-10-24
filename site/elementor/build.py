@@ -201,7 +201,7 @@ guide_css += """
 .cdp-guide .cdp-sec h1 span{color:var(--b)}
 @media (min-width:768px){.cdp-plans{grid-template-columns:repeat(3,1fr)}.cdp-tiles{grid-template-columns:repeat(3,1fr)}.cdp-guide .cdp-sec h1.elementor-heading-title{font-size:30px!important}.cdp-guide .cdp-sec h2.elementor-heading-title{font-size:24px!important}}
 """
-BUY = {"url": "/product/cardiag/", "is_external": "", "nofollow": ""}
+BUY = {"url": "https://www.cardiag.ir/product/%d8%b9%db%8c%d8%a8-%db%8c%d8%a7%d8%a8-%d9%87%d9%88%d8%b4-%d9%85%d8%b5%d9%86%d9%88%d8%b9%db%8c-%d8%ae%d9%88%d8%af%d8%b1%d9%88%d9%87%d8%a7%db%8c-%d8%a7%db%8c%d8%b1%d8%a7%d9%86%db%8c/", "is_external": "", "nofollow": ""}
 guide = [C('cdp-guide', [
     W('html', 'cdp-assets', html='<style>' + guide_css + '</style>'),
     sec('guide-top', [
