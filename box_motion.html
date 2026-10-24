@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<title>CarDiag In The Box</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:600;src:url(fonts/Vazirmatn-FD-SemiBold.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+:root{--blue:#2196F3;--deep:#1565C0;--navy:#10203C;--slate:#6E7D96;--hair:#DEE6F2;--green:#22A050;--greenT:#DEF6E6;--appbg:#EEF2F8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FBFCFF}
+body{font-family:V,sans-serif;color:var(--navy)}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.ltr{direction:ltr;unicode-bidi:isolate}.rtl{direction:rtl}
+.L{position:absolute;left:0;top:0;width:1080px;height:1920px;display:none}
+/* titles */
+#titles{position:absolute;left:0;top:0;width:1080px;height:420px;z-index:50;pointer-events:none}
+.ttl{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;opacity:0}
+.ttl .h{font-weight:900;font-size:84px;line-height:1.15;color:var(--navy);white-space:nowrap;display:inline-block}
+.ttl .h b{color:var(--blue);font-weight:900}
+.ttl .s{font-weight:500;font-size:42px;color:var(--slate);margin-top:10px;white-space:nowrap}
+/* phone */
+#phone{position:absolute;left:240px;top:390px;width:600px;height:1290px;border-radius:78px;background:#181C24;border:3px solid #5F6878;transform-origin:50% 0;
+ box-shadow:0 50px 90px rgba(20,40,80,.28),0 12px 26px rgba(20,40,80,.18);z-index:10;display:none}
+#screen{position:absolute;left:11px;top:11px;width:572px;height:1262px;border-radius:66px;overflow:hidden;clip-path:inset(0 round 66px);isolation:isolate;background:var(--appbg)}
+#notch{position:absolute;left:50%;top:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#0b0e13;z-index:30}
+.scr{position:absolute;left:0;top:0;width:572px;height:1262px;background:var(--appbg);direction:rtl;overflow:hidden;display:none}
+.sbar{height:48px;display:flex;justify-content:space-between;align-items:center;padding:6px 40px 0;font-weight:700;font-size:19px;direction:ltr}
+.abar{height:78px;display:flex;align-items:center;gap:14px;padding:0 24px;font-weight:800;font-size:29px;color:#fff}
+.nav{position:absolute;left:0;bottom:0;width:572px;height:96px;background:var(--blue);display:flex;padding-bottom:6px;z-index:5}
+.nav div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:17px;gap:4px}
+.tapdot{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:5px solid rgba(33,150,243,.9);background:rgba(33,150,243,.15);opacity:0;z-index:40}
+.qa{background:#fff;border:2px solid var(--hair);border-radius:24px;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-weight:700;font-size:20px;white-space:nowrap}
+.qa .ib{width:74px;height:74px;border-radius:20px;background:#E3EFFC;display:flex;align-items:center;justify-content:center}
+.plan{background:#fff;border:2px solid #DEE6F2;border-radius:22px;margin:16px 18px 0;overflow:hidden}
+.plan .hd{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;font-weight:800;font-size:23px}
+.plan .bd{padding:16px 20px 18px;font-weight:600;font-size:19px;color:#33415C}
+.tag{font-weight:700;font-size:15px;padding:4px 12px;border-radius:6px}
+/* generic big cards */
+.card{background:#fff;border:3px solid var(--hair);border-radius:36px;box-shadow:0 26px 54px rgba(20,40,80,.16),0 6px 14px rgba(20,40,80,.08);direction:rtl}
+.chip{display:inline-flex;align-items:center;gap:14px;height:84px;padding:0 34px;border-radius:42px;background:#fff;border:3px solid var(--hair);box-shadow:0 14px 30px rgba(20,40,80,.12);font-weight:800;font-size:40px;white-space:nowrap;direction:rtl}
+.chip .ic{width:52px;height:52px;border-radius:50%;background:#E3EFFC;display:flex;align-items:center;justify-content:center}
+.it{position:absolute;right:50px;width:490px;height:124px;display:flex;align-items:center;gap:18px;padding:0 22px;direction:rtl}
+.it .ib{width:76px;height:76px;border-radius:22px;display:flex;align-items:center;justify-content:center;flex:none}
+.it .t{font-weight:800;font-size:31px;white-space:nowrap}
+.it .d{font-weight:500;font-size:21px;color:#6E7D96;white-space:nowrap;margin-top:2px}
+.it .cn{position:absolute;left:18px;top:50%;margin-top:-30px}
+.coin{width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#78CDFF,#2196F3 55%,#1565C0);border:4px solid #fff;box-shadow:0 6px 14px rgba(20,40,80,.25);display:flex;align-items:center;justify-content:center}
+.hdr{position:absolute;right:50px;width:490px;height:72px;border-radius:36px;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:900;font-size:32px;white-space:nowrap;direction:rtl}
+.ck{display:flex;align-items:center;gap:26px;height:126px;padding:0 10px;font-weight:800;font-size:44px;color:var(--navy);white-space:nowrap}
+.ck+.ck{border-top:2px solid #EEF2F8}
+.ck .c{width:72px;height:72px;border-radius:50%;background:var(--greenT);display:flex;align-items:center;justify-content:center;flex:none}
+/* activation card (as shipped: blue, not gold) */
+#acard{position:absolute;left:150px;top:520px;width:780px;height:490px;border-radius:40px;background:linear-gradient(160deg,#4FB6EC 0%,#2E9FE6 60%,#2196F3 100%);
+ box-shadow:0 40px 80px rgba(20,40,80,.30);direction:rtl;color:#fff;text-align:center;overflow:hidden;transform-origin:50% 50%}
+</style>
+</head>
+<body>
+<div id="stage">
+ <!-- ===== 1. the zip case opens ===== -->
+ <div id="sCase" class="L">
+  <div id="cBloom" class="a" style="left:140px;top:560px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.26) 0%,rgba(40,160,255,0) 68%);opacity:0"></div>
+  <div id="case" class="a" style="left:180px;top:740px;width:720px;height:480px;transform-origin:50% 60%">
+   <div class="a" style="left:0;top:22px;width:720px;height:470px;border-radius:90px;background:#0E2547;filter:blur(1px);opacity:.25;transform:translateY(20px)"></div>
+   <!-- inside: moulded foam with the diag and the activation card -->
+   <div id="cIn" class="a" style="left:0;top:0;width:720px;height:480px;border-radius:90px;background:linear-gradient(180deg,#1A3561,#132848);border:8px solid #1F4E9A;overflow:hidden">
+    <div class="a" style="left:60px;top:70px;width:330px;height:330px;border-radius:60px;background:#0F2140;box-shadow:inset 0 10px 24px rgba(0,0,0,.45)"></div>
+    <img id="inDiag" src="assets/diag_front.png" class="a" style="left:70px;top:110px;width:310px">
+    <div class="a" style="left:420px;top:110px;width:240px;height:260px;border-radius:30px;background:#0F2140;box-shadow:inset 0 10px 24px rgba(0,0,0,.45)"></div>
+   </div>
+   <div id="inCard" class="a" style="left:440px;top:150px;width:200px;height:126px;border-radius:14px;background:linear-gradient(160deg,#4FB6EC,#2196F3);box-shadow:0 8px 16px rgba(0,0,0,.3)"></div>
+   <!-- lid -->
+   <svg id="lid" class="a" style="left:0;top:0;overflow:visible;transform-origin:50% 0" width="720" height="480">
+    <defs><linearGradient id="fab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2463B8"/><stop offset="1" stop-color="#173F7E"/></linearGradient></defs>
+    <rect x="0" y="0" width="720" height="480" rx="90" fill="url(#fab)"/>
+    <rect x="0" y="0" width="720" height="480" rx="90" fill="none" stroke="#123366" stroke-width="6"/>
+    <path id="zpath" d="M90 22 H630 Q698 22 698 90 V390 Q698 458 630 458 H90 Q22 458 22 390 V90 Q22 22 90 22 Z" fill="none" stroke="#0E2547" stroke-width="16"/>
+    <path id="zteeth" d="M90 22 H630 Q698 22 698 90 V390 Q698 458 630 458 H90 Q22 458 22 390 V90 Q22 22 90 22 Z" fill="none" stroke="#8FA9CF" stroke-width="10" stroke-dasharray="4 5"/>
+    <path id="zopen" d="M90 22 H630 Q698 22 698 90 V390 Q698 458 630 458 H90 Q22 458 22 390 V90 Q22 22 90 22 Z" fill="none" stroke="#081833" stroke-width="18"/>
+    <g transform="translate(222 150)" id="lidLogo"></g>
+    <text x="360" y="340" text-anchor="middle" font-family="V" font-weight="900" font-size="64" fill="#fff" direction="ltr">CarDiag AI</text>
+    <g id="pull"><rect x="-26" y="-14" width="52" height="28" rx="10" fill="#C9D4E4" stroke="#6E7D96" stroke-width="3"/><rect x="-6" y="10" width="12" height="40" rx="6" fill="#C9D4E4" stroke="#6E7D96" stroke-width="3"/></g>
+   </svg>
+  </div>
+ </div>
+
+ <!-- ===== 2. the Bluetooth diag ===== -->
+ <div id="sDiag" class="L">
+  <svg id="port" class="a" style="left:0;top:0;opacity:0" width="1080" height="1920">
+   <g transform="translate(540 1500)">
+    <rect x="-420" y="-200" width="840" height="330" rx="60" fill="#fff" stroke="#C9D8EC" stroke-width="6"/>
+    <path d="M-150 -78 L150 -78 Q168 -78 164 -60 L140 66 Q136 82 118 82 L-118 82 Q-136 82 -140 66 L-164 -60 Q-168 -78 -150 -78 Z" fill="#F4F8FD" stroke="#2196F3" stroke-width="7"/>
+    <g fill="#ADD6FA"></g>
+   </g>
+  </svg>
+  <svg id="bt" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <img id="hero" src="assets/diag_front.png" class="a" style="left:0;top:0;width:600px;transform-origin:50% 50%">
+  <div id="dChips"></div>
+  <div id="conn" class="a" style="left:0;top:1120px;width:1080px;text-align:center;opacity:0"><span class="chip" style="background:#DEF6E6;border-color:#BFE6CC;color:#22A050"><span class="ic" style="background:#fff"></span>متصل شد</span></div>
+ </div>
+
+ <!-- ===== 3. activation card -> gold plan ===== -->
+ <div id="sCard" class="L">
+  <div id="acard">
+   <div id="acLogo" style="margin-top:46px"></div>
+   <div class="ltr" style="font-weight:900;font-size:62px;line-height:1.1;margin-top:4px">CarDiag AI</div>
+   <div style="font-weight:700;font-size:30px;margin-top:6px">عیب‌یاب هوش مصنوعی خودرو</div>
+   <div style="font-weight:600;font-size:28px;margin-top:22px">کد فعال‌سازی:</div>
+   <div style="position:relative;margin:12px auto 0;width:520px;height:92px;border-radius:46px;background:#fff">
+    <div id="acCode" class="ltr" style="position:absolute;left:0;right:0;top:12px;font-weight:900;font-size:54px;color:#10203C;letter-spacing:6px">۳۸۱۵۷۲</div>
+    <div id="acFoil" style="position:absolute;left:110px;top:10px;width:300px;height:72px;border-radius:8px;background:repeating-linear-gradient(115deg,#C9CFD8 0 8px,#B6BDC8 8px 16px)"></div></div>
+   <div style="font-weight:500;font-size:20px;margin-top:22px;opacity:.95">از این کد تنها می‌توانید برای فعال‌سازی یک اکانت استفاده کنید</div>
+  </div>
+  <div id="coinSwipe" class="a coin" style="left:0;top:0;opacity:0;width:90px;height:90px"></div>
+ </div>
+
+ <!-- ===== 4. free / paid sections ===== -->
+ <div id="sApp" class="L">
+  <div id="hFree" class="hdr" style="top:430px;background:#DEF6E6;color:#22A050"></div>
+  <div id="freeL"></div>
+  <div id="hPaid" class="hdr" style="top:1020px;background:#E3EFFC;color:#1565C0"></div>
+  <div id="paidL"></div>
+ </div>
+
+ <!-- ===== 5. 72 credits ===== -->
+ <div id="sCred" class="L">
+  <svg id="stack" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="cNum" class="a ltr" style="left:520px;top:470px;width:460px;text-align:center;font-weight:900;font-size:220px;line-height:1;color:#2196F3"></div>
+  <div class="a rtl" id="cLbl" style="left:520px;top:710px;width:460px;text-align:center;font-weight:800;font-size:46px">اعتبار</div>
+  <div id="useAI" class="a card" style="left:90px;top:1080px;width:900px;height:170px;padding:0 34px;display:flex;align-items:center;gap:22px;opacity:0"></div>
+  <div id="useTrip" class="a card" style="left:90px;top:1280px;width:900px;height:150px;padding:0 34px;display:flex;align-items:center;gap:22px;opacity:0"></div>
+  <div id="mix" class="a card" style="left:90px;top:1080px;width:900px;padding:34px 40px;opacity:0"></div>
+ </div>
+
+ <!-- ===== 6. bronze / silver ===== -->
+ <div id="sPlans" class="L"></div>
+ <!-- ===== 7. peace of mind ===== -->
+ <div id="sTrust" class="L"><div id="trust" class="a card" style="left:90px;top:560px;width:900px;padding:20px 40px"></div></div>
+ <!-- ===== 8. compatibility ===== -->
+ <div id="sComp" class="L"></div>
+
+ <div id="phone"><div id="notch"></div><div id="screen"></div><div class="tapdot" id="tap"></div></div>
+ <div id="titles"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
+const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
+const IC={
+ check:'M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z',
+ warn:'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+ eye:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
+ batt:'M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z',
+ trend:'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z',
+ car:'M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z',
+ robot:'M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4c1.66 0 3-1.34 3-3s-1.34-3-3-3zM7.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.83 13 9 13s-1.5-.67-1.5-1.5zM16 17H8v-2h8v2zm-1-4c-.83 0-1.5-.67-1.5-1.5S14.17 10 15 10s1.5.67 1.5 1.5S15.83 13 15 13z',
+ bt:'M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z',
+ plug:'M16 7V3h-2v4h-4V3H8v4h-.01C6.9 6.99 6 7.89 6 8.98v5.52L9.5 18v3h5v-3l3.5-3.51v-5.5c0-1.1-.9-2-2-2z',
+ nolap:'M2 4.27L3.28 3 21 20.72 19.73 22l-3-3H4c-1.1 0-2-.9-2-2V6c0-.4.12-.77.32-1.08L2 4.27zM20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H7.83l14 14H20zM0 19v1h21.17l-1-1H0z',
+ shield:'M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z',
+ head:'M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z',
+ undo:'M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z',
+ eyeR:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
+ phone:'M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z',
+ home:'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z', add:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
+ more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+ arrow:'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
+ chat:'M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z',
+};
+const svg=(p,c='#2196F3',s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path fill="${c}" d="${IC[p]}"/></svg>`;
+const LOGO=(w,c='#fff',sw=7)=>`<svg width="${w}" height="${w*0.36}" viewBox="0 0 400 144"><path d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="${c}" stroke-width="${sw*1.6}" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="104" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/><circle cx="188" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/></svg>`;
+const COIN=s=>`<span class="coin" style="width:${s}px;height:${s}px">${LOGO(s*0.62,'#fff',6)}</span>`;
+
+/* ================= music grid (song/song_box.wav = extend.py 9): bar 67.5, beat 16.875 =================
+   groove from bar 3 (frame 210); break at 1357.5; end card 1425; final hits 1475.5 / 1492.5 */
+const HALF=67.5, BEAT=16.875, B=m=>7.5+HALF*m;
+const KICK=[7.5,24.4,41.25,75,91.9,108.75,125.6];
+const T_DIAG=B(3), T_PLUG=B(5), T_CARD=B(6), T_PH=B(7), T_FREE=B(8), T_PAID=B(10), T_CRED=B(12), T_MIX=B(14), T_PLANS=B(15), T_TRUST=B(17), T_COMP=B(19), T_END=B(21);
+const NF=1507;
+
+const TITLES=[
+ {h:'با خرید کاردیاگ',s:'چی برات ارسال میشه؟',a:12,b:T_DIAG-3,big:1},
+ {h:'۱. دیاگ <b>بلوتوثی</b>',s:'به ماشینت وصلش می‌کنی',a:T_DIAG+2,b:T_CARD-3},
+ {h:'۲. کارت <b>فعال‌سازی</b>',s:'اشتراک طلایی: ۷۲ اعتبار',a:T_CARD+2,b:T_FREE-3},
+ {h:'اپ کاردیاگ <b>رایگانه</b>',s:'این بخش‌ها همیشه رایگانن',a:T_FREE+2,b:T_PAID-3},
+ {h:'این دوتا <b>با اعتبار</b>',s:'هر بار استفاده، ۱ اعتبار',a:T_PAID+2,b:T_CRED-3},
+ {h:'۷۲ اعتبار <b>یعنی چی؟</b>',a:T_CRED+2,b:T_MIX-3},
+ {h:'هر <b>ترکیبی</b> که خواستی',a:T_MIX+2,b:T_PLANS-3},
+ {h:'اعتبارت <b>تموم</b> شد؟',s:'از بخش اشتراک اپ',a:T_PLANS+2,b:T_TRUST-3},
+ {h:'خیالت <b>راحت</b> باشه',a:T_TRUST+2,b:T_COMP-3},
+ {h:'به ماشین من <b>می‌خوره</b>؟',a:T_COMP+2,b:T_END-3},
+ {h:'مکانیک تو <b>جیبِت</b>!',a:T_END-2,b:99999},
+];
+TITLES.forEach((t,i)=>{const d=document.createElement('div');d.className='ttl';d.id='t'+i;
+ d.innerHTML=t.big?`<div class="h" style="font-size:96px">${t.h}</div><div class="h" style="font-size:96px;color:#2196F3">${t.s}</div>`:`<div class="h">${t.h}</div>`+(t.s?`<div class="s">${t.s}</div>`:'');
+ d.style.top=(t.big?120:(t.s?132:148))+'px'; $('titles').appendChild(d);});
+function fitTitles(){document.querySelectorAll('.ttl .h').forEach(h=>{const w=h.scrollWidth;if(w>980)h.style.transform=`scale(${980/w})`;})}
+
+/* ================= build ================= */
+$('lidLogo').innerHTML=LOGO(276,'#fff',7).replace('<svg ','<svg x="0" y="0" ');
+$('acLogo').innerHTML=LOGO(200,'#fff',7);
+$('port').querySelector('g g').innerHTML=[...Array(8)].map((_,i)=>`<rect x="${-112+i*32}" y="-40" width="12" height="22" rx="3"/>`).join('')+[...Array(8)].map((_,i)=>`<rect x="${-100+i*28}" y="18" width="12" height="22" rx="3"/>`).join('');
+$('conn').querySelector('.ic').innerHTML=svg('check','#22A050',36);
+const DCH=[['bt','مدل شخصی، بلوتوث ۴٫۰'],['plug','وصل به سوکت زیر فرمان'],['nolap','بدون ابزار، کابل و لپ‌تاپ']];
+$('dChips').innerHTML=DCH.map((c,i)=>`<div id="dc${i}" class="a" style="left:0;top:${1190+i*112}px;width:1080px;text-align:center;opacity:0"><span class="chip"><span class="ic">${svg(c[0],'#2196F3',32)}</span>${c[1]}</span></div>`).join('');
+$('coinSwipe').innerHTML=LOGO(56,'#fff',6);
+
+const FREE=[['warn','خطایابی ECU','کد خطا به فارسی، پاک کردن چراغ چک'],['eye','مانیتورینگ زنده','دما، دور موتور، ولتاژ، بار موتور'],['batt','تست باتری و دینام','سالم بودن باتری و شارژ دینام'],['trend','روند سلامت خودرو','سلامت ماشین در گذر زمان']];
+const PAID=[['robot','عیب‌یاب هوش مصنوعی','هر بار ۵ سؤال، به زبان ساده'],['car','گزارش سفر','ثبت داده‌ها حین رانندگی + گزارش']];
+$('hFree').innerHTML=svg('check','#22A050',36)+'رایگان، هر چند بار خواستی';
+$('hPaid').innerHTML=COIN(44)+'هر بار ۱ اعتبار';
+const itm=(id,top,x,bg,c)=>`<div id="${id}" class="it card" style="top:${top}px;opacity:0"><div class="ib" style="background:${bg}">${svg(x[0],c,44)}</div><div><div class="t">${x[1].replace('ECU','<span class="ltr">ECU</span>')}</div><div class="d">${x[2]}</div></div></div>`;
+$('freeL').innerHTML=FREE.map((x,i)=>itm('fr'+i,520+i*120,x,'#DEF6E6','#22A050')).join('');
+$('paidL').innerHTML=PAID.map((x,i)=>itm('pd'+i,1110+i*140,x,'#E3EFFC','#2196F3')+`<div id="pc${i}" class="a" style="left:506px;top:${1132+i*140}px;opacity:0">${COIN(64)}</div>`).join('');
+document.querySelectorAll('.it').forEach(e=>{e.style.height='108px';});
+
+$('useAI').innerHTML=`<div class="ib" style="width:90px;height:90px;border-radius:26px;background:#E3EFFC;display:flex;align-items:center;justify-content:center;flex:none">${svg('robot','#2196F3',54)}</div>
+ <div style="flex:1"><div style="font-weight:800;font-size:38px">یه بار هوش مصنوعی</div><div style="display:flex;gap:10px;margin-top:10px;align-items:center">${[0,1,2,3,4].map(i=>`<span id="q${i}" style="opacity:0">${svg('chat','#ADD6FA',40)}</span>`).join('')}<span style="font-weight:700;font-size:28px;color:#6E7D96;margin-right:8px">۵ سؤال</span></div></div>
+ <div style="font-weight:900;font-size:40px;color:#1565C0;display:flex;align-items:center;gap:10px">−۱ ${COIN(56)}</div>`;
+$('useTrip').innerHTML=`<div class="ib" style="width:90px;height:90px;border-radius:26px;background:#E3EFFC;display:flex;align-items:center;justify-content:center;flex:none">${svg('car','#2196F3',54)}</div>
+ <div style="flex:1;font-weight:800;font-size:38px">یه سفر با گزارش کامل</div><div style="font-weight:900;font-size:40px;color:#1565C0;display:flex;align-items:center;gap:10px">−۱ ${COIN(56)}</div>`;
+$('mix').innerHTML=`<div style="font-weight:800;font-size:40px">مثلاً:</div>
+ <div style="display:flex;height:84px;border-radius:42px;overflow:hidden;margin-top:22px;background:#E6EBF2;direction:rtl">
+  <div id="mxA" style="width:0;background:#2196F3;color:#fff;font-weight:900;font-size:36px;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden">۴۰ بار هوش مصنوعی</div>
+  <div id="mxB" style="width:0;background:#78CDFF;color:#10203C;font-weight:900;font-size:36px;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden">۳۲ سفر</div></div>
+ <div id="mxT" style="margin-top:22px;text-align:center;font-weight:900;font-size:46px;opacity:0">۴۰ + ۳۲ = <span style="color:#2196F3">۷۲ اعتبار</span></div>`;
+
+const PL=[['پلن برنزی','مادام‌العمر','۶ اعتبار (هوش مصنوعی + سفر)'],['پلن نقره‌ای','⭐ پرفروش','۲۴ اعتبار (هوش مصنوعی + سفر)']];
+$('sPlans').innerHTML=PL.map((p,i)=>`<div id="pl${i}" class="a card" style="left:110px;top:${560+i*360}px;width:860px;overflow:hidden;opacity:0">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:26px 36px;background:#E9F1FC"><span style="font-weight:900;font-size:46px;color:#1565C0">${p[0]}</span><span style="font-weight:700;font-size:28px;color:#1565C0;background:#D6E6FA;padding:6px 18px;border-radius:10px">${p[1]}</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:28px 36px"><span style="display:flex;align-items:center;gap:14px;font-weight:700;font-size:36px;color:#33415C">${svg('robot','#6E7D96',40)}${p[2]}</span>
+   <span style="height:72px;padding:0 40px;border-radius:14px;background:#2196F3;color:#fff;font-weight:800;font-size:32px;display:flex;align-items:center">خرید</span></div></div>`).join('');
+
+const TR=[['shield','۶ ماه گارانتی تعویض'],['head','پشتیبانی فارسی'],['undo','۵ روز مرجوعی (بازگشت مبلغ دستگاه)'],['eyeR','فقط می‌خونه؛ تنظیمات ماشین رو عوض نمی‌کنه']];
+$('trust').innerHTML=TR.map((r,i)=>`<div class="ck" id="tr${i}"><span class="c">${svg(r[0],'#22A050',40)}</span><span class="tx">${r[1]}</span></div>`).join('');
+
+$('sComp').innerHTML=`<div class="a card" style="left:90px;top:540px;width:900px;padding:38px 44px">
+  ${[['خودروهای خارجی و چینی','همه',100,'#22A050'],['خودروهای ایرانی','حدود ۹۰٪',90,'#2196F3']].map((r,i)=>`<div style="margin-top:${i?40:0}px"><div style="display:flex;justify-content:space-between;font-weight:800;font-size:40px"><span>${r[0]}</span><span style="color:${r[3]}">${r[1]}</span></div>
+   <div style="height:40px;border-radius:20px;background:#E6EBF2;margin-top:16px;overflow:hidden;direction:rtl"><div id="cb${i}" data-w="${r[2]}" style="height:40px;width:0;border-radius:20px;background:${r[3]}"></div></div></div>`).join('')}</div>
+ <div id="cp1" class="a" style="left:0;top:1040px;width:1080px;text-align:center;opacity:0"><span class="chip"><span class="ic">${svg('phone','#2196F3',32)}</span>گوشی اندروید ۵ به بالا</span></div>
+ <div id="cp2" class="a" style="left:0;top:1160px;width:1080px;text-align:center;opacity:0"><span class="chip" style="background:#FFF4E5;border-color:#F9C88A;color:#10203C"><span class="ic" style="background:#fff">${svg('undo','#F28012',32)}</span>وصل نشد؟ ۵ روز مرجوعی</span></div>`;
+
+/* phone screens: subscription activation, quick access */
+const ST=`<div class="sbar" style="color:#fff"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>`;
+const NAV=`<div class="nav"><div>${svg('home','#fff',28)}<span>خانه</span></div><div>${svg('add','#fff',36)}<span>افزودن خودرو</span></div><div>${svg('more','#fff',34)}<span>بیشتر</span></div></div>`;
+const qa=(ic,l)=>`<div class="qa"><div class="ib">${svg(ic,'#2196F3',40)}</div>${l}</div>`;
+$('screen').innerHTML=`<div class="scr" id="sc_sub"><div style="background:#2196F3">${ST}<div class="abar">${svg('arrow','#fff',32)}اشتراک کاردیاگ</div></div>
+  <div class="plan" style="margin-top:22px"><div class="bd"><div style="font-weight:800;font-size:22px;color:#10203C">فعال‌سازی با کد</div>
+   <div style="display:flex;gap:12px;margin-top:14px"><div id="codeIn" class="ltr" style="flex:1;height:62px;border:2px solid #2196F3;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;letter-spacing:4px;color:#10203C"></div>
+    <div id="actBtn" style="width:150px;height:62px;border-radius:12px;background:#2196F3;color:#fff;font-weight:800;font-size:21px;display:flex;align-items:center;justify-content:center">فعال‌سازی</div></div></div></div>
+  <div class="plan" id="goldPlan" style="border-color:#F0C24E;opacity:.35">
+   <div class="hd" style="background:linear-gradient(90deg,#F6CD5C,#FFEA9C,#E0A82C);color:#4B3005"><span>پلن طلایی</span><span class="tag" style="background:#FFF6D6;color:#4B3005">مادام‌العمر</span></div>
+   <div class="bd" style="display:flex;justify-content:space-between;align-items:center"><span style="display:flex;align-items:center;gap:8px">${svg('robot','#6E7D96',24)}۷۲ اعتبار (هوش مصنوعی + سفر)</span>
+    <span id="goldOk" style="display:inline-flex;align-items:center;gap:6px;background:#DEF6E6;color:#22A050;font-weight:800;font-size:19px;padding:6px 14px;border-radius:12px;opacity:0">${svg('check','#22A050',22)}فعال شد</span></div></div>
+ ${NAV}</div>
+ <div class="scr" id="sc_qa"><div class="sbar" style="color:#10203C"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 26px 12px"><span style="font-weight:700;font-size:22px;color:#98A3B8">دسترسی سریع</span>
+   <span style="display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:20px;color:#1565C0;background:#E3EFFC;padding:6px 14px;border-radius:14px">${COIN(26)}<span id="qaCred">۷۲</span> اعتبار</span></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px">
+   <div id="q_ecu">${qa('warn','خطایابی <span class="ltr">ECU</span>')}</div><div id="q_mon">${qa('eye','مانیتورینگ خودرو')}</div>
+   <div id="q_bat">${qa('batt','تست باتری و دینام')}</div><div id="q_trd">${qa('trend','روند سلامت خودرو')}</div>
+   <div id="q_ai">${qa('robot','عیب‌یاب هوش مصنوعی')}</div><div id="q_trip">${qa('car','سفر')}</div></div>${NAV}</div>`;
+
+/* ================= scenes ================= */
+let F=0;
+function layer(id,a,b){const el=$(id); if(F<a||F>=b){el.style.display='none';return 0} el.style.display='block'; return 1}
+const pop=(el,p,dy=40,s0=0.85)=>{el.style.opacity=E.oc(cl(p*2)); el.style.transform=`translateY(${(1-E.oc(p))*dy}px) scale(${p<=0?s0:lerp(s0,1,E.back(p))})`};
+const kick=f=>KICK.reduce((a,k)=>a+Math.exp(-Math.pow((f-k)/4,2)),0);
+
+function sCase(f){ if(!layer('sCase',0,T_DIAG+20)) return;
+ const c=$('case'), pin=seg(f,8,30), out=seg(f,150,176);
+ c.style.opacity=E.oc(seg(f,8,16))*(1-out); c.style.transform=`translateY(${(1-E.oc(pin))*80+E.ic(out)*120}px) scale(${(pin<=0?0.7:lerp(0.7,1,E.back(pin)))*(1+0.02*kick(f))})`;
+ $('cBloom').style.opacity=0.8*seg(f,20,50)*(1-out);
+ // zip runs round the case on the beats, then the lid flips up
+ const zp=$('zpath'), L=zp.getTotalLength(), z=E.io(seg(f,38,104)), pt=zp.getPointAtLength(z*L*0.96);
+ $('pull').setAttribute('transform',`translate(${pt.x} ${pt.y})`);
+ const zo=$('zopen'); zo.style.strokeDasharray=`${z*L*0.96} ${L}`;
+ const lid=$('lid'), lo=E.io(seg(f,104,124)); lid.style.transform=`perspective(1400px) rotateX(${lo*86}deg) translateY(${-lo*20}px)`; lid.style.opacity=1-seg(f,118,126);
+ // items lift out: the diag goes to the hero spot, the card slides away (it comes back in part 2)
+ const lift=E.io(seg(f,126,150)); $('inDiag').style.opacity=1-seg(f,140,150);
+ $('inCard').style.transform=`translate(${lift*500}px,${-lift*300}px) rotate(${lift*20}deg)`; $('inCard').style.opacity=1-seg(f,140,152);
+}
+function sDiag(f){ if(!layer('sDiag',126,T_CARD+10)) return;
+ const h=$('hero'); const w0=310, w1=600, l=E.io(seg(f,126,156));
+ // hero: from the case to centre, gentle float; on bar 5 it drops into the OBD port
+ let x=lerp(180+70+155,540,l), y=lerp(740+110+112,880,l), w=lerp(w0,w1,l), r=0;
+ y+=Math.sin(f/14)*6*seg(f,156,170);
+ const pl=E.io(seg(f,T_PLUG,T_PLUG+22)); x=lerp(x,540,pl); y=lerp(y,1360,pl); w=lerp(w,380,pl); r=lerp(0,0,pl);
+ const hit=f>=T_PLUG+22?Math.exp(-(f-T_PLUG-22)/5):0;
+ h.style.width=w+'px'; h.style.left=(x-w/2)+'px'; h.style.top=(y-w*0.36)+'px'; h.style.transform=`scale(${1+0.04*hit})`;
+ h.style.opacity=1-seg(f,T_CARD-4,T_CARD+6);
+ DCH.forEach((c,i)=>{const a=T_DIAG+6+i*2*BEAT, p=seg(f,a,a+12), el=$('dc'+i); pop(el,p,30); el.style.opacity=E.oc(cl(p*2))*(1-seg(f,T_PLUG-8,T_PLUG));});
+ $('port').style.opacity=E.oc(seg(f,T_PLUG,T_PLUG+10))*(1-seg(f,T_CARD-4,T_CARD+6));
+ let r2=''; if(f>=T_PLUG+24&&f<T_CARD+6){for(let i=0;i<3;i++){const ph=((f-T_PLUG-24)/16+i/3)%1,R=lerp(160,380,ph);
+  r2+=`<path d="M${540-R*0.8} ${1300-R*0.6} A${R} ${R} 0 0 1 ${540+R*0.8} ${1300-R*0.6}" fill="none" stroke="#2196F3" stroke-width="${8-4*ph}" stroke-linecap="round" opacity="${(1-ph)*0.8*(1-seg(f,T_CARD-4,T_CARD+4))}"/>`}}
+ $('bt').innerHTML=r2;
+ const cn=$('conn'), cp=seg(f,T_PLUG+30,T_PLUG+42); pop(cn,cp,20,0.7); cn.style.opacity=E.oc(cl(cp*2))*(1-seg(f,T_CARD-4,T_CARD+4)); cn.style.top='760px';
+}
+function sCard(f){ if(!layer('sCard',T_CARD-6,T_PH+40)) return;
+ const c=$('acard'), pin=seg(f,T_CARD-6,T_CARD+14);
+ // flies in, the foil is scratched off on the beats, then it flies into the phone's code field
+ const fly=E.io(seg(f,T_PH+8,T_PH+26));
+ const x=lerp(900*(1-E.oc(pin)),-170,fly), y=lerp(0,-50,fly), s=lerp(1,0.36,fly);
+ c.style.opacity=E.oc(seg(f,T_CARD-6,T_CARD+2))*(1-seg(f,T_PH+22,T_PH+28));
+ c.style.transform=`translate(${x}px,${y}px) rotate(${lerp(-10,0,E.oc(pin))*(1-fly)}deg) scale(${s})`;
+ const sc=E.io(seg(f,T_CARD+2*BEAT,T_CARD+3*BEAT+6)); $('acFoil').style.clipPath=`inset(0 0 0 ${sc*100}%)`;
+ const cs=$('coinSwipe'), on=f>=T_CARD+2*BEAT-4&&f<T_CARD+3*BEAT+12; cs.style.opacity=on?1:0;
+ cs.style.left=(150+110+40+300-sc*300-45+x)+'px'; cs.style.top=(520+300+Math.sin(sc*Math.PI*6)*14)+'px';
+}
+function sApp(f){ if(!layer('sApp',T_FREE-6,T_CRED+4)) return;
+ const out=seg(f,T_CRED-8,T_CRED+2);
+ const hf=$('hFree'), hp=seg(f,T_FREE+2,T_FREE+14); pop(hf,hp,20); hf.style.opacity=E.oc(cl(hp*2))*(1-out);
+ FREE.forEach((x,i)=>{const a=T_FREE+10+i*2*BEAT, p=seg(f,a,a+12), el=$('fr'+i); pop(el,p,0,0.8); el.style.transform+=` translateX(${(1-E.oc(p))*-80}px)`; el.style.opacity=E.oc(cl(p*2))*(1-out);});
+ const hpd=$('hPaid'), pp=seg(f,T_PAID+2,T_PAID+14); pop(hpd,pp,20); hpd.style.opacity=E.oc(cl(pp*2))*(1-out);
+ PAID.forEach((x,i)=>{const a=T_PAID+10+i*2*BEAT, p=seg(f,a,a+12), el=$('pd'+i); pop(el,p,0,0.8); el.style.transform+=` translateX(${(1-E.oc(p))*-80}px)`; el.style.opacity=E.oc(cl(p*2))*(1-out);
+  const cp=seg(f,a+12,a+22), co=$('pc'+i); co.style.opacity=E.oc(cl(cp*3))*(1-out); co.style.transform=`translateY(${(1-E.ic(cp))*-160}px) rotate(${(1-cp)*-180}deg)`;});
+}
+function sCred(f){ if(!layer('sCred',T_CRED-4,T_PLANS+4)) return;
+ const out=seg(f,T_PLANS-8,T_PLANS+2), pin=E.oc(seg(f,T_CRED,T_CRED+14));
+ const n=72-(f>=T_CRED+2*BEAT+10?1:0)-(f>=T_CRED+5*BEAT+10?1:0);
+ const shown=f<T_MIX?n:72;
+ // coin stack (12 visible coins; two fly off)
+ let st=''; for(let i=0;i<12;i++){const cy=900-i*30-(1-pin)*100; st+=`<ellipse cx="300" cy="${cy+12}" rx="150" ry="44" fill="#1565C0"/><ellipse cx="300" cy="${cy}" rx="150" ry="44" fill="url(#cg)" stroke="#fff" stroke-width="4"/>`;}
+ const flyC=(a,tx,ty)=>{const p=E.io(seg(f,a,a+12)); if(p<=0||p>=1) return ''; const x=lerp(300,tx,p), y=lerp(570,ty,p)-Math.sin(p*Math.PI)*180;
+  return `<ellipse cx="${x}" cy="${y}" rx="${lerp(150,40,p)}" ry="${lerp(44,40,p)}" fill="url(#cg)" stroke="#fff" stroke-width="4"/>`;};
+ $('stack').innerHTML=`<defs><radialGradient id="cg" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#78CDFF"/><stop offset=".6" stop-color="#2196F3"/><stop offset="1" stop-color="#1565C0"/></radialGradient></defs>
+  <g opacity="${pin*(1-out)}">${st}</g>`+flyC(T_CRED+2*BEAT,900,1160)+flyC(T_CRED+5*BEAT,900,1355);
+ const nm=$('cNum'); nm.textContent=fa(shown); nm.style.opacity=pin*(1-out); nm.style.transform=`scale(${1+0.08*Math.exp(-Math.pow((f-T_CRED-2*BEAT-10)/4,2))+0.08*Math.exp(-Math.pow((f-T_CRED-5*BEAT-10)/4,2))})`;
+ $('cLbl').style.opacity=pin*(1-out);
+ const u1=$('useAI'), p1=seg(f,T_CRED+2*BEAT,T_CRED+2*BEAT+12); pop(u1,p1,30); u1.style.opacity=E.oc(cl(p1*2))*(1-seg(f,T_MIX-8,T_MIX));
+ [0,1,2,3,4].forEach(i=>{const q=seg(f,T_CRED+3*BEAT+i*4,T_CRED+3*BEAT+i*4+6); const e=$('q'+i); e.style.opacity=E.oc(q); e.style.display='inline-block'; e.style.transform=`scale(${q<=0?0.4:lerp(0.4,1,E.back(q))})`;});
+ const u2=$('useTrip'), p2=seg(f,T_CRED+5*BEAT,T_CRED+5*BEAT+12); pop(u2,p2,30); u2.style.opacity=E.oc(cl(p2*2))*(1-seg(f,T_MIX-8,T_MIX));
+ const mx=$('mix'), pm=seg(f,T_MIX,T_MIX+12); pop(mx,pm,30); mx.style.opacity=E.oc(cl(pm*2))*(1-out);
+ $('mxA').style.width=(E.io(seg(f,T_MIX+10,T_MIX+10+BEAT*1.5))*40/72*100)+'%';
+ $('mxB').style.width=(E.io(seg(f,T_MIX+10+BEAT*2,T_MIX+10+BEAT*3.5))*32/72*100)+'%';
+ const t=seg(f,T_MIX+10+BEAT*4,T_MIX+20+BEAT*4); $('mxT').style.opacity=E.oc(t); $('mxT').style.transform=`scale(${lerp(0.8,1,E.back(t))})`;
+}
+function sPlans(f){ if(!layer('sPlans',T_PLANS-4,T_TRUST+4)) return;
+ const out=seg(f,T_TRUST-8,T_TRUST+2);
+ [0,1].forEach(i=>{const a=T_PLANS+6+i*2*BEAT, p=seg(f,a,a+14), el=$('pl'+i); pop(el,p,50); el.style.opacity=E.oc(cl(p*2))*(1-out);});
+}
+function sTrust(f){ if(!layer('sTrust',T_TRUST-4,T_COMP+4)) return;
+ const out=seg(f,T_COMP-8,T_COMP+2), c=$('trust'), pin=seg(f,T_TRUST,T_TRUST+12); pop(c,pin,40); c.style.opacity=E.oc(cl(pin*2))*(1-out);
+ TR.forEach((r,i)=>{const a=T_TRUST+8+i*2*BEAT, p=seg(f,a,a+10), el=$('tr'+i); el.style.opacity=lerp(0.15,1,E.oc(p));
+  const ic=el.querySelector('.c'); ic.style.transform=`scale(${p<=0?0.5:lerp(0.5,1,E.back(p))})`; ic.style.boxShadow=`0 0 0 ${10*Math.exp(-Math.pow((f-a-4)/4,2))}px rgba(34,160,80,.22)`;});
+ document.querySelectorAll('#trust .tx').forEach(t=>{const w=t.scrollWidth; if(w>700){t.style.display='inline-block';t.style.transform=`scale(${700/w})`;t.style.transformOrigin='100% 50%';}});
+}
+function sComp(f){ if(!layer('sComp',T_COMP-4,T_END+4)) return;
+ const out=seg(f,T_END-8,T_END+2), L=$('sComp'); L.style.opacity=E.oc(seg(f,T_COMP-4,T_COMP+8))*(1-out);
+ [0,1].forEach(i=>{const b=$('cb'+i); b.style.width=(E.io(seg(f,T_COMP+8+i*BEAT*2,T_COMP+8+i*BEAT*2+BEAT*1.5))*b.dataset.w)+'%';});
+ [['cp1',T_COMP+5*BEAT],['cp2',T_COMP+6*BEAT]].forEach(([id,a])=>{const p=seg(f,a,a+12); pop($(id),p,24,0.7);});
+}
+/* phone: activation (bar 7), quick access with free / paid tiles (bars 8-11) */
+function tapAt(f,a,el){const t=f-a; const d=$('tap'); if(t<-4||t>14) return false;
+ const r=el.getBoundingClientRect(), pg=el.closest('.scr').getBoundingClientRect(), sc=$('screen').getBoundingClientRect(), k=sc.width/572;
+ d.style.left=(11+(r.left+r.width/2-pg.left)/k)+'px'; d.style.top=(11+(r.top+r.height/2-pg.top)/k)+'px';
+ d.style.opacity=t<0?seg(t,-4,0):1-seg(t,4,14); d.style.transform=`scale(${t<0?1.2-0.2*seg(t,-4,0):1+0.6*seg(t,0,14)})`; return true;}
+function phone(f){
+ const ph=$('phone'); if(f<T_PH||f>=T_CRED+2){ph.style.display='none';return} ph.style.display='block';
+ // rises fast; for the free/paid lists it shrinks to the left
+ const up=E.oc(seg(f,T_PH,T_PH+12)), sh=E.io(seg(f,T_FREE-6,T_FREE+10)), out=seg(f,T_CRED-8,T_CRED+2);
+ ph.style.opacity=1-out; ph.style.transform=`translate(${lerp(0,-170,sh)}px,${lerp(1500,0,up)+lerp(0,60,sh)}px) scale(${lerp(1,0.62,sh)})`;
+ const sub=f<T_FREE; $('sc_sub').style.display=sub?'block':'none'; $('sc_qa').style.display=sub?'none':'block';
+ let tapped=false;
+ if(sub){const code='۳۸۱۵۷۲', n=Math.round(code.length*seg(f,T_PH+24,T_PH+34)); $('codeIn').textContent=code.slice(0,n);
+  tapped=tapAt(f,T_PH+40,$('actBtn'))||tapped; $('actBtn').style.transform=`scale(${1-0.05*Math.exp(-Math.pow((f-T_PH-41)/3,2))})`;
+  const g=seg(f,T_PH+44,T_PH+54), gp=$('goldPlan'); gp.style.opacity=lerp(0.35,1,E.oc(g)); gp.style.boxShadow=`0 0 0 ${10*Math.exp(-Math.pow((f-T_PH-50)/6,2))}px rgba(246,205,92,.45)`;
+  const ok=seg(f,T_PH+50,T_PH+58); $('goldOk').style.opacity=E.oc(ok); $('goldOk').style.transform=`scale(${lerp(0.6,1,E.back(ok))})`;}
+ else {
+  const hl=(id,a,c)=>{const h=Math.exp(-Math.pow((f-a-4)/6,2)); $(id).firstChild.style.boxShadow=`0 0 0 ${8*h}px rgba(${c},${0.35*h})`; $(id).firstChild.style.transform=`scale(${1+0.06*h})`;};
+  ['q_ecu','q_mon','q_bat','q_trd'].forEach((id,i)=>hl(id,T_FREE+10+i*2*BEAT,'34,160,80'));
+  ['q_ai','q_trip'].forEach((id,i)=>hl(id,T_PAID+10+i*2*BEAT,'33,150,243'));
+  $('qaCred').textContent='۷۲';
+ }
+ if(!tapped) $('tap').style.opacity=0;
+}
+function render(f){
+ F=f;
+ TITLES.forEach((t,i)=>{const el=$('t'+i); const pin=E.oc(seg(f,t.a,t.a+9)), pout=E.ic(seg(f,t.b-6,t.b));
+  const o=pin*(1-pout); el.style.opacity=o; el.style.transform=`translateY(${(1-pin)*28-pout*14}px)`; el.style.display=o<=0.001?'none':'block';});
+ sCase(f); sDiag(f); sCard(f); sApp(f); sCred(f); sPlans(f); sTrust(f); sComp(f); phone(f);
+ renderEnd(f);
+}
+</script>
+<script src="endcard.js"></script>
+<script>
+initEnd(null,{t0:T_END});
+window.READY=document.fonts.ready.then(()=>{fitTitles();render(0);return true});
+const q=new URLSearchParams(location.search); if(q.has('f')) window.READY.then(()=>render(+q.get('f')));
+</script>
+</body>
+</html>
