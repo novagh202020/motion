@@ -1,0 +1,56 @@
+<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8"><title>CarDiag Business Card</title>
+<style>
+/* 90x60mm trim + 3mm bleed each side = 96x66mm page */
+@font-face{font-family:V;src:url(../fonts/Vazirmatn-FD-Black.ttf);font-weight:900}
+@font-face{font-family:V;src:url(../fonts/Vazirmatn-FD-ExtraBold.ttf);font-weight:800}
+@font-face{font-family:V;src:url(../fonts/Vazirmatn-FD-Bold.ttf);font-weight:700}
+@font-face{font-family:V;src:url(../fonts/Vazirmatn-FD-Medium.ttf);font-weight:500}
+:root{--blue:#2196F3;--deep:#1565C0;--navy:#10203C;--slate:#6E7D96;--glow:#78CDFF;--hair:#DEE6F2}
+@page{size:96mm 66mm;margin:0}
+*{margin:0;box-sizing:border-box}
+body{font-family:V,sans-serif;background:#fff}
+.page{width:96mm;height:66mm;position:relative;overflow:hidden;page-break-after:always}
+.safe{position:absolute;inset:7mm}              /* 3mm bleed + 4mm safe margin */
+.ltr{direction:ltr;unicode-bidi:isolate}
+/* FRONT */
+.front{background:radial-gradient(120% 120% at 15% 10%,#42A9FF 0%,var(--blue) 45%,#1A86E0 100%)}
+.front .pulse{position:absolute;left:-8mm;right:-8mm;bottom:11mm;height:10mm;opacity:.16}
+.front .logo{position:absolute;left:0;right:0;top:6mm;display:flex;justify-content:center}
+.front .brand{position:absolute;left:0;right:0;top:28mm;text-align:center;font-weight:900;font-size:10.5mm;color:#fff;letter-spacing:.2mm}
+.front .tag{position:absolute;left:0;right:0;bottom:3mm;text-align:center;font-weight:700;font-size:3.9mm;color:#fff;opacity:.92}
+/* BACK */
+.back{background:linear-gradient(180deg,#FBFCFF,#ECF3FC)}
+.back .bar{position:absolute;top:0;bottom:0;right:0;width:6mm;background:var(--blue)}   /* bleeds off right edge */
+.back .name{position:absolute;right:3mm;top:0;font-weight:900;font-size:6.2mm;color:var(--navy)}
+.back .role{position:absolute;right:3mm;top:9.5mm;font-weight:500;font-size:3.5mm;color:var(--slate)}
+.back .rows{position:absolute;right:3mm;top:19mm;display:grid;gap:3.1mm;font-size:3.7mm;color:var(--navy);font-weight:700}
+.row{display:flex;align-items:center;gap:2.6mm}
+.dot{width:6.2mm;height:6.2mm;border-radius:50%;background:var(--blue);display:grid;place-items:center;flex:none}
+.dot svg{width:3.6mm;height:3.6mm;fill:#fff}
+.back .url{color:#506482}
+.back .mini{position:absolute;left:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:1mm}
+.back .mini b{font-weight:900;font-size:3.6mm;color:var(--deep);direction:ltr}
+.back .diag{position:absolute;left:-1mm;top:1mm;width:25mm;filter:drop-shadow(0 1.2mm 1.4mm rgba(20,40,80,.28))}
+</style>
+<body>
+<!-- FRONT -->
+<section class="page front"><div class="safe">
+ <div class="logo"><svg id="L1" width="46mm" viewBox="0 0 400 144"></svg></div>
+ <div class="brand ltr">CarDiag AI</div>
+ <div class="tag">نبض ماشینت رو بگیر</div>
+</div></section>
+<!-- BACK -->
+<section class="page back"><div class="bar"></div><div class="safe">
+ <div class="name">نام و نام‌خانوادگی</div>
+ <div class="role">سمت · CarDiag AI</div>
+ <div class="rows">
+  <div class="row"><span class="dot"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><span class="ltr">۰۹۱۲ ۱۲۳ ۴۵۶۷</span></div>
+  <div class="row"><span class="dot"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.9 9h-3a15.7 15.7 0 00-1.4-6A8 8 0 0118.9 11zM12 4c.8 1 1.6 3 1.9 7h-3.8c.3-4 1.1-6 1.9-7zM4.3 13h3a15.7 15.7 0 001.4 6A8 8 0 014.3 13zm3-2h-3a8 8 0 014.4-6 15.7 15.7 0 00-1.4 6zM12 20c-.8-1-1.6-3-1.9-7h3.8c-.3 4-1.1 6-1.9 7zm2.5-1a15.7 15.7 0 001.4-6h3A8 8 0 0114.5 19z"/></svg></span><span class="ltr url">cardiag.ir</span></div>
+  <div class="row"><span class="dot"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm5.5-3.2a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg></span><span class="ltr">@cardiag.ir</span></div>
+ </div>
+ <div class="mini"><img src="../assets/diag_front.png" style="width:24mm;filter:drop-shadow(0 1.2mm 1.4mm rgba(20,40,80,.28))"></div>
+</div></section>
+<script>
+const LOGO=(c,sw=7)=>`<path d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="${c}" stroke-width="${sw*1.6}" stroke-linecap="round" stroke-linejoin="round"/><circle cx="104" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/><circle cx="188" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/>`;
+document.getElementById('L1').innerHTML=LOGO('#fff');document.getElementById('L1').innerHTML='<g transform="translate(400 0) scale(-1 1)">'+document.getElementById('L1').innerHTML+'</g>';
+</script>
