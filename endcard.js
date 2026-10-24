@@ -1,9 +1,11 @@
 /* Shared end card: diag + phone (home screen) joined by a live link, brand, offer, url.
-   Usage: initEnd(parent, {health, healthColor, t0, beats}); then call renderEnd(f) every frame (T0 = 817.5). */
+   Usage: initEnd(parent, {health, healthColor, t0, beats, handle}); then call renderEnd(f) every frame (T0 = 817.5). */
 (function(){
 let T0=817.5;                                   // end-card start frame (opts.t0 for longer motions)
 let H=92;                                         // health % shown on the phone (opts.health)
 let BEATS=null;                                   // heartbeats [[frame, amp]...] (opts.beats); default T0+50.5 / T0+67.5
+let HANDLE=0;                                     // opts.handle: instagram id under the url (ads on other pages)
+const HANDLE_IC='<svg width="48" height="48" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#1565C0" stroke-width="2.2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="#1565C0" stroke-width="2.2"/><circle cx="17.3" cy="6.7" r="1.3" fill="#1565C0"/></svg>';
 const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
 const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
 const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
@@ -65,9 +67,11 @@ window.initEnd=function(parent,opts){
  <div id="ecBuy" style="position:absolute;left:0;top:1245px;width:1080px;text-align:center;font-weight:800;font-size:58px;color:#10203C;direction:rtl">دیاگ رو بخر،</div>
  <div id="ecGold" style="position:absolute;left:50%;top:1340px;height:108px;padding:0 54px;border-radius:54px;transform:translateX(-50%);
    background:linear-gradient(90deg,#F6CD5C 0%,#FFEA9C 50%,#E0A82C 100%);color:#4B3005;font-weight:800;font-size:54px;display:flex;align-items:center;gap:18px;white-space:nowrap;direction:rtl;box-shadow:0 18px 40px rgba(20,40,80,.18)">${sv('gift','#4B3005',56)}اشتراک طلایی هدیه بگیر</div>
- <div id="ecUrl" style="position:absolute;left:0;top:1484px;width:1080px;text-align:center;font-weight:700;font-size:56px;color:#506482;direction:ltr">cardiag.ir</div>`;
+ <div id="ecUrl" style="position:absolute;left:0;top:1484px;width:1080px;text-align:center;font-weight:700;font-size:56px;color:#506482;direction:ltr">cardiag.ir</div>
+ <div id="ecHandle" style="position:absolute;left:0;top:1580px;width:1080px;text-align:center;direction:ltr;display:none"><span style="display:inline-flex;align-items:center;gap:14px;height:84px;padding:0 36px;border-radius:42px;background:#E3EFFC;color:#1565C0;font-weight:900;font-size:50px">${HANDLE_IC}<span id="ecHandleT"></span></span></div>`;
  (parent||document.getElementById('stage')||document.body).appendChild(d);
  if(opts.healthColor) document.getElementById('ecNum').style.color=opts.healthColor;
+ if(opts.handle){HANDLE=1; document.getElementById('ecHandle').style.display='block'; document.getElementById('ecHandleT').textContent=opts.handle;}
 };
 
 window.renderEnd=function(f){
@@ -95,5 +99,6 @@ window.renderEnd=function(f){
  const by=E.oc(seg(t,24,34)); const b2=document.getElementById('ecBuy'); b2.style.opacity=by; b2.style.transform=`translateY(${(1-by)*24}px)`;
  const gp=seg(t,30,44); const g=document.getElementById('ecGold'); g.style.opacity=E.oc(seg(t,30,36)); g.style.transform=`translateX(-50%) scale(${gp<=0?0.6:lerp(0.6,1,E.back(gp))})`;
  const ui=E.oc(seg(t,40,52)); const u=document.getElementById('ecUrl'); u.style.opacity=ui; u.style.transform=`translateY(${(1-ui)*24}px)`;
+ if(HANDLE){const hi=E.back(seg(t,46,60)), hd=document.getElementById('ecHandle'); hd.style.opacity=E.oc(seg(t,46,52)); hd.style.transform=`scale(${lerp(0.7,1,hi)*(1+0.04*beat)})`;}
 };
 })();

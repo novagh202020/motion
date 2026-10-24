@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>Ad · CarDiag Trip Analysis</title>
+<style>
+@font-face{font-family:V;font-weight:400;src:url(fonts/Vazirmatn-FD-Regular.ttf)}
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:600;src:url(fonts/Vazirmatn-FD-SemiBold.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+:root{--blue:#2196F3;--deep:#1565C0;--navy:#10203C;--slate:#6E7D96;--hair:#DEE6F2;--appbg:#EEF2F8;--red:#DC3232;--green:#22A050}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FBFCFF}
+body{font-family:V,sans-serif;color:#10203C}
+#stage{position:absolute;inset:0;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+.ttl{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;z-index:50;opacity:0}
+.ttl .h{font-weight:900;font-size:84px;line-height:1.15;color:#10203C;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:12px;height:76px;padding:0 32px;border-radius:38px;background:#DEF6E6;color:#22A050;font-weight:700;font-size:40px;white-space:nowrap}
+
+/* ---------- phone ---------- */
+#phone{position:absolute;left:240px;top:390px;width:600px;height:1290px;border-radius:78px;background:#181C24;border:3px solid #5F6878;transform-origin:50% 0;
+ box-shadow:0 50px 90px rgba(20,40,80,.28),0 12px 26px rgba(20,40,80,.18);z-index:10;display:none}
+#screen{position:absolute;left:11px;top:11px;width:572px;height:1262px;border-radius:66px;overflow:hidden;clip-path:inset(0 round 66px);isolation:isolate;background:var(--appbg)}
+#notch{position:absolute;left:50%;top:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#0b0e13;z-index:30}
+.scr{position:absolute;left:0;top:0;width:572px;height:1262px;background:var(--appbg);direction:rtl;overflow:hidden;font-family:V;display:none}
+.sbar{height:48px;display:flex;justify-content:space-between;align-items:center;padding:6px 40px 0;font-weight:700;font-size:19px;direction:ltr}
+.appbar{background:var(--blue);color:#fff}
+.abar{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;direction:rtl}
+.abar .t{font-weight:800;font-size:29px;display:flex;align-items:center;gap:14px}
+.abar .help{font-weight:500;font-size:19px;display:flex;align-items:center;gap:6px}
+.tabs{height:62px;display:flex;background:#F7F8FC}
+.tabs div{flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;color:#98A3B8;position:relative}
+.tabs div.on{color:var(--blue)}
+.tabs div.on:after{content:"";position:absolute;bottom:0;width:90px;height:4px;border-radius:3px;background:var(--blue)}
+.card{background:#fff;border:2px solid var(--hair);border-radius:24px;margin:14px 18px;padding:18px 20px;box-shadow:0 6px 16px rgba(20,40,80,.05)}
+.btn{height:62px;border-radius:31px;background:var(--blue);color:#fff;font-weight:700;font-size:23px;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn.o{background:#fff;border:2px solid var(--hair);color:var(--slate)}
+.nav{position:absolute;left:0;bottom:0;width:572px;height:96px;background:var(--blue);display:flex;padding-bottom:6px;z-index:5}
+.nav div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:17px;gap:4px}
+.nav .pillon{width:84px;height:38px;border-radius:19px;background:rgba(255,255,255,.26);display:flex;align-items:center;justify-content:center}
+.tapdot{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:5px solid rgba(33,150,243,.9);background:rgba(33,150,243,.15);opacity:0;z-index:40}
+.tile{background:#fff;border:2px solid var(--hair);border-radius:24px;height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-weight:700;font-size:20px;white-space:nowrap}
+.tile .ib{width:62px;height:62px;border-radius:18px;background:#E3EFFC;display:flex;align-items:center;justify-content:center}
+.row{height:112px;display:flex;align-items:center;gap:14px;padding:0 18px;direction:rtl}
+.row .nm{font-weight:800;font-size:23px;color:#C62828;direction:ltr;text-align:right}
+.row .mac{font-weight:500;font-size:16px;color:#6E7D96;direction:ltr;text-align:right;margin-top:2px}
+.row .tg{font-weight:800;font-size:15px;color:#fff;border-radius:8px;padding:3px 10px;text-align:center}
+/* ---------- floating cards ---------- */
+.fc{position:absolute;left:110px;top:1430px;width:860px;background:#fff;border:3px solid var(--hair);border-radius:40px;
+ box-shadow:0 30px 60px rgba(20,40,80,.20),0 8px 18px rgba(20,40,80,.10);direction:rtl;padding:30px 40px;opacity:0;z-index:20;transform-origin:50% 100%;display:none}
+.fc .ct{font-weight:800;font-size:50px;color:var(--navy);line-height:1.2}
+.fc .sub{font-weight:500;font-size:38px;color:var(--slate);line-height:1.35}
+.big{font-weight:900;font-size:70px;line-height:1}
+.pill{display:inline-flex;align-items:center;gap:10px;height:66px;padding:0 26px;border-radius:33px;font-weight:700;font-size:40px;white-space:nowrap}
+</style></head><body>
+<div id="stage">
+<style>
+/* trip screen: PID cards like the app */
+.pc{background:#fff;border:2px solid var(--hair);border-radius:16px;height:128px;padding:10px 14px;box-shadow:0 4px 10px rgba(20,40,80,.05);opacity:0}
+.pc .pid{font-weight:800;font-size:15px;color:#2196F3;direction:ltr;text-align:right}
+.pc .pl{font-weight:600;font-size:16px;color:#33415C;margin-top:4px;white-space:nowrap}
+.pc .pv{font-weight:900;font-size:26px;color:#10203C;margin-top:12px;text-align:right;direction:ltr;unicode-bidi:isolate;white-space:nowrap}
+/* pulled-out big cards + side cards */
+.bc{position:absolute;background:#fff;border:3px solid var(--hair);border-radius:32px;box-shadow:0 26px 54px rgba(20,40,80,.18),0 6px 14px rgba(20,40,80,.08);direction:rtl;padding:16px 28px;transform-origin:0 0;display:none;z-index:22}
+.bc .hd{display:flex;align-items:center;justify-content:space-between}
+.bc .lb{font-weight:800;font-size:32px;color:#10203C;white-space:nowrap}
+.bc .cd{font-weight:800;font-size:24px;color:#2196F3;background:#E3EFFC;border-radius:12px;padding:2px 12px;direction:ltr}
+.bc .vl{font-weight:900;font-size:48px;line-height:1.15;margin-top:0;direction:ltr;unicode-bidi:isolate;text-align:right;white-space:nowrap}
+.sc{position:absolute;width:290px;background:#fff;border:3px solid var(--hair);border-radius:32px;box-shadow:0 20px 44px rgba(20,40,80,.16);direction:rtl;padding:16px 24px;display:none;z-index:22}
+.sc .lb{font-weight:700;font-size:28px;color:#6E7D96;white-space:nowrap}
+.sc .vl{font-weight:900;font-size:54px;line-height:1.15;color:#10203C;direction:ltr;unicode-bidi:isolate;text-align:right;white-space:nowrap}
+/* full report document */
+#doc{position:absolute;left:60px;top:290px;width:960px;height:1580px;border-radius:40px;background:#fff;border:3px solid #DEE6F2;box-shadow:0 40px 80px rgba(20,40,80,.22);overflow:hidden;transform-origin:0 0;display:none;z-index:24;direction:rtl}
+#doc_in{position:relative;padding:30px 34px}
+.dh{display:flex;align-items:center;gap:26px;border-radius:30px;background:linear-gradient(135deg,#1E88E5,#2196F3);color:#fff;padding:34px 36px}
+.ds{display:flex;align-items:center;gap:16px;margin:34px 0 14px;padding:18px 24px;background:#F4F6FA;border-radius:20px;font-weight:800;font-size:38px;color:#1565C0}
+.ds:before{content:"";width:8px;height:38px;border-radius:4px;background:#2196F3}
+.dr{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:0 8px;padding:14px 6px;border-bottom:2px solid #E6EBF2;font-size:31px}
+.dr span{color:#6E7D96;font-weight:500;white-space:nowrap}.dr b{font-weight:800;text-align:left}
+.db{display:flex;align-items:center;gap:20px;margin:16px 8px;font-size:31px;font-weight:700}
+.db .l{width:220px;white-space:nowrap}.db .v{width:90px;text-align:left;font-weight:900}
+.db .tr,.tr2{flex:1;height:36px;border-radius:18px;background:#E6EBF2;overflow:hidden;direction:ltr}
+.tr2{height:30px}
+.fi{height:100%;width:0;border-radius:18px}
+.dn{margin:14px 8px 0;font-size:28px;color:#6E7D96}
+.dc{margin:18px 0;border:3px solid #E6EBF2;border-radius:24px;overflow:hidden;background:#fff}
+.dc .h{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 24px;font-weight:800;font-size:33px}
+.dc .b{padding:16px 24px 22px;font-size:29px;line-height:1.7;color:#33415C}
+.dp{font-weight:800;font-size:24px;padding:5px 18px;border-radius:14px;white-space:nowrap}
+.dt{margin:0 4px;border-radius:18px;overflow:hidden;border:2px solid #E6EBF2}
+.dt .th,.tr3{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;padding:14px 20px;font-size:28px;text-align:center}
+.dt .th{background:#2196F3;color:#fff;font-weight:800}
+.tr3{border-top:2px solid #EEF2F8;font-weight:700}
+.tr3 span:first-child,.dt .th span:first-child{text-align:right}
+.ck2{display:flex;justify-content:space-between;align-items:center;margin:0 4px;padding:12px 22px;border-right:8px solid;border-bottom:2px solid #EEF2F8;font-size:29px;font-weight:700}
+.td{display:flex;align-items:center;gap:20px;margin:14px 4px;padding:20px 22px;border-radius:20px;background:#F4F6FA;border-right:8px solid;font-size:30px;font-weight:700}
+/* pdf fan */
+.pg{position:absolute;left:-165px;top:-466px;width:330px;height:466px;background:#fff;border-radius:16px;box-shadow:0 24px 50px rgba(20,40,80,.22);transform-origin:50% 100%;overflow:hidden;direction:rtl;padding:22px}
+.pg .ln{height:11px;border-radius:6px;background:#E6EBF2;margin-top:12px}
+</style>
+ <!-- ===== scene A: on the road (hook) ===== -->
+ <div id="road" class="a" style="left:0;top:0;width:1080px;height:1920px;opacity:0;transform-origin:540px 1060px">
+  <svg width="1080" height="1920" class="a" style="left:0;top:0">
+   <defs>
+    <linearGradient id="hl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6E8FB"/><stop offset="1" stop-color="#E9F2FD" stop-opacity="0"/></linearGradient>
+    <filter id="csh" x="-20%" y="-40%" width="140%" height="190%"><feDropShadow dx="0" dy="26" stdDeviation="22" flood-color="#142850" flood-opacity=".22"/></filter>
+   </defs>
+   <g id="hills"></g>
+   <rect x="-60" y="1262" width="1200" height="96" fill="#DCE4EF"/><rect x="-60" y="1262" width="1200" height="7" fill="#C9D4E4"/>
+   <g id="dashes"></g>
+   <g id="waves"></g>
+   <g id="links"></g>
+   <g id="car" transform="translate(540 1110) scale(1.28)">
+    <g filter="url(#csh)">
+     <path d="M-300 70 L-300 18 Q-300 -4 -276 -8 L-196 -16 L-138 -70 Q-124 -84 -100 -84 L118 -84 Q142 -84 156 -66 L202 -14 L250 -8 Q276 -2 276 24 L276 70 Q276 86 260 86 L-284 86 Q-300 86 -300 70 Z" fill="#2196F3"/>
+    </g>
+    <path d="M-120 -14 L-92 -60 L-8 -60 L-8 -14 Z M10 -60 L106 -60 L144 -14 L10 -14 Z" fill="#ADD6FA"/>
+    <rect x="-302" y="16" width="26" height="16" rx="5" fill="#FFEA9C"/><rect x="254" y="16" width="22" height="16" rx="5" fill="#DC3232" opacity=".85"/>
+    <rect x="-40" y="10" width="34" height="8" rx="4" fill="#1565C0"/><rect x="276" y="62" width="22" height="12" rx="4" fill="#5F6878"/>
+    <g id="w1" transform="translate(-170 86)"></g><g id="w2" transform="translate(160 86)"></g>
+   </g>
+  </svg>
+  <div id="hk"></div>
+ </div>
+
+ <!-- ===== scene B: under the dashboard ===== -->
+ <div id="dash" style="position:absolute;inset:0;opacity:0;display:none">
+  <svg width="1080" height="1920" class="a" style="left:0;top:0">
+   <defs><linearGradient id="pan2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A3650"/><stop offset="1" stop-color="#1B2438"/></linearGradient></defs>
+   <g>
+    <rect x="-40" y="520" width="1160" height="900" rx="70" fill="url(#pan2)"/>
+    <rect x="-40" y="520" width="1160" height="16" rx="8" fill="#3A4866"/>
+    <rect x="90" y="640" width="900" height="6" rx="3" fill="#33415C"/>
+    <rect x="90" y="1320" width="900" height="6" rx="3" fill="#33415C"/>
+    <g transform="translate(330 1015)">
+     <path d="M-150 -78 L150 -78 Q168 -78 164 -60 L140 66 Q136 82 118 82 L-118 82 Q-136 82 -140 66 L-164 -60 Q-168 -78 -150 -78 Z" fill="#0E1422" stroke="#5F6878" stroke-width="6"/>
+     <g id="pins"></g>
+     <text x="0" y="140" text-anchor="middle" font-family="V" font-weight="800" font-size="34" fill="#6E7D96">OBD</text>
+    </g>
+   </g>
+  </svg>
+  <div id="flash" class="a" style="left:180px;top:865px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(120,205,255,.95),rgba(120,205,255,0) 70%);opacity:0"></div>
+  <svg id="bt" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="diagWrap" class="a" style="left:0;top:0;width:560px;height:418px;transform-origin:50% 50%">
+   <img src="assets/diag_plug.png" style="width:560px;height:418px;transform:scaleX(-1)">
+  </div>
+ </div>
+
+ <div id="doc"><div id="doc_in"></div></div>
+ <div id="fanW" class="a" style="left:540px;top:1330px;width:0;height:0;display:none;z-index:15"><div id="fan"></div>
+  <div id="fanChip" class="a" style="left:-400px;top:56px;width:800px;text-align:center;opacity:0"><span class="pill" style="height:84px;font-size:42px;padding:0 36px;background:#2196F3;color:#fff;font-weight:800;box-shadow:0 18px 40px rgba(33,150,243,.3)"><svg width="46" height="46" viewBox="0 0 24 24"><path fill="#fff" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>گزارش ۵ صفحه‌ای <span class="ltr">PDF</span></span></div></div>
+ <!-- ===== phone ===== -->
+ <div id="phone"><div id="notch"></div><div id="screen"></div><div class="tapdot" id="tap"></div></div>
+ <div id="pull"></div>
+ <div id="fcs"></div>
+ <div id="titles"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
+const imp=(f,k,d=4)=>f>=k?Math.exp(-(f-k)/d):0;
+const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
+const vis=(el,o)=>{el.style.opacity=o; el.style.display=o<=0.001?'none':'block';};
+
+/* ---------- timeline (frames @30fps; bar = 67.5, beat = 16.875, groove downbeat at 210) ---------- */
+const B=k=>210+67.5*k, BT=n=>210+16.875*n;
+const T_PH=196;                         // phone enters with splash
+const T_HOME=244;                       // splash -> home
+/* very fast connect (≈2 s) */
+const T_CONN=BT(2.75);
+const T_SEARCH=BT(3.5);
+const T_DEV=[BT(4),BT(4.15),BT(4.3),BT(4.45),BT(4.6)];
+const T_PICK=BT(5);
+const T_BACK=T_PICK+4;
+const T_STEP=[T_BACK+6,BT(5.75),BT(6.25)];
+const T_OK=BT(6.75);
+const T_TILE=BT(9);                     // tap "سفر" (home stays a moment after "connected")
+const T_SCAN=BT(13);                    // tap "اسکن ECU" after the guide was readable -> PID cards appear
+const T_GO=BT(17);                      // tap "شروع سفر"
+const T_FIN=BT(29);                     // 20:00 reached
+const T_REP=BT(31);                     // full report document grows out of the phone
+const T_RECAP=B(13), T_END=T_RECAP+67.5;// song: 5 extra groove bars (song/extend.py) -> recap and end card 11.25 s later
+const NF=Math.ceil(T_END+82.5);         // 1238 frames ≈ 41.3 s
+const T_DOC0=T_REP+22, N_DOC=11, T_DOC=i=>T_DOC0+i*(T_RECAP-62-T_DOC0)/(N_DOC-1);   // report document: 11 scroll stops, the last ('what to do') holds ~1.6 s
+const T_SHRINK=T_GO+10, T_PULL=T_GO+26, T_BACKIN=T_FIN-16;
+const TRIP=1200;                        // seconds (20 min)
+
+/* ---------- drive profile (trip seconds s) ---------- */
+const sm=(x,a,b)=>{const t=cl((x-a)/(b-a));return t*t*(3-2*t)};
+const tripS=f=>f<T_GO?0:TRIP*Math.pow(seg(f,T_GO,T_FIN-8),1.3);
+function V(f){
+ const s=tripS(f), run=f>=T_GO, hw=sm(s,520,600)*(1-sm(s,880,960));
+ let spd=run?Math.max(0,38+30*Math.sin(s/41)+12*Math.sin(s/13)):0;
+ spd=lerp(spd,72+6*Math.sin(s/23),hw); if(s<15||s>1188) spd=0; spd=Math.min(spd,79);
+ const acc=Math.max(0,Math.sin(s/7.3))*(spd>2?1:0);
+ const rpm=spd<2?820+25*Math.sin(f*0.7):Math.min(2950,1150+spd*20+520*acc);
+ const load=cl(19+0.42*spd+38*acc+2*Math.sin(f*0.9),15,88)+(run?0:50);
+ const map=Math.round(26+0.78*load);
+ const L=sm(s,260,720);                                     // lean drift
+ const sw=0.5+0.5*Math.tanh(3.2*Math.sin(f*0.62+0.8*Math.sin(f*0.17)));
+ const o21=0.1+(0.8-0.5*L)*Math.pow(sw,1+1.6*L)+0.015*Math.sin(f*3.1);
+ const o22=0.62-0.26*L+0.02*Math.sin(f*0.21);
+ const ltft=4+14*sm(s,180,1000), stft=6+3*Math.sin(f*0.37)+1.2*L;
+ const ect=25+64*E.oc(seg(s,0,540)), iat=31+13*seg(s,0,700);
+ const adv=8+0.006*rpm+3*Math.sin(f*0.5), thr=cl(3+0.7*(load-18)*(run?1:0),3,85);
+ const km=14.2*seg(s,0,TRIP)*(1-0.04*Math.sin(s/150));
+ return {s,spd,rpm,load,map,o21,o22,ltft,stft,ect,iat,adv,thr,km,L};
+}
+const f1=v=>fa(v.toFixed(1)).replace('.','٫'), f2=v=>fa(v.toFixed(2)).replace('.','٫'), f0=v=>fa(Math.round(v));
+const sg=v=>(v>=0?'+':'−')+f0(Math.abs(v));
+const PIDS=[['04','بار موتور','load',v=>f0(v)+'٪'],['05','دمای آب موتور','ect',v=>f0(v)+' °C'],['06','تریم سوخت کوتاه‌مدت','stft',v=>sg(v)+'٪'],
+ ['07','تریم سوخت بلندمدت','ltft',v=>sg(v)+'٪'],['0B','فشار منیفولد (مپ)','map',v=>f0(v)+' kPa'],['0C','دور موتور','rpm',v=>f0(v)+' rpm'],
+ ['0D','سرعت خودرو','spd',v=>f0(v)+' km/h'],['0E','آوانس جرقه','adv',v=>f1(v)+'°'],['0F','دمای هوای ورودی','iat',v=>f0(v)+' °C'],
+ ['11','دریچه گاز','thr',v=>f0(v)+'٪'],['14','سنسور اکسیژن ۱','o21',v=>f2(v)+' V'],['15','سنسور اکسیژن ۲','o22',v=>f2(v)+' V'],['21','مسافت با چراغ چک','km',v=>'۰ km']];
+const mmss=s=>{s=Math.min(TRIP,Math.floor(s));return fa(String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'))};
+
+/* ---------- icons ---------- */
+const IC={
+ warn:'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+ car:'M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z',
+ check:'M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z',
+ checkc:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+ home:'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z', add:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
+ more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+ arrow:'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
+ play:'M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z',
+ trash:'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
+ search:'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z',
+ bt:'M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z',
+ down:'M7 10l5 5 5-5z',
+ plug:'M16 7V3h-2v4h-4V3H8v4h-.01C6.9 6.99 6 7.89 6 8.98v5.52L9.5 18v3h5v-3l3.5-3.51v-5.5c0-1.1-.9-2-2-2z',
+ close:'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
+ wrench:'M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z',
+ eye:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
+ batt:'M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z',
+ trend:'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z',
+ gift:'M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z',
+ medal:'M12 7a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm2.6 9.2L12 14.6l-2.6 1.6.7-3-2.3-2 3-.3L12 8.2l1.2 2.7 3 .3-2.3 2 .7 3zM7 2h10l-2 4H9z',
+};
+const svg=(p,c='#2196F3',s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path fill="${c}" d="${IC[p]}"/></svg>`;
+/* brand mark (car outline + pulse) as on the splash */
+const LOGO=(w,c,sw=7)=>`<svg width="${w}" height="${w*0.36}" viewBox="0 0 400 144"><path class="lg" d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="${c}" stroke-width="${sw*1.6}" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle class="lg" cx="104" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/><circle class="lg" cx="188" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/></svg>`;
+
+$('pins').innerHTML=[...Array(8)].map((_,i)=>`<rect x="${-112+i*32}" y="-40" width="12" height="22" rx="3" fill="#C9D4E4"/>`).join('')+[...Array(8)].map((_,i)=>`<rect x="${-100+i*28}" y="18" width="12" height="22" rx="3" fill="#C9D4E4"/>`).join('');
+/* ---------- screens ---------- */
+const ST_W=`<div class="sbar" style="color:#fff"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>`;
+const ST_D=`<div class="sbar" style="color:#10203C"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>`;
+const NAV=`<div class="nav"><div><span class="pillon">${svg('home','#fff',28)}</span><span>خانه</span></div><div>${svg('add','#fff',36)}<span>افزودن خودرو</span></div><div>${svg('more','#fff',34)}<span>بیشتر</span></div></div>`;
+const bar=(t,help)=>`<div class="appbar">${ST_W}<div class="abar"><div class="t">${svg('arrow','#fff',32)}<span>${t}</span></div><div class="help">${help}</div></div></div>`;
+const HEALTH=78, LG='#5CBF6E';          // health value + light green (per brief)
+const tile=(id,ic,l)=>`<div class="tile" id="${id}"><div class="ib">${svg(ic,'#2196F3',36)}</div><span>${l}</span></div>`;
+const S={};
+S.splash=`<div class="scr" id="sc_splash" style="background:#2196F3">${ST_W}
+ <div id="sp_logo" style="position:absolute;left:96px;top:470px">${LOGO(380,'#fff')}</div>
+ <div id="sp_t1" style="position:absolute;left:0;right:0;top:690px;text-align:center;color:#fff;font-weight:600;font-size:27px">عیب‌یاب خودرو با هوش مصنوعی</div>
+ <div id="sp_t2" class="ltr" style="position:absolute;left:0;right:0;top:744px;text-align:center;color:#ADD6FA;font-weight:700;font-size:32px;letter-spacing:4px">CarDiag AI</div></div>`;
+S.home=`<div class="scr" id="sc_home">${ST_D}
+ <div class="card" style="margin:6px 16px 0;padding:20px 20px 22px">
+  <div style="height:66px;border:3px solid #2196F3;border-radius:16px;display:flex;align-items:center;justify-content:space-between;padding:0 22px"><span style="font-weight:900;font-size:30px">۲۰۶</span>${svg('down','#2196F3',40)}</div>
+  <div style="margin-top:16px;font-weight:500;font-size:22px;color:#6E7D96">وضعیت اتصال: <b id="h_stat" style="font-weight:800;color:#DC3232">قطع شده</b></div>
+  <div style="position:relative;margin:22px auto 0;width:470px;height:40px;direction:ltr">
+   <div style="position:absolute;inset:0;border-radius:20px;background:#E6EBF2"></div>
+   <div style="position:absolute;left:0;top:0;height:40px;width:${HEALTH}%;border-radius:20px;overflow:hidden">
+    <div style="width:470px;height:40px;background:linear-gradient(90deg,#E63C3C 0%,#F59628 35%,#D7C832 65%,#32B455 100%)"></div></div>
+   <div style="position:absolute;left:${HEALTH*0.5}%;top:0;height:40px;display:flex;align-items:center;transform:translateX(-50%);direction:rtl;font-weight:800;font-size:20px;color:#10203C;white-space:nowrap">سلامت خودرو ${fa(HEALTH)}٪</div>
+   <div style="position:absolute;left:${HEALTH}%;top:-4px;width:48px;height:48px;margin-left:-24px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(20,40,80,.25);display:flex;align-items:center;justify-content:center"><div style="width:22px;height:22px;border-radius:50%;background:${LG}"></div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;width:470px;margin:6px auto 0;direction:ltr;font-weight:500;font-size:15px;color:#98A3B8"><span>۰٪</span><span>۱۰۰٪</span></div>
+  <div style="display:flex;gap:16px;margin-top:22px">
+   <div class="btn" id="h_conn" style="flex:1;height:60px">${svg('plug','#fff',28)}<span>اتصال</span></div>
+   <div class="btn o" id="h_disc" style="flex:1;height:60px;color:#98A3B8">${svg('close','#E57373',30)}<span>قطع اتصال</span></div></div>
+ </div>
+ <div id="h_ban" style="position:relative;margin:16px 16px 0;height:150px;border-radius:24px;overflow:hidden;background:linear-gradient(90deg,#0F2650 0%,#163A72 48%,#3E7DC4 78%,#8EC3F0 100%)">
+  <img src="assets/diag_front.png" style="position:absolute;right:18px;top:12px;width:176px;transform:rotate(-12deg);filter:drop-shadow(0 10px 14px rgba(0,0,0,.35))">
+  <div style="position:absolute;right:210px;top:12px;left:16px;color:#fff;text-align:right">
+   <div class="ltr" style="display:flex;justify-content:flex-end;align-items:center;gap:6px;font-weight:800;font-size:15px">CarDiag AI ${LOGO(46,'#fff',6)}</div>
+   <div style="font-weight:600;font-size:16px;margin-top:2px">با خرید دیاگ بلوتوثی کاردیاگ</div>
+   <div style="font-weight:900;font-size:25px;margin-top:2px;background:linear-gradient(90deg,#F6CD5C,#FFEA9C,#E0A82C);-webkit-background-clip:text;background-clip:text;color:transparent">اشتراک طلایی رایگان</div>
+   <div style="font-weight:700;font-size:19px;display:flex;align-items:center;gap:6px">هدیه بگیرید ${svg('gift','#fff',20)}</div>
+  </div>
+  <div style="position:absolute;left:16px;bottom:12px;height:34px;padding:0 16px;border-radius:17px;background:linear-gradient(90deg,#F6CD5C,#FFEA9C,#E0A82C);color:#4B3005;font-weight:800;font-size:15px;display:flex;align-items:center">کلیک کنید</div>
+ </div>
+ <div style="padding:18px 26px 10px;font-weight:700;font-size:22px;color:#98A3B8">دسترسی سریع</div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px">
+  ${tile('h_trip','car','سفر')}${tile('h_ecu','warn','خطایابی <span class="ltr">ECU</span>')}
+  ${tile('h_ai','wrench','عیب‌یاب هوش مصنوعی')}${tile('h_mon','eye','مانیتورینگ خودرو')}
+  ${tile('h_bat','batt','تست باتری و دینام')}${tile('h_trd','trend','روند سلامت خودرو')}
+ </div>${NAV}
+ <div id="h_dim" style="position:absolute;inset:0;background:rgba(238,242,248,.78);opacity:0;z-index:8"></div>
+ <div id="h_pop" style="position:absolute;left:20px;right:20px;top:380px;background:#fff;border-radius:32px;padding:34px 30px 30px;text-align:center;box-shadow:0 30px 70px rgba(20,40,80,.22);opacity:0;z-index:9">
+  <div style="width:124px;height:124px;margin:0 auto;border-radius:50%;background:#2196F3;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 14px rgba(33,150,243,.15)">${LOGO(84,'#fff',6)}</div>
+  <div id="p_ttl" style="margin-top:24px;font-weight:900;font-size:31px;color:#10203C">در حال اتصال</div>
+  <div id="p_step" style="margin-top:10px;height:32px;font-weight:500;font-size:22px;color:#6E7D96"></div>
+  <div style="position:relative;height:66px;margin-top:16px">
+   <svg id="p_spin" width="62" height="62" viewBox="0 0 62 62" style="position:absolute;left:50%;top:2px;margin-left:-31px"><circle cx="31" cy="31" r="25" fill="none" stroke="#2196F3" stroke-width="6" stroke-linecap="round" stroke-dasharray="100 60"/></svg>
+   <div id="p_ok" style="position:absolute;left:50%;top:0;margin-left:-33px;width:66px;height:66px;border-radius:50%;background:#22A050;display:flex;align-items:center;justify-content:center;opacity:0">${svg('check','#fff',44)}</div>
+  </div>
+  <div style="margin-top:16px;font-weight:700;font-size:20px;color:#2196F3">رد کردن و انتخاب دستی</div>
+ </div>
+ <div id="h_toast" style="position:absolute;left:0;right:0;bottom:122px;text-align:center;opacity:0;z-index:9"><span style="display:inline-block;background:rgba(16,32,60,.86);color:#fff;font-weight:600;font-size:18px;padding:10px 22px;border-radius:22px">اتصال به <span class="ltr">OBDII</span> برقرار شد</span></div>
+</div>`;
+const DEV=[['OBDII','۰۱:۲۳:۴۵:۶۷:۸۹:BA',1,1],['OBDBLE','۸۱:۲۳:۴۵:۶۷:۸۹:BA',1,0],['OBDII','۵۱:۱۹:۶۲:۵۷:EE:F۸',0,0],['OBDII','BC:۹A:۷۸:۵۶:۳۴:۱۲',0,0],['OBDII','۰۰:۱۰:CC:F۴:۳۶:۰۳',0,0]];
+S.conn=`<div class="scr" id="sc_conn">${bar('انتخاب دستگاه دیاگ','<span>راهنمای اتصال</span>')}
+ <div class="card" style="margin:16px 16px 0;padding:22px 20px 18px">
+  <div style="display:flex;gap:16px">
+   <div class="btn" id="c_search" style="flex:1.15;height:60px">${svg('bt','#fff',28)}<span>جستجو</span></div>
+   <div class="btn o" id="c_stop" style="flex:1;height:60px;border-radius:10px;color:#98A3B8">توقف</div></div>
+  <div id="c_stat" style="margin-top:16px;height:30px;font-weight:500;font-size:20px;color:#6E7D96"></div>
+  <div style="margin-top:8px;height:5px;border-radius:3px;background:#E6EBF2;overflow:hidden;direction:ltr"><div id="c_prog" style="height:5px;width:0;background:#2196F3;border-radius:3px"></div></div>
+ </div>
+ <div class="card" style="margin:16px 16px 0;padding:0;height:900px;position:relative;overflow:hidden">
+  <div style="height:70px;display:flex;align-items:center;gap:12px;padding:0 22px;border-bottom:2px solid #E6EBF2">${svg('bt','#98A3B8',28)}<span style="font-weight:800;font-size:22px;color:#2196F3">دستگاه‌های یافت شده</span></div>
+  <div id="c_empty" style="position:absolute;left:0;right:0;top:70px;bottom:0">
+   <svg id="c_radar" width="536" height="560" style="position:absolute;left:0;top:60px"></svg>
+   <div style="position:absolute;left:50%;top:286px;margin:-48px 0 0 -48px;width:96px;height:96px;border-radius:50%;background:#E3EFFC;display:flex;align-items:center;justify-content:center">${svg('bt','#2196F3',52)}</div>
+   <div id="c_emptyT" style="position:absolute;left:0;right:0;top:400px;text-align:center;font-weight:600;font-size:21px;color:#98A3B8">هنوز دستگاهی پیدا نشده</div>
+  </div>
+  <div style="padding:8px 0 0">${DEV.map((d,i)=>`<div class="row" id="c_r${i}" style="background:${d[2]?'#E6F4E9':'#FBEAEA'};opacity:0">
+    ${svg('warn','#10203C',44)}
+    <div style="flex:1"><div class="nm">${d[0]}</div><div class="mac">${d[1]}</div>${d[3]?'<div style="font-weight:700;font-size:15px;color:#1565C0;margin-top:2px">★ آخرین اتصال</div>':''}</div>
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:center;width:96px">${d[2]?'<span class="tg" style="background:#22A050">در دسترس</span>':''}<span class="tg" style="background:#DC3232;width:62px">OBD</span></div>
+   </div>`).join('')}</div>
+ </div>${NAV}
+ <div id="c_dim" style="position:absolute;inset:0;background:rgba(16,32,60,.45);opacity:0;z-index:8"></div>
+ <div id="c_perm" style="position:absolute;left:30px;right:30px;top:390px;background:#fff;border-radius:30px;padding:30px 26px 24px;text-align:center;box-shadow:0 30px 70px rgba(20,40,80,.3);opacity:0;z-index:9">
+  <div style="width:64px;height:64px;margin:0 auto;border-radius:50%;background:#E3EFFC;display:flex;align-items:center;justify-content:center">${svg('bt','#2196F3',36)}</div>
+  <div style="margin-top:18px;font-weight:600;font-size:22px;line-height:1.6;color:#10203C">به <b class="ltr">CarDiag AI</b> اجازه می‌دهید دستگاه‌های اطراف را پیدا کند و به آن‌ها وصل شود؟</div>
+  <div id="c_allow" style="margin-top:22px;height:58px;border-radius:29px;background:#2196F3;color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center">اجازه دادن</div>
+  <div style="margin-top:10px;height:58px;border-radius:29px;background:#E3EFFC;color:#1565C0;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center">اجازه ندادن</div>
+ </div>
+</div>`;
+Object.assign(IC,{
+ timer:'M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z',
+ playf:'M8 5v14l11-7z', stop:'M6 6h12v12H6z',
+ share:'M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z',
+ dl:'M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z',
+ info:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z',
+});
+const AMB='#F28012', AMBT='#FFF4E5';
+S.trip=`<div class="scr" id="sc_trip">${bar('سفر',svg('play','#fff',24)+'<span>آموزش</span>')}
+ <div class="tabs"><div class="on">سفر جدید</div><div>تاریخچه</div></div>
+ <div style="padding:14px 16px 0">
+  <div class="btn o" id="t_scan" style="height:56px;border-radius:28px;color:#2196F3;font-weight:800">${svg('search','#2196F3',26)}<span id="t_scanT">اسکن <span class="ltr">ECU</span></span></div>
+  <div class="btn" id="t_go" style="margin-top:12px;height:56px;border-radius:28px;background:#DDE3EC;color:#98A3B8">${svg('playf','#98A3B8',26)}<span id="t_goT">شروع سفر</span></div>
+  <div id="t_tim" style="height:54px;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:900;font-size:30px;color:#2196F3;opacity:0">${svg('timer','#2196F3',28)}<span id="t_time" class="ltr">۰۰:۰۰</span></div>
+ </div>
+ <div id="t_guide" class="card" style="position:absolute;left:0;right:0;top:330px;margin:0 16px;padding:22px 22px">
+  <div style="font-weight:800;font-size:23px;color:#33415C">راهنمای ثبت سفر</div>
+  <div style="margin-top:10px;font-weight:500;font-size:17.5px;line-height:1.7;color:#6E7D96">در این صفحه، اپ داده‌های خودرو را حین رانندگی ثبت و تحلیل می‌کند.</div>
+  <div style="display:flex;gap:16px;align-items:flex-start;margin-top:18px">${svg('warn','#10203C',40)}<div><div style="font-weight:800;font-size:19px">مرحله اول: اسکن <span class="ltr">ECU</span></div><div style="font-weight:500;font-size:16.5px;line-height:1.7;color:#98A3B8">روی دکمه «اسکن <span class="ltr">ECU</span>» بزنید و صبر کنید تا سنسورهای خودرو شناسایی شوند.</div></div></div>
+  <div style="height:2px;background:#E6EBF2;margin:16px 0"></div>
+  <div style="display:flex;gap:16px;align-items:flex-start">${svg('car','#10203C',40)}<div><div style="font-weight:800;font-size:19px">مرحله دوم: شروع سفر</div><div style="font-weight:500;font-size:16.5px;line-height:1.7;color:#98A3B8">بعد از اسکن، روی «شروع سفر» بزنید، خودرو را روشن کنید و برانید.</div></div></div>
+  <div style="display:flex;gap:12px;align-items:center;margin-top:18px;background:#FBF3DF;border-radius:12px;padding:12px 14px;font-weight:600;font-size:16px;line-height:1.7;color:#6B5A3A">${svg('info','#98A3B8',30)}<span>مدت سفر می‌تواند بین ۵ دقیقه تا حداکثر ۲۰ دقیقه باشد. سفرهای کوتاه‌تر از ۵ دقیقه تحلیل نمی‌شوند.</span></div>
+ </div>
+ <div id="t_grid" style="position:absolute;left:16px;right:16px;top:330px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+  ${PIDS.map((p,i)=>`<div class="pc" id="pc_${p[2]}"><div class="pid">${fa(p[0])}</div><div class="pl">${p[1]}</div><div class="pv" id="pv_${p[2]}"></div></div>`).join('')}
+ </div>
+ ${NAV}
+ <div id="t_dim" style="position:absolute;inset:0;background:rgba(238,242,248,.8);opacity:0;z-index:8"></div>
+ <div id="t_pop" style="position:absolute;left:24px;right:24px;top:400px;background:#fff;border-radius:32px;padding:34px 30px 30px;text-align:center;box-shadow:0 30px 70px rgba(20,40,80,.22);opacity:0;z-index:9">
+  <div id="t_popI" style="width:110px;height:110px;margin:0 auto;border-radius:50%;background:#DEF6E6;display:flex;align-items:center;justify-content:center">${svg('checkc','#22A050',76)}</div>
+  <div style="margin-top:20px;font-weight:900;font-size:30px;color:#22A050">سفر ۲۰ دقیقه‌ای ثبت شد</div>
+  <div id="t_popS" style="margin-top:10px;font-weight:500;font-size:21px;color:#6E7D96">در حال تحلیل ۱۲۰۰ نمونه داده...</div>
+  <div style="margin:18px 20px 0;height:10px;border-radius:5px;background:#E6EBF2;overflow:hidden;direction:ltr"><div id="t_popP" style="height:10px;width:0;background:#2196F3;border-radius:5px"></div></div>
+ </div>
+</div>`;
+const CHK=[['گرم شدن موتور',0],['دمای موتور',0],['مخلوط سوخت (فقیر)','رقیق، بررسی شود'],['مخلوط سوخت (غنی)',0],['پایداری دور خلاص',0],['بار موتور در توقف',0],['نشتی سیستم هوا','احتمال نشتی'],
+ ['سوخت‌رسانی',0],['سنسور فشار منیفولد',0],['احتراق (مشکل سوخت)',0],['احتراق (مشکل جرقه)',0],['شیر حرارتی (ترموستات)',0],['توان موتور',0],['هماهنگی سنسورهای هوا',0]];
+const ring=(id)=>`<svg width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="52" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="12"/>
+ <circle id="${id}" cx="64" cy="64" r="52" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" transform="rotate(-90 64 64)" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>`;
+$('screen').innerHTML=S.splash+S.home+S.conn+S.trip;
+const SCR=['sc_splash','sc_home','sc_conn','sc_trip'];
+
+/* ---------- pulled-out cards (stage coords) ---------- */
+const BIG=[{k:'o21',lb:'سنسور اکسیژن ۱',cd:'14',x:556,y:1150,lo:0,hi:1,u:v=>f2(v)+' V'},
+ {k:'o22',lb:'سنسور اکسیژن ۲',cd:'15',x:60,y:1150,lo:0,hi:1,u:v=>f2(v)+' V'},
+ {k:'map',lb:'فشار منیفولد',cd:'0B',x:556,y:1370,lo:20,hi:100,u:v=>f0(v)+' kPa'},
+ {k:'load',lb:'بار موتور',cd:'04',x:60,y:1370,lo:0,hi:100,u:v=>f0(v)+'٪'},
+ {k:'rpm',lb:'دور موتور',cd:'0C',x:556,y:1590,lo:600,hi:3200,u:v=>f0(v)+' rpm'},
+ {k:'thr',lb:'دریچه گاز',cd:'11',x:60,y:1590,lo:0,hi:90,u:v=>f0(v)+'٪'}];
+const BW=464, BH=205, GW=408, GH=62;
+$('pull').innerHTML=BIG.map((b,i)=>`<div class="bc" id="bc${i}" style="left:${b.x}px;top:${b.y}px;width:${BW}px;height:${BH}px">
+ <div class="hd"><span class="lb">${b.lb}</span><span class="cd">${fa(b.cd)}</span></div>
+ <div style="display:flex;align-items:center;justify-content:space-between"><div class="vl" id="bv${i}"></div><div id="bt${i}"></div></div>
+ <svg id="bg${i}" width="${GW}" height="${GH}" style="display:block;margin-top:4px"></svg></div>`).join('')+
+ `<div class="sc" id="sc0" style="left:40px;top:390px"><div class="lb">زمان سفر</div><div class="vl" id="sv0" style="color:#2196F3">۰۰:۰۰</div>
+   <div style="height:12px;border-radius:6px;background:#E6EBF2;overflow:hidden;margin-top:8px;direction:ltr"><div id="sp0" style="height:12px;width:0;background:#2196F3;border-radius:6px"></div></div>
+   <div style="display:flex;justify-content:space-between;font-weight:700;font-size:24px;color:#98A3B8;margin-top:8px"><span>مسافت</span><span id="sv6" class="ltr" style="color:#10203C"></span></div></div>
+  <div class="sc" id="sc1" style="left:750px;top:390px"><div class="lb">تریم سوخت بلندمدت</div><div class="vl" id="sv1"></div><div id="st1" style="height:52px;margin-top:4px"></div></div>
+  <div class="sc" id="sc2" style="left:40px;top:640px"><div class="lb">دمای آب موتور</div><div class="vl" id="sv2"></div></div>
+  <div class="sc" id="sc3" style="left:750px;top:640px"><div class="lb">تریم کوتاه‌مدت</div><div class="vl" id="sv3"></div></div>
+  <div class="sc" id="sc4" style="left:40px;top:850px"><div class="lb">دمای هوای ورودی</div><div class="vl" id="sv4"></div></div>
+  <div class="sc" id="sc5" style="left:750px;top:850px"><div class="lb">آوانس جرقه</div><div class="vl" id="sv5"></div></div>`;
+
+/* ---------- pdf fan ---------- */
+const PG=i=>i==0?`<div style="height:84px;border-radius:12px;background:#2196F3;display:flex;align-items:center;justify-content:space-between;padding:0 16px">
+  <div style="color:#fff;font-weight:900;font-size:17px">گزارش جامع<br>تحلیل سفر</div><div style="width:58px;height:58px;border-radius:50%;border:7px solid #fff;color:#fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center">۷۸٪</div></div>
+  <div class="ln" style="width:60%;background:#ADD6FA;height:16px;margin-top:20px"></div><div class="ln"></div><div class="ln" style="width:80%"></div>
+  <div style="height:16px;border-radius:8px;background:#E6EBF2;margin-top:18px;direction:ltr"><div style="height:16px;width:78%;border-radius:8px;background:${LG}"></div></div>
+  <div style="height:16px;border-radius:8px;background:#E6EBF2;margin-top:10px;direction:ltr"><div style="height:16px;width:96%;border-radius:8px;background:#22A050"></div></div>
+  <div style="height:16px;border-radius:8px;background:#E6EBF2;margin-top:10px;direction:ltr"><div style="height:16px;width:54%;border-radius:8px;background:${AMB}"></div></div>
+  <div style="height:70px;border-radius:12px;background:${AMBT};margin-top:18px;border-right:6px solid ${AMB}"></div><div class="ln"></div><div class="ln" style="width:70%"></div>`
+ :`<div class="ln" style="width:55%;background:#ADD6FA;height:16px"></div>${[...Array(4)].map((_,j)=>`<div style="height:56px;border-radius:10px;margin-top:14px;background:${(i+j)%3==0?AMBT:'#EEF8F1'};border-right:6px solid ${(i+j)%3==0?AMB:'#22A050'}"></div>`).join('')}<div class="ln"></div><div class="ln" style="width:75%"></div><div class="ln" style="width:60%"></div>`;
+$('fan').innerHTML=[0,1,2,3,4].reverse().map(i=>`<div class="pg" id="pg${i}">${PG(i)}<div style="position:absolute;left:0;right:0;bottom:12px;text-align:center;font-weight:600;font-size:13px;color:#98A3B8">صفحه ${fa(i+1)}</div></div>`).join('');
+
+/* ---------- full report document (same sections as the app's PDF, readable size) ---------- */
+const GRN='#22A050', GT='#DEF6E6', NAVY='#10203C', SL='#6E7D96';
+const pillD=(t,c,bg)=>`<span class="dp" style="color:${c};background:${bg}">${t}</span>`;
+const OK=pillD('سالم',GRN,'#fff'), ATT=pillD('نیاز به توجه',AMB,'#fff'), URG=pillD('بررسی فوری',AMB,'#fff');
+const dcard=(id,t,p,tint,edge,body)=>`<div class="dc" id="${id}" style="border-right:8px solid ${edge}"><div class="h" style="background:${tint}"><span>${t}</span>${p}</div><div class="b">${body}</div></div>`;
+const drow=(a,b,c=NAVY)=>`<div class="dr"><span>${a}</span><b style="color:${c}">${b}</b></div>`;
+const dbar=(id,lb,w,c,lab)=>`<div class="db"><span class="l">${lb}</span><div class="tr"><div class="fi" id="${id}" data-w="${w}" style="background:${c}"></div></div><span class="v" style="color:${c}">${lab}</span></div>`;
+const STY=[['در جا',15,'#78909C'],['شهری متوقف',20,'#F59628'],['شهری روان',35,'#2196F3'],['بزرگراه',30,GRN],['تهاجمی',0,'#DC3232']];
+const DOC=`
+<div id="dk_top" class="dh">
+ <div style="flex:1"><div class="ltr" style="font-weight:800;font-size:30px;color:#ADD6FA;text-align:right">CarDiag</div>
+  <div style="font-weight:900;font-size:50px;margin-top:4px">گزارش جامع تحلیل سفر</div>
+  <div style="font-weight:700;font-size:31px;margin-top:10px">پژو ۲۰۶ تیپ ۲ دستی (۱۳۸۹)</div>
+  <div style="font-weight:500;font-size:29px;margin-top:4px;color:#DCEBFB">۲۰ مهر ۱۴۰۵ — ۲۰ دقیقه و ۰۰ ثانیه</div>
+  <div style="font-weight:500;font-size:29px;color:#DCEBFB">۱۴٫۲ کیلومتر • ۱۲۰۰ نمونه‌برداری</div></div>
+ <div style="position:relative;width:220px;text-align:center"><svg width="220" height="220" viewBox="0 0 128 128"><circle cx="64" cy="64" r="52" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="11"/>
+  <circle id="d_ring" cx="64" cy="64" r="52" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" transform="rotate(-90 64 64)" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+  <div id="d_num" style="position:absolute;left:0;right:0;top:72px;font-weight:900;font-size:64px">۰٪</div><div style="font-weight:700;font-size:28px">سلامت کلی</div></div>
+</div>
+<div id="dk_sum"><div class="ds">خلاصه سریع</div>
+ ${drow('وضعیت کلی','چند نکته برای پیگیری',AMB)}${drow('موارد نیاز به توجه','۲ مورد',AMB)}${drow('مشکل فوری','۱ مورد — سوخت‌رسانی',AMB)}
+ ${drow('مهم‌ترین توصیه','انژکتور، سنسور اکسیژن و نشتی هوا')}${drow('ایرادات خودرو','۱ ایراد مهم',AMB)}</div>
+<div id="dk_score"><div class="ds">امتیازات سلامت</div>
+ ${dbar('d_b0','سلامت کلی',HEALTH,LG,fa(HEALTH)+'٪')}${dbar('d_b1','موتور',96,GRN,'۹۶٪')}${dbar('d_b2','سیستم سوخت',54,AMB,'۵۴٪')}
+ <div class="dn">مصرف تخمینی: ۸٫۴ لیتر در ۱۰۰ کیلومتر</div></div>
+<div id="dk_eng"><div class="ds">تحلیل عملکرد موتور</div>
+ ${dcard('d_c0','یکنواختی موتور',OK,'#EEF8F1',GRN,'موتور در طول سفر آرام و پایدار کار کرد. احتراق ناقص دیده نشد.')}
+ ${dcard('d_c1','گرم شدن موتور',OK,'#EEF8F1',GRN,'موتور در ۸ دقیقه به دمای کاری <b>۸۹ °C</b> رسید (حد این خودرو: ۹۲).')}</div>
+<div id="dk_fuel">${dcard('d_fuel','سیستم سوخت‌رسانی',URG,AMBT,AMB,`<b style="color:${NAVY}">مخلوط سوخت رقیق — تریم بلندمدت <span class="ltr">+۱۸٪</span></b><br><span style="color:${SL}">سنسور اکسیژن ۱ در بیشتر سفر رقیق نشان داد (میانگین ۰٫۳۲ ولت). مشکل پایدار است، نه لحظه‌ای.</span><br><b style="color:${AMB}">◄ نشتی هوا، انژکتورها و سنسور اکسیژن بررسی شوند.</b>`)}</div>
+<div id="dk_air">${dcard('d_c2','مسیر هوای ورودی موتور',ATT,AMBT,AMB,`فشار منیفولد در دور آرام <b>۳۴ <span class="ltr">kPa</span></b> بود؛ کمی بالاتر از حد انتظار.<br><b style="color:${AMB}">◄ احتمال نشتی هوا بعد از دریچه گاز.</b>`)}
+ <div class="dc" id="d_c3" style="border-right:8px solid ${GRN}"><div class="h" style="background:#EEF8F1"><span>فشار وارد بر موتور</span>${OK}</div>
+  <div class="b"><div class="tr2"><div class="fi" id="d_b3" data-w="42" style="background:${GRN}"></div></div><div style="display:flex;justify-content:space-between;margin-top:8px"><span>فشار روی موتور در این سفر متوسط بود.</span><span style="color:${SL}">شدت فشار: ۴۲٪</span></div></div></div>
+ ${dcard('d_c4','بازده موتور',OK,'#EEF8F1',GRN,'بازده حجمی ۸۶٪ — در محدوده‌ی طبیعی.')}
+ <div class="dc" style="border-right:8px solid ${AMB}"><div class="h" style="background:${AMBT}"><span>پایداری کلی موتور</span>${ATT}</div>
+  <div class="b">${[['دور موتور','طبیعی',1],['بار کاری','متوسط',1],['تنظیم سوخت','بالا',0],['دمای آب خنک‌کننده','۸۹ °C (حد: ۹۲)',1]].map(r=>`<div class="dr" style="margin:0;padding:10px 0"><span>${r[0]}</span><b>${r[1]}</b><b style="color:${r[2]?GRN:AMB};width:40px;text-align:left">${r[2]?'✓':'⚠'}</b></div>`).join('')}</div></div>
+ ${dcard('d_c5','سلامت گیربکس',OK,'#EEF8F1',GRN,'لغزش گیربکس دیده نشد (۹ دقیقه رانندگی بالای ۲۵ کیلومتر بر ساعت).')}</div>
+<div id="dk_drv"><div class="ds">تحلیل سبک رانندگی</div>
+ ${STY.map((r,i)=>dbar('d_s'+i,r[0],r[1],r[2],fa(r[1])+'٪')).join('')}
+ ${dcard('d_c6','تأثیر سبک رانندگی',OK,'#EEF8F1',GRN,'رانندگی آرام و اقتصادی. مصرف سوخت و فرسایش قطعات در حداقل.')}</div>
+<div id="dk_stat"><div class="ds">آمار دقیق سفر</div>
+ <div class="dt"><div class="th"><span>پارامتر</span><span>حداکثر</span><span>میانگین</span><span>حداقل</span></div>
+  ${[['سرعت (km/h)','۷۹','۴۲','۰'],['دور موتور (rpm)','۲۹۵۰','۱۸۵۰','۸۰۰'],['بار موتور (٪)','۸۸','۴۱','۱۵'],['دمای آب (°C)','۸۹','۷۶','۲۵'],['فشار منیفولد (kPa)','۹۵','۴۸','۲۶']].map(r=>`<div class="tr3"><span>${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span><span>${r[3]}</span></div>`).join('')}
+  <div class="tr3"><span>تنظیم سوخت</span><span style="grid-column:span 3">کوتاه <span class="ltr">+۷٪</span> — بلند <span class="ltr">+۱۸٪</span></span></div>
+  <div class="tr3" style="background:${AMBT}"><span>وضعیت سوخت</span><span style="grid-column:span 3;color:${AMB};font-weight:800">رقیق — احتمال نشتی هوا</span></div></div>
+ <div class="ds">سنسورهای پیشرفته</div>
+ ${drow('فشار ورودی هوا (MAP)','میانگین ۴۸ kPa')}${drow('سنسور اکسیژن ۱','۰٫۳۲ ولت — رقیق',AMB)}${drow('سنسور اکسیژن ۲','۰٫۴۸ ولت — کاتالیزور سالم',GRN)}${drow('احتراق ناقص','مشاهده نشد',GRN)}</div>
+<div id="dk_err"><div class="ds">ایرادات خودرو</div>
+ ${dcard('d_err','سوخت‌رسانی ناکافی — مخلوط هوا-سوخت رقیق',pillD('مهم',AMB,'#fff'),AMBT,AMB,`موتور سوخت کافی دریافت نمی‌کند؛ هوای اضافه وارد می‌شود.<br><b style="color:${AMB}">← انژکتورها، پمپ بنزین، سنسور اکسیژن و واشر منیفولد را بررسی کنید.</b><br><span style="color:${SL}">مقدار ثبت‌شده: تریم <span class="ltr">+۱۸٪</span> — در ۷۲٪ سفر دیده شد</span>`)}</div>
+<div id="dk_chk"><div class="ds">چک‌لیست ۱۴ سیستم</div>
+ ${CHK.map((c,i)=>`<div class="ck2" id="d_k${i}" style="border-right-color:${c[1]?AMB:GRN}"><span>${c[0]}</span>${c[1]?pillD(c[1],AMB,AMBT):pillD('سالم',GRN,GT)}</div>`).join('')}</div>
+<div id="dk_conf">${dcard('d_c7','هشدار زودهنگام',ATT,AMBT,AMB,'تریم سوخت بلندمدت در حال افزایش است.<br><b style="color:'+AMB+'">◄ در سفرهای بعدی پایش ادامه یابد.</b>')}
+ <div class="ds">مصرف، هزینه و محیط زیست</div>${drow('مصرف تخمینی','۸٫۴ لیتر در ۱۰۰ کیلومتر')}${drow('سوخت این سفر','حدود ۱٫۲ لیتر')}${drow('CO₂ این سفر','حدود ۲٫۸ کیلوگرم')}
+ ${dcard('d_c8','میزان اطمینان به تحلیل',OK,'#EEF8F1',GRN,'اطمینان از تحلیل بالاست (<b>۹۴٪</b>). همه‌ی سنسورها داده فرستادند.')}
+ ${drow('مدت سفر (۲۰ دقیقه)','کافی',GRN)}${drow('تعداد اندازه‌گیری‌ها','۱۲۰۰',GRN)}${drow('سنسورهای بدون داده','۰',GRN)}</div>
+<div id="dk_todo"><div class="ds">چه کار کنم؟ (به ترتیب اولویت)</div>
+ ${[['فوری','انژکتورها، سنسور اکسیژن و واشر منیفولد را بررسی کنید.'],['فوری','نشتی هوای ورودی موتور را پیدا و رفع کنید.'],['بعدی','بعد از تعمیر یک سفر ۲۰ دقیقه‌ای دیگر ثبت کنید.']].map((r,i)=>`<div class="td" id="d_t${i}" style="border-right-color:${i<2?AMB:'#2196F3'}">${pillD(r[0],i<2?AMB:'#2196F3',i<2?AMBT:'#E3EFFC')}<span>${r[1]}</span></div>`).join('')}
+ <div style="height:1000px"></div></div>`;
+$('doc_in').innerHTML=DOC;
+const DSTOP=['dk_top','dk_score','dk_eng','dk_fuel','dk_air','dk_drv','dk_stat','dk_err','dk_chk','dk_conf','dk_todo'];
+const DOC_VH=1580; let DST=[], DTRIG=[], SC0={left:254,top:400,width:572};
+function docLayout(){                          // scroll positions of the stops + when each animated element first shows
+ const dv=$('doc'); dv.style.display='block'; dv.style.visibility='hidden';
+ const max=$('doc_in').scrollHeight-DOC_VH;
+ DST=DSTOP.map(id=>Math.min(max,Math.max(0,$(id).offsetTop-24)));
+ DTRIG=[...document.querySelectorAll('#doc_in .fi,#doc_in .ck2,#doc_in .td,#doc_in .dc')].map(el=>{
+  let top=0,e=el; while(e&&e.id!=='doc_in'){top+=e.offsetTop;e=e.offsetParent} const i=DST.findIndex(s=>top<s+DOC_VH-120); return {el,t:T_DOC(Math.max(0,i))+(i<=0?6:0)+ (el.classList.contains('ck2')?[...el.parentNode.children].indexOf(el)*1.6:0)};});
+ dv.style.display='none'; dv.style.visibility='';
+}
+function docScroll(f){let y=DST[0];DST.forEach((s,i)=>{if(i){const a=T_DOC(i)-14; y=lerp(y,s,E.io(seg(f,a,a+14)))}});return y}
+function doc(f){
+ const d=$('doc'); const on=f>=T_REP&&f<T_RECAP+10; if(!on){d.style.display='none';return} d.style.display='block';
+ // grows out of the phone screen, shrinks into the PDF stack at the end
+ const r0=$('screen').getBoundingClientRect(); if(r0.width>0) SC0=r0; const sc=SC0; const g=E.io(seg(f,T_REP,T_REP+18)), out=E.ic(seg(f,T_RECAP-10,T_RECAP+8));
+ const X=60,Y=290,W=960; const x=lerp(sc.left||300,X,g), y=lerp(sc.top||400,Y,g), s=lerp((sc.width||572)/W,1,g);
+ d.style.transform=`translate(${x-X}px,${y-Y+out*260}px) scale(${s*(1-0.45*out)})`; d.style.opacity=cl(g*3)*(1-out);
+ $('doc_in').style.transform=`translateY(${-docScroll(f)}px)`;
+ const rg=E.io(seg(f,T_DOC(0),T_DOC(0)+26)); $('d_ring').setAttribute('stroke-dashoffset',326.7*(1-rg*HEALTH/100)); $('d_num').textContent=f0(HEALTH*rg)+'٪';
+ DTRIG.forEach(o=>{const p=seg(f,o.t,o.t+16), el=o.el;
+  if(el.classList.contains('fi')) el.style.width=(E.oc(p)*(+el.dataset.w))+'%';
+  else if(el.classList.contains('dc')){const amb=el.style.borderRightColor.indexOf('242')>=0; el.style.boxShadow=amb?`0 0 0 ${5*Math.exp(-Math.pow((f-o.t-12)/8,2))}px rgba(242,128,18,.45)`:'none';}
+  else {el.style.opacity=lerp(0.15,1,E.oc(p)); el.style.transform=`translateX(${(1-E.oc(p))*-30}px)`;}});
+}
+
+/* ---------- helpers ---------- */
+function tapAt(f,a,id){const t=f-a; const el=$('tap'); if(t<-4||t>14) return false;
+ // position inside the page (ignores the page's own slide), so the ring stays where the finger was
+ const r=$(id).getBoundingClientRect(), pg=$(id).closest('.scr').getBoundingClientRect(), sc=$('screen').getBoundingClientRect(), k=sc.width/572;
+ el.style.left=(11+(r.left+r.width/2-pg.left)/k)+'px'; el.style.top=(11+(r.top+r.height/2-pg.top)/k)+'px';
+ el.style.opacity=t<0?seg(t,-4,0):1-seg(t,4,14); el.style.transform=`scale(${t<0?1.2-0.2*seg(t,-4,0):1+0.6*seg(t,0,14)})`; return true;}
+const press=(id,f,a)=>{$(id).style.transform=`scale(${1-0.05*Math.exp(-Math.pow((f-a-1)/3,2))})`};
+// forward navigation: old page moves right, new page comes from the left (RTL); back is the reverse
+function slide(f,a,from,to,dir){const p=E.io(seg(f,a,a+12)); const o={}; o[from]=dir*p*572; o[to]=dir*(p-1)*572; return p>=1?{[to]:0}:o}
+function dash(f){
+ const B0=seg(f,140,150), out=1-seg(f,200,214), d=$('dash');
+ if(B0<=0||out<=0){d.style.display='none';return}
+ d.style.display='block'; d.style.opacity=B0*out;
+ const z=lerp(1.15,1,E.oc(seg(f,140,156))); d.style.transform=`scale(${z})`;
+ const PLUG=168;
+ const m=E.io(seg(f,148,PLUG)); const push=f>=PLUG? -Math.sin(seg(f,PLUG,PLUG+6)*Math.PI)*8 : 0;
+ const dx=lerp(1250,395,m)+push, dy=lerp(1000,964,m);
+ const w=$('diagWrap'); w.style.left=(dx-280)+'px'; w.style.top=(dy-209)+'px';
+ w.style.transform=`rotate(${lerp(-10,0,m)}deg) scale(${lerp(1.08,1,m)})`;
+ $('flash').style.opacity=f>=PLUG?Math.exp(-(f-PLUG)/5)*0.9:0;
+ let r='';if(f>=PLUG+4){for(let i=0;i<3;i++){const ph=((f-PLUG-4)/16+i/3)%1;const R=lerp(180,420,ph);
+   r+=`<path d="M${dx-R*0.8} ${dy-R*0.6} A${R} ${R} 0 0 1 ${dx+R*0.8} ${dy-R*0.6}" fill="none" stroke="#2196F3" stroke-width="${8-4*ph}" stroke-linecap="round" opacity="${(1-ph)*0.85}"/>`}}
+ $('bt').innerHTML=r;
+}
+
+/* ---------- titles ---------- */
+const TT=[
+ {h:'صدای قلب ماشینتو شنیدی؟',a:10,b:204},
+ {h:'اول وصل شو',a:212,b:T_OK-2},
+ {h:'وصل شد!',a:T_OK,b:T_TILE},
+ {h:'برو تو بخش سفر',a:T_TILE+2,b:T_SCAN+12},
+ {h:'سنسورها شناسایی شد',a:T_SCAN+14,b:T_GO+8},
+ {h:'ریز به ریز، حین رانندگی',a:T_GO+10,b:T_FIN+2},
+ {h:'گزارش کامل تحویل بگیر',a:T_FIN+6,b:T_DOC(4)},
+ {h:'از موتور تا سبک رانندگی',a:T_DOC(4)+2,b:T_DOC(8)},
+ {h:'می‌گه دقیقاً چی کار کنی',a:T_DOC(8)+2,b:T_RECAP-2},
+ {h:'چکاپ کامل، بدون تعمیرگاه',a:T_RECAP+4,b:T_END-4},
+ {h:'مکانیک تو <b style="color:#2196F3">جیبِت</b>!',a:T_END-2,b:99999},
+];
+$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl" id="tt${i}" style="top:148px"><div class="h">${t.h}</div></div>`).join('');
+
+/* ---------- floating card: what to do ---------- */
+const FC=[];
+$('fcs').innerHTML=FC.map(c=>`<div class="fc" id="${c.id}">${c.html}</div>`).join('');
+
+/* ---------- hook: car on the road, sensor data streaming out ---------- */
+const HK=[{k:'o21',lb:'سنسور اکسیژن',x:580,y:440,ax:870,ay:1196},{k:'map',lb:'فشار منیفولد',x:60,y:440,ax:300,ay:1030},
+ {k:'load',lb:'بار موتور',x:580,y:650,ax:470,ay:1040},{k:'rpm',lb:'دور موتور',x:60,y:650,ax:322,ay:1220}];
+$('hk').innerHTML=HK.map((h,i)=>`<div id="hk${i}" class="a" style="left:${h.x}px;top:${h.y}px;width:440px;height:160px;background:#fff;border:3px solid #DEE6F2;border-radius:36px;box-shadow:0 20px 44px rgba(20,40,80,.14);direction:rtl;padding:20px 28px;opacity:0">
+ <div style="font-weight:700;font-size:34px;color:#6E7D96">${h.lb}</div><div id="hkv${i}" style="font-weight:900;font-size:58px;line-height:1.2;color:#10203C;direction:ltr;unicode-bidi:isolate;text-align:right"></div></div>`).join('');
+const wheel=`<circle r="50" fill="#10203C"/><circle r="26" fill="#E6EBF2"/><g class="sp">${[0,1,2,3,4].map(i=>`<rect x="-3" y="-25" width="6" height="22" rx="3" fill="#6E7D96" transform="rotate(${i*72})"/>`).join('')}</g><circle r="7" fill="#6E7D96"/>`;
+$('w1').innerHTML=wheel; $('w2').innerHTML=wheel;
+function hook(f){
+ const r=$('road'); const o=E.oc(seg(f,-8,10))*(1-seg(f,142,150));
+ if(o<=0){r.style.display='none';return} r.style.display='block'; r.style.opacity=o;
+ const z=lerp(1.05,1,E.oc(seg(f,0,24)))*(1+0.9*E.ic(seg(f,132,150))); r.style.transform=`scale(${z})`;
+ const sp=f*14;                                        // road speed px/frame (car faces left -> world moves right)
+ let h=''; for(let k=-1;k<3;k++){const x=((f*3)%700)+k*700-700;
+  h+=`<path d="M${x} 1262 Q${x+120} 1150 ${x+300} 1230 Q${x+480} 1120 ${x+700} 1262 Z" fill="url(#hl)"/>`;}
+ $('hills').innerHTML=h;
+ let d=''; for(let k=-2;k<9;k++){const x=((sp)%190)+k*190-190; d+=`<rect x="${x}" y="1302" width="96" height="12" rx="6" fill="#fff"/>`;} $('dashes').innerHTML=d;
+ document.querySelectorAll('#car .sp').forEach(g=>g.setAttribute('transform',`rotate(${-f*16})`));
+ const bob=Math.sin(f*0.9)*2.2; $('car').setAttribute('transform',`translate(540 ${1110+bob}) scale(1.28)`);
+ // data waves from the car
+ let w=''; for(let i=0;i<3;i++){const ph=((f-14)/34+i/3)%1; if(f<14) break; const R=lerp(160,700,ph);
+  w+=`<ellipse cx="540" cy="1080" rx="${R}" ry="${R*0.62}" fill="none" stroke="#2196F3" stroke-width="${6-4*ph}" opacity="${(1-ph)*0.35*seg(f,14,24)}"/>`;}
+ $('waves').innerHTML=w;
+ // sensor chips pop in on the song kicks, linked to where the sensor sits
+ const vv=V(f*0.6+300); let ln='';
+ HK.forEach((c,i)=>{const a=22+i*14, p=seg(f,a,a+12), el=$('hk'+i);
+  el.style.opacity=E.oc(seg(f,a,a+6)); el.style.transform=`translateY(${(1-E.oc(p))*40}px) scale(${p<=0?0.8:lerp(0.8,1,E.back(p))})`;
+  const val=c.k=='o21'?f2(vv.o21)+' V':c.k=='map'?f0(vv.map)+' kPa':c.k=='load'?f0(vv.load)+'٪':f0(vv.rpm)+' rpm'; $('hkv'+i).textContent=val;
+  if(p>0){const sx=c.x+220, sy=c.y+160; const L=E.io(seg(f,a+4,a+16));
+   ln+=`<path d="M${sx} ${sy} L${lerp(sx,c.ax,L)} ${lerp(sy,c.ay,L)}" stroke="#2196F3" stroke-width="4" stroke-dasharray="10 9" stroke-dashoffset="${-f*2}" fill="none" opacity=".75"/>`;
+   if(L>=1) ln+=`<circle cx="${c.ax}" cy="${c.ay}" r="${10+3*Math.sin(f/3+i)}" fill="#2196F3" stroke="#fff" stroke-width="4"/>`;}});
+ $('links').innerHTML=ln;
+}
+
+function screens(f){
+ let x={};
+ if(f<T_HOME) x={sc_splash:0};
+ else if(f<T_HOME+10) x={sc_splash:0,sc_home:0};
+ else if(f<T_CONN+3) x={sc_home:0};
+ else if(f<T_BACK) x=slide(f,T_CONN+3,'sc_home','sc_conn',1);
+ else if(f<T_TILE+3) x=slide(f,T_BACK,'sc_conn','sc_home',-1);
+ else x=slide(f,T_TILE+3,'sc_home','sc_trip',1);
+ SCR.forEach(s=>{const el=$(s); if(x[s]===undefined){el.style.display='none'}else{el.style.display='block';el.style.transform=`translateX(${x[s]}px)`;el.style.opacity=1}});
+ if(f>=T_HOME&&f<T_HOME+10){$('sc_splash').style.zIndex=2;$('sc_splash').style.opacity=1-E.io(seg(f,T_HOME,T_HOME+10));}
+}
+
+/* phone shrinks to the top while the 4 key cards are pulled out of it */
+const shrinkK=f=>E.io(seg(f,T_SHRINK,T_SHRINK+18))*(1-E.io(seg(f,T_FIN-4,T_FIN+12)));
+function phone(f){
+ const ph=$('phone'); let py=0,ps=1,po=1,show=true;
+ if(f<T_PH) show=false;
+ else if(f<T_PH+18){py=lerp(1600,0,E.oc(seg(f,T_PH,T_PH+18)));}
+ else if(f>=T_REP){po=1-seg(f,T_REP+4,T_REP+14); if(po<=0) show=false;}
+ const k=shrinkK(f); ps*=lerp(1,0.64,k); py+=lerp(0,-90,k);
+ ph.style.display=show?'block':'none'; ph.style.opacity=po; ph.style.transform=`translateY(${py}px) scale(${ps})`;
+ if(!show) return;
+ screens(f);
+ let tapped=false; const T=(a,id)=>{tapped=tapAt(f,a,id)||tapped; press(id,f,a)};
+ /* splash: logo draws in */
+ if(f<T_HOME+10){const lg=[...document.querySelectorAll('#sp_logo .lg')];
+  lg.forEach((p,i)=>{const L=p.getTotalLength(); p.style.strokeDasharray=L; p.style.strokeDashoffset=L*(1-E.io(seg(f,T_PH+6+i*3,T_PH+30+i*3)));});
+  $('sp_t1').style.opacity=E.oc(seg(f,T_PH+22,T_PH+32)); $('sp_t2').style.opacity=E.oc(seg(f,T_PH+28,T_PH+38));
+ }
+ /* home */
+ if(f>=T_HOME&&f<T_TILE+16){
+  T(T_CONN,'h_conn');
+  const conn=f>=T_OK; $('h_stat').textContent=conn?'متصل':'قطع شده'; $('h_stat').style.color=conn?'#22A050':'#DC3232';
+  $('h_conn').style.background=conn?'#E6EBF2':'#2196F3'; $('h_conn').style.color=conn?'#98A3B8':'#fff';
+  $('h_conn').querySelector('path').setAttribute('fill',conn?'#98A3B8':'#fff');
+  $('h_disc').style.color=conn?'#1565C0':'#98A3B8';
+  // connection popup
+  const pin=seg(f,T_BACK+6,T_BACK+16), pout=seg(f,T_OK+8,T_OK+14);
+  const vis2=f>=T_BACK+6&&f<T_OK+14; const po2=vis2?E.oc(pin)*(1-E.ic(pout)):0;
+  $('h_dim').style.opacity=po2; const pop=$('h_pop'); pop.style.opacity=po2;
+  pop.style.transform=`scale(${lerp(0.86,1,E.back(pin))*(1-0.06*E.ic(pout))})`;
+  const STEPS=['اتصال بلوتوث...','راه‌اندازی دیاگ...','شناسایی <span class="ltr">ECU</span>...'];
+  let si=0; T_STEP.forEach((t,i)=>{if(f>=t)si=i}); const st=$('p_step');
+  if(f<T_OK){st.innerHTML=STEPS[si]; const k=f-T_STEP[si]; st.style.opacity=E.oc(seg(k,0,5)); st.style.transform=`translateY(${(1-E.oc(seg(k,0,6)))*10}px)`;}
+  else {st.innerHTML='دیاگ آماده‌ست'; st.style.opacity=1; st.style.transform='none';}
+  $('p_ttl').textContent=f<T_OK?'در حال اتصال':'متصل شد'; $('p_ttl').style.color=f<T_OK?'#10203C':'#22A050';
+  $('p_spin').style.transform=`rotate(${f*14}deg)`; $('p_spin').style.opacity=f<T_OK?1:0;
+  const ok=seg(f,T_OK,T_OK+8); $('p_ok').style.opacity=E.oc(ok); $('p_ok').style.transform=`scale(${ok<=0?0.4:lerp(0.4,1,E.back(ok))})`;
+  $('h_toast').style.opacity=E.oc(seg(f,T_OK+12,T_OK+18))*(1-seg(f,T_TILE+6,T_TILE+12));
+  T(T_TILE,'h_trip');
+ }
+ /* connection screen (fast: no permission dialog) */
+ if(f>=T_CONN&&f<T_BACK+14){
+  T(T_SEARCH,'c_search'); const TA=T_SEARCH+2;
+  const scanning=f>=TA&&f<T_DEV[4]+4;
+  $('c_stat').textContent=f<TA?'برای پیدا کردن دیاگ، جستجو را بزنید':(f<T_DEV[4]+4?'در حال جستجو...':'جستجو کامل شد. ۵ دیاگ یافت شد');
+  $('c_search').style.background=scanning?'#90CAF9':'#2196F3';
+  $('c_stop').style.color=scanning?'#10203C':'#98A3B8';
+  $('c_prog').style.width=(f<TA?0:E.io(seg(f,TA,T_DEV[4]+4))*100)+'%'; $('c_prog').style.opacity=f<T_DEV[4]+10?1:1-seg(f,T_DEV[4]+10,T_DEV[4]+16);
+  $('c_dim').style.opacity=0; $('c_perm').style.opacity=0;
+  const eo=1-seg(f,T_DEV[0]-2,T_DEV[0]+4); vis($('c_empty'),eo);
+  let rr=''; if(f>=TA){for(let i=0;i<3;i++){const ph=((f-TA)/14+i/3)%1; rr+=`<circle cx="268" cy="226" r="${lerp(50,250,ph)}" fill="none" stroke="#2196F3" stroke-width="${5-3*ph}" opacity="${(1-ph)*0.6*seg(f,TA,TA+4)}"/>`;}}
+  $('c_radar').innerHTML=rr; $('c_emptyT').textContent=f<TA?'هنوز دستگاهی پیدا نشده':'در حال جستجوی دیاگ...';
+  DEV.forEach((d,i)=>{const r=$('c_r'+i); const p=seg(f,T_DEV[i],T_DEV[i]+8); r.style.opacity=E.oc(seg(f,T_DEV[i],T_DEV[i]+4));
+   r.style.transform=`translateY(${(1-E.oc(p))*26}px) scale(${p<=0?0.9:lerp(0.9,1,E.back(p))})`;});
+  T(T_PICK,'c_r0'); const hl=Math.exp(-Math.pow((f-T_PICK-3)/5,2)); $('c_r0').style.boxShadow=`inset 0 0 0 ${3*hl}px rgba(33,150,243,${hl})`;
+ }
+
+ /* trip screen */
+ if(f>=T_TILE&&f<T_REP+16){
+  T(T_SCAN,'t_scan'); const scanned=f>=T_SCAN+4, going=f>=T_GO, done=f>=T_FIN;
+  $('t_scanT').innerHTML=scanned?'اسکن مجدد':'اسکن <span class="ltr">ECU</span>';
+  $('t_scan').style.color=scanned?'#98A3B8':'#2196F3'; $('t_scan').querySelector('path').setAttribute('fill',scanned?'#98A3B8':'#2196F3');
+  const go=$('t_go'); const en=f>=T_SCAN+40;
+  go.style.background=going?'#D32F2F':(en?'#2196F3':'#DDE3EC'); go.style.color=going||en?'#fff':'#98A3B8';
+  go.querySelector('path').setAttribute('d',IC[going?'stop':'playf']); go.querySelector('path').setAttribute('fill',going||en?'#fff':'#98A3B8');
+  $('t_goT').textContent=going?'توقف سفر':'شروع سفر';
+  if(en&&!going) go.style.boxShadow=`0 0 0 ${8*(0.5+0.5*Math.sin(f/4))}px rgba(33,150,243,.18)`; else go.style.boxShadow='none';
+  T(T_GO,'t_go');
+  const ti=$('t_tim'); ti.style.opacity=E.oc(seg(f,T_GO,T_GO+6)); const v=V(f);
+  $('t_time').textContent=mmss(v.s); ti.style.color=done?'#22A050':'#2196F3'; ti.querySelector('path').setAttribute('fill',done?'#22A050':'#2196F3');
+  vis($('t_guide'),1-seg(f,T_SCAN+2,T_SCAN+8));
+  PIDS.forEach((p,i)=>{const a=T_SCAN+6+i*2.6, q=seg(f,a,a+8), el=$('pc_'+p[2]);
+   el.style.opacity=E.oc(seg(f,a,a+5)); el.style.transform=`scale(${q<=0?0.7:lerp(0.7,1,E.back(q))})`;
+   const pv=$('pv_'+p[2]); pv.textContent=p[3](v[p[2]]);
+   const bad=p[2]=='ltft'&&v.ltft>10; pv.style.color=bad?AMB:'#10203C'; el.style.borderColor=bad?'#F9C88A':'';
+   el.style.background=p[2]=='ltft'&&bad?AMBT:'#fff';});
+  // finish: recorded + analysing
+  const pin=seg(f,T_FIN+2,T_FIN+12), pout=seg(f,T_REP-6,T_REP);
+  const po2=f>=T_FIN+2?E.oc(pin)*(1-E.ic(pout)):0; $('t_dim').style.opacity=po2; $('t_pop').style.opacity=po2;
+  $('t_pop').style.transform=`scale(${lerp(0.86,1,E.back(pin))})`; $('t_popP').style.width=(E.io(seg(f,T_FIN+10,T_REP-4))*100)+'%';
+ }
+ if(!tapped) $('tap').style.opacity=0;
+}
+
+/* trace of the last n frames for a key */
+function trace(k,f,lo,hi,w=GW,h=GH,n=96){let d='';for(let j=0;j<=n;j++){const t=f-n+j; const v=V(Math.max(t,T_GO))[k];
+ d+=(j?'L':'M')+(j*w/n).toFixed(1)+' '+(h-5-(cl((v-lo)/(hi-lo)))*(h-10)).toFixed(1);} return d;}
+function pull(f){
+ const on=f>=T_PULL-1&&f<T_FIN+14;
+ BIG.forEach((b,i)=>{const el=$('bc'+i); if(!on){el.style.display='none';return}
+  const a=T_PULL+i*4, bk=T_BACKIN+i*3;
+  const p=E.io(seg(f,a,a+18))*(1-E.io(seg(f,bk,bk+14)));
+  if(p<=0){el.style.display='none';return} el.style.display='block';
+  const r=$('pc_'+b.k).getBoundingClientRect();
+  const x=lerp(r.left,b.x,p), y=lerp(r.top,b.y,p), sx=lerp(r.width/BW,1,p), sy=lerp(r.height/BH,1,p);
+  el.style.transform=`translate(${x-b.x}px,${y-b.y}px) scale(${sx},${sy})`; el.style.opacity=cl(p*3);
+  const v=V(f); $('bv'+i).textContent=b.u(v[b.k]);
+  const lean=b.k=='o21'&&v.L>0.45; $('bt'+i).innerHTML=lean?`<span class="pill" style="height:44px;font-size:26px;padding:0 20px;background:${AMB};color:#fff;transform:scale(${lerp(0.7,1,E.back(cl((v.L-0.45)*6)))})">رقیق</span>`:'';
+  const ym=GH-5-0.45*(GH-10), mid=b.k[0]=='o'?`<line x1="0" x2="${GW}" y1="${ym}" y2="${ym}" stroke="#98A3B8" stroke-width="2" stroke-dasharray="8 8"/>`:'';
+  $('bg'+i).innerHTML=`<rect width="${GW}" height="${GH}" rx="12" fill="#F4F8FD"/>${mid}<path d="${trace(b.k,f,b.lo,b.hi)}" fill="none" stroke="#2196F3" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>`;
+ });
+ // side cards
+ const so=on?E.oc(seg(f,T_PULL+10,T_PULL+20))*(1-seg(f,T_BACKIN,T_BACKIN+8)):0; const v=V(f);
+ [0,1,2,3,4,5].forEach(i=>{const el=$('sc'+i); vis(el,so); el.style.transform=`translateY(${(1-E.oc(seg(f,T_PULL+10+i*3,T_PULL+22+i*3)))*30}px)`;});
+ if(so>0){$('sv0').textContent=mmss(v.s); $('sp0').style.width=(v.s/TRIP*100)+'%';
+  $('sv1').textContent=sg(v.ltft)+'٪'; $('sv1').style.color=v.ltft>10?AMB:'#10203C';
+  $('st1').innerHTML=v.ltft>12?`<span class="pill" style="height:48px;font-size:26px;padding:0 20px;background:${AMB};color:#fff">مخلوط رقیق</span>`:'';
+  $('sv6').textContent=f1(v.km)+' km'; $('sv2').textContent=f0(v.ect)+' °C'; $('sv3').textContent=sg(v.stft)+'٪';
+  $('sv4').textContent=f0(v.iat)+' °C'; $('sv5').textContent=f1(v.adv)+'°';}
+}
+function fan(f){
+ const w=$('fanW'); const o=E.oc(seg(f,T_RECAP+6,T_RECAP+16))*(1-E.ic(seg(f,T_END-8,T_END+2)));
+ vis(w,o); if(o<=0) return;
+ [0,1,2,3,4].forEach(i=>{const p=E.back(seg(f,T_RECAP+8+i*3,T_RECAP+30+i*3)); const k=i-2;
+  $('pg'+i).style.transform=`translateX(${k*92*p}px) rotate(${k*9*p}deg) translateY(${(1-cl(p))*80+Math.abs(k)*14*p}px)`;});
+ const cp=seg(f,T_RECAP+30,T_RECAP+42); $('fanChip').style.opacity=E.oc(cp); $('fanChip').style.transform=`scale(${cp<=0?0.7:lerp(0.7,1,E.back(cp))})`;
+}
+
+function render(f){
+ hook(f); dash(f); phone(f); pull(f); doc(f); fan(f);
+ TT.forEach((t,i)=>{const el=$('tt'+i);const pin=E.oc(seg(f,t.a,t.a+9)),pout=E.ic(seg(f,t.b-6,t.b));const o=pin*(1-pout);
+  vis(el,o); el.style.transform=`translateY(${(1-pin)*28-pout*14}px)`;});
+ FC.forEach(c=>{const el=$(c.id); if(f<c.a-1||f>c.b+1){el.style.display='none';return}
+  el.style.display='block'; const pin=seg(f,c.a,c.a+14), pout=seg(f,c.b-9,c.b);
+  el.style.opacity=E.oc(seg(f,c.a,c.a+6))*(1-E.ic(pout));
+  el.style.transform=`translateY(${(1-E.oc(pin))*60+E.ic(pout)*30}px) scale(${lerp(0.86,1,E.back(pin))})`;});
+ renderEnd(f);
+}
+
+</script>
+<script src="endcard.js"></script>
+<script>
+initEnd(null,{health:HEALTH,healthColor:LG,t0:T_END,handle:'@cardiagai'});
+window.READY=document.fonts.ready.then(()=>{docLayout();render(0);return true});
+</script>
+</body></html>
