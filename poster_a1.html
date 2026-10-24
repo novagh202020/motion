@@ -97,6 +97,14 @@ body.t-b #titleF .l1{background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 50%,#D
 
 /* bottom: QR + app name */
 #dl{left:1205px;top:2780px;width:840px;display:flex;justify-content:center}
+/* ?v=general: customer poster without the store discount card; diag moves right, off the phone */
+body.v-general #offer{display:none}
+body.v-general #addr{top:1640px}
+body.v-general #addr .h{font-size:78px}
+body.v-general #addr .b{font-size:54px}
+body.v-general #prodGlow{left:1170px;top:1950px;width:900px;height:640px}
+body.v-general #prod{left:1250px;top:2000px;width:760px}
+body.v-general #prodShadow{left:1230px;top:2520px;width:790px;height:140px}
 #url{display:flex;align-items:center;gap:30px;height:150px;padding:0 60px 0 22px;border-radius:75px;direction:ltr;
  background:rgba(8,38,100,.45);border:4px solid rgba(255,255,255,.75);box-shadow:0 18px 50px rgba(5,25,70,.35)}
 #url .gl{width:106px;height:106px;border-radius:50%;background:#FFCD11;display:flex;align-items:center;justify-content:center}
@@ -144,6 +152,7 @@ body.t-b #titleF .l1{background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 50%,#D
 <script>
 document.getElementById('titleF').innerHTML=document.getElementById('title').innerHTML;
 document.body.classList.add('t-'+(new URLSearchParams(location.search).get('t')||'p2'));
+if(new URLSearchParams(location.search).get('v'))document.body.classList.add('v-'+new URLSearchParams(location.search).get('v'));
 
 
 // feature icons (white line art, 24-unit grid)

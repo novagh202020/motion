@@ -1,5 +1,6 @@
 # A1 poster render: python3 poster.py [out_dir] [dpi]   (coupon QR target: QR_URL env, default https://www.cardiag.ir/?coupon=IRAN)
-# -> poster_a1.pdf (print), poster_a1_<dpi>dpi.jpg, poster_a1_preview.jpg
+# -> poster_a1 (store version with discount card) and poster_a1_general (customer version, ?v=general):
+#    <name>.pdf (print), <name>_<dpi>dpi.jpg, <name>_preview.jpg
 import os, sys, pathlib
 os.environ.setdefault("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
 import segno
@@ -22,11 +23,12 @@ def shot(pg, q, path, scale):
 with sync_playwright() as p:
     exe = "/opt/pw-browsers/chromium"
     b = p.chromium.launch(args=["--allow-file-access-from-files", "--force-color-profile=srgb"], executable_path=exe if os.path.exists(exe) else None)
-    pg = b.new_page(viewport={"width": W, "height": H})
-    pg.goto(page); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(600)
-    pg.pdf(path=str(out / "poster_a1.pdf"), width="594mm", height="841mm", print_background=True, prefer_css_page_size=True)
-    pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=dpi / 96)
-    shot(pg, "", out / f"poster_a1_{dpi}dpi.jpg", dpi / 96)
-    pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=0.5)
-    shot(pg, "", out / "poster_a1_preview.jpg", 0.5)
+    for q, name in (("", "poster_a1"), ("?v=general", "poster_a1_general")):
+        pg = b.new_page(viewport={"width": W, "height": H})
+        pg.goto(page + q); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(600)
+        pg.pdf(path=str(out / f"{name}.pdf"), width="594mm", height="841mm", print_background=True, prefer_css_page_size=True)
+        pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=dpi / 96)
+        shot(pg, q, out / f"{name}_{dpi}dpi.jpg", dpi / 96)
+        pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=0.5)
+        shot(pg, q, out / f"{name}_preview.jpg", 0.5)
     b.close()
