@@ -201,12 +201,44 @@ guide_css += """
 .cdp-guide .cdp-sec h1 span{color:var(--b)}
 @media (min-width:768px){.cdp-plans{grid-template-columns:repeat(3,1fr)}.cdp-tiles{grid-template-columns:repeat(3,1fr)}.cdp-guide .cdp-sec h1.elementor-heading-title{font-size:30px!important}.cdp-guide .cdp-sec h2.elementor-heading-title{font-size:24px!important}}
 """
+UP = 'https://www.cardiag.ir/wp-content/uploads/2026/10/'
+def pic(slug, mid, alt, cls='cdp-pic'):
+    return W('image', cls, image={"url": UP + slug + '.webp', "id": mid, "alt": alt, "source": "library"}, image_size='large')
+guide_css += """
+.cdp-guide .cdp-sec .elementor-widget-text-editor,.cdp-guide .cdp-sec .elementor-widget-text-editor p{font-size:16.5px;line-height:2.05}
+.cdp-guide .cdp-lead-g p{font-size:17.5px;line-height:2.1}
+.cdp-guide .cdp-sec h1.elementor-heading-title{font-size:30px!important}
+.cdp-guide .cdp-sec h2.elementor-heading-title{font-size:24px!important}
+.cdp-guide .elementor-icon-box-title{font-size:18px!important}
+.cdp-guide .elementor-icon-box-description{font-size:15.5px!important}
+.cdp-guide .elementor-icon{width:46px!important;height:46px!important;font-size:21px!important}
+.cdp-guide .cdp-who .elementor-icon-list-text{font-size:16.5px!important}
+.cdp-guide .cdp-note p{font-size:15.5px}
+.cdp-guide table.cdp-spec{font-size:16px}
+.cdp-guide ol.cdp-steps b{font-size:17.5px}
+.cdp-guide .cdp-acc .elementor-tab-title{font-size:17px!important}
+.cdp-guide .cdp-acc .elementor-tab-content{font-size:15.5px}
+.cdp-guide .cdp-acc .elementor-tab-content li span{font-size:13.5px}
+.cdp-guide .cdp-final .elementor-heading-title{font-size:24px!important}
+.cdp-guide .cdp-final p{font-size:16.5px}
+.cdp-guide .cdp-final .elementor-button{font-size:18px!important}
+.cdp-pics{display:flex!important;flex-direction:row!important;gap:12px;align-items:flex-end;justify-content:center}
+.cdp-pics>.elementor-widget{flex:1 1 0;margin:0!important}
+.cdp-pic img{display:block;width:100%;height:auto;border-radius:20px}
+.cdp-pic-phone img{max-height:520px;object-fit:contain;filter:drop-shadow(0 14px 28px rgba(20,40,80,.18))}
+.cdp-pic-diag img{border-radius:0;filter:drop-shadow(0 14px 28px rgba(20,40,80,.18))}
+.cdp-side{display:flex!important;flex-direction:column!important;gap:14px;align-items:center}
+.cdp-side>.elementor-widget{width:100%;margin:0!important}
+@media (min-width:768px){.cdp-guide .cdp-sec .elementor-widget-text-editor,.cdp-guide .cdp-sec .elementor-widget-text-editor p{font-size:17.5px}.cdp-pic-phone img{max-height:600px}.cdp-side{flex-direction:row!important;align-items:center}.cdp-side>.elementor-widget:first-child{flex:1 1 55%}.cdp-side>.elementor-widget:last-child{flex:1 1 45%}}
+"""
 BUY = {"url": "https://www.cardiag.ir/product/%d8%b9%db%8c%d8%a8-%db%8c%d8%a7%d8%a8-%d9%87%d9%88%d8%b4-%d9%85%d8%b5%d9%86%d9%88%d8%b9%db%8c-%d8%ae%d9%88%d8%af%d8%b1%d9%88%d9%87%d8%a7%db%8c-%d8%a7%db%8c%d8%b1%d8%a7%d9%86%db%8c/", "is_external": "", "nofollow": ""}
 guide = [C('cdp-guide', [
     W('html', 'cdp-assets', html='<style>' + guide_css + '</style>'),
     sec('guide-top', [
         heading('اپ کاردیاگ؛ <span>چی رایگانه، چی پولیه؟</span>', size='h1'),
         text('<p>اپ کاردیاگ را رایگان از سایت دانلود می‌کنی. بعضی بخش‌هایش همیشه رایگانه و بعضی‌ها با اعتبار یا اشتراک کار می‌کنند. اینجا ساده توضیح دادیم کدوم کدومه، ۷۲ اعتبار یعنی چی، و با خرید دیاگ چی می‌گیری.</p>', 'cdp-lead-g'),
+        C('cdp-pics', [pic('cardiag-app-home', 3106, 'صفحه اصلی اپلیکیشن کاردیاگ با نمایش درصد سلامت خودرو', 'cdp-pic cdp-pic-phone'),
+                       pic('cardiag-device', 3112, 'دستگاه دیاگ بلوتوثی کاردیاگ', 'cdp-pic cdp-pic-diag')], direction='row', g=12),
     ]),
     sec('free', [
         heading('بخش‌های <span>رایگان</span>'),
@@ -217,6 +249,7 @@ guide = [C('cdp-guide', [
             ibox('fas fa-car-battery', 'تست باتری و دینام', 'سالم بودن باتری و شارژ دینام را بسنج'),
             ibox('fas fa-chart-line', 'روند سلامت خودرو', 'سلامت ماشین را در گذر زمان ببین'),
         ], g=12),
+        pic('cardiag-app-monitoring', 3108, 'مانیتورینگ زنده خودرو در اپلیکیشن کاردیاگ', 'cdp-pic cdp-pic-phone'),
     ]),
     sec('paid', [
         heading('بخش‌های <span>پولی</span>'),
@@ -225,6 +258,7 @@ guide = [C('cdp-guide', [
             ibox('fas fa-robot', 'تعمیرکار هوش مصنوعی', 'عیب‌یابی به زبان ساده، جواب هر سؤالی درباره ماشینت و بررسی خودرو قبل از خرید'),
             ibox('fas fa-route', 'گزارش سفر', 'ثبت داده‌ها حین رانندگی و گزارش کامل در پایان مسیر'),
         ], g=12),
+        pic('cardiag-app-ai-result', 3101, 'تحلیل هوش مصنوعی کاردیاگ از وضعیت خودرو', 'cdp-pic cdp-pic-phone'),
     ]),
     sec('credits', [
         heading('۷۲ اعتبار <span>یعنی چی؟</span>'),
@@ -261,6 +295,7 @@ guide = [C('cdp-guide', [
              '<li><b>گوشی اندروید ۵ به بالا</b>فعلاً اپ فقط برای اندرویده.</li>'
              '<li><b>اپ کاردیاگ و بلوتوث روشن</b>اپ رایگانه و اتصال در کمتر از ۳۰ ثانیه برقرار می‌شه.</li></ol>'
              '<p>کابل و لپ‌تاپ نمی‌خوای. کاردیاگ فقط اطلاعات را می‌خونه و تنظیمات خودرو را تغییر نمی‌ده.</p>'),
+        pic('cardiag-device-case-2', 3113, 'دیاگ بلوتوثی کاردیاگ همراه کیف محافظ'),
     ]),
     sec('cars', [
         heading('چه <span>خودروهایی</span> می‌تونن استفاده کنن؟'),
