@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Travel Cover</title>
+<style>@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
+#c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}
+/* everything that matters sits inside the 3:4 grid crop (y 240..1680) and the 4:5 feed crop (y 285..1635) */
+#title{left:0;top:300px;width:1080px;text-align:center;font-weight:900;font-size:118px;line-height:1.12;direction:rtl;white-space:nowrap}
+#title b{color:#2196F3;font-weight:900}
+#pan{left:70px;top:600px;width:940px;height:780px;border-radius:60px;overflow:hidden;border:4px solid #fff;box-shadow:0 40px 80px rgba(20,40,80,.22),0 10px 24px rgba(20,40,80,.12)}
+#stamp{right:40px;top:560px}
+#steps{left:70px;top:1418px;width:940px;display:flex;justify-content:center;gap:14px;direction:rtl}
+.sc{display:inline-flex;align-items:center;gap:10px;padding:0 22px 0 18px;border-radius:999px;background:#fff;border:3px solid #BFE6CC;color:#10203C;font-weight:800;white-space:nowrap;box-shadow:0 10px 22px rgba(20,40,80,.08)}
+.sc i{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#22A050}
+.sc i svg{width:30px;height:30px}
+#brand{left:0;top:1540px;width:1080px;text-align:center;font-weight:900;font-size:58px;color:#1565C0;direction:ltr}
+</style></head><body>
+<div id="c">
+ <div id="title" class="a">ماشینت <b>آماده‌ی</b><br>سفره؟</div>
+ <svg id="pan" class="a" width="940" height="780" viewBox="0 0 940 780"></svg>
+ <div id="stamp" class="a"><svg width="440" height="210" viewBox="-220 -105 440 210"><g transform="rotate(-9)">
+  <rect x="-200" y="-78" width="400" height="156" rx="28" fill="rgba(255,255,255,.94)" stroke="#22A050" stroke-width="12"/>
+  <rect x="-180" y="-58" width="360" height="116" rx="18" fill="none" stroke="#22A050" stroke-width="4" stroke-dasharray="14 10"/>
+  <text y="25" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#22A050">آماده‌ی سفر</text></g></svg></div>
+ <div id="steps" class="a"><span class="sc" style="height:80px;font-size:34px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>باتری</span><span class="sc" style="height:80px;font-size:34px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>خطایابی</span><span class="sc" style="height:80px;font-size:34px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>سفر</span><span class="sc" style="height:80px;font-size:34px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>هوش مصنوعی</span></div>
+ <div id="brand" class="a">CarDiag AI</div>
+</div>
+<script>const CARL=`<g class="c206"><g><rect x="-52" y="-114" width="12" height="12" rx="3" fill="#33415C"/><rect x="66" y="-114" width="12" height="12" rx="3" fill="#33415C"/>
+ <path d="M-100 -110 Q-98 -150 -56 -154 L96 -154 Q126 -152 128 -110 Z" fill="#1565C0"/><path d="M-82 -132 L110 -132" stroke="#2196F3" stroke-width="5" stroke-linecap="round"/></g>
+ <ellipse cx="-24" cy="122" rx="300" ry="18" fill="#142850" opacity=".10"/>
+ <path d="M-262 62 L-264 26 Q-262 4 -240 -2 L-176 -24 Q-156 -30 -136 -38 L-80 -90 Q-66 -102 -44 -104 L84 -104 Q118 -102 140 -86 L198 -38 Q210 -28 212 -10 L216 44 Q216 72 198 76 L-246 76 Q-264 74 -262 62 Z" fill="#2196F3"/>
+ <path d="M-262 40 L216 40 L216 52 L-262 52 Z" fill="#1565C0" opacity=".55"/>
+ <path d="M-112 -40 L-66 -86 Q-58 -92 -44 -92 L-6 -92 L-6 -40 Z M8 -92 L82 -92 Q112 -90 130 -78 L172 -40 L8 -40 Z" fill="#ADD6FA"/>
+ <path d="M-2 -40 L-2 70" stroke="#1565C0" stroke-width="4" opacity=".5"/><rect x="-30" y="-12" width="30" height="7" rx="3.5" fill="#1565C0"/>
+ <path d="M-256 8 Q-232 -8 -192 -20 L-184 -10 Q-220 4 -254 18 Z" fill="#FFEA9C"/>
+ <path d="M196 -30 L210 -14 L212 10 L200 8 Z" fill="#DC3232" opacity=".85"/>
+ <path d="M-96 -44 L-110 -54 L-120 -46 L-104 -38 Z" fill="#1565C0"/>
+ <g class="wh" transform="translate(-160 76)"><circle r="46" fill="#10203C"/><circle r="24" fill="#E6EBF2"/><g class="sp"><rect x="-3" y="-22" width="6" height="44" rx="3" fill="#98A3B8"/><rect x="-22" y="-3" width="44" height="6" rx="3" fill="#98A3B8"/></g><circle r="7" fill="#6E7D96"/></g>
+ <g class="wh" transform="translate(134 76)"><circle r="46" fill="#10203C"/><circle r="24" fill="#E6EBF2"/><g class="sp"><rect x="-3" y="-22" width="6" height="44" rx="3" fill="#98A3B8"/><rect x="-22" y="-3" width="44" height="6" rx="3" fill="#98A3B8"/></g><circle r="7" fill="#6E7D96"/></g>
+</g>`;
+function scene(W,H,cx,cs,sign){const gy=H*0.70, ry=gy+34;
+ const ridge=(off,base,amp,fq,seed)=>{let d=`M-20 ${H} L-20 ${base}`;for(let x=-20;x<=W+20;x+=16){const u=(x-off)*fq;d+=` L${x} ${(base-amp*(0.55+0.3*Math.sin(u)+0.18*Math.sin(u*2.3+seed)+0.1*Math.sin(u*4.1+seed*2))).toFixed(1)}`}return d+` L${W+20} ${H} Z`};
+ const pine=(x,y,h,c)=>`<path d="M${x} ${y-h} L${x+h*0.34} ${y-h*0.45} L${x+h*0.2} ${y-h*0.45} L${x+h*0.42} ${y} L${x-h*0.42} ${y} L${x-h*0.2} ${y-h*0.45} L${x-h*0.34} ${y-h*0.45} Z" fill="${c}"/>`;
+ let s=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D3E6FB"/><stop offset="1" stop-color="#F7FBFF"/></linearGradient></defs>
+ <rect width="${W}" height="${H}" fill="url(#sky)"/><circle cx="${W*0.78}" cy="${H*0.2}" r="${H*0.13}" fill="#fff" opacity=".45"/><circle cx="${W*0.78}" cy="${H*0.2}" r="${H*0.08}" fill="#fff"/>`;
+ [[W*0.15,H*0.16,.8],[W*0.5,H*0.1,.6]].forEach(([x,y,k])=>{s+=`<g transform="translate(${x} ${y}) scale(${k})" fill="#fff"><ellipse rx="90" ry="34"/><ellipse cx="-40" cy="-22" rx="46" ry="38"/><ellipse cx="34" cy="-30" rx="54" ry="46"/></g>`});
+ s+=`<path d="${ridge(40,gy-130,H*0.24,0.006,1)}" fill="#CFE1F6"/><path d="${ridge(120,gy-40,H*0.12,0.011,4)}" fill="#AFCFF1"/>`;
+ for(let i=0;i<Math.ceil(W/84)+2;i++){const x=i*84-40, h=90+((i*37)%5)*16; s+=pine(x,gy+8,h,i%3?'#5AA6EE':'#2E8EEA');}
+ s+=`<rect x="0" y="${gy}" width="${W}" height="${H-gy}" fill="#E8F0F9"/><rect x="0" y="${ry}" width="${W}" height="200" fill="#D3DEEC"/>
+  <rect x="0" y="${ry}" width="${W}" height="8" fill="#fff"/><rect x="0" y="${ry+192}" width="${W}" height="8" fill="#fff"/>`;
+ for(let i=0;i<Math.ceil(W/170)+1;i++) s+=`<rect x="${i*170-40}" y="${ry+94}" width="96" height="12" rx="6" fill="#fff"/>`;
+ if(sign){const x=sign; s+=`<g transform="translate(${x} ${gy-224})"><rect x="-8" y="90" width="16" height="190" rx="6" fill="#6E7D96"/>
+   <rect x="-150" y="0" width="300" height="118" rx="20" fill="#2196F3" stroke="#fff" stroke-width="7"/>
+   <text x="18" y="78" text-anchor="middle" font-family="V" font-weight="900" font-size="58" fill="#fff">شمال</text>
+   <path d="M-112 59 L-88 36 L-88 50 L-64 50 L-64 68 L-88 68 L-88 82 Z" fill="#fff"/></g>`;}
+ s+=`<g transform="translate(${cx} ${ry+38}) scale(${cs})">${CARL}</g>`; return s}
+document.getElementById('pan').innerHTML=scene(940,780,500,1.15,140);</script>
+</body></html>
