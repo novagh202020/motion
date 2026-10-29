@@ -9,23 +9,20 @@ html,body{width:1280px;height:720px;overflow:hidden}
 body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
 #c{position:relative;width:1280px;height:720px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
 .a{position:absolute}
-#pan{left:40px;top:44px;width:640px;height:632px;border-radius:44px;overflow:hidden;border:4px solid #fff;box-shadow:0 36px 70px rgba(20,40,80,.24),0 10px 24px rgba(20,40,80,.12)}
-#stamp{left:330px;top:40px;transform:scale(.78);transform-origin:50% 0}
-#title{right:52px;top:64px;width:540px;text-align:right;font-weight:900;font-size:100px;line-height:1.1;direction:rtl;white-space:nowrap}
+#pan{left:40px;top:44px;width:570px;height:632px;border-radius:44px;overflow:hidden;border:4px solid #fff;box-shadow:0 36px 70px rgba(20,40,80,.24),0 10px 24px rgba(20,40,80,.12)}
+#diag{left:400px;top:452px;width:290px;height:209px;transform:rotate(-8deg)}#diag img{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 22px 26px rgba(20,40,80,.34))}#diag .sh{display:none}
+#title{right:48px;top:52px;width:560px;text-align:right;font-weight:900;font-size:72px;line-height:1.2;direction:rtl;white-space:nowrap}
 #title b{color:#2196F3;font-weight:900}
-#steps{right:52px;top:430px;width:540px;display:flex;flex-wrap:wrap;gap:12px;direction:rtl}
+#steps{right:48px;top:446px;width:540px;display:flex;flex-wrap:wrap;gap:12px;direction:rtl}
 .sc{display:inline-flex;align-items:center;gap:8px;padding:0 18px 0 14px;border-radius:999px;background:#fff;border:3px solid #BFE6CC;color:#10203C;font-weight:800;white-space:nowrap}
 .sc i{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#22A050}
 .sc i svg{width:24px;height:24px}
 #brand{right:54px;top:600px;font-weight:900;font-size:46px;color:#1565C0;direction:ltr}
 </style></head><body>
 <div id="c">
- <svg id="pan" class="a" width="640" height="632" viewBox="0 0 640 632"></svg>
- <div id="stamp" class="a"><svg width="440" height="210" viewBox="-220 -105 440 210"><g transform="rotate(-9)">
-  <rect x="-200" y="-78" width="400" height="156" rx="28" fill="rgba(255,255,255,.94)" stroke="#22A050" stroke-width="12"/>
-  <rect x="-180" y="-58" width="360" height="116" rx="18" fill="none" stroke="#22A050" stroke-width="4" stroke-dasharray="14 10"/>
-  <text y="25" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#22A050">آماده‌ی سفر</text></g></svg></div>
- <div id="title" class="a">ماشینت<br><b>آماده‌ی</b><br>سفره؟</div>
+ <svg id="pan" class="a" width="570" height="632" viewBox="0 0 570 632"></svg>
+ <div id="diag" class="a"><div class="sh"></div><img src="assets/diag_front.png"></div>
+ <div id="title" class="a">قبل سفر،<br><b>سلامت</b> ماشینت رو<br>با <b>این ابزار</b> چک کن!</div>
  <div id="steps" class="a"><span class="sc" style="height:62px;font-size:28px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>باتری</span><span class="sc" style="height:62px;font-size:28px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>خطایابی</span><span class="sc" style="height:62px;font-size:28px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>سفر</span><span class="sc" style="height:62px;font-size:28px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>هوش مصنوعی</span></div>
  <div id="brand" class="a">CarDiag AI</div>
 </div>
@@ -58,5 +55,5 @@ function scene(W,H,cx,cs,sign){const gy=H*0.70, ry=gy+34;
    <text x="18" y="78" text-anchor="middle" font-family="V" font-weight="900" font-size="58" fill="#fff">شمال</text>
    <path d="M-112 59 L-88 36 L-88 50 L-64 50 L-64 68 L-88 68 L-88 82 Z" fill="#fff"/></g>`;}
  s+=`<g transform="translate(${cx} ${ry+38}) scale(${cs})">${CARL}</g>`; return s}
-document.getElementById('pan').innerHTML=scene(640,632,350,.9,0);</script>
+document.getElementById('pan').innerHTML=scene(570,632,250,.76,0);</script>
 </body></html>

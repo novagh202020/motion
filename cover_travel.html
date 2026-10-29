@@ -10,10 +10,10 @@ body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
 #c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
 .a{position:absolute}
 /* everything that matters sits inside the 3:4 grid crop (y 240..1680) and the 4:5 feed crop (y 285..1635) */
-#title{left:0;top:300px;width:1080px;text-align:center;font-weight:900;font-size:118px;line-height:1.12;direction:rtl;white-space:nowrap}
+#title{left:0;top:296px;width:1080px;text-align:center;font-weight:900;font-size:100px;line-height:1.16;direction:rtl;white-space:nowrap}
 #title b{color:#2196F3;font-weight:900}
-#pan{left:70px;top:600px;width:940px;height:780px;border-radius:60px;overflow:hidden;border:4px solid #fff;box-shadow:0 40px 80px rgba(20,40,80,.22),0 10px 24px rgba(20,40,80,.12)}
-#stamp{right:40px;top:560px}
+#pan{left:70px;top:680px;width:940px;height:700px;border-radius:60px;overflow:hidden;border:4px solid #fff;box-shadow:0 40px 80px rgba(20,40,80,.22),0 10px 24px rgba(20,40,80,.12)}
+#diag{left:40px;top:1110px;width:400px;height:289px;transform:rotate(-8deg)}#diag img{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 26px 30px rgba(20,40,80,.32))}#diag .sh{display:none}
 #steps{left:70px;top:1418px;width:940px;display:flex;justify-content:center;gap:14px;direction:rtl}
 .sc{display:inline-flex;align-items:center;gap:10px;padding:0 22px 0 18px;border-radius:999px;background:#fff;border:3px solid #BFE6CC;color:#10203C;font-weight:800;white-space:nowrap;box-shadow:0 10px 22px rgba(20,40,80,.08)}
 .sc i{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#22A050}
@@ -21,12 +21,9 @@ body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
 #brand{left:0;top:1540px;width:1080px;text-align:center;font-weight:900;font-size:58px;color:#1565C0;direction:ltr}
 </style></head><body>
 <div id="c">
- <div id="title" class="a">ماشینت <b>آماده‌ی</b><br>سفره؟</div>
- <svg id="pan" class="a" width="940" height="780" viewBox="0 0 940 780"></svg>
- <div id="stamp" class="a"><svg width="440" height="210" viewBox="-220 -105 440 210"><g transform="rotate(-9)">
-  <rect x="-200" y="-78" width="400" height="156" rx="28" fill="rgba(255,255,255,.94)" stroke="#22A050" stroke-width="12"/>
-  <rect x="-180" y="-58" width="360" height="116" rx="18" fill="none" stroke="#22A050" stroke-width="4" stroke-dasharray="14 10"/>
-  <text y="25" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#22A050">آماده‌ی سفر</text></g></svg></div>
+ <div id="title" class="a">قبل سفر، <b>سلامت</b><br>ماشینت رو با<br><b>این ابزار</b> چک کن!</div>
+ <svg id="pan" class="a" width="940" height="700" viewBox="0 0 940 700"></svg>
+ <div id="diag" class="a"><div class="sh"></div><img src="assets/diag_front.png"></div>
  <div id="steps" class="a"><span class="sc" style="height:80px;font-size:34px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>باتری</span><span class="sc" style="height:80px;font-size:34px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>خطایابی</span><span class="sc" style="height:80px;font-size:34px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>سفر</span><span class="sc" style="height:80px;font-size:34px"><i><svg width="34" height="34" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></i>هوش مصنوعی</span></div>
  <div id="brand" class="a">CarDiag AI</div>
 </div>
@@ -59,5 +56,5 @@ function scene(W,H,cx,cs,sign){const gy=H*0.70, ry=gy+34;
    <text x="18" y="78" text-anchor="middle" font-family="V" font-weight="900" font-size="58" fill="#fff">شمال</text>
    <path d="M-112 59 L-88 36 L-88 50 L-64 50 L-64 68 L-88 68 L-88 82 Z" fill="#fff"/></g>`;}
  s+=`<g transform="translate(${cx} ${ry+38}) scale(${cs})">${CARL}</g>`; return s}
-document.getElementById('pan').innerHTML=scene(940,780,500,1.15,140);</script>
+document.getElementById('pan').innerHTML=scene(940,700,580,1.0,0);</script>
 </body></html>
