@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Mileage Cover</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{font-family:V,sans-serif;color:#10203C;background:#FBFCFF}
+#c{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#FBFCFF 0%,#ECF3FC 100%)}
+.a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
+/* inside the 4:5 feed crop (y 285..1635) */
+#title{left:0;top:330px;width:1080px;text-align:center;font-weight:900;font-size:136px;line-height:1.1;white-space:nowrap}
+#title b{color:#2196F3;font-weight:900}
+.odo{background:#0E1422;border:4px solid #33415C;border-radius:24px;color:#78CDFF;font-weight:900;direction:ltr;text-align:center;letter-spacing:3px}
+</style></head><body>
+<div id="c">
+ <div id="title" class="a rtl">کیلومترش<br><b>واقعیه</b>؟</div>
+ <!-- the car for sale -->
+ <svg class="a" style="left:0;top:0" width="1080" height="1920">
+  <defs><filter id="sh" x="-20%" y="-40%" width="140%" height="190%"><feDropShadow dx="0" dy="22" stdDeviation="20" flood-color="#142850" flood-opacity=".2"/></filter></defs>
+  <ellipse cx="540" cy="1060" rx="380" ry="22" fill="#142850" opacity=".08"/>
+  <g transform="translate(540 960) scale(1.05)">
+   <g filter="url(#sh)"><path d="M-300 70 L-300 18 Q-300 -4 -276 -8 L-196 -16 L-138 -70 Q-124 -84 -100 -84 L118 -84 Q142 -84 156 -66 L202 -14 L250 -8 Q276 -2 276 24 L276 70 Q276 86 260 86 L-284 86 Q-300 86 -300 70 Z" fill="#2196F3"/></g>
+   <path d="M-120 -14 L-92 -60 L-8 -60 L-8 -14 Z M10 -60 L106 -60 L144 -14 L10 -14 Z" fill="#ADD6FA"/>
+   <rect x="-302" y="16" width="26" height="16" rx="5" fill="#FFEA9C"/><rect x="254" y="16" width="22" height="16" rx="5" fill="#DC3232" opacity=".85"/>
+   <g transform="translate(66 -38)"><rect x="-46" y="-18" width="92" height="36" rx="6" fill="#fff" stroke="#10203C" stroke-width="2"/>
+    <text y="10" text-anchor="middle" font-family="V" font-weight="900" font-size="23" fill="#10203C">فروشی</text></g>
+   <g transform="translate(-170 86)"><circle r="50" fill="#10203C"/><circle r="26" fill="#E6EBF2"/><circle r="7" fill="#6E7D96"/></g>
+   <g transform="translate(160 86)"><circle r="50" fill="#10203C"/><circle r="26" fill="#E6EBF2"/><circle r="7" fill="#6E7D96"/></g>
+  </g>
+ </svg>
+ <!-- dashboard vs ECU -->
+ <div class="a rtl" style="left:90px;top:1130px;width:900px;background:#fff;border:3px solid #DEE6F2;border-radius:40px;box-shadow:0 30px 60px rgba(20,40,80,.18);padding:30px 36px 34px">
+  <div style="display:flex;align-items:center">
+   <div style="flex:1;text-align:center"><div style="font-weight:800;font-size:34px;color:#6E7D96">داشبورد</div><div class="odo" style="margin-top:12px;font-size:64px;padding:8px 0">۸۵٬۰۰۰</div></div>
+   <div style="width:100px;height:100px;border-radius:50%;background:#F28012;color:#fff;font-weight:900;font-size:66px;display:flex;align-items:center;justify-content:center;flex:none;margin:56px 22px 0;box-shadow:0 0 0 14px rgba(242,128,18,.14)">≠</div>
+   <div style="flex:1;text-align:center"><div style="font-weight:800;font-size:34px;color:#6E7D96">شمارنده‌ی <span class="ltr">ECU</span></div><div class="odo" style="margin-top:12px;font-size:64px;padding:8px 0;color:#FFC446">۱۸۶٬۴۰۰</div></div>
+  </div></div>
+ <div class="a ltr" style="left:0;top:1520px;width:1080px;text-align:center;font-weight:900;font-size:56px;color:#1565C0">CarDiag AI</div>
+</div>
+</body></html>
