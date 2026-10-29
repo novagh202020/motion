@@ -26,6 +26,7 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
     cd song && python3 full.py      # -> song_full.wav: the whole track from motion 0 (no edits; breaks at bars 10 / 24, final hit 61.0 s)
     PAGE=motion60.html python3 render.py video silent.mp4 0 1866
     python3 sfx_tg.py   (Telegram channel promo, 30 s -> sfx_tg_full.wav, mix_tg.wav; song_cut.wav grid)
+    python3 sfx_km.py   (mileage check, 30 s -> mix_km.wav only, music version)
     python3 sfx_box.py  (what ships with CarDiag, 53.2 s -> sfx_box_full.wav, mix_box.wav; needs song/song_box.wav = song/box_cut.py)
     cd song && python3 box_cut.py   # the whole song without repeats: one groove-B phrase taken out at a phrase boundary
     python3 sfx_insp.py (technical-inspection motion, 41.25 s -> sfx_insp_full.wav, mix_insp.wav; needs song/song_trip.wav = extend.py 5)
@@ -57,6 +58,9 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 - svc_motion.html      Periodic service: odometer climbs, forgotten oil-change note, oil lamp -> quick access -> periodic service,
                        add oil change every 5,000 km -> every 2 weeks a time-based reminder notification -> km entered with «اصلاح» (no GPS on a phone),
                        card goes green -> amber at 300 km left -> more services in the list -> end card (30 s)
+- km_motion.html       Mileage check for used-car buyers: seller claims «فقط ۸۵ هزار کار کرده!» -> fast connect -> ~1 s press on
+                       «اصالت کیلومتر» -> car 1: dashboard 85,000 vs ECU counter 186,400, «تطابق ندارد» (small note: unless the ECU
+                       was replaced) -> car 2: 142,000 vs 142,300, «تطابق دارد» -> free, nothing to enter -> end card (30 s)
 - box_motion.html      What ships with CarDiag: the zip case opens -> 1. the Bluetooth diag (chips, plugs in) -> 2. the activation
                        card (foil scratched off) activates the gold plan, 72 credits, in the app -> free sections vs the two credit
                        sections -> what 72 credits mean (1 per AI use with 5 questions / per trip, 40 + 32 example) -> bronze 6 /
