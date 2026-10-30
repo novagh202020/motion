@@ -59,12 +59,10 @@ body{font-family:V,sans-serif;color:#10203C}
 .ttl .w{display:inline-block;overflow:hidden;vertical-align:top;padding:4px 10px 22px;margin:-4px 0 -22px}
 .ttl .w>span{display:inline-block}
 .L{position:absolute;left:0;top:0;width:1080px;height:1920px;display:none}
-#phone{top:420px}
-#ring{position:absolute;left:440px;top:262px;z-index:45;display:none}
+#phone{top:420px;transform-origin:0 0}
 #zl{position:absolute;left:0;top:0;z-index:44;pointer-events:none}
-#flashW{position:absolute;inset:0;background:#fff;opacity:0;z-index:43;pointer-events:none}
-#acard{position:absolute;left:150px;top:1300px;width:780px;height:490px;border-radius:40px;background:linear-gradient(160deg,#4FB6EC 0%,#2E9FE6 60%,#2196F3 100%);
- box-shadow:0 40px 80px rgba(20,40,80,.30);direction:rtl;color:#fff;text-align:center;overflow:hidden;transform-origin:50% 50%;z-index:22;display:none}
+#acard{position:absolute;left:150px;top:520px;width:780px;height:490px;border-radius:40px;background:linear-gradient(160deg,#4FB6EC 0%,#2E9FE6 60%,#2196F3 100%);
+ box-shadow:0 40px 80px rgba(20,40,80,.30);direction:rtl;color:#fff;text-align:center;overflow:hidden;transform-origin:50% 50%}
 #dStamp{position:absolute;left:310px;top:880px;z-index:30;display:none}
 .card2{background:#fff;border:3px solid #DEE6F2;border-radius:40px;box-shadow:0 30px 60px rgba(20,40,80,.18),0 8px 18px rgba(20,40,80,.08);direction:rtl}
 .chip2{display:inline-flex;align-items:center;gap:14px;height:84px;padding:0 34px;border-radius:42px;font-weight:800;font-size:40px;white-space:nowrap;direction:rtl}
@@ -111,35 +109,34 @@ body{font-family:V,sans-serif;color:#10203C}
 .gold{display:inline-flex;align-items:center;gap:14px;border-radius:999px;background:linear-gradient(90deg,#F6CD5C 0%,#FFEA9C 55%,#E0A82C 100%);color:#4B3005;font-weight:800;white-space:nowrap}
 </style>
  <svg id="topo" width="1080" height="1920"></svg>
- <!-- ===== 1. the zip case ===== -->
+ <!-- ===== 1. the zip case: black oval pouch, blue zipper, the white diag inside ===== -->
  <div id="sCase" class="L" style="z-index:2">
-  <div id="cBloom" class="a" style="left:140px;top:560px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.26) 0%,rgba(40,160,255,0) 68%);opacity:0"></div>
-  <div id="case" class="a" style="left:180px;top:740px;width:720px;height:480px;transform-origin:50% 60%">
-   <div class="a" style="left:0;top:22px;width:720px;height:470px;border-radius:90px;background:#0E2547;filter:blur(1px);opacity:.25;transform:translateY(20px)"></div>
-   <!-- inside: moulded foam with the diag and the activation card -->
-   <div id="cIn" class="a" style="left:0;top:0;width:720px;height:480px;border-radius:90px;background:linear-gradient(180deg,#1A3561,#132848);border:8px solid #1F4E9A;overflow:hidden">
-    <div class="a" style="left:60px;top:70px;width:330px;height:330px;border-radius:60px;background:#0F2140;box-shadow:inset 0 10px 24px rgba(0,0,0,.45)"></div>
-    <img id="inDiag" src="assets/diag_front.png" class="a" style="left:70px;top:110px;width:310px">
-    <div class="a" style="left:420px;top:110px;width:240px;height:260px;border-radius:30px;background:#0F2140;box-shadow:inset 0 10px 24px rgba(0,0,0,.45)"></div>
-   </div>
-   <div id="inCard" class="a" style="left:440px;top:150px;width:200px;height:126px;border-radius:14px;background:linear-gradient(160deg,#4FB6EC,#2196F3);box-shadow:0 8px 16px rgba(0,0,0,.3)"></div>
-   <!-- lid -->
-   <svg id="lid" class="a" style="left:0;top:0;overflow:visible;transform-origin:50% 0" width="720" height="480">
-    <defs><linearGradient id="fab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2463B8"/><stop offset="1" stop-color="#173F7E"/></linearGradient></defs>
-    <rect x="0" y="0" width="720" height="480" rx="90" fill="url(#fab)"/>
-    <rect x="0" y="0" width="720" height="480" rx="90" fill="none" stroke="#123366" stroke-width="6"/>
-    <path id="zpath" d="M90 22 H630 Q698 22 698 90 V390 Q698 458 630 458 H90 Q22 458 22 390 V90 Q22 22 90 22 Z" fill="none" stroke="#0E2547" stroke-width="16"/>
-    <path id="zteeth" d="M90 22 H630 Q698 22 698 90 V390 Q698 458 630 458 H90 Q22 458 22 390 V90 Q22 22 90 22 Z" fill="none" stroke="#8FA9CF" stroke-width="10" stroke-dasharray="4 5"/>
-    <path id="zopen" d="M90 22 H630 Q698 22 698 90 V390 Q698 458 630 458 H90 Q22 458 22 390 V90 Q22 22 90 22 Z" fill="none" stroke="#081833" stroke-width="18"/>
-    <g transform="translate(222 150)" id="lidLogo"></g>
-    <text x="360" y="340" text-anchor="middle" font-family="V" font-weight="900" font-size="64" fill="#fff" direction="ltr">CarDiag AI</text>
-    <g id="pull"><rect x="-26" y="-14" width="52" height="28" rx="10" fill="#C9D4E4" stroke="#6E7D96" stroke-width="3"/><rect x="-6" y="10" width="12" height="40" rx="6" fill="#C9D4E4" stroke="#6E7D96" stroke-width="3"/></g>
+  <div id="cBloom" class="a" style="left:140px;top:580px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.24) 0%,rgba(40,160,255,0) 68%);opacity:0"></div>
+  <div id="case" class="a" style="left:160px;top:730px;width:760px;height:500px;transform-origin:50% 60%">
+   <svg class="a" style="left:0;top:0;overflow:visible" width="760" height="500"><ellipse cx="380" cy="282" rx="372" ry="236" fill="#142850" opacity=".22" style="filter:blur(14px)"/></svg>
+   <svg id="cIn" class="a" style="left:0;top:0;overflow:visible" width="760" height="500">
+    <defs><pattern id="mesh" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="2.2" fill="#323844"/></pattern></defs>
+    <ellipse cx="380" cy="250" rx="378" ry="248" fill="#1E63D6"/><ellipse cx="380" cy="250" rx="352" ry="224" fill="#121419"/>
+    <ellipse cx="380" cy="262" rx="322" ry="198" fill="#22262E"/><ellipse cx="380" cy="262" rx="322" ry="198" fill="url(#mesh)"/></svg>
+   <img id="inDiag" src="assets/diag_front.png" class="a" style="left:215px;top:134px;width:330px">
+   <svg id="lid" class="a" style="left:0;top:0;overflow:visible;transform-origin:50% 0" width="760" height="500">
+    <defs><radialGradient id="lidg" cx="42%" cy="32%" r="75%"><stop offset="0" stop-color="#30353F"/><stop offset=".6" stop-color="#16181D"/><stop offset="1" stop-color="#0A0B0E"/></radialGradient>
+     <linearGradient id="zipg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F7BEA"/><stop offset="1" stop-color="#1550C0"/></linearGradient></defs>
+    <ellipse cx="380" cy="250" rx="378" ry="248" fill="url(#zipg)"/>
+    <path id="zpath" d="M16 250 A364 234 0 1 1 744 250 A364 234 0 1 1 16 250" fill="none" stroke="#0F3E9C" stroke-width="12"/>
+    <path d="M16 250 A364 234 0 1 1 744 250 A364 234 0 1 1 16 250" fill="none" stroke="#86AEF0" stroke-width="6" stroke-dasharray="3 5"/>
+    <path id="zopen" d="M16 250 A364 234 0 1 1 744 250 A364 234 0 1 1 16 250" fill="none" stroke="#05070A" stroke-width="16" stroke-dasharray="0 4000"/>
+    <ellipse cx="380" cy="250" rx="348" ry="218" fill="url(#lidg)"/>
+    <g id="lidLogo" transform="translate(212 104)"></g>
+    <text x="380" y="330" text-anchor="middle" font-family="V" font-weight="900" font-size="74" fill="#2196F3" direction="ltr">CarDiag AI</text>
+    <g id="pull"><path d="M0 0 L-46 66" stroke="#15171B" stroke-width="13" stroke-linecap="round"/><rect x="-15" y="-22" width="30" height="44" rx="9" fill="#1B1D22" stroke="#444A55" stroke-width="3"/></g>
    </svg>
   </div>
-  <img id="cHero" src="assets/diag_front.png" class="a" style="left:250px;top:850px;width:310px;display:none;transform-origin:50% 50%;filter:drop-shadow(0 24px 30px rgba(20,40,80,.3))">
+  <img id="cHero" src="assets/diag_front.png" class="a" style="left:375px;top:864px;width:330px;display:none;transform-origin:50% 50%;filter:drop-shadow(0 26px 30px rgba(20,40,80,.3))">
  </div>
- <!-- ===== 6. the offer ===== -->
+ <!-- ===== 6. the offer: one idea per panel ===== -->
  <div id="offer" class="L" style="z-index:20">
+  <div id="pA" class="L">
   <div id="oBloom" class="a" style="left:240px;top:200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.28) 0%,rgba(40,160,255,0) 68%)"></div>
   <img id="oDiag" src="assets/diag_front.png" class="a" style="left:330px;top:300px;width:420px;transform-origin:50% 60%">
   <div id="oCard" class="a card2" style="left:90px;top:640px;width:900px;padding:34px 46px 36px;transform-origin:50% 0">
@@ -150,8 +147,23 @@ body{font-family:V,sans-serif;color:#10203C}
    <div style="display:flex;align-items:baseline;justify-content:center;gap:22px;margin-top:4px;direction:rtl"><span id="oNew" style="display:inline-flex;direction:ltr;font-weight:900;font-size:136px;color:#1565C0;line-height:1.15;white-space:nowrap"></span><span style="font-weight:800;font-size:52px;color:#1565C0">تومان</span></div>
    <div style="text-align:center;margin-top:18px;height:84px"><span id="oSave" class="chip2" style="background:#E3EFFC;color:#1565C0;opacity:0">۳۱۰ هزار تومان تخفیف</span></div>
   </div>
-  <div id="oGift" class="a" style="left:0;top:1180px;width:1080px;text-align:center;opacity:0"><span class="gold" style="height:100px;padding:0 48px;font-size:50px;box-shadow:0 18px 36px rgba(224,168,44,.35)" id="oGiftI"></span></div>
-  <div id="oCalW" class="a" style="left:0;top:1330px;width:1080px;display:flex;justify-content:center;align-items:center;gap:44px;direction:rtl;opacity:0">
+  </div>
+  <div id="pB" class="L">
+   <div id="acard">
+   <div id="acLogo" style="margin-top:46px"></div>
+   <div class="ltr" style="font-weight:900;font-size:62px;line-height:1.1;margin-top:4px">CarDiag AI</div>
+   <div style="font-weight:700;font-size:30px;margin-top:6px">عیب‌یاب هوش مصنوعی خودرو</div>
+   <div style="font-weight:600;font-size:28px;margin-top:22px">کد فعال‌سازی:</div>
+   <div style="position:relative;margin:12px auto 0;width:520px;height:92px;border-radius:46px;background:#fff">
+    <div id="acCode" class="ltr" style="position:absolute;left:0;right:0;top:12px;font-weight:900;font-size:54px;color:#10203C;letter-spacing:6px">۳۸۱۵۷۲</div>
+    <div id="acFoil" style="position:absolute;left:110px;top:10px;width:300px;height:72px;border-radius:8px;background:repeating-linear-gradient(115deg,#C9CFD8 0 8px,#B6BDC8 8px 16px)"></div></div>
+   <div style="font-weight:500;font-size:20px;margin-top:22px;opacity:.95">از این کد تنها می‌توانید برای فعال‌سازی یک اکانت استفاده کنید</div>
+  </div>
+
+   <div id="bGift" class="a" style="left:0;top:1110px;width:1080px;text-align:center"><span class="gold" style="height:110px;padding:0 54px;font-size:54px;box-shadow:0 18px 36px rgba(224,168,44,.35)" id="oGiftI"></span></div>
+  </div>
+  <div id="pC" class="L">
+   <div id="cWrap" class="a" style="left:430px;top:560px;transform:scale(1.7);transform-origin:50% 0">
    <div id="oCal" style="position:relative;width:220px;height:250px">
     <div style="position:absolute;inset:0;border-radius:32px;background:#fff;border:3px solid #DEE6F2;box-shadow:0 24px 48px rgba(20,40,80,.18);overflow:hidden">
      <div style="height:70px;background:linear-gradient(135deg,#1565C0,#2196F3)"></div>
@@ -160,10 +172,18 @@ body{font-family:V,sans-serif;color:#10203C}
     <div id="oPage" style="position:absolute;left:3px;right:3px;top:70px;bottom:3px;border-radius:0 0 30px 30px;background:#F4F8FD;transform-origin:50% 0;backface-visibility:hidden"></div>
     <div style="position:absolute;left:50px;top:-18px;width:20px;height:50px;border-radius:10px;background:#33415C"></div><div style="position:absolute;right:50px;top:-18px;width:20px;height:50px;border-radius:10px;background:#33415C"></div>
    </div>
-   <div><div style="font-weight:900;font-size:88px;line-height:1.2;color:#10203C;white-space:nowrap">فقط <span style="color:#2196F3">۳ روز</span></div>
-    <div style="font-weight:500;font-size:38px;color:#6E7D96;white-space:nowrap">این قیمت فقط ۳ روز می‌مونه</div></div>
+   </div>
+   <div id="cTxt" class="a" style="left:0;top:1060px;width:1080px;text-align:center;direction:rtl"><div style="font-weight:900;font-size:110px;line-height:1.2;color:#10203C">فقط <span style="color:#2196F3">۳ روز</span></div>
+    <div style="font-weight:600;font-size:42px;color:#6E7D96;margin-top:6px">این قیمت فقط ۳ روز می‌مونه</div></div>
   </div>
-  <div id="oCta" class="a" style="left:0;top:1640px;width:1080px;text-align:center;opacity:0"><span id="oCtaB" style="display:inline-flex;align-items:center;gap:18px;height:112px;padding:0 58px;border-radius:56px;background:#2196F3;color:#fff;font-weight:900;font-size:50px;white-space:nowrap;direction:rtl;box-shadow:0 20px 40px rgba(33,150,243,.35)"></span></div>
+  <div id="pD" class="L">
+   <div id="dCard" class="a card2" style="left:90px;top:560px;width:900px;padding:30px 46px 34px;text-align:center">
+    <div style="font-weight:800;font-size:46px;color:#6E7D96;text-decoration:line-through;text-decoration-thickness:5px;text-decoration-color:#10203C">۱٬۸۰۰٬۰۰۰ تومان</div>
+    <div style="font-weight:900;font-size:120px;line-height:1.25;color:#1565C0;white-space:nowrap">۱٬۴۹۰٬۰۰۰ <span style="font-size:50px;font-weight:800">تومان</span></div></div>
+   <div id="dChips" class="a" style="left:0;top:1010px;width:1080px;display:flex;justify-content:center;gap:20px;direction:rtl">
+    <span class="chip2" style="background:#E3EFFC;color:#1565C0" id="dDays"></span><span class="gold" style="height:84px;padding:0 34px;font-size:38px" id="dGift"></span></div>
+   <div id="oCta" class="a" style="left:0;top:1190px;width:1080px;text-align:center"><span id="oCtaB" style="display:inline-flex;align-items:center;gap:18px;height:124px;padding:0 64px;border-radius:62px;background:#2196F3;color:#fff;font-weight:900;font-size:56px;white-space:nowrap;direction:rtl;box-shadow:0 20px 40px rgba(33,150,243,.35)"></span></div>
+  </div>
  </div>
 
  <!-- ===== scene B: under the dashboard ===== -->
@@ -189,18 +209,8 @@ body{font-family:V,sans-serif;color:#10203C}
   </div>
  </div>
 
- <div id="flashW"></div><svg id="zl" width="1080" height="1920"></svg><svg id="ring" width="200" height="140" viewBox="-100 -70 200 140"></svg>
+ <svg id="zl" width="1080" height="1920"></svg>
  <div id="phone"><div id="notch"></div><div id="screen"></div><div class="tapdot" id="tap"></div></div>
-  <div id="acard">
-   <div id="acLogo" style="margin-top:46px"></div>
-   <div class="ltr" style="font-weight:900;font-size:62px;line-height:1.1;margin-top:4px">CarDiag AI</div>
-   <div style="font-weight:700;font-size:30px;margin-top:6px">عیب‌یاب هوش مصنوعی خودرو</div>
-   <div style="font-weight:600;font-size:28px;margin-top:22px">کد فعال‌سازی:</div>
-   <div style="position:relative;margin:12px auto 0;width:520px;height:92px;border-radius:46px;background:#fff">
-    <div id="acCode" class="ltr" style="position:absolute;left:0;right:0;top:12px;font-weight:900;font-size:54px;color:#10203C;letter-spacing:6px">۳۸۱۵۷۲</div>
-    <div id="acFoil" style="position:absolute;left:110px;top:10px;width:300px;height:72px;border-radius:8px;background:repeating-linear-gradient(115deg,#C9CFD8 0 8px,#B6BDC8 8px 16px)"></div></div>
-   <div style="font-weight:500;font-size:20px;margin-top:22px;opacity:.95">از این کد تنها می‌توانید برای فعال‌سازی یک اکانت استفاده کنید</div>
-  </div>
  <div id="mont"></div><div id="dStamp"></div>
  <div id="exs"></div>
  <div id="titles"></div>
@@ -214,20 +224,20 @@ const imp=(f,k,d=4)=>f>=k?Math.exp(-(f-k)/d):0;
 const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
 const vis=(el,o)=>{el.style.opacity=o; el.style.display=o<=0.001?'none':'block';};
 
-/* ---------- timeline: song/song_travel.wav (motion bar m downbeat = 7.5+67.5m, beat = 16.875, groove from 210) ---------- */
-const MB=m=>7.5+67.5*m, B=k=>210+67.5*k, BT=n=>210+16.875*n, BEAT=16.875;
-const T_S1=MB(2);                                            // 1. open the zip case
-const T_S2=BT(4), PLUG_OFF=T_S2-136;                         // 2. plug into the car (dash() is keyed to 136..228)
-const T_S3=BT(9), T_PH=T_S3, T_INST=BT(10), T_DL1=BT(12.25), T_RUN=BT(12.75);     // 3. install from Bazaar
-const T_ACT=BT(13.75), T_CODE0=BT(14), T_CODE1=BT(15.25), T_ACTB=BT(15.5), T_GOLD=BT(16); //    enter the card's code
-const T_S4=BT(17), T_CONN=BT(17.5), T_SEARCH=BT(18), T_DEV=[BT(18.5),BT(18.65),BT(18.8),BT(18.95),BT(19.1)], T_PICK=BT(19.5), T_BACK=T_PICK+4;
-const T_STEP=[T_BACK+6,BT(20.25),BT(20.6)], T_OK=BT(21);   // 4. connect
-const T_S5=BT(22), T_ECU=BT(22.25), T_ESCAN=BT(23);         // 5. first scan
-const T_LAP=[BT(3),BT(8),BT(16.5),BT(21.5),BT(26)], T_DONE=BT(26.5);
-const T_OFF=MB(11), T_STRIKE=BT(34), T_ROLL=BT(35), T_ROLL1=BT(37.5), T_SAVE=BT(38), T_GIFT=BT(40), T_CAL=BT(42), T_CTA=BT(46), T_TAPC=BT(48);
-const T_RECAP=MB(16), T_END=MB(17), F_HIT=MB(19), NF=1326;
+/* ---------- timeline: song/song_full.wav, 62 s (motion bar m downbeat = 7.5+67.5m, beat = 16.875) ----------
+   one step per 3 bars (~6.8 s): the title lands first, then the action, then a hold so it can be read */
+const MB=m=>7.5+67.5*m, BT=n=>210+16.875*n, BEAT=16.875;
+const T_S1=MB(3), T_ZIP=T_S1+24, T_LID=T_S1+84, T_LIFT=T_S1+108;                       // 1. open the case
+const T_S2=MB(6), T_PLUG=T_S2+78;                                                         // 2. plug into the car
+const T_S3=MB(9), T_INST=T_S3+44, T_DL1=T_INST+96, T_RUN=T_S3+156;                       // 3. install from Bazaar
+const T_S4=MB(12), T_CONN=T_S4+52, T_STEP=[T_S4+60,T_S4+84,T_S4+108], T_OK=T_S4+132;      // 4. connect
+const T_S5=MB(15), T_ECU=T_S5+40, T_ESCAN=T_S5+84, T_RES=T_ESCAN+30;                      // 5. first scan
+const T_DONE=MB(18);                                                                      // «that's it: 5 easy steps»
+const T_OA=MB(19), T_STRIKE=T_OA+30, T_ROLL=MB(20), T_ROLL1=T_ROLL+40, T_SAVE=T_ROLL+52;  // price
+const T_OB=MB(21), T_OC=MB(22), T_OD=MB(23), T_TAPC=MB(24)+20;                            // gift, 3 days, order
+const T_END=MB(25), F_HIT=MB(27), NF=1866;
 const END_BEATS=[[T_END+50.5,.6],[T_END+67.5,1],[F_HIT-17,.6],[F_HIT,1]];
-const TZ=[T_S2,T_S3,T_OFF];                                  // snap zooms
+const TZ=[T_S2,T_S3,T_OA,T_OB,T_OC,T_OD];                                                 // snap zooms
 const HSCORE=86, CODE='۳۸۱۵۷۲';
 const f0=v=>fa(Math.round(v));
 
@@ -389,18 +399,8 @@ S.store=`<div class="scr" id="sc_store" style="background:#fff">${ST_D}
  <div style="padding:28px 26px 0;font-weight:800;font-size:24px">درباره‌ی برنامه</div>
  <div style="padding:10px 26px 0;font-weight:500;font-size:19px;line-height:1.8;color:#6E7D96">با دیاگ بلوتوثی کاردیاگ، خطاهای ماشین رو بخون، سفر رو ثبت کن و از هوش مصنوعی بپرس.</div>
 </div>`;
-S.act=`<div class="scr" id="sc_act"><div class="appbar">${ST_W}<div class="abar"><div class="t">${svg('arrow','#fff',32)}<span>اشتراک کاردیاگ</span></div><div></div></div></div>
- <div class="card" style="margin:22px 18px 0"><div style="font-weight:800;font-size:22px">فعال‌سازی با کد</div>
-  <div style="font-weight:500;font-size:17px;color:#6E7D96;margin-top:6px">کد روی کارت داخل کیف رو وارد کن</div>
-  <div style="display:flex;gap:12px;margin-top:14px"><div id="codeIn" class="ltr" style="flex:1;height:62px;border:2px solid #98A3B8;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;letter-spacing:4px;color:#10203C"></div>
-   <div id="actBtn" style="width:150px;height:62px;border-radius:12px;background:#2196F3;color:#fff;font-weight:800;font-size:21px;display:flex;align-items:center;justify-content:center">فعال‌سازی</div></div></div>
- <div class="card" id="goldPlan" style="padding:0;overflow:hidden;border-color:#F0C24E;opacity:.4">
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;font-weight:800;font-size:23px;background:linear-gradient(90deg,#F6CD5C,#FFEA9C,#E0A82C);color:#4B3005"><span>پلن طلایی</span><span style="font-weight:700;font-size:15px;padding:4px 12px;border-radius:6px;background:#FFF6D6">مادام‌العمر</span></div>
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px 18px;font-weight:600;font-size:19px;color:#33415C"><span style="display:flex;align-items:center;gap:8px">${svg('robot','#6E7D96',24)}۷۲ اعتبار (هوش مصنوعی + سفر)</span>
-   <span id="goldOk" style="display:inline-flex;align-items:center;gap:6px;background:#DEF6E6;color:#22A050;font-weight:800;font-size:19px;padding:6px 14px;border-radius:12px;opacity:0">${svg('check','#22A050',22)}فعال شد</span></div></div>
- ${NAV}</div>`;
-$('screen').innerHTML=S.store+S.splash+S.act+S.home+S.conn+S.ecu;
-const SCR=['sc_store','sc_splash','sc_act','sc_home','sc_conn','sc_ecu'];
+$('screen').innerHTML=S.store+S.splash+S.home+S.ecu;
+const SCR=['sc_store','sc_splash','sc_home','sc_ecu'];
 
 function tapAt(f,a,id){const t=f-a; const el=$('tap'); if(t<-4||t>14) return false;
  // position inside the page (ignores the page's own slide), so the ring stays where the finger was
@@ -411,9 +411,9 @@ const press=(id,f,a)=>{$(id).style.transform=`scale(${1-0.05*Math.exp(-Math.pow(
 // forward navigation: old page moves right, new page comes from the left (RTL); back is the reverse
 function slide(f,a,from,to,dir){const p=E.io(seg(f,a,a+12)); const o={}; o[from]=dir*p*572; o[to]=dir*(p-1)*572; return p>=1?{[to]:0}:o}
 function dash(f){
- const B0=seg(f,136,150), out=1-seg(f,214,228), d=$('dash');
+ const B0=seg(f,136,150), out=1-seg(f,200,214), d=$('dash');
  if(B0<=0||out<=0){d.style.display='none';return}
- d.style.display='block'; d.style.opacity=out; d.style.clipPath='none';
+ d.style.display='block'; d.style.opacity=out; d.style.clipPath=wipe(seg(f,136,152));
  const z=lerp(1.15,1,E.oc(seg(f,140,156))); d.style.transform=`scale(${z})`;
  const PLUG=168;
  const m=E.io(seg(f,148,PLUG)); const push=f>=PLUG? -Math.sin(seg(f,PLUG,PLUG+6)*Math.PI)*8 : 0;
@@ -429,9 +429,10 @@ function dash(f){
 /* ---------- inspection centre: hook (fail stamp, rewind) and the pass at the gate ---------- */
 
 Object.assign(IC,{cart:'M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'});
-$('lidLogo').innerHTML=LOGO(276,'#fff',7).replace('<svg ','<svg x="0" y="0" ');
+$('lidLogo').innerHTML=LOGO(336,'#2196F3',8).replace('<svg ','<svg x="0" y="0" ');
 $('acLogo').innerHTML=LOGO(200,'#fff',7);
-$('oGiftI').innerHTML=`${svg('gift','#4B3005',52)}+ اشتراک طلایی هدیه`;
+$('oGiftI').innerHTML=`${svg('gift','#4B3005',56)}اشتراک طلایی هدیه`;
+$('dDays').innerHTML=`${svg('timer','#1565C0',42)}فقط ۳ روز`; $('dGift').innerHTML=`${svg('gift','#4B3005',40)}اشتراک طلایی هدیه`;
 $('oCtaB').innerHTML=`${svg('cart','#fff',54)}سفارش از <span class="ltr">cardiag.ir</span>`;
 /* background: faint contour lines */
 (()=>{let s='';[[860,520,9],[160,1500,8],[1000,1760,5]].forEach(([cx,cy,n],k)=>{for(let i=1;i<=n;i++){const r=i*70;let d='';
@@ -439,205 +440,151 @@ $('oCtaB').innerHTML=`${svg('cart','#fff',54)}سفارش از <span class="ltr">
   d+=(a?'L':'M')+(cx+r*1.25*w*Math.cos(t)).toFixed(1)+' '+(cy+r*w*Math.sin(t)).toFixed(1)}
  s+=`<path d="${d}Z" fill="none" stroke="#DDE8F6" stroke-width="3"/>`}}); $('topo').innerHTML=s;})();
 
-/* ---------- lap moments: the whole frame jolts, a white flash, the ring segment snaps in ---------- */
-const lapK=f=>T_LAP.reduce((a,t)=>a+(f>=t&&f<t+14?Math.exp(-(f-t)/3.5):0),0);
-function laps(f){const k=lapK(f); $('stage').style.transform=k>0.02?`translate(${Math.sin(f*2.7)*9*k}px,${Math.cos(f*3.1)*7*k}px)`:'none';
- $('flashW').style.opacity=0.32*T_LAP.reduce((a,t)=>a+(f>=t?Math.exp(-(f-t)/2.5):0),0);}
-function ring(f){const r=$('ring'), o=E.oc(seg(f,56,70))*(1-seg(f,T_OFF-6,T_OFF+2)); r.style.display=o>0?'block':'none'; if(o<=0) return;
- r.style.opacity=o; const n=T_LAP.filter(t=>f>=t).length, all=f>=T_LAP[4]+6;
- const arc=(a0,a1,R)=>{const p=a=>[R*Math.cos(a*Math.PI/180),R*Math.sin(a*Math.PI/180)]; const [x0,y0]=p(a0),[x1,y1]=p(a1); return `M${x0.toFixed(1)} ${y0.toFixed(1)} A${R} ${R} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}`};
- let s=''; for(let i=0;i<5;i++){const a0=-90+i*72+5, a1=-90+(i+1)*72-5, p=E.oc(seg(f,T_LAP[i]-1,T_LAP[i]+7)), L=Math.PI*54*(62/180);
-  s+=`<path d="${arc(a0,a1,54)}" fill="none" stroke="#E6EBF2" stroke-width="15" stroke-linecap="round"/>`;
-  if(p>0) s+=`<path d="${arc(a0,a1,54)}" fill="none" stroke="${all?'#22A050':'#2196F3'}" stroke-width="15" stroke-linecap="round" stroke-dasharray="${L*p} ${L}"/>`;}
- const pk=T_LAP.reduce((a,t)=>a+Math.exp(-Math.pow((f-t-2)/4,2)),0);
- s+=`<g transform="scale(${1+0.18*pk})">${all?`<path d="M-17 1 L-5 13 L19 -12" fill="none" stroke="#22A050" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>`:
-  `<text y="12" text-anchor="middle" direction="ltr" font-family="V" font-weight="900" font-size="34" fill="#10203C">${fa(n)}/۵</text>`}</g>`;
- r.innerHTML=s; r.style.transform=`translateY(${(1-E.oc(seg(f,56,72)))*-30}px)`;}
-/* snap zoom: radial speed lines for a few frames */
+const OLD='1800000', NEW='1490000';
+$('oNew').innerHTML=[...NEW].map((d,i)=>`${i==1||i==4?'<span>٬</span>':''}<span class="dg"><span id="dg${i}">${[...Array(30)].map((_,k)=>`<i>${fa(k%10)}</i>`).join('')}</span></span>`).join('');
+
+/* snap zoom: radial speed lines for a few frames when the scene changes */
 function zoomLines(f){let s=''; TZ.forEach(t=>{const p=seg(f,t-3,t+10); if(p<=0||p>=1) return; const o=Math.sin(Math.PI*p);
  for(let i=0;i<28;i++){const a=i/28*Math.PI*2+i*0.37, r0=lerp(260,520,p)+((i*53)%7)*30, r1=r0+lerp(120,420,p);
-  s+=`<line x1="${540+r0*Math.cos(a)}" y1="${960+r0*Math.sin(a)}" x2="${540+r1*Math.cos(a)}" y2="${960+r1*Math.sin(a)}" stroke="#2196F3" stroke-width="${6+(i%3)*3}" stroke-linecap="round" opacity="${0.55*o}"/>`}});
+  s+=`<line x1="${540+r0*Math.cos(a)}" y1="${960+r0*Math.sin(a)}" x2="${540+r1*Math.cos(a)}" y2="${960+r1*Math.sin(a)}" stroke="#2196F3" stroke-width="${6+(i%3)*3}" stroke-linecap="round" opacity="${0.5*o}"/>`}});
  $('zl').innerHTML=s;}
-const snapIn=(f,t)=>{const p=E.oc(seg(f,t,t+12)); return {s:lerp(1.45,1,p),o:cl(p*2.5)}};
+const snapIn=(f,t)=>{const p=E.oc(seg(f,t,t+12)); return {s:lerp(1.4,1,p),o:cl(p*2.5)}};
 
 /* ---------- 1. the zip case ---------- */
 function sCase(f){const L0=$('sCase'); if(f>=T_S2+2){L0.style.display='none';return} L0.style.display='block';
  const c=$('case'), pin=seg(f,8,30);
- c.style.opacity=E.oc(seg(f,8,16)); c.style.transform=`translateY(${(1-E.oc(pin))*-260}px) scale(${pin<=0?0.7:lerp(0.7,1,E.back(pin))})`;
+ c.style.opacity=E.oc(seg(f,8,16)); c.style.transform=`translateY(${(1-E.oc(pin))*-300+Math.sin(f/16)*5*(f<T_ZIP?1:0)}px) scale(${(pin<=0?0.7:lerp(0.7,1,E.back(pin)))*1.15})`;
  $('cBloom').style.opacity=0.8*seg(f,20,50);
- const zp=$('zpath'), Lz=zp.getTotalLength(), z=E.io(seg(f,T_S1+4,T_S1+52)), pt=zp.getPointAtLength(z*Lz*0.96);
- $('pull').setAttribute('transform',`translate(${pt.x} ${pt.y})`); $('zopen').style.strokeDasharray=`${z*Lz*0.96} ${Lz}`;
- const lid=$('lid'), lo=E.io(seg(f,T_S1+52,T_S1+70)); lid.style.transform=`perspective(1400px) rotateX(${lo*86}deg) translateY(${-lo*20}px)`; lid.style.opacity=1-seg(f,T_S1+64,T_S1+72);
- // the diag rises and grows, the activation card slides out beside it
- const lift=E.io(seg(f,T_S1+72,T_LAP[0]-4)), d=$('cHero'), up=f>=T_S1+70; d.style.display=up?'block':'none'; $('inDiag').style.opacity=up?0:1;
- d.style.transform=`translate(${lift*120}px,${-lift*420}px) scale(${1+0.5*lift}) rotate(${-6*lift}deg)`;
- const cd=E.io(seg(f,T_S1+78,T_LAP[0])); $('inCard').style.transform=`translate(${cd*-40}px,${cd*330}px) scale(${1+0.9*cd}) rotate(${cd*-8}deg)`;
- c.style.zIndex=1;
+ const zp=$('zpath'), Lz=zp.getTotalLength(), z=E.io(seg(f,T_ZIP,T_ZIP+56)), pt=zp.getPointAtLength(z*Lz*0.97);
+ $('pull').setAttribute('transform',`translate(${pt.x} ${pt.y})`); $('zopen').style.strokeDasharray=`${z*Lz*0.97} ${Lz}`;
+ const lo=E.io(seg(f,T_LID,T_LID+20)); $('lid').style.transform=`perspective(1400px) rotateX(${lo*84}deg) translateY(${-lo*24}px)`; $('lid').style.opacity=1-seg(f,T_LID+14,T_LID+22);
+ // the diag comes up out of the case and floats, big, in the middle
+ const up=f>=T_LIFT, lift=E.io(seg(f,T_LIFT,T_LIFT+36)), d=$('cHero'); d.style.display=up?'block':'none'; $('inDiag').style.opacity=up?0:1;
+ d.style.transform=`translateY(${-lift*250+Math.sin((f-T_LIFT)/14)*8*seg(f,T_LIFT+36,T_LIFT+50)}px) scale(${1+0.7*lift}) rotate(${-5*lift}deg)`;
+ c.style.filter=`brightness(${1-0.25*lift})`;
+}
+/* ---------- 2. plug into the car: show the port first, then the diag goes in ---------- */
+function plug(f){const d=$('dash'), on=f>=T_S2&&f<T_S3+12; d.style.display=on?'block':'none'; if(!on) return;
+ const sn=snapIn(f,T_S2), out=seg(f,T_S3,T_S3+10); d.style.opacity=sn.o*(1-out); d.style.transformOrigin='540px 960px'; d.style.transform=`scale(${sn.s})`; d.style.clipPath='none';
+ const m=E.io(seg(f,T_PLUG-30,T_PLUG)), push=f>=T_PLUG?-Math.sin(seg(f,T_PLUG,T_PLUG+6)*Math.PI)*8:0;
+ const dx=lerp(1250,395,m)+push, dy=lerp(1000,964,m), w=$('diagWrap');
+ w.style.left=(dx-280)+'px'; w.style.top=(dy-209)+'px'; w.style.transform=`rotate(${lerp(-10,0,m)}deg) scale(${lerp(1.08,1,m)})`;
+ $('flash').style.opacity=f>=T_PLUG?Math.exp(-(f-T_PLUG)/5)*0.9:0;
+ let r='';
+ if(f<T_PLUG-6){const o=E.oc(seg(f,T_S2+14,T_S2+24))*(1-seg(f,T_PLUG-14,T_PLUG-6)), R=200+10*Math.sin(f/5);   // «this is the port»
+  r+=`<circle cx="330" cy="1015" r="${R}" fill="none" stroke="#2196F3" stroke-width="8" stroke-dasharray="22 16" opacity="${o}"/>
+   <text x="330" y="1262" text-anchor="middle" font-family="V" font-weight="800" font-size="46" fill="#10203C" opacity="${o}">زیر فرمون</text>`;}
+ if(f>=T_PLUG+4){for(let i=0;i<3;i++){const ph=((f-T_PLUG-4)/16+i/3)%1, R=lerp(180,420,ph);
+  r+=`<path d="M${dx-R*0.8} ${dy-R*0.6} A${R} ${R} 0 0 1 ${dx+R*0.8} ${dy-R*0.6}" fill="none" stroke="#2196F3" stroke-width="${8-4*ph}" stroke-linecap="round" opacity="${(1-ph)*0.85}"/>`}}
+ $('bt').innerHTML=r;
 }
 
-/* ---------- 6. the offer ---------- */
-const OLD='1800000', NEW='1490000';
-$('oNew').innerHTML=[...NEW].map((d,i)=>`${i==1||i==4?'<span>٬</span>':''}<span class="dg"><span id="dg${i}">${[...Array(30)].map((_,k)=>`<i>${fa(k%10)}</i>`).join('')}</span></span>`).join('');
-function offer(f){const L0=$('offer'), on=f>=T_OFF&&f<T_RECAP+2; L0.style.display=on?'block':'none'; if(!on) return;
- const sn=snapIn(f,T_OFF), out=seg(f,T_RECAP-8,T_RECAP); L0.style.opacity=sn.o*(1-out); L0.style.transformOrigin='540px 900px'; L0.style.transform=`scale(${sn.s*(1-0.08*E.ic(out))})`;
- const dp=seg(f,T_OFF+2,T_OFF+18); $('oDiag').style.transform=`translateY(${(1-E.oc(dp))*-200+Math.sin(f/12)*6}px) rotate(${(1-E.oc(dp))*-14}deg) scale(${1+0.05*Math.exp(-Math.pow((f-T_SAVE-2)/5,2))})`;
- const cp=seg(f,T_OFF+6,T_OFF+22), cd=$('oCard'); cd.style.opacity=cl(seg(f,T_OFF+6,T_OFF+10)); cd.style.transform=`perspective(1600px) rotateX(${lerp(80,0,E.back(cp))}deg)`;
- $('oStr').style.transform=`scaleX(${E.io(seg(f,T_STRIKE,T_STRIKE+8))})`;
- // rolling digits: 1,800,000 spins down to 1,490,000, right digits settle last
- [...NEW].forEach((n,i)=>{const o=+OLD[i], t=(+n)+10*(i==0?0:(i<3?1:2))-o+(i==0?0:0); const a=T_ROLL+(6-i)*1.2, p=E.oc(seg(f,a,T_ROLL1+(6-i)*1.2));
-  const pos=o+(t<0?t+10:t)*p; $('dg'+i).style.transform=`translateY(${-pos*1.15}em)`;});
- const sv=seg(f,T_SAVE,T_SAVE+10), se=$('oSave'); se.style.opacity=E.oc(cl(sv*2)); se.style.display='inline-flex'; se.style.transform=`scale(${sv<=0?0.5:lerp(0.5,1,E.back(sv))})`;
- const gp=seg(f,T_GIFT,T_GIFT+12), g=$('oGift'); g.style.opacity=E.oc(cl(gp*2)); g.style.transform=`translateY(${(1-E.oc(gp))*40}px) scale(${gp<=0?0.6:lerp(0.6,1,E.back(gp))})`;
- const kp=seg(f,T_CAL,T_CAL+12), cw=$('oCalW'); cw.style.opacity=E.oc(cl(kp*2)); cw.style.transform=`translateY(${(1-E.oc(kp))*60}px)`;
- $('oCal').style.transform=`rotate(${(1-E.back(kp))*-14}deg)`;
- const pg=E.io(seg(f,T_CAL+10,T_CAL+24)); $('oPage').style.transform=`perspective(700px) rotateX(${pg*170}deg)`; $('oPage').style.opacity=pg>=1?0:1;
- const ct=seg(f,T_CTA,T_CTA+12), c=$('oCta'); c.style.opacity=E.oc(cl(ct*2));
- const pulse=f>T_CTA+12?1+0.04*Math.max(0,Math.sin((f-T_CTA)/6)):1, tp=Math.exp(-Math.pow((f-T_TAPC-2)/3,2));
- $('oCtaB').style.transform=`scale(${(ct<=0?0.6:lerp(0.6,1,E.back(ct)))*pulse*(1-0.06*tp)})`;
-}
-
-/* ---------- 5. first-scan card and the «5 easy steps» stamp ---------- */
-$('mont').innerHTML=`<div class="nc" id="mA"><div class="bdg">${svg('search','#fff',52)}</div>
-  <div style="display:flex;align-items:center;justify-content:space-between;height:70px"><div class="ct">اولین اسکن</div><span id="mAc"></span></div>
-  <div style="height:16px;border-radius:8px;background:#E6EBF2;overflow:hidden;margin-top:20px;direction:ltr"><div id="mAp" style="height:16px;width:0;border-radius:8px;background:#2196F3"></div></div>
-  <div id="mAs" class="sub"></div></div>`;
-$('dStamp').innerHTML=`<svg width="460" height="230" viewBox="-230 -115 460 230"><g transform="rotate(-9)">
-  <rect x="-215" y="-86" width="430" height="172" rx="30" fill="rgba(255,255,255,.95)" stroke="#22A050" stroke-width="12"/>
-  <rect x="-195" y="-66" width="390" height="132" rx="20" fill="none" stroke="#22A050" stroke-width="4" stroke-dasharray="14 10"/>
-  <text y="-6" text-anchor="middle" font-family="V" font-weight="900" font-size="56" fill="#22A050">فقط ۵ قدم</text>
-  <text y="50" text-anchor="middle" font-family="V" font-weight="900" font-size="48" fill="#22A050">ساده!</text></g></svg>`;
-function mont(f){
- const el=$('mA'), a=T_ESCAN+6, b=T_OFF; if(f<a-1||f>b+1){el.style.display='none'}
- else {el.style.display='block'; const pin=seg(f,a,a+16), pout=seg(f,b-10,b);
-  el.style.opacity=cl(seg(f,a,a+5))*(1-seg(f,b-4,b)); el.style.transform=`perspective(1600px) rotateX(${lerp(-90,0,E.back(pin))+88*E.ic(pout)}deg)`;
-  const p=E.io(seg(f,T_ESCAN+2,T_ESCAN+16)); $('mAp').style.width=(p*100)+'%'; $('mAp').style.background=p<1?'#2196F3':GRN;
-  $('mAs').innerHTML=p<1?'در حال اسکن <span class="ltr">ECU</span>...':'ماشینت سالمه؛ هیچ کد خطایی نیست';
-  const q=seg(f,T_ESCAN+16,T_ESCAN+26);
-  $('mAc').innerHTML=p<1?'':`<span class="pill" style="background:#DEF6E6;color:${GRN};transform:scale(${lerp(0.5,1,E.back(q))})"><b style="font-weight:900;font-size:54px">۰</b>خطا</span>`;}
- const st=$('dStamp'), on=f>=T_DONE-6&&f<T_OFF; st.style.display=on?'block':'none';
- if(on){const sp=seg(f,T_DONE-6,T_DONE); st.style.opacity=E.oc(seg(f,T_DONE-6,T_DONE-3))*(1-seg(f,T_OFF-6,T_OFF)); st.style.transform=`scale(${sp<1?lerp(2,1,E.ic(sp)):1+0.05*Math.exp(-(f-T_DONE)/4)})`;}
-}
-/* ---------- 3. the activation card next to the phone ---------- */
-function acard(f){const c=$('acard'), on=f>=T_ACT-8&&f<T_S4+4; c.style.display=on?'block':'none'; if(!on) return;
- const p=seg(f,T_ACT-8,T_ACT+8), out=seg(f,T_S4-8,T_S4+4);
- c.style.opacity=E.oc(cl(p*2))*(1-out); c.style.transform=`translate(${(1-E.oc(p))*-700-E.ic(out)*700}px,0) rotate(${lerp(-16,-4,E.oc(p))}deg) scale(.74)`;
- const sc=E.io(seg(f,T_ACT+2,T_CODE0+2)); $('acFoil').style.clipPath=`inset(0 0 0 ${sc*100}%)`;
- const k=Math.floor(6*seg(f,T_CODE0,T_CODE1)); $('acCode').innerHTML=[...CODE].map((d,i)=>`<span style="color:${i<k?'#2196F3':'#10203C'}">${d}</span>`).join('');
-}
-
-/* ---------- 3–5. the phone: pages zoom out of what opens them ---------- */
+/* ---------- 3–5. the phone: a camera that zooms onto the part that matters ---------- */
 const ZO={};
 function zoomOrigins(){const ph=$('phone'); ph.style.display='block'; ph.style.transform='none';
- [['sc_store',['s_btn']],['sc_home',['h_conn','h_ecu']]].forEach(([s,ids])=>{const sc=$(s); sc.style.display='block'; sc.style.transform='none';
+ [['sc_store',['s_btn']],['sc_home',['h_conn','h_ecu']],['sc_ecu',['e_dtc']]].forEach(([s,ids])=>{const sc=$(s); sc.style.display='block'; sc.style.transform='none';
   const p=sc.getBoundingClientRect(); ids.forEach(id=>{const r=$(id).getBoundingClientRect(); ZO[id]=[r.left-p.left+r.width/2, r.top-p.top+r.height/2];}); sc.style.display='none';});
  ph.style.display='none';}
-function zoomT(f,a,from,to,org,back){const p=E.io(seg(f,a,a+13)), o={};
- if(p>=1) return {[to]:{s:1,o:1}};
- if(!back){o[from]={s:1-0.06*p,o:1,dim:p}; o[to]={s:lerp(0.12,1,p),o:cl(p*2.5),org,z:3,r:1};}
- else {o[to]={s:0.94+0.06*p,o:1,dim:1-p}; o[from]={s:lerp(1,0.12,p),o:1-cl((p-0.45)/0.55),org,z:3,r:1};}
- return o}
-function screens(f){
- const Z=(a,fr,to,id,b)=>zoomT(f,a,fr,to,ZO[id],b); let x;
+let CAM=[];
+// [frame, screen x to centre, phone top on the page, zoom]: the phone top stays just under the title, only the zoom changes
+function camKeys(){CAM=[[T_S3,286,290,1.6],[T_RUN+2,286,420,1],[T_S4+4,286,290,1.55],[T_CONN+6,286,290,1.4],[T_ECU+6,286,290,1.5]]}
+function cam(f){let c=CAM[0].slice(1); CAM.forEach((k,i)=>{if(i){const p=E.io(seg(f,k[0],k[0]+18)); c=c.map((v,j)=>lerp(v,k[j+1],p))}}); return c}
+function zoomT(f,a,from,to,org){const p=E.io(seg(f,a,a+13)), o={}; if(p>=1) return {[to]:{s:1,o:1}};
+ o[from]={s:1-0.06*p,o:1,dim:p}; o[to]={s:lerp(0.12,1,p),o:cl(p*2.5),org,z:3,r:1}; return o}
+function screens(f){let x;
  if(f<T_RUN+3) x={sc_store:{s:1,o:1}};
- else if(f<T_ACT) x=Z(T_RUN+3,'sc_store','sc_splash','s_btn');
- else if(f<T_S4+3){const p=E.io(seg(f,T_ACT,T_ACT+10)); x=p<1?{sc_splash:{s:1,o:1},sc_act:{s:lerp(1.08,1,p),o:p,z:3}}:{sc_act:{s:1,o:1}};}
- else if(f<T_CONN+3){const p=E.io(seg(f,T_S4+3,T_S4+15)); x=p<1?{sc_act:{s:lerp(1,0.9,p),o:1-p,z:3},sc_home:{s:lerp(1.06,1,p),o:1}}:{sc_home:{s:1,o:1}};}
- else if(f<T_BACK) x=Z(T_CONN+3,'sc_home','sc_conn','h_conn');
- else if(f<T_ECU+3) x=Z(T_BACK,'sc_conn','sc_home','h_conn',1);
- else x=Z(T_ECU+3,'sc_home','sc_ecu','h_ecu');
+ else if(f<T_S4) x=zoomT(f,T_RUN+3,'sc_store','sc_splash',ZO.s_btn);
+ else if(f<T_ECU+3){const p=E.io(seg(f,T_S4,T_S4+12)); x=p<1?{sc_home:{s:1,o:1},sc_splash:{s:1,o:1-p,z:3}}:{sc_home:{s:1,o:1}};}
+ else x=zoomT(f,T_ECU+3,'sc_home','sc_ecu',ZO.h_ecu);
  SCR.forEach(s=>{const el=$(s), v=x[s]; if(!v){el.style.display='none';return} el.style.display='block';
   el.style.transformOrigin=v.org?`${v.org[0]}px ${v.org[1]}px`:'50% 50%'; el.style.transform=`scale(${v.s})`; el.style.opacity=v.o; el.style.zIndex=v.z||1;
   el.style.filter=v.dim?`brightness(${1-0.25*v.dim})`:'none'; el.style.borderRadius=v.r&&v.s<1?`${Math.min(240,36/v.s)}px`:'0';});
 }
 function phone(f){
- const ph=$('phone'), show=f>=T_PH&&f<T_OFF+8;
+ const ph=$('phone'), show=f>=T_S3&&f<T_OA+10;
  ph.style.display=show?'block':'none'; if(!show) return;
- const sn=snapIn(f,T_PH), out=seg(f,T_OFF-2,T_OFF+8);
- ph.style.opacity=sn.o*(1-out); ph.style.transformOrigin='50% 40%'; ph.style.transform=`scale(${sn.s*(1-0.3*E.ic(out))})`;
+ const sn=snapIn(f,T_S3), out=seg(f,T_OA-2,T_OA+10), [sx,top,k0]=cam(f), k=k0*sn.s*(1-0.3*E.ic(out));
+ ph.style.opacity=sn.o*(1-out); ph.style.transform=`translate(${300-k*(11+sx)}px,${top-420}px) scale(${k})`;
  screens(f);
  let tapped=false; const T=(a,id)=>{tapped=tapAt(f,a,id)||tapped; press(id,f,a)};
- /* store: install, download, run */
- if(f<T_ACT){T(T_INST,'s_btn'); const d=seg(f,T_INST+2,T_DL1), lb=$('s_lbl');
-  $('s_prog').style.width=(f<T_INST+2?0:E.io(d)*100)+'%';
-  lb.textContent=f<T_INST+2?'نصب':(d<0.7?`در حال دانلود... ${fa(Math.round(d/0.7*100))}٪`:(d<1?'در حال نصب...':'اجرا'));
-  $('s_btn').style.background=d>=1?'#22A050':'#2196F3'; $('s_prog').style.opacity=d>=1?0:1;
+ /* Bazaar: install, download, run */
+ if(f<T_S4){T(T_INST,'s_btn'); const d=seg(f,T_INST+4,T_DL1), lb=$('s_lbl');
+  $('s_prog').style.width=(f<T_INST+4?0:E.io(d)*100)+'%'; $('s_prog').style.opacity=d>=1?0:1;
+  lb.textContent=f<T_INST+4?'نصب':(d<0.75?`در حال دانلود ${fa(Math.round(d/0.75*100))}٪`:(d<1?'در حال نصب...':'اجرا'));
   T(T_RUN,'s_btn');
   if(f>=T_RUN+3){const lg=[...document.querySelectorAll('#sp_logo .lg')];
-  lg.forEach((p,i)=>{const L=p.getTotalLength(); p.style.strokeDasharray=L; p.style.strokeDashoffset=L*(1-E.io(seg(f,T_RUN+6+i*2,T_RUN+16+i*2)));});
-  $('sp_t1').style.opacity=E.oc(seg(f,T_RUN+10,T_RUN+16)); $('sp_t2').style.opacity=E.oc(seg(f,T_RUN+12,T_RUN+17));}}
- /* activation code */
- if(f>=T_ACT&&f<T_S4+16){const k=Math.floor(6*seg(f,T_CODE0,T_CODE1)), ci=$('codeIn');
-  ci.innerHTML=CODE.slice(0,k)+(f<T_ACTB?`<span style="display:inline-block;width:3px;height:30px;background:#2196F3;opacity:${Math.floor(f/8)%2?0:1}"></span>`:'');
-  ci.style.borderColor=f>=T_CODE0?'#2196F3':'#98A3B8';
-  T(T_ACTB,'actBtn'); const g=seg(f,T_GOLD-4,T_GOLD+6); $('goldPlan').style.opacity=lerp(0.4,1,E.oc(g));
-  $('goldPlan').style.boxShadow=`0 0 0 ${10*Math.exp(-Math.pow((f-T_GOLD-6)/6,2))}px rgba(246,205,92,.45)`;
-  const ok=seg(f,T_GOLD,T_GOLD+8); $('goldOk').style.opacity=E.oc(ok); $('goldOk').style.transform=`scale(${ok<=0?0.5:lerp(0.5,1,E.back(ok))})`;}
- /* home + connection popup */
+   lg.forEach((p,i)=>{const L=p.getTotalLength(); p.style.strokeDasharray=L; p.style.strokeDashoffset=L*(1-E.io(seg(f,T_RUN+8+i*3,T_RUN+30+i*3)));});
+   $('sp_t1').style.opacity=E.oc(seg(f,T_RUN+24,T_RUN+32)); $('sp_t2').style.opacity=E.oc(seg(f,T_RUN+28,T_RUN+36));}}
+ /* home: connect */
  if(f>=T_S4&&f<T_ECU+16){
   T(T_CONN,'h_conn');
   const conn=f>=T_OK; $('h_stat').textContent=conn?'متصل':'قطع شده'; $('h_stat').style.color=conn?'#22A050':'#DC3232';
   $('h_conn').style.background=conn?'#E6EBF2':'#2196F3'; $('h_conn').style.color=conn?'#98A3B8':'#fff';
   $('h_conn').querySelector('path').setAttribute('fill',conn?'#98A3B8':'#fff'); $('h_disc').style.color=conn?'#1565C0':'#98A3B8';
-  const pin=seg(f,T_BACK+6,T_BACK+16), pout=seg(f,T_OK+8,T_OK+14);
-  const po2=f>=T_BACK+6&&f<T_OK+14?E.oc(pin)*(1-E.ic(pout)):0;
+  const pin=seg(f,T_CONN+4,T_CONN+14), pout=seg(f,T_OK+20,T_OK+28);
+  const po2=f>=T_CONN+4&&f<T_OK+28?E.oc(pin)*(1-E.ic(pout)):0;
   $('h_dim').style.opacity=po2; const pop=$('h_pop'); pop.style.opacity=po2; pop.style.transform=`scale(${lerp(0.86,1,E.back(pin))*(1-0.06*E.ic(pout))})`;
   const STEPS=['اتصال بلوتوث...','راه‌اندازی دیاگ...','شناسایی <span class="ltr">ECU</span>...'];
   let si=0; T_STEP.forEach((t,i)=>{if(f>=t)si=i}); const st=$('p_step');
-  if(f<T_OK){st.innerHTML=STEPS[si]; const k=f-T_STEP[si]; st.style.opacity=E.oc(seg(k,0,5)); st.style.transform=`translateY(${(1-E.oc(seg(k,0,6)))*10}px)`;}
+  if(f<T_OK){st.innerHTML=STEPS[si]; const kk=f-T_STEP[si]; st.style.opacity=E.oc(seg(kk,0,5)); st.style.transform=`translateY(${(1-E.oc(seg(kk,0,6)))*10}px)`;}
   else {st.innerHTML='دیاگ آماده‌ست'; st.style.opacity=1; st.style.transform='none';}
   $('p_ttl').textContent=f<T_OK?'در حال اتصال':'متصل شد'; $('p_ttl').style.color=f<T_OK?'#10203C':'#22A050';
   $('p_spin').style.transform=`rotate(${f*14}deg)`; $('p_spin').style.opacity=f<T_OK?1:0;
   const ok=seg(f,T_OK,T_OK+8); $('p_ok').style.opacity=E.oc(ok); $('p_ok').style.transform=`scale(${ok<=0?0.4:lerp(0.4,1,E.back(ok))})`;
-  $('h_toast').style.opacity=E.oc(seg(f,T_OK+4,T_OK+8))*(1-seg(f,T_ECU-4,T_ECU+2));
+  $('h_toast').style.opacity=0;
   T(T_ECU,'h_ecu');
  }
- if(f>=T_CONN&&f<T_BACK+14){
-  T(T_SEARCH,'c_search'); const TA=T_SEARCH+2;
-  const scanning=f>=TA&&f<T_DEV[4]+4;
-  $('c_stat').textContent=f<TA?'برای پیدا کردن دیاگ، جستجو را بزنید':(f<T_DEV[4]+4?'در حال جستجو...':'جستجو کامل شد. ۵ دیاگ یافت شد');
-  $('c_search').style.background=scanning?'#90CAF9':'#2196F3'; $('c_stop').style.color=scanning?'#10203C':'#98A3B8';
-  $('c_prog').style.width=(f<TA?0:E.io(seg(f,TA,T_DEV[4]+4))*100)+'%';
-  $('c_dim').style.opacity=0; $('c_perm').style.opacity=0;
-  vis($('c_empty'),1-seg(f,T_DEV[0]-2,T_DEV[0]+4));
-  let rr=''; if(f>=TA){for(let i=0;i<3;i++){const ph2=((f-TA)/14+i/3)%1; rr+=`<circle cx="268" cy="226" r="${lerp(50,250,ph2)}" fill="none" stroke="#2196F3" stroke-width="${5-3*ph2}" opacity="${(1-ph2)*0.6*seg(f,TA,TA+4)}"/>`;}}
-  $('c_radar').innerHTML=rr; $('c_emptyT').textContent=f<TA?'هنوز دستگاهی پیدا نشده':'در حال جستجوی دیاگ...';
-  DEV.forEach((d,i)=>{const r=$('c_r'+i); const p=seg(f,T_DEV[i],T_DEV[i]+8); r.style.opacity=E.oc(seg(f,T_DEV[i],T_DEV[i]+4));
-   r.style.transform=`translateY(${(1-E.oc(p))*26}px) scale(${p<=0?0.9:lerp(0.9,1,E.back(p))})`;});
-  T(T_PICK,'c_r0'); const hl=Math.exp(-Math.pow((f-T_PICK-3)/5,2)); $('c_r0').style.boxShadow=`inset 0 0 0 ${3*hl}px rgba(33,150,243,${hl})`;
- }
- if(f>=T_ECU){T(T_ESCAN,'e_scan'); const p=E.io(seg(f,T_ESCAN+2,T_ESCAN+16)); $('e_prog').style.width=(p*100)+'%'; $('e_prog').style.opacity=p<1?1:0;
-  const k=seg(f,T_ESCAN+16,T_ESCAN+26); $('e_n1').style.color=k>0?GRN:'#98A3B8';
-  $('e_dtc').style.opacity=E.oc(k); $('e_dtc').style.transform=`translateY(${(1-E.oc(k))*24}px)`;}
+ /* first scan */
+ if(f>=T_ECU){T(T_ESCAN,'e_scan'); const p=E.io(seg(f,T_ESCAN+2,T_RES)); $('e_prog').style.width=(p*100)+'%'; $('e_prog').style.opacity=p<1?1:0;
+  const kq=seg(f,T_RES,T_RES+10); $('e_n1').style.color=kq>0?GRN:'#98A3B8';
+  $('e_dtc').style.opacity=E.oc(kq); $('e_dtc').style.transform=`scale(${kq<=0?0.8:lerp(0.8,1,E.back(kq))})`;}
  if(!tapped) $('tap').style.opacity=0;
 }
+$('dStamp').innerHTML=`<svg width="460" height="200" viewBox="-230 -100 460 200"><g transform="rotate(-9)">
+  <rect x="-215" y="-78" width="430" height="156" rx="30" fill="rgba(255,255,255,.95)" stroke="#22A050" stroke-width="12"/>
+  <rect x="-195" y="-58" width="390" height="116" rx="20" fill="none" stroke="#22A050" stroke-width="4" stroke-dasharray="14 10"/>
+  <text y="24" text-anchor="middle" font-family="V" font-weight="900" font-size="72" fill="#22A050">فقط ۵ قدم</text></g></svg>`;
+function stamp(f){const st=$('dStamp'), on=f>=T_DONE-6&&f<T_OA; st.style.display=on?'block':'none'; if(!on) return;
+ const sp=seg(f,T_DONE-6,T_DONE); st.style.top='1400px'; st.style.opacity=E.oc(seg(f,T_DONE-6,T_DONE-3))*(1-seg(f,T_OA-6,T_OA));
+ st.style.transform=`scale(${sp<1?lerp(2,1,E.ic(sp)):1+0.05*Math.exp(-(f-T_DONE)/4)})`;}
 
-/* ---------- break: recap (rows flip in on the beats) ---------- */
-$('exs').innerHTML=`<div class="ex" id="ex" style="z-index:32">${[[svg('check','#fff',48),'۵ قدم ساده تا اولین اسکن'],[svg('cart','#fff',44),'۱٬۴۹۰٬۰۰۰ تومان'],[svg('timer','#fff',44),'فقط ۳ روز']].map((r,i)=>`<div class="exr" id="exr${i}"><span class="exn">${r[0]}</span><span>${r[1]}</span></div>`).join('')}</div>`;
-function outro(f){
- const ex=$('ex'), E0=T_RECAP, E1=T_END;
- if(f>=E0-8&&f<E1+2){const pin=seg(f,E0-8,E0+8), pout=seg(f,E1-10,E1-1);
-  ex.style.display='block'; ex.style.opacity=cl(seg(f,E0-8,E0-3))*(1-E.ic(pout)); ex.style.transformOrigin='50% 0';
-  ex.style.transform=`perspective(1800px) rotateX(${lerp(70,0,E.back(pin))-70*E.ic(pout)}deg) scale(${1-0.1*E.ic(pout)})`;
-  for(let i=0;i<3;i++){const b=E0+i*BEAT, p=seg(f,b-2,b+10), r=$('exr'+i);
-   r.style.opacity=E.oc(seg(f,b-2,b+3)); r.style.transform=`perspective(900px) rotateX(${lerp(-90,0,E.back(p))}deg)`;
-   const hit=Math.exp(-Math.pow((f-b-1)/4,2)); r.firstChild.style.transform=`rotate(${lerp(-90,0,E.oc(p))}deg) scale(${1+0.14*hit})`;}
- } else ex.style.display='none';
+/* ---------- 6. the offer, one idea per panel ---------- */
+function panel(id,a,b,f){const el=$(id), on=f>=a&&f<b; el.style.display=on?'block':'none'; if(!on) return 0;
+ const sn=snapIn(f,a), out=seg(f,b-8,b); el.style.opacity=sn.o*(1-out); el.style.transformOrigin='540px 900px'; el.style.transform=`scale(${sn.s*(1-0.08*E.ic(out))})`; return 1}
+const pop=(el,p,dy=40,s0=0.6)=>{el.style.opacity=E.oc(cl(p*2)); el.style.transform=`translateY(${(1-E.oc(p))*dy}px) scale(${p<=0?s0:lerp(s0,1,E.back(p))})`};
+function offer(f){const L0=$('offer'), on=f>=T_OA&&f<T_END+12; L0.style.display=on?'block':'none'; if(!on) return;
+ L0.style.opacity=1-seg(f,T_END,T_END+12);
+ if(panel('pA',T_OA,T_OB,f)){
+  const dp=seg(f,T_OA+2,T_OA+18); $('oDiag').style.transform=`translateY(${(1-E.oc(dp))*-200+Math.sin(f/12)*6}px) rotate(${(1-E.oc(dp))*-14}deg)`;
+  const cp=seg(f,T_OA+6,T_OA+22), cd=$('oCard'); cd.style.opacity=cl(seg(f,T_OA+6,T_OA+10)); cd.style.transform=`perspective(1600px) rotateX(${lerp(80,0,E.back(cp))}deg)`;
+  $('oStr').style.transform=`scaleX(${E.io(seg(f,T_STRIKE,T_STRIKE+10))})`;
+  [...NEW].forEach((n,i)=>{const o=+OLD[i], t=(+n)+10*(i==0?0:(i<3?1:2))-o; const a=T_ROLL+(6-i)*1.5, p=E.oc(seg(f,a,T_ROLL1+(6-i)*1.5));
+   $('dg'+i).style.transform=`translateY(${-(o+t*p)*1.15}em)`;});
+  const se=$('oSave'); se.style.display='inline-flex'; pop(se,seg(f,T_SAVE,T_SAVE+10),0,0.5);}
+ if(panel('pB',T_OB,T_OC,f)){const cp=seg(f,T_OB+2,T_OB+20), c=$('acard');
+  c.style.transform=`translateY(${(1-E.oc(cp))*300}px) rotate(${lerp(-18,-4,E.oc(cp))}deg) scale(${lerp(0.6,0.92,E.back(cp))})`; c.style.opacity=E.oc(cl(cp*2));
+  pop($('bGift'),seg(f,T_OB+22,T_OB+34),40);}
+ if(panel('pC',T_OC,T_OD,f)){const kp=seg(f,T_OC+2,T_OC+16); $('cWrap').style.transform=`scale(1.7) translateY(${(1-E.oc(kp))*-120}px) rotate(${(1-E.back(kp))*-14}deg)`; $('cWrap').style.opacity=E.oc(cl(kp*2));
+  const pg=E.io(seg(f,T_OC+16,T_OC+30)); $('oPage').style.transform=`perspective(700px) rotateX(${pg*170}deg)`; $('oPage').style.opacity=pg>=1?0:1;
+  pop($('cTxt'),seg(f,T_OC+28,T_OC+40),30,0.8);}
+ if(panel('pD',T_OD,99999,f)){pop($('dCard'),seg(f,T_OD+2,T_OD+16),40,0.8); pop($('dChips'),seg(f,T_OD+14,T_OD+26),30,0.7);
+  const ct=seg(f,T_OD+26,T_OD+38), pulse=f>T_OD+38?1+0.04*Math.max(0,Math.sin((f-T_OD)/6)):1, tp=Math.exp(-Math.pow((f-T_TAPC-2)/3,2));
+  const c=$('oCta'); c.style.opacity=E.oc(cl(ct*2)); $('oCtaB').style.transform=`scale(${(ct<=0?0.6:lerp(0.6,1,E.back(ct)))*pulse*(1-0.06*tp)})`;}
 }
 
-/* ---------- titles: word by word, rising out of a mask ---------- */
+/* ---------- titles: short, they land before the action and stay ---------- */
 const TT=[
- {w:['از','جعبه','تا','<b>اولین</b>','اسکن'],a:10,b:T_S1-4},
- {w:['۱.','<b>بازش</b>','کن'],a:T_S1-2,b:T_S2-4},
- {w:['۲.','<b>بزنش</b>','به','ماشین'],a:T_S2-2,b:T_S3-4},
- {w:['۳.','اپ','رو','از','<b>بازار</b>','نصب','کن'],a:T_S3-2,b:T_ACT-6,s:74},
- {w:['کد','<b>کارت</b>','رو','وارد','کن'],a:T_ACT-4,b:T_S4-4},
- {w:['۴.','<b>وصل</b>','شو'],a:T_S4-2,b:T_S5-4},
+ {w:['از','جعبه','تا','<b>اولین</b>','اسکن'],a:10,b:T_S1-6},
+ {w:['۱.','کیف','رو','<b>باز</b>','کن'],a:T_S1-2,b:T_S2-6},
+ {w:['۲.','<b>بزنش</b>','به','ماشین'],a:T_S2-2,b:T_S3-6},
+ {w:['۳.','اپ','رو','از','<b>بازار</b>','نصب','کن'],a:T_S3-2,b:T_S4-6,s:74},
+ {w:['۴.','<b>وصل</b>','شو'],a:T_S4-2,b:T_S5-6},
  {w:['۵.','<b>اولین</b>','اسکن'],a:T_S5-2,b:T_DONE-6},
- {w:['همین!','فقط','۵','قدم','<b>ساده</b>'],a:T_DONE-4,b:T_OFF-4},
- {w:['یه','<b>تخفیف</b>','ویژه'],a:T_OFF-2,b:T_CAL-4},
- {w:['فقط','<b>۳</b>','روز!'],a:T_CAL-2,b:T_CTA-4},
- {w:['همین','حالا','<b>سفارش</b>','بده'],a:T_CTA-2,b:T_RECAP-2},
- {w:['یادت','<b>نره</b>!'],a:T_RECAP+2,b:T_END-4},
+ {w:['همین!','خیلی','<b>ساده</b>'],a:T_DONE-2,b:T_OA-6},
+ {w:['یه','<b>تخفیف</b>','ویژه'],a:T_OA-2,b:T_OB-6},
+ {w:['اشتراک','طلایی','<b>هدیه</b>'],a:T_OB-2,b:T_OC-6},
+ {w:['تا','<b>کی</b>؟'],a:T_OC-2,b:T_OD-6},
+ {w:['همین','حالا','<b>سفارش</b>','بده'],a:T_OD-2,b:T_END-6},
  {w:['مکانیک','تو','<b>جیبِت</b>!'],a:T_END-2,b:99999},
 ];
 $('titles').innerHTML=TT.map((t,i)=>`<div class="ttl" id="tt${i}" style="top:148px;opacity:1;display:none"><div class="h"${t.s?` style="font-size:${t.s}px"`:''}>${t.w.map(w=>`<span class="w"><span>${w}</span></span>`).join(' ')}</div></div>`).join('');
@@ -646,13 +593,13 @@ function titles(f){TT.forEach((t,i)=>{const el=$('tt'+i), on=f>=t.a-1&&f<t.b+14;
   w.style.transform=`translateY(${(1-E.oc(p))*115-E.ic(q)*115}%)`;});});}
 
 function render(f){
- sCase(f); dash(f-PLUG_OFF); phone(f); acard(f); mont(f); offer(f); outro(f); ring(f); zoomLines(f); laps(f); titles(f);
+ sCase(f); plug(f); phone(f); stamp(f); offer(f); zoomLines(f); titles(f);
  renderEnd(f);
 }
 </script>
 <script src="endcard.js"></script>
 <script>
 initEnd(null,{health:HSCORE,healthColor:GRN,t0:T_END,beats:END_BEATS,handle:'@cardiagai'});
-window.READY=document.fonts.ready.then(()=>{zoomOrigins();render(0);return true});
+window.READY=document.fonts.ready.then(()=>{zoomOrigins();camKeys();render(0);return true});
 </script>
 </body></html>
