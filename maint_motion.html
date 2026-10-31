@@ -18,7 +18,8 @@ body{font-family:V,sans-serif;color:#10203C}
 .ttl .h{font-weight:900;font-size:84px;line-height:1.15;color:#10203C;white-space:nowrap}
 .ttl .h b{font-weight:900;padding:0 10px;background:linear-gradient(180deg,transparent 60%,rgba(33,150,243,.30) 60%,rgba(33,150,243,.30) 90%,transparent 90%)}
 .ttl.dk .h{color:#fff;font-size:104px}.ttl.dk .h b{color:#FFC446;background:none;padding:0}
-.ttl.pl .h{display:inline-block;background:rgba(251,252,255,.95);border-radius:46px;padding:6px 40px 12px;box-shadow:0 14px 30px rgba(20,40,80,.16)}
+.ttl.pl .h b{display:inline-block;line-height:1.15}
+.ttl.pl .h{display:inline-block;line-height:1.5;background:rgba(251,252,255,.95);border-radius:46px;padding:6px 40px 12px;box-shadow:0 14px 30px rgba(20,40,80,.16)}
 .ttl .w{display:inline-block;overflow:hidden;vertical-align:top;padding:4px 10px 22px;margin:-4px 0 -22px}
 .ttl .w>span{display:inline-block}
 .chip{display:inline-flex;align-items:center;gap:14px;height:92px;padding:0 38px;border-radius:46px;background:#fff;font-weight:800;font-size:44px;white-space:nowrap;direction:rtl;box-shadow:0 18px 40px rgba(20,40,80,.16)}
@@ -379,8 +380,8 @@ function endc(f){const L0=$('endL'), on=f>=T_END; L0.style.display=on?'block':'n
 const TT=[
  {w:['تسمه','تایم','<b>پاره</b>','<b>شد!</b>'],a:T_DARK+4,b:T_REMIX-8,dk:1,top:720},
  {w:['فقط','چون','<b>یادت</b>','<b>رفت</b>'],a:T_REMIX-4,b:T_LIGHT-8,dk:1,top:720},
- {w:['مانیتور','ماشینت','<b>یادت</b>','میاره'],a:T_LIGHT+2,b:T_S1-6,s:74,pl:1},
- {w:['۱.','ماشینت','رو','<b>تعریف</b>','کن'],a:T_S1-2,b:T_S2-6,s:74,pl:1},
+ {w:['مانیتور','ماشینت','وقت','تعویض','\n','<b>مصرفی‌ها</b>','رو','یادت','میاره!'],a:T_LIGHT+2,b:T_S1+30,s:66,pl:1},
+ {w:['۱.','ماشینت','رو','<b>تعریف</b>','کن'],a:T_S1+32,b:T_S2-6,s:74,pl:1},
  {w:['۲.','سرویس‌هات','رو','<b>اضافه</b>','کن'],a:T_S2-2,b:T_S3-6,s:70,pl:1},
  {w:['۳.','خودش','<b>کیلومتر</b>','میندازه'],a:T_S3-2,b:T_S4-6,s:74,pl:1},
  {w:['به','<b>موقع</b>','خبرت','می‌کنه'],a:T_S4-2,b:T_S5-6,s:74,pl:1},
@@ -388,7 +389,7 @@ const TT=[
  {w:['<b>«کاردیاگ»</b>','رو','کامنت','کن'],a:T_CTA-2,b:T_END-6},
  {w:['مکانیک','تو','<b>جیبِت</b>!'],a:T_END-2,b:99999},
 ];
-$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl${t.dk?' dk':''}${t.pl?' pl':''}" id="tt${i}" style="top:${t.top||148}px"><div class="h"${t.s?` style="font-size:${t.s}px"`:""}>${t.w.map(w=>`<span class="w"><span>${w}</span></span>`).join(' ')}</div></div>`).join('');
+$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl${t.dk?' dk':''}${t.pl?' pl':''}" id="tt${i}" style="top:${t.top||148}px"><div class="h"${t.s?` style="font-size:${t.s}px"`:""}>${t.w.map(w=>w==='\n'?'<br>':`<span class="w"><span>${w}</span></span>`).join(' ')}</div></div>`).join('');
 function titles(f){TT.forEach((t,i)=>{const el=$('tt'+i), on=f>=t.a-1&&f<t.b+14; el.style.display=on?'block':'none'; if(!on) return;
  if(t.pl) el.firstChild.style.opacity=E.oc(seg(f,t.a,t.a+8))*(1-seg(f,t.b+2,t.b+10));
  [...el.querySelectorAll('.w>span')].forEach((w,k)=>{const a=t.a+4+k*3, p=seg(f,a,a+12), q=seg(f,t.b-4+k*1.5,t.b+5+k*1.5);
