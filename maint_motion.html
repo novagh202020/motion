@@ -18,6 +18,7 @@ body{font-family:V,sans-serif;color:#10203C}
 .ttl .h{font-weight:900;font-size:84px;line-height:1.15;color:#10203C;white-space:nowrap}
 .ttl .h b{font-weight:900;padding:0 10px;background:linear-gradient(180deg,transparent 60%,rgba(33,150,243,.30) 60%,rgba(33,150,243,.30) 90%,transparent 90%)}
 .ttl.dk .h{color:#fff;font-size:104px}.ttl.dk .h b{color:#FFC446;background:none;padding:0}
+.ttl.pl .h{display:inline-block;background:rgba(251,252,255,.95);border-radius:46px;padding:6px 40px 12px;box-shadow:0 14px 30px rgba(20,40,80,.16)}
 .ttl .w{display:inline-block;overflow:hidden;vertical-align:top;padding:4px 10px 22px;margin:-4px 0 -22px}
 .ttl .w>span{display:inline-block}
 .chip{display:inline-flex;align-items:center;gap:14px;height:92px;padding:0 38px;border-radius:46px;background:#fff;font-weight:800;font-size:44px;white-space:nowrap;direction:rtl;box-shadow:0 18px 40px rgba(20,40,80,.16)}
@@ -58,15 +59,16 @@ body{font-family:V,sans-serif;color:#10203C}
  </div>
  <!-- ===== blackout: «the timing belt snapped» ===== -->
  <div id="dark" class="L" style="z-index:6;background:#0B1322">
-  <div id="late" class="a" style="left:0;top:1010px;width:1080px;text-align:center;opacity:0"><span class="chip" style="background:rgba(242,128,18,.16);color:#FFC446;box-shadow:none;border:3px solid rgba(242,128,18,.55)" id="lateI"></span></div>
+  <svg id="ecgS" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="late" class="a" style="left:0;top:1170px;width:1080px;text-align:center;opacity:0"><span class="chip" style="height:110px;font-size:56px;background:rgba(242,128,18,.16);color:#FFC446;box-shadow:none;border:3px solid rgba(242,128,18,.55)" id="lateI"></span></div>
  </div>
  <!-- ===== the cockpit: road through the windshield, Android monitor in the dash ===== -->
  <div id="cock" class="L" style="z-index:4">
   <svg id="road" class="a" style="left:0;top:0" width="1080" height="1100"></svg>
-  <svg class="a" style="left:0;top:0" width="1080" height="1920">
+  <svg class="a" style="left:0;top:0;overflow:visible" width="1080" height="1920">
    <defs><linearGradient id="dashg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E3644"/><stop offset="1" stop-color="#171C24"/></linearGradient></defs>
    <path d="M0 0 L150 0 L40 1030 L0 1030 Z M1080 0 L930 0 L1040 1030 L1080 1030 Z" fill="#1B212B"/>
-   <path d="M-20 1040 Q540 930 1100 1040 L1100 1940 L-20 1940 Z" fill="url(#dashg)"/>
+   <path d="M-20 1040 Q540 930 1100 1040 L1100 2700 L-20 2700 Z" fill="url(#dashg)"/>
    <path d="M-20 1040 Q540 930 1100 1040" fill="none" stroke="#3A4352" stroke-width="6"/>
    <g fill="#232A35" stroke="#3A4352" stroke-width="4"><circle cx="330" cy="1730" r="64"/><circle cx="750" cy="1730" r="64"/><rect x="450" y="1690" width="180" height="80" rx="20"/></g>
    <g fill="#2196F3"><circle cx="330" cy="1730" r="10"/><circle cx="750" cy="1730" r="10"/></g>
@@ -123,14 +125,17 @@ const svg=(p,c='#2196F3',s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24
 const LOGO=(w,c,sw=7)=>`<svg width="${w}" height="${w*0.36}" viewBox="0 0 400 144"><path class="lg" d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="${c}" stroke-width="${sw*1.6}" stroke-linecap="round" stroke-linejoin="round"/>
  <circle class="lg" cx="104" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/><circle class="lg" cx="188" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/></svg>`;
 
-/* ---------- timeline: song/song_travel.wav (motion bar m downbeat = 7.5+67.5m, beat = 16.875) ---------- */
-const MB=m=>7.5+67.5*m, BEAT=16.875;
-const T_SNAP=40, T_DARK=50, T_LIGHT=MB(2);                       // hook: the belt snaps, blackout, light comes back
-const T_S1=MB(3), T_S2=MB(5), T_S3=MB(9), T_S4=MB(12), T_S5=MB(15), T_CTA=MB(16), T_END=MB(18), F_HIT=MB(19), NF=1326;
+/* ---------- timeline ----------
+   hook (no music): 0..80 the belt spins up, 80 snaps, 94 the gears blow apart, 118 black + heart monitor, 170 flat line;
+   bar «2» = the flat tone is remixed into the song, bar 3 = groove downbeat, light comes back.
+   The song (song/song_travel.wav) is delayed by D frames: song bar m lands on MB(m). */
+const D=90, MB=m=>7.5+67.5*m+D, BEAT=16.875;
+const T_SNAP=80, T_BOOM=94, T_DARK=118, T_ECG=122, T_BEAT=[132,152], T_FLAT=170, T_REMIX=MB(2), T_LIGHT=MB(3);
+const T_S1=MB(4), T_S2=MB(6), T_S3=MB(9), T_S4=MB(12), T_S5=MB(15), T_CTA=MB(16), T_END=MB(18), F_HIT=MB(19), NF=1416;
 // step 1: define the car
 const T_NAME=[T_S1+18,T_S1+46], T_FILL=T_S1+50, T_KM=[T_S1+76,T_S1+100], T_SAVE1=T_S1+112;
-// step 2: add services
-const T_ADD=T_S2+14, T_DLG=T_S2+18, T_DROP=T_S2+44, T_PICK=T_S2+76, T_INT=[T_S2+96,T_S2+124], T_SAVE2=T_S2+146, T_CARD1=T_S2+154, T_CARD2=T_S2+206;
+// step 2: add services (3 bars)
+const T_ADD=T_S2+12, T_DLG=T_S2+16, T_DROP=T_S2+36, T_PICK=T_S2+62, T_INT=[T_S2+78,T_S2+100], T_SAVE2=T_S2+118, T_CARD1=T_S2+126, T_CARD2=T_S2+168;
 // step 3: GPS counts the km by itself
 const T_GPS=T_S3+22, T_DRIVE=[T_S3+64,T_S3+182];
 const T_NOTI=T_S4+4;
@@ -144,9 +149,10 @@ const kmf=v=>fa(Math.round(v).toLocaleString('en-US')).replace(/,/g,'٬');
 const typ=(s,a,b,f)=>s.slice(0,Math.round(s.length*seg(f,a,b)));
 const caret=(f,a,b)=>f>=a&&f<b+8?`<span class="caret" style="opacity:${Math.floor(f/8)%2?0:1}"></span>`:'';
 
-/* ---------- the timing belt: 5 pulleys, the belt wraps them clockwise ---------- */
-const PUL=[[360,760,140],[720,760,140],[820,1090,62],[540,1360,118],[260,1090,62]];
-let BELT='', BLEN=0, SBREAK=0;
+/* ---------- the timing belt: 5 sprockets, the belt wraps them clockwise ----------
+   0..80 it spins up and starts to shake, 80 it snaps, 94 the gears shatter and blow apart */
+const PUL=[[360,760,140,26],[720,760,140,26],[820,1090,62,0],[540,1360,118,20],[260,1090,62,0]];
+let BELT='', BLEN=0, SBREAK=0, BRK=[0,0];
 (()=>{const n=PUL.length, T=[];
  for(let i=0;i<n;i++){const [x1,y1,r1]=PUL[i],[x2,y2,r2]=PUL[(i+1)%n], dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy), ux=dx/L, uy=dy/L, c=(r1-r2)/L, s=Math.sqrt(1-c*c);
   const nx=c*ux+s*uy, ny=c*uy-s*ux; T.push([[x1+r1*nx,y1+r1*ny],[x2+r2*nx,y2+r2*ny]]);}
@@ -155,37 +161,70 @@ let BELT='', BLEN=0, SBREAK=0;
   let a0=Math.atan2(A[1]-cy,A[0]-cx), a1=Math.atan2(B[1]-cy,B[0]-cx), dl=((a1-a0)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
   d+=` A${r} ${r} 0 ${dl>Math.PI?1:0} 1 ${B[0].toFixed(1)} ${B[1].toFixed(1)} L${T[i][1][0].toFixed(1)} ${T[i][1][1].toFixed(1)}`;}
  BELT=d;})();
-const SPARK=[...Array(14)].map((_,i)=>[Math.cos(i*2.4)*(6+i%5*3),-8-((i*7)%6)*2.5]);
-function pulley(x,y,r,rot,accent){let h='';for(let i=0;i<5;i++){const a=rot+i*Math.PI*2/5; h+=`<circle cx="${x+r*0.48*Math.cos(a)}" cy="${y+r*0.48*Math.sin(a)}" r="${r*0.13}" fill="#8F9BAD"/>`;}
- return `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#metal)" stroke="#7D8899" stroke-width="5"/><circle cx="${x}" cy="${y}" r="${r*0.76}" fill="#D3DAE4"/>${h}
-  <circle cx="${x}" cy="${y}" r="${r*0.2}" fill="${accent?'#2196F3':'#6E7D96'}"/><path d="M${x+r*0.86*Math.cos(rot)} ${y+r*0.86*Math.sin(rot)} l0 0" stroke="#2196F3" stroke-width="${r*0.12}" stroke-linecap="round"/>`;}
-function belt(f){const L0=$('beltL'), hook=f<T_DARK+4, good=f>=T_S5-2&&f<T_CTA+4; L0.style.display=hook||good?'block':'none'; if(!hook&&!good) return;
- const snap=hook&&f>=T_SNAP, st=f-T_SNAP;
- const v=hook?(snap?14*Math.exp(-st/6):14):12;                 // belt speed (px/frame), dies after the snap
- const pos=hook?(snap?14*T_SNAP+14*6*(1-Math.exp(-st/6)):f*14):f*12;
- let s=`<defs><radialGradient id="metal" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#F4F6FA"/><stop offset="1" stop-color="#AEB8C6"/></radialGradient></defs>
+// a toothed sector (whole gear: 0..2π) around (0,0); the belt sits on r, teeth are tucked under it
+function gearPath(r,teeth,a0,a1){if(!teeth){let d='';for(let a=a0;a<=a1+1e-6;a+=Math.PI/36) d+=(d?'L':'M')+(r*Math.cos(a)).toFixed(1)+' '+(r*Math.sin(a)).toFixed(1); return d+(a1-a0<6.28?'L0 0Z':'Z')}
+ const st=2*Math.PI/teeth; let d=''; for(let a=a0;a<=a1+1e-6;a+=st/6){const ph=(((a-a0)/st)%1+1)%1, rr=ph<0.5?r:r-12; d+=(d?'L':'M')+(rr*Math.cos(a)).toFixed(1)+' '+(rr*Math.sin(a)).toFixed(1)}
+ return d+(a1-a0<6.28?'L0 0Z':'Z')}
+const FRAG=[]; PUL.forEach(([x,y,r,t],i)=>{const n=i==2||i==4?3:6; for(let k=0;k<n;k++){const a0=k*2*Math.PI/n, a1=(k+1)*2*Math.PI/n, am=(a0+a1)/2, sp=16+((i*7+k*5)%9)*2.2;
+ FRAG.push({i,x,y,d:gearPath(r,t,a0,a1),vx:Math.cos(am)*sp+(x-540)*0.03,vy:Math.sin(am)*sp-10+(y-1000)*0.02,w:((k%2)?1:-1)*(6+k*2.5)});}});
+const CHIP=[...Array(40)].map((_,i)=>{const a=i*2.399, s=10+(i*13)%22; return [Math.cos(a)*s,Math.sin(a)*s-8,4+(i%4)*3,(i*37)%360]});
+const SPARK=[...Array(16)].map((_,i)=>[Math.cos(i*2.4)*(6+i%5*3),-8-((i*7)%6)*2.5]);
+function sprocket(x,y,r,teeth,rot,accent){let h='';for(let i=0;i<5;i++){const a=rot+i*Math.PI*2/5; h+=`<circle cx="${(r*0.48*Math.cos(a)).toFixed(1)}" cy="${(r*0.48*Math.sin(a)).toFixed(1)}" r="${r*0.13}" fill="#8F9BAD"/>`;}
+ return `<g transform="translate(${x} ${y})"><path d="${gearPath(r,teeth,0,2*Math.PI)}" transform="rotate(${rot*57.3})" fill="url(#metal)" stroke="#7D8899" stroke-width="4"/><circle r="${r*0.74}" fill="#D3DAE4"/>${h}
+  <circle r="${r*0.2}" fill="${accent?'#2196F3':'#6E7D96'}"/></g>`;}
+function belt(f){const L0=$('beltL'), hook=f<T_DARK+6, good=f>=T_S5-2&&f<T_CTA+4; L0.style.display=hook||good?'block':'none'; if(!hook&&!good) return;
+ const snap=hook&&f>=T_SNAP, st=f-T_SNAP, boom=hook&&f>=T_BOOM, bt=f-T_BOOM;
+ // spin-up: speed rises, then the free-running gears overspeed until they let go
+ const rpm=t=>10*t+0.07*t*t*t/80;                                       // integral of a rising speed
+ const pos=hook?(snap?rpm(T_SNAP)+(st*26):rpm(f)):f*12;
+ let s=`<defs><radialGradient id="metal" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#F4F6FA"/><stop offset="1" stop-color="#AEB8C6"/></radialGradient>
+  <radialGradient id="fire" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".35" stop-color="#FFE7A8"/><stop offset=".7" stop-color="#FFC446" stop-opacity=".7"/><stop offset="1" stop-color="#F28012" stop-opacity="0"/></radialGradient></defs>
   <rect x="140" y="560" width="800" height="1000" rx="90" fill="#CBD4E0" opacity=".55"/>`;
- PUL.forEach(([x,y,r],i)=>{s+=pulley(x,y,r,pos/r,i==3)});
- if(!snap){s+=`<path d="${BELT}" fill="none" stroke="#1E232B" stroke-width="30" stroke-linejoin="round"/><path d="${BELT}" fill="none" stroke="#3E4652" stroke-width="22" stroke-dasharray="9 13" stroke-dashoffset="${-pos}"/>`;}
+ if(!boom) PUL.forEach(([x,y,r,t],i)=>{const wob=snap?Math.sin(f*1.9+i)*Math.min(8,st*0.8):0; s+=sprocket(x+wob,y-wob*0.6,r,t,pos/r,i==3)});
+ else {FRAG.forEach(g=>{const t=bt, px=g.x+g.vx*t, py=g.y+g.vy*t+0.9*t*t;
+   s+=`<g transform="translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${(g.w*t).toFixed(1)})" opacity="${1-seg(t,14,26)}"><path d="${g.d}" fill="url(#metal)" stroke="#5F6878" stroke-width="4"/></g>`});
+  CHIP.forEach(([vx,vy,sz,r0],i)=>{const t=bt; if(t>24) return; s+=`<rect x="${540+vx*t*1.6}" y="${1040+vy*t*1.6+t*t}" width="${sz}" height="${sz*0.6}" transform="rotate(${r0+t*20} ${540+vx*t*1.6} ${1040+vy*t*1.6+t*t})" fill="${i%3?'#6E7D96':'#33415C'}" opacity="${1-t/24}"/>`;});
+  for(let k=0;k<9;k++){const t=bt-k*1.2; if(t<0) continue; const a=k*2.1, R=40+t*9;
+   s+=`<circle cx="${540+Math.cos(a)*t*6}" cy="${1040+Math.sin(a)*t*4-t*3}" r="${R}" fill="#5B6577" opacity="${Math.max(0,0.55-t/40)}"/>`}
+  const fb=Math.exp(-bt/6); s+=`<circle cx="540" cy="1040" r="${260+bt*34}" fill="url(#fire)" opacity="${fb}"/><circle cx="540" cy="1040" r="${120+bt*12}" fill="#FFF6DA" opacity="${Math.exp(-bt/3)}"/>
+   <circle cx="540" cy="1040" r="${60+bt*55}" fill="none" stroke="#FFC446" stroke-width="${Math.max(0,26-bt*1.4)}" opacity="${Math.max(0,1-bt/16)}"/>
+   <circle cx="540" cy="1040" r="${30+bt*38}" fill="none" stroke="#fff" stroke-width="${Math.max(0,14-bt)}" opacity="${Math.max(0,1-bt/12)}"/>`;}
+ if(!snap){const fl=Math.sin(f*1.3)*7*seg(f,30,T_SNAP);                          // the long run starts to flutter before it goes
+  s+=`<g transform="translate(${fl} ${-fl*0.4})"><path d="${BELT}" fill="none" stroke="#1E232B" stroke-width="30" stroke-linejoin="round"/><path d="${BELT}" fill="none" stroke="#3E4652" stroke-width="22" stroke-dasharray="9 13" stroke-dashoffset="${-pos}"/></g>`;}
  else {const g=Math.min(420,40+st*60), fall=Math.pow(Math.max(0,st),1.6)*3.2;
-  s+=`<g transform="translate(${Math.sin(st*1.7)*6} ${fall}) rotate(${st*0.6} 540 1000)"><path d="${BELT}" fill="none" stroke="#1E232B" stroke-width="30" stroke-linejoin="round" stroke-dasharray="${BLEN-g} ${g}" stroke-dashoffset="${-(SBREAK+g/2)}"/></g>`;
+  s+=`<g transform="translate(${Math.sin(st*1.7)*6} ${fall}) rotate(${st*0.6} 540 1000)" opacity="${1-seg(f,T_BOOM+4,T_BOOM+14)}"><path d="${BELT}" fill="none" stroke="#1E232B" stroke-width="30" stroke-linejoin="round" stroke-dasharray="${BLEN-g} ${g}" stroke-dashoffset="${-(SBREAK+g/2)}"/></g>`;
   const [bx,by]=BRK; SPARK.forEach(([vx,vy],i)=>{const t=st; if(t>14) return; s+=`<circle cx="${bx+vx*t}" cy="${by+vy*t+0.9*t*t}" r="${5-t*0.3}" fill="${i%3?'#FFC446':'#fff'}" opacity="${1-t/14}"/>`;});}
  $('beltS').innerHTML=s;
- const sh=snap&&st<12?(12-st)*1.6:0; $('beltS').style.transform=`translate(${Math.sin(f*2.9)*sh}px,${Math.cos(f*3.3)*sh}px) scale(${hook?lerp(1.12,1.2,seg(f,0,T_SNAP)):lerp(1.15,1.05,seg(f,T_S5,T_CTA))})`; $('beltS').style.transformOrigin='540px 1050px';
- $('flashW').style.opacity=snap?0.75*Math.exp(-st/3):0;
+ const vib=hook?Math.pow(seg(f,20,T_SNAP),2)*5:0, sh=(snap&&st<12?(12-st)*1.6:0)+(boom?Math.max(0,30-bt*1.6):0)+vib;
+ $('beltS').style.transformOrigin='540px 1050px';
+ $('beltS').style.transform=`translate(${Math.sin(f*2.9)*sh}px,${Math.cos(f*3.3)*sh}px) scale(${hook?lerp(1.08,1.24,E.io(seg(f,0,T_BOOM)))+(boom?0.06*Math.exp(-bt/6):0):lerp(1.15,1.05,seg(f,T_S5,T_CTA))})`;
+ $('flashW').style.opacity=(snap?0.6*Math.exp(-st/3):0)+(boom?0.95*Math.exp(-bt/4):0);
  L0.style.opacity=good?E.oc(seg(f,T_S5-2,T_S5+8))*(1-seg(f,T_CTA-4,T_CTA+4)):1;
- // healthy belt: the two promises
- if(good){$('ok2').innerHTML=[[svg('check',GRN,46),'بدون دیاگ','#DEF6E6',GRN],[svg('check',GRN,46),'کاملاً رایگان','#DEF6E6',GRN]].map(([i,t,b,c],k)=>{const p=seg(f,T_S5+12+k*16,T_S5+24+k*16);
-  return `<span class="chip" style="background:${b};color:${c};opacity:${E.oc(cl(p*2))};transform:scale(${p<=0?0.5:lerp(0.5,1,E.back(p))})">${i}${t}</span>`}).join('');} else $('ok2').innerHTML='';
+ if(good){$('ok2').innerHTML=[[svg('check',GRN,46),'بدون دیاگ'],[svg('check',GRN,46),'کاملاً رایگان']].map(([i,t],k)=>{const p=seg(f,T_S5+12+k*16,T_S5+24+k*16);
+  return `<span class="chip" style="background:#DEF6E6;color:${GRN};opacity:${E.oc(cl(p*2))};transform:scale(${p<=0?0.5:lerp(0.5,1,E.back(p))})">${i}${t}</span>`}).join('');} else $('ok2').innerHTML='';
 }
-let BRK=[0,0];
 function beltLayout(){const p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d',BELT); $('beltS').appendChild(p);
- BLEN=p.getTotalLength(); // break on the long run between the right cam and the tensioner
- let best=0,bd=1e9; for(let s=0;s<BLEN;s+=4){const q=p.getPointAtLength(s), d=Math.hypot(q.x-790,q.y-930); if(d<bd){bd=d;best=s}} SBREAK=best; const q=p.getPointAtLength(best); BRK=[q.x,q.y]; p.remove();}
-function dark(f){const L0=$('dark'), on=f>=T_SNAP+4&&f<T_LIGHT+16; L0.style.display=on?'block':'none'; if(!on) return;
- L0.style.opacity=seg(f,T_SNAP+4,T_DARK); const R=lerp(0,1250,E.io(seg(f,T_LIGHT-4,T_LIGHT+14)));
- L0.style.clipPath=f>=T_LIGHT-4?`path(evenodd,'M0 0 H1080 V1920 H0 Z M${540-R} 1000 a${R} ${R} 0 1 0 ${2*R} 0 a${R} ${R} 0 1 0 ${-2*R} 0 Z')`:'none';
- const p=seg(f,T_DARK+40,T_DARK+52), l=$('late'); l.style.opacity=E.oc(cl(p*2)); l.style.transform=`scale(${p<=0?0.6:lerp(0.6,1,E.back(p))})`;}
+ BLEN=p.getTotalLength(); let best=0,bd=1e9; for(let s=0;s<BLEN;s+=4){const q=p.getPointAtLength(s), d=Math.hypot(q.x-790,q.y-930); if(d<bd){bd=d;best=s}} SBREAK=best; const q=p.getPointAtLength(best); BRK=[q.x,q.y]; p.remove();}
+
+/* ---------- the dead engine: a heart monitor, two last beats, then flat; the flat line becomes the brand pulse ---------- */
+function ecg(f){let d='M60 0', x=60; const head=lerp(60,1020,seg(f,T_ECG,T_FLAT+20));
+ const beats=[[T_BEAT[0],1],[T_BEAT[1],0.6]];
+ for(;x<=1020;x+=6){let y=0; beats.forEach(([t,amp])=>{const bx=lerp(60,1020,seg(t,T_ECG,T_FLAT+20)), u=(x-bx)/30;
+   if(Math.abs(u)<2) y+=amp*(-150*Math.exp(-Math.pow(u/0.22,2))+34*Math.exp(-Math.pow((u-0.55)/0.25,2))-16*Math.exp(-Math.pow((u+0.9)/0.3,2)))});
+  if(x>head) break; d+=` L${x} ${y.toFixed(1)}`} return [d,head]}
+function dark(f){const L0=$('dark'), on=f>=T_BOOM+8&&f<T_LIGHT+16; L0.style.display=on?'block':'none'; if(!on) return;
+ L0.style.opacity=seg(f,T_BOOM+8,T_DARK); const R=lerp(0,1250,E.io(seg(f,T_LIGHT-6,T_LIGHT+14)));
+ L0.style.clipPath=f>=T_LIGHT-6?`path(evenodd,'M0 0 H1080 V1920 H0 Z M${540-R} 1000 a${R} ${R} 0 1 0 ${2*R} 0 a${R} ${R} 0 1 0 ${-2*R} 0 Z')`:'none';
+ const p=seg(f,T_FLAT+14,T_FLAT+26), l=$('late'); l.style.opacity=E.oc(cl(p*2))*(1-seg(f,T_REMIX+20,T_REMIX+34)); l.style.transform=`scale(${p<=0?0.6:lerp(0.6,1,E.back(p))})`;
+ // monitor trace: white while it dies, then the remix bar turns it brand blue and it beats on the 16ths into the logo pulse
+ const [d,head]=ecg(f), rm=seg(f,T_REMIX,T_LIGHT-6), col=rm>0?'#2196F3':'#E6EBF2';
+ let pulse=''; if(f>=T_REMIX){const k=Math.floor((f-T_REMIX)/(BEAT/2)), ph=((f-T_REMIX)/(BEAT/2))%1, amp=lerp(30,140,rm)*Math.exp(-ph*4);
+  pulse=`<path d="M60 0 L${470-40*rm} 0 L${500-30*rm} ${-amp*0.3} L${525} ${amp*0.6} L${550} ${-amp} L${575+20*rm} ${amp*0.4} L${600+30*rm} 0 L1020 0" fill="none" stroke="#78CDFF" stroke-width="22" opacity="${0.45*rm}" stroke-linejoin="round" filter="url(#eg)"/>
+   <path d="M60 0 L${470-40*rm} 0 L${500-30*rm} ${-amp*0.3} L${525} ${amp*0.6} L${550} ${-amp} L${575+20*rm} ${amp*0.4} L${600+30*rm} 0 L1020 0" fill="none" stroke="#2196F3" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>`;}
+ $('ecgS').innerHTML=`<defs><filter id="eg" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="8"/></filter></defs>
+  <g transform="translate(0 1000)">${f<T_REMIX?`<path d="${d}" fill="none" stroke="${col}" stroke-width="20" opacity=".25" filter="url(#eg)"/><path d="${d}" fill="none" stroke="${col}" stroke-width="7" stroke-linejoin="round"/>
+  <circle cx="${head}" cy="0" r="10" fill="#fff" opacity="${f<T_FLAT+20?1:0.5+0.5*Math.sin(f/3)}"/>`:pulse}</g>`;
+}
 $('lateI').innerHTML=`${svg('warn','#FFC446',48)}<span>${kmf(8000)} کیلومتر دیر کردی</span>`;
 
 /* ---------- the cockpit + camera ---------- */
@@ -338,18 +377,20 @@ function endc(f){const L0=$('endL'), on=f>=T_END; L0.style.display=on?'block':'n
 
 /* ---------- titles ---------- */
 const TT=[
- {w:['تسمه','تایم','<b>پاره</b>','<b>شد!</b>'],a:T_DARK+2,b:T_LIGHT-6,dk:1,top:760},
- {w:['مانیتور','ماشینت','<b>یادت</b>','میاره'],a:T_LIGHT+2,b:T_S1-6,s:76},
- {w:['۱.','ماشینت','رو','<b>تعریف</b>','کن'],a:T_S1-2,b:T_S2-6},
- {w:['۲.','سرویس‌هات','رو','<b>اضافه</b>','کن'],a:T_S2-2,b:T_S3-6,s:74},
- {w:['۳.','خودش','<b>کیلومتر</b>','میندازه'],a:T_S3-2,b:T_S4-6},
- {w:['به','<b>موقع</b>','خبرت','می‌کنه'],a:T_S4-2,b:T_S5-6},
+ {w:['تسمه','تایم','<b>پاره</b>','<b>شد!</b>'],a:T_DARK+4,b:T_REMIX-8,dk:1,top:720},
+ {w:['فقط','چون','<b>یادت</b>','<b>رفت</b>'],a:T_REMIX-4,b:T_LIGHT-8,dk:1,top:720},
+ {w:['مانیتور','ماشینت','<b>یادت</b>','میاره'],a:T_LIGHT+2,b:T_S1-6,s:74,pl:1},
+ {w:['۱.','ماشینت','رو','<b>تعریف</b>','کن'],a:T_S1-2,b:T_S2-6,s:74,pl:1},
+ {w:['۲.','سرویس‌هات','رو','<b>اضافه</b>','کن'],a:T_S2-2,b:T_S3-6,s:70,pl:1},
+ {w:['۳.','خودش','<b>کیلومتر</b>','میندازه'],a:T_S3-2,b:T_S4-6,s:74,pl:1},
+ {w:['به','<b>موقع</b>','خبرت','می‌کنه'],a:T_S4-2,b:T_S5-6,s:74,pl:1},
  {w:['دیگه','یادت','<b>نمی‌ره</b>'],a:T_S5-2,b:T_CTA-6},
  {w:['<b>«کاردیاگ»</b>','رو','کامنت','کن'],a:T_CTA-2,b:T_END-6},
  {w:['مکانیک','تو','<b>جیبِت</b>!'],a:T_END-2,b:99999},
 ];
-$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl${t.dk?' dk':''}" id="tt${i}" style="top:${t.top||148}px"><div class="h"${t.s?` style="font-size:${t.s}px"`:""}>${t.w.map(w=>`<span class="w"><span>${w}</span></span>`).join(' ')}</div></div>`).join('');
+$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl${t.dk?' dk':''}${t.pl?' pl':''}" id="tt${i}" style="top:${t.top||148}px"><div class="h"${t.s?` style="font-size:${t.s}px"`:""}>${t.w.map(w=>`<span class="w"><span>${w}</span></span>`).join(' ')}</div></div>`).join('');
 function titles(f){TT.forEach((t,i)=>{const el=$('tt'+i), on=f>=t.a-1&&f<t.b+14; el.style.display=on?'block':'none'; if(!on) return;
+ if(t.pl) el.firstChild.style.opacity=E.oc(seg(f,t.a,t.a+8))*(1-seg(f,t.b+2,t.b+10));
  [...el.querySelectorAll('.w>span')].forEach((w,k)=>{const a=t.a+4+k*3, p=seg(f,a,a+12), q=seg(f,t.b-4+k*1.5,t.b+5+k*1.5);
   w.style.transform=`translateY(${(1-E.oc(p))*115-E.ic(q)*115}%)`;});});}
 
