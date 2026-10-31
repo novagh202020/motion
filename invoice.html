@@ -64,6 +64,7 @@ td.tax small{display:block;color:var(--slate);font-size:11px}
 td.tax input.pct{width:46px;display:inline-block}
 thead{display:table-header-group}
 tr{break-inside:avoid}
+.pay{width:100%;border:0;background:transparent;text-align:center;text-align-last:center;font-weight:500;outline:0;appearance:none;-webkit-appearance:none}
 .x{border:0;background:#FFECEC;color:var(--red);border-radius:6px;width:22px;height:22px;font-weight:900}
 .addrow{margin-bottom:8px}
 
@@ -97,6 +98,15 @@ tr{break-inside:avoid}
   input::placeholder,textarea::placeholder{color:transparent}
   .f input:focus,td input:focus{background:transparent}
 }
+.sheet{--blue:#000;--deep:#000;--navy:#000;--slate:#000;--hair:#000;--green:#000;--red:#000;color:#000}
+.sheet .box h3,.sheet th,.sheet .tot .r.big{background:#000;color:#fff}
+.sheet .box{border-color:#000}.sheet .card,.sheet .tot,.sheet .sign div{border-color:#000}
+.sheet td{border-color:#000}.sheet .tot .r{border-color:#000}
+.sheet .f input,.sheet .f textarea{border-bottom-color:#000}
+.sheet .cardno{border-color:#000!important}
+.sheet input,.sheet textarea,.sheet select,.sheet td.tax small{color:#000}
+.sheet .cur{color:#fff!important}
+.sheet .f input:focus,.sheet .f textarea:focus,.sheet td input:focus,.sheet td textarea:focus{background:#eee}
 </style>
 </head>
 <body>
@@ -118,7 +128,7 @@ tr{break-inside:avoid}
 <div class="sheet" id="sheet">
   <div class="head">
     <div class="logo">
-      <svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#2196F3"/><path d="M8 34h13l6-16 10 30 7-18h12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#000"/><path d="M8 34h13l6-16 10 30 7-18h12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div><b>CarDiag</b><small>کاردیاگ — عیب‌یاب هوشمند خودرو</small></div>
     </div>
     <div class="title">فاکتور فروش رسمی<small>Sales Invoice</small></div>
@@ -189,7 +199,7 @@ tr{break-inside:avoid}
         <div class="r"><span>جمع قیمت مصرف‌کننده</span><b id="tCons">۰</b></div>
         <div class="r"><span>جمع کل</span><b id="tSum">۰</b></div>
         <div class="r big"><span>قابل پرداخت به عدد</span>
-          <span><span id="tPay">۰</span> <select class="cur" data-f="cur" id="fCur" style="color:#fff"><option style="color:#000">تومان</option><option style="color:#000">ریال</option></select></span></div>
+          <span><span id="tPay">۰</span> <select class="cur" data-f="cur" id="fCur"><option style="color:#000">تومان</option><option style="color:#000">ریال</option></select></span></div>
         <div class="words" id="tWords"></div>
       </div>
       <div class="f notes"><label>توضیحات:</label><textarea data-f="notes" rows="2"></textarea></div>
@@ -212,7 +222,6 @@ tr{break-inside:avoid}
 </div>
 </div>
 
-<datalist id="pays"><option>نقدی<option>کارت‌به‌کارت<option>کارتخوان<option>چک<option>اقساطی<option>آنلاین</datalist>
 
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -253,7 +262,7 @@ function addRow(d={}){
   <td><input data-c="code"></td>
   <td><textarea data-c="desc" rows="1"></textarea></td>
   <td><input data-c="qty" data-num inputmode="numeric"></td>
-  <td><input data-c="pay" list="pays"></td>
+  <td><select data-c="pay" class="pay"><option>نقدی</option><option>چک</option><option>امانی</option></select></td>
   <td><input data-c="unit" data-money inputmode="numeric"></td>
   <td><input data-c="disc" data-money inputmode="numeric"></td>
   <td class="tax"><input class="pct" data-c="pct" data-num inputmode="numeric">٪<small class="ta">۰</small></td>
