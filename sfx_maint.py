@@ -147,5 +147,13 @@ seg_ = mus[i0:i1].copy(); low = np.stack([lp_fast(seg_[:, c], 350) for c in rang
 w = np.linspace(0, 1, i1 - i0) ** 2
 mus[i0:i1] = (low * (1 - w)[:, None] + seg_ * w[:, None]) * np.linspace(0.25, 1, i1 - i0)[:, None]
 mus[:i0] = 0
-mix = norm(mus, -1) * 0.95 + fx * 0.6 + norm(hz, -1) * 0.75
+# effects up front: compress the layer so the quiet UI sounds come up, then a low boost for weight
+def punch(x, drive=3.0, bass=1.0):
+    y = np.tanh(x * drive) / np.tanh(drive)
+    return y + bass * np.stack([lp_fast(y[:, c], 160) for c in range(2)], 1)
+cut = int(F(T_LIGHT - 8) * SR)
+hk = b.copy(); hk[cut:] = 0; ui = b.copy(); ui[:cut] = 0                              # the hook and the UI get their own levels
+hk = norm(punch(norm(hk, -1), 3.0, 1.1), -1); ui = norm(punch(norm(ui, -1), 4.0, 1.2), -1)
+hz = norm(punch(norm(hz, -1), 1.8, 0.8), -1)
+mix = norm(mus, -1) * 0.7 + hk * 1.0 + ui * 0.85 + hz * 0.9
 write('mix_maint.wav', norm(softclip(mix), -1)); print('ok')

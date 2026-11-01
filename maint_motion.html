@@ -327,9 +327,7 @@ function carSvg(f,o){
   else {const g=40+o.broken*200; s+=`<path d="${EBELT}" fill="none" stroke="#10203C" stroke-width="9" stroke-dasharray="${540-g} ${g}" stroke-dashoffset="${-(170+g/2)}" transform="translate(0 ${o.broken*24})"/>`;}}
  if(o.robot) s+=robotSvg(-245,-150,f,Math.sin(f/9)*6)+`<path d="${EBELT}" fill="none" stroke="none"/>`;
  if(o.char>0) s+=`<path d="${HOOD}" fill="#2B2F36" opacity="${0.8*o.char}"/><path d="M-410 -200 L-360 -150 L-380 -110 M-260 -220 L-300 -170 L-250 -120" stroke="#10203C" stroke-width="5" fill="none" opacity="${o.char}"/>`;
- s+=`<path d="${HOOD}" fill="none" stroke="#2196F3" stroke-width="4" stroke-dasharray="14 9"/>
-  <g stroke="#2196F3" stroke-width="3" fill="#2196F3" opacity=".85"><path d="M-436 -262 L-158 -262" fill="none"/><path d="M-436 -272 L-436 -252 M-158 -272 L-158 -252" fill="none"/>
-   <text x="-297" y="-272" text-anchor="middle" font-family="V" font-weight="800" font-size="22" stroke="none" direction="ltr">A–A</text></g>`;
+ s+=`<path d="${HOOD}" fill="none" stroke="#2196F3" stroke-width="4" stroke-dasharray="14 9"/>`;
  s+=eyesSvg(o.e,f,o.wink);
  // wheels
  [[-260,-70],[250,-70]].forEach(([wx,wy])=>{s+=`<g transform="translate(${wx} ${wy})"><circle r="70" fill="#1E232B"/><circle r="40" fill="#C9D4E4"/><g transform="rotate(${o.wheel})">
