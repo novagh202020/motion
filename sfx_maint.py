@@ -9,8 +9,8 @@ F = lambda f: f / 30
 D = 90
 MB = lambda m: 7.5 + 67.5 * m + D
 BEAT = 16.875
-T_SNAP, T_BOOM, T_DARK, T_BEAT, T_FLAT, T_REMIX, T_LIGHT = 80, 94, 118, (132, 152), 170, MB(2), MB(3)
-T_S1, T_S2, T_S3, T_S4, T_S5, T_CTA, T_END = MB(4), MB(6), MB(9), MB(12), MB(15), MB(16), MB(18)
+T_SNAP, T_BOOM, T_DARK, T_BEAT, T_FLAT, T_DEATH, T_REMIX, T_LIGHT = 90, 100, 118, (132, 152), 170, 176, MB(2), MB(3)
+T_S1, T_S2, T_S3, T_S4, T_S5, T_CTA, T_END = MB(4), MB(6), MB(9), MB(12), MB(14), MB(16), MB(18)
 T_NAME, T_KM, T_SAVE1 = (T_S1 + 18, T_S1 + 46), (T_S1 + 76, T_S1 + 100), T_S1 + 112
 T_ADD, T_DLG, T_DROP, T_PICK, T_INT, T_SAVE2, T_CARD1, T_CARD2 = T_S2 + 12, T_S2 + 16, T_S2 + 36, T_S2 + 62, (T_S2 + 78, T_S2 + 100), T_S2 + 118, T_S2 + 126, T_S2 + 168
 T_GPS, T_DRIVE, T_NOTI = T_S3 + 22, (T_S3 + 64, T_S3 + 182), T_S4 + 4
@@ -47,8 +47,9 @@ eng = (0.55 * np.sin(ph) + 0.3 * np.sin(2 * ph + .4) + 0.2 * np.sin(3 * ph)) * (
 eng += 0.25 * lp_fast(rng.standard_normal(n), 700)
 f_wh = 1500 + 1100 * u ** 2; whine = np.sin(2 * np.pi * np.cumsum(f_wh) / SR) * (0.05 + 0.5 * u ** 3) * (0.8 + 0.2 * np.sin(2 * np.pi * 23 * t))
 add(b, (eng * np.minimum(1, t / 0.4) + whine) * 0.6, 0, 0.5)
-tt = 30.0
-while tt < T_SNAP: add(b, tick(900 + rng.integers(0, 900), 0.02), F(tt), 0.08 + 0.2 * (tt - 30) / 50, rng.uniform(-.6, .6)); tt += max(1.0, 6 - (tt - 30) / 10)
+tt = 40.0
+while tt < T_SNAP: add(b, tick(900 + rng.integers(0, 900), 0.02), F(tt), 0.08 + 0.2 * (tt - 40) / 50, rng.uniform(-.6, .6)); tt += max(1.0, 6 - (tt - 40) / 10)
+add(b, pop(260, 0.18), F(58), 0.4); add(b, pop(200, 0.16), F(63), 0.3)                      # the car gulps when it feels the belt going
 # --- the snap: a whip crack and a ringing ping
 nn = int(0.3 * SR); whip = rng.standard_normal(nn) * np.exp(-np.arange(nn) / (0.03 * SR))
 add(b, whip, F(T_SNAP), 0.9); add(b, metal(1830, 0.7), F(T_SNAP), 0.5); add(b, thump(0.5), F(T_SNAP), 0.8)
@@ -87,7 +88,8 @@ while tt < T_DRIVE[1]: add(b, tick(3000, 0.02), F(tt), 0.04); tt += 4
 add(b, beep(659.3, 0.18), F(T_DRIVE[1] - 20), 0.14)
 add(b, chime((1046.5, 1318.5, 1568), 0.09, 1.0), F(T_NOTI), 0.38); add(b, chime((1046.5, 1318.5, 1568), 0.09, 1.0), F(T_NOTI + 60), 0.2)
 add(b, whoosh(0.5, 300, 5000), F(T_S5 - 4), 0.26)
-for i in range(2): add(b, pop(820 + 120 * i, 0.12), F(T_S5 + 12 + i * 16), 0.24)
+add(b, pop(900, 0.12), F(T_S5 + 20), 0.26); add(b, tick(2400, 0.05), F(T_S5 + 70), 0.35)        # robot's bubble, the wink
+for i in range(2): add(b, pop(820 + 120 * i, 0.12), F(T_S5 + 40 + i * 14), 0.24)
 add(b, whoosh(0.5, 3000, 300, False), F(T_CTA - 4), 0.22); typing(b, T_CTA + 16, T_CTA + 44, 0.14)
 tap(b, T_CTA + 54, 0.4); add(b, pop(900, 0.12), F(T_CTA + 56), 0.24); add(b, chime((1568, 2093), 0.05, 0.5), F(T_CTA + 70), 0.26)
 add(b, shimmer(0.9), F(T_END + 6), 0.36)

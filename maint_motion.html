@@ -63,6 +63,26 @@ body{font-family:V,sans-serif;color:#10203C}
   <svg id="ecgS" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
   <div id="late" class="a" style="left:0;top:1170px;width:1080px;text-align:center;opacity:0"><span class="chip" style="height:110px;font-size:56px;background:rgba(242,128,18,.16);color:#FFC446;box-shadow:none;border:3px solid rgba(242,128,18,.55)" id="lateI"></span></div>
  </div>
+ <!-- ===== the hook: the character car on the road ===== -->
+ <div id="hookL" class="L" style="z-index:6">
+  <svg id="hookS" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="hookW" class="a" style="left:0;top:0;width:1080px;height:1920px;background:#fff;opacity:0"></div>
+  <div id="ecgBox" class="a" style="left:160px;top:400px;width:760px;height:220px;border-radius:30px;background:#0B1322;box-shadow:0 24px 50px rgba(11,19,34,.35);opacity:0">
+   <svg id="ecgT" class="a" style="left:0;top:0" width="760" height="220"></svg><span id="ecgHr" class="a" style="right:26px;top:20px;display:inline-flex"></span></div>
+  <div id="late2" class="a" style="left:0;top:660px;width:1080px;text-align:center;opacity:0"><span class="chip" style="background:#FFF4E5;color:#F28012;border:3px solid #F9C88A;height:96px;font-size:48px" id="late2I"></span></div>
+  <div id="epi" class="a" style="left:110px;top:118px;width:860px;opacity:0">
+   <div style="position:relative;background:#fff;border:8px solid #10203C;border-radius:26px;padding:22px 30px 26px;text-align:center;direction:rtl;overflow:hidden;box-shadow:0 24px 50px rgba(16,32,60,.25)">
+    <div style="position:absolute;left:-58px;top:26px;width:220px;height:34px;background:#10203C;transform:rotate(-45deg)"></div>
+    <div style="font-weight:900;font-size:72px;line-height:1.35;color:#10203C">موتور دار فانی را<br>وداع گفت</div></div></div>
+ </div>
+ <!-- ===== the happy ending: the same car with an AI mechanic in the hood ===== -->
+ <div id="happyL" class="L" style="z-index:5">
+  <svg id="happyS" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="bubble" class="a" style="left:20px;top:720px;opacity:0;transform-origin:70% 100%">
+   <div style="position:relative;background:#fff;border:4px solid #2196F3;border-radius:36px;padding:18px 34px;font-weight:900;font-size:46px;color:#1565C0;direction:rtl;white-space:nowrap;box-shadow:0 18px 36px rgba(20,40,80,.16)">حواسم بهت هست!
+    <div style="position:absolute;right:120px;bottom:-30px;width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-top:30px solid #2196F3"></div></div></div>
+  <div id="ok3" class="a" style="left:0;top:1580px;width:1080px;display:flex;justify-content:center;gap:22px;direction:rtl"></div>
+ </div>
  <!-- ===== the cockpit: road through the windshield, Android monitor in the dash ===== -->
  <div id="cock" class="L" style="z-index:4">
   <svg id="road" class="a" style="left:0;top:0" width="1080" height="1100"></svg>
@@ -131,8 +151,8 @@ const LOGO=(w,c,sw=7)=>`<svg width="${w}" height="${w*0.36}" viewBox="0 0 400 14
    bar «2» = the flat tone is remixed into the song, bar 3 = groove downbeat, light comes back.
    The song (song/song_travel.wav) is delayed by D frames: song bar m lands on MB(m). */
 const D=90, MB=m=>7.5+67.5*m+D, BEAT=16.875;
-const T_SNAP=80, T_BOOM=94, T_DARK=118, T_ECG=122, T_BEAT=[132,152], T_FLAT=170, T_REMIX=MB(2), T_LIGHT=MB(3);
-const T_S1=MB(4), T_S2=MB(6), T_S3=MB(9), T_S4=MB(12), T_S5=MB(15), T_CTA=MB(16), T_END=MB(18), F_HIT=MB(19), NF=1416;
+const T_SNAP=90, T_BOOM=100, T_DARK=118, T_ECG=118, T_BEAT=[132,152], T_FLAT=170, T_DEATH=176, T_REMIX=MB(2), T_LIGHT=MB(3);
+const T_S1=MB(4), T_S2=MB(6), T_S3=MB(9), T_S4=MB(12), T_S5=MB(14), T_CTA=MB(16), T_END=MB(18), F_HIT=MB(19), NF=1416;
 // step 1: define the car
 const T_NAME=[T_S1+18,T_S1+46], T_FILL=T_S1+50, T_KM=[T_S1+76,T_S1+100], T_SAVE1=T_S1+112;
 // step 2: add services (3 bars)
@@ -144,7 +164,7 @@ const KM0=25000, KM1=30000;
 Object.assign(IC,{gps:'M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z',
  edit:'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
  bell:'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z',
- plus:'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z', drop:'M7 10l5 5 5-5z', send:'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z'});
+ plus:'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z', heart:'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z', drop:'M7 10l5 5 5-5z', send:'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z'});
 const AMB='#F28012', GRN='#22A050', NAVY='#10203C';
 const kmf=v=>fa(Math.round(v).toLocaleString('en-US')).replace(/,/g,'٬');
 const typ=(s,a,b,f)=>s.slice(0,Math.round(s.length*seg(f,a,b)));
@@ -226,7 +246,159 @@ function dark(f){const L0=$('dark'), on=f>=T_BOOM+8&&f<T_LIGHT+16; L0.style.disp
   <g transform="translate(0 1000)">${f<T_REMIX?`<path d="${d}" fill="none" stroke="${col}" stroke-width="20" opacity=".25" filter="url(#eg)"/><path d="${d}" fill="none" stroke="${col}" stroke-width="7" stroke-linejoin="round"/>
   <circle cx="${head}" cy="0" r="10" fill="#fff" opacity="${f<T_FLAT+20?1:0.5+0.5*Math.sin(f/3)}"/>`:pulse}</g>`;
 }
+$('late2I').innerHTML=`${svg('warn','#F28012',46)}<span>${kmf(8000)} کیلومتر دیر کردی</span>`;
 $('lateI').innerHTML=`${svg('warn','#FFC446',48)}<span>${kmf(8000)} کیلومتر دیر کردی</span>`;
+
+
+/* ================= the character car (side view, facing left; cherry red) =================
+   hood cut away like an engineering drawing so the timing belt shows; two eyes on the windshield */
+const CHERRY='#9B1B30', CHERRY_D='#6E1222', CHERRY_L='#C0364C';
+const CX=540, CY=1340;                                          // car origin = ground under the middle of the car
+// engine sprockets inside the hood (car coords): cam, cam, tensioner, crank
+const EP=[[-385,-196,28,14],[-300,-196,28,14],[-245,-140,13,0],[-330,-104,32,12]];
+function beltPath(P){const n=P.length, T=[];
+ for(let i=0;i<n;i++){const [x1,y1,r1]=P[i],[x2,y2,r2]=P[(i+1)%n], dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy), ux=dx/L, uy=dy/L, c=(r1-r2)/L, s=Math.sqrt(1-c*c);
+  const nx=c*ux+s*uy, ny=c*uy-s*ux; T.push([[x1+r1*nx,y1+r1*ny],[x2+r2*nx,y2+r2*ny]]);}
+ let d=`M${T[n-1][1][0].toFixed(1)} ${T[n-1][1][1].toFixed(1)}`;
+ for(let i=0;i<n;i++){const [cx,cy,r]=P[i], A=T[(i+n-1)%n][1], B=T[i][0];
+  const a0=Math.atan2(A[1]-cy,A[0]-cx), a1=Math.atan2(B[1]-cy,B[0]-cx), dl=((a1-a0)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+  d+=` A${r} ${r} 0 ${dl>Math.PI?1:0} 1 ${B[0].toFixed(1)} ${B[1].toFixed(1)} L${T[i][1][0].toFixed(1)} ${T[i][1][1].toFixed(1)}`;} return d}
+const EBELT=beltPath(EP);
+const BODY='M-450 -72 L-452 -150 Q-450 -228 -400 -232 L-150 -244 L-40 -398 Q-30 -406 -10 -406 L250 -406 Q285 -404 300 -380 L395 -232 Q410 -205 412 -170 L418 -82 Q418 -60 398 -60 L335 -60 A85 85 0 0 0 165 -60 L-175 -60 A85 85 0 0 0 -345 -60 L-430 -60 Q-450 -60 -450 -72 Z';
+const HOOD='M-436 -222 L-158 -236 L-162 -74 L-436 -74 Z';
+const EYES=[[-60,-312,26,40],[-4,-318,34,48]];                // far eye, near eye
+// expression keys: lid (0 open..1 shut), tilt (sad: outer corner down), px/py pupil offset, ps pupil size, brow (raise px), bt brow tilt, joy (smile lower lid), x (dead), sweat
+const EXPR={calm:{lid:.12,tilt:0,px:-.35,py:0,ps:1,brow:0,bt:0,joy:.25,x:0,sweat:0},
+ fear:{lid:0,tilt:-6,px:-.75,py:.55,ps:.62,brow:16,bt:14,joy:0,x:0,sweat:1},
+ squeeze:{lid:.86,tilt:-10,px:-.4,py:.2,ps:.6,brow:6,bt:16,joy:0,x:0,sweat:1},
+ shock:{lid:0,tilt:0,px:0,py:0,ps:.45,brow:22,bt:4,joy:0,x:0,sweat:.6},
+ sad:{lid:.55,tilt:18,px:-.2,py:.55,ps:1,brow:4,bt:18,joy:0,x:0,sweat:0},
+ dead:{lid:.1,tilt:0,px:0,py:0,ps:1,brow:0,bt:0,joy:0,x:1,sweat:0},
+ happy:{lid:0,tilt:0,px:-.25,py:-.15,ps:1.15,brow:4,bt:-8,joy:.42,x:0,sweat:0}};
+function expr(keys,f){let e={...EXPR[keys[0][1]]}; keys.forEach(([t,k,dur])=>{if(f>=t){const p=E.io(seg(f,t,t+(dur||8))); const to=EXPR[k]; for(const q in e) e[q]=lerp(e[q],to[q],p);}}); return e}
+function eyesSvg(e,f,wink){let s='';
+ EYES.forEach(([cx,cy,rx,ry],i)=>{const id='ec'+i, lid=i==1&&wink?Math.max(e.lid,wink):e.lid, sgn=1;
+  s+=`<clipPath id="${id}"><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/></clipPath>
+   <ellipse cx="${cx}" cy="${cy}" rx="${rx+5}" ry="${ry+5}" fill="${CHERRY_D}" opacity=".35"/>
+   <ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#fff" stroke="#10203C" stroke-width="4"/>
+   <g clip-path="url(#${id})">`;
+  if(e.x>0.5){s+=`<path d="M${cx-rx*0.55} ${cy-ry*0.45} L${cx+rx*0.55} ${cy+ry*0.45} M${cx+rx*0.55} ${cy-ry*0.45} L${cx-rx*0.55} ${cy+ry*0.45}" stroke="#10203C" stroke-width="${rx*0.32}" stroke-linecap="round"/>`;}
+  else {const jit=e.ps<0.6?Math.sin(f*2.7+i)*2.5:0, pr=ry*0.42*e.ps, px=cx+e.px*rx*0.45+jit, py=cy+e.py*ry*0.42;
+   s+=`<circle cx="${px}" cy="${py}" r="${pr}" fill="#10203C"/><circle cx="${px+pr*0.35}" cy="${py-pr*0.4}" r="${pr*0.32}" fill="#fff"/>`;}
+  // upper lid (car-body colour) tilted for sadness, lower smile-lid for joy
+  const ly=cy-ry+lid*2*ry, t=e.tilt*(i==0?-1:1)*0+e.tilt;
+  s+=`<g transform="rotate(${-t} ${cx} ${ly})"><rect x="${cx-rx-20}" y="${cy-ry-60}" width="${2*rx+40}" height="${ly-(cy-ry-60)}" fill="${CHERRY}"/><path d="M${cx-rx-20} ${ly} L${cx+rx+20} ${ly}" stroke="#10203C" stroke-width="4"/></g>`;
+  if(e.joy>0.02){const jy=cy+ry-e.joy*ry*1.0; s+=`<path d="M${cx-rx-10} ${cy+ry+20} L${cx-rx-10} ${jy+ry*0.35} Q${cx} ${jy-ry*0.25} ${cx+rx+10} ${jy+ry*0.35} L${cx+rx+10} ${cy+ry+20} Z" fill="${CHERRY}" stroke="#10203C" stroke-width="4"/>`;}
+  s+=`</g>`;
+  // brow
+  const by=cy-ry-16-e.brow, bt=e.bt*(i==1?1:1);
+  s+=`<path d="M${cx-rx*0.85} ${by+bt*0.5} Q${cx} ${by-6} ${cx+rx*0.85} ${by-bt*0.5}" fill="none" stroke="#10203C" stroke-width="9" stroke-linecap="round"/>`;});
+ if(e.sweat>0.02){const sy=-372+((f*2)%40); s+=`<path d="M60 ${sy} q-10 18 0 26 q10 -8 0 -26z" fill="#78CDFF" stroke="#10203C" stroke-width="3" opacity="${e.sweat}"/>`;}
+ return s}
+// a little AI mechanic: round blue head, dark visor with two bright eyes, antenna, a wrench
+function robotSvg(x,y,f,nod){const bob=Math.sin(f/7)*3, eyesOn=(Math.floor(f/50)%6==0&&f%50<4)?0.2:1;
+ return `<g transform="translate(${x} ${y+bob}) rotate(${nod})">
+  <rect x="-28" y="-2" width="56" height="44" rx="14" fill="#1565C0"/><rect x="-18" y="8" width="36" height="8" rx="4" fill="#78CDFF"/>
+  <line x1="0" y1="-62" x2="0" y2="-80" stroke="#1565C0" stroke-width="5"/><circle cx="0" cy="-84" r="7" fill="#78CDFF"/>
+  <rect x="-40" y="-64" width="80" height="62" rx="26" fill="#2196F3"/><rect x="-30" y="-52" width="60" height="36" rx="16" fill="#10203C"/>
+  <rect x="-20" y="-42" width="12" height="${14*eyesOn}" rx="6" fill="#78CDFF"/><rect x="8" y="-42" width="12" height="${14*eyesOn}" rx="6" fill="#78CDFF"/>
+  <g transform="translate(38 18) rotate(${-30+Math.sin(f/5)*18})"><rect x="-5" y="-4" width="10" height="44" rx="5" fill="#98A3B8"/><path d="M-12 -14 A14 14 0 1 1 12 -14 L5 -8 L5 -2 L-5 -2 L-5 -8 Z" fill="#98A3B8"/></g></g>`}
+function carSvg(f,o){
+ // o: {pos (belt travel), wheel (wheel angle), e (expression), wink, broken (0..1), boom (frames since boom or -1), robot, char (0..1 charred)}
+ let s=`<defs><pattern id="bp" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0 L0 0 0 16" fill="none" stroke="#C7DDF6" stroke-width="1.5"/></pattern>
+  <radialGradient id="fire2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".35" stop-color="#FFE7A8"/><stop offset=".7" stop-color="#FFC446" stop-opacity=".8"/><stop offset="1" stop-color="#F28012" stop-opacity="0"/></radialGradient></defs>
+  <ellipse cx="0" cy="6" rx="470" ry="22" fill="#142850" opacity=".14"/>
+  <path d="${BODY}" fill="${CHERRY}" stroke="#10203C" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M-450 -120 L418 -120 L418 -100 L-450 -100 Z" fill="${CHERRY_D}" opacity=".45"/>
+  <path d="M-380 -226 L-160 -238" stroke="${CHERRY_L}" stroke-width="6" stroke-linecap="round" opacity=".7"/>
+  <path d="M-138 -246 L-34 -392 L30 -392 L30 -246 Z" fill="#DCEBFA" stroke="#10203C" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M48 -392 L250 -392 Q280 -390 290 -372 L360 -250 L48 -250 Z" fill="#DCEBFA" stroke="#10203C" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M160 -392 L160 -250 M40 -246 L40 -70 M200 -246 L200 -70" stroke="#10203C" stroke-width="4" opacity=".55"/>
+  <rect x="80" y="-214" width="44" height="10" rx="5" fill="${CHERRY_D}"/><rect x="240" y="-214" width="44" height="10" rx="5" fill="${CHERRY_D}"/>
+  <rect x="398" y="-206" width="16" height="44" rx="6" fill="#DC3232" stroke="#10203C" stroke-width="3"/>
+  <path d="M-456 -112 L-400 -112 L-400 -70 L-452 -70 Z" fill="${CHERRY_D}"/>
+  <ellipse cx="-446" cy="-172" rx="13" ry="22" fill="#FFEA9C" stroke="#10203C" stroke-width="3"/>`;
+ // hood cut-away, engineering-drawing style
+ s+=`<path d="${HOOD}" fill="#EAF3FD"/><path d="${HOOD}" fill="url(#bp)"/>
+  <rect x="-420" y="-226" width="236" height="148" rx="16" fill="#F4F9FF" stroke="#1565C0" stroke-width="3"/>
+  <path d="M-420 -160 L-184 -160" stroke="#1565C0" stroke-width="2" stroke-dasharray="8 6" opacity=".6"/>`;
+ if(o.broken<1){EP.forEach(([x,y,r,t],i)=>{s+=`<g transform="translate(${x} ${y})"><path d="${gearPath(r,t,0,2*Math.PI)}" transform="rotate(${(o.pos/r)*57.3})" fill="#fff" stroke="#1565C0" stroke-width="3"/><circle r="${r*0.3}" fill="#2196F3"/></g>`;});
+  if(o.broken<=0) s+=`<path d="${EBELT}" fill="none" stroke="#10203C" stroke-width="9" stroke-linejoin="round"/><path d="${EBELT}" fill="none" stroke="#5F6878" stroke-width="5" stroke-dasharray="4 5" stroke-dashoffset="${-o.pos}"/>`;
+  else {const g=40+o.broken*200; s+=`<path d="${EBELT}" fill="none" stroke="#10203C" stroke-width="9" stroke-dasharray="${540-g} ${g}" stroke-dashoffset="${-(170+g/2)}" transform="translate(0 ${o.broken*24})"/>`;}}
+ if(o.robot) s+=robotSvg(-245,-150,f,Math.sin(f/9)*6)+`<path d="${EBELT}" fill="none" stroke="none"/>`;
+ if(o.char>0) s+=`<path d="${HOOD}" fill="#2B2F36" opacity="${0.8*o.char}"/><path d="M-410 -200 L-360 -150 L-380 -110 M-260 -220 L-300 -170 L-250 -120" stroke="#10203C" stroke-width="5" fill="none" opacity="${o.char}"/>`;
+ s+=`<path d="${HOOD}" fill="none" stroke="#2196F3" stroke-width="4" stroke-dasharray="14 9"/>
+  <g stroke="#2196F3" stroke-width="3" fill="#2196F3" opacity=".85"><path d="M-436 -262 L-158 -262" fill="none"/><path d="M-436 -272 L-436 -252 M-158 -272 L-158 -252" fill="none"/>
+   <text x="-297" y="-272" text-anchor="middle" font-family="V" font-weight="800" font-size="22" stroke="none" direction="ltr">A–A</text></g>`;
+ s+=eyesSvg(o.e,f,o.wink);
+ // wheels
+ [[-260,-70],[250,-70]].forEach(([wx,wy])=>{s+=`<g transform="translate(${wx} ${wy})"><circle r="70" fill="#1E232B"/><circle r="40" fill="#C9D4E4"/><g transform="rotate(${o.wheel})">
+  <rect x="-5" y="-36" width="10" height="72" rx="5" fill="#8F9BAD"/><rect x="-36" y="-5" width="72" height="10" rx="5" fill="#8F9BAD"/></g><circle r="11" fill="#6E7D96"/></g>`;});
+ // the blast at the front
+ if(o.boom>=0){const t=o.boom, fb=Math.exp(-t/6), hx=-300, hy=-150;
+  for(let k=0;k<10;k++){const tt=t-k*1.4; if(tt<0) continue; const a=k*2.3; s+=`<circle cx="${hx+Math.cos(a)*tt*6-tt*2}" cy="${hy+Math.sin(a)*tt*3-tt*5}" r="${36+tt*7}" fill="#4A5262" opacity="${Math.max(0,0.6-tt/42)}"/>`;}
+  s+=`<circle cx="${hx}" cy="${hy}" r="${120+t*26}" fill="url(#fire2)" opacity="${fb}"/><circle cx="${hx}" cy="${hy}" r="${50+t*40}" fill="none" stroke="#FFC446" stroke-width="${Math.max(0,20-t*1.2)}" opacity="${Math.max(0,1-t/16)}"/>`;
+  BITS.forEach(([vx,vy,w,kind],i)=>{const tt=t; if(tt>30) return; const bx=hx+vx*tt, by=hy+vy*tt+0.9*tt*tt;
+   s+=kind?`<g transform="translate(${bx} ${by}) rotate(${w*tt})" opacity="${1-tt/30}"><path d="${gearPath(16,8,0,Math.PI*1.2)}" fill="#fff" stroke="#1565C0" stroke-width="3"/></g>`
+    :`<rect x="${bx}" y="${by}" width="26" height="14" rx="3" fill="${i%2?CHERRY:'#1E232B'}" transform="rotate(${w*tt} ${bx} ${by})" opacity="${1-tt/30}"/>`;});}
+ if(o.smoke>0){for(let k=0;k<5;k++){const ph=((f/40+k/5)%1); s+=`<circle cx="${-300+Math.sin(k*3)*30+ph*40}" cy="${-160-ph*260}" r="${30+ph*50}" fill="#6E7685" opacity="${(1-ph)*0.45*o.smoke}"/>`;}}
+ return s}
+const BITS=[...Array(18)].map((_,i)=>{const a=-Math.PI*0.95+i*0.19; return [Math.cos(a)*(12+(i*7)%10), Math.sin(a)*(14+(i*5)%9)-6, ((i%2)?1:-1)*(8+i), i%3==0?1:0]});
+
+/* road behind the car: sky, hills, pines, the road; it slides right = the car drives forward (left) */
+function sideRoad(t){let s=`<rect width="1080" height="1920" fill="url(#skyH)"/><circle cx="820" cy="560" r="80" fill="#fff" opacity=".9"/>`;
+ const ridge=(off,base,amp,fq)=>{let d=`M-20 1920 L-20 ${base}`;for(let x=-20;x<=1100;x+=20){const u=(x-off)*fq; d+=` L${x} ${(base-amp*(0.55+0.3*Math.sin(u)+0.18*Math.sin(u*2.3+1))).toFixed(1)}`} return d+' L1100 1920 Z'};
+ s+=`<path d="${ridge(t*0.4,1080,200,0.006)}" fill="#CFE1F6"/><path d="${ridge(t*1.0,1190,110,0.011)}" fill="#AFCFF1"/>`;
+ for(let i=0;i<16;i++){const x=((i*84+t*2.4)%1344+1344)%1344-130, h=90+((i*37)%5)*16; s+=`<path d="M${x} ${1262-h} L${x+h*0.34} ${1262-h*0.45} L${x+h*0.2} ${1262-h*0.45} L${x+h*0.42} 1262 L${x-h*0.42} 1262 L${x-h*0.2} ${1262-h*0.45} L${x-h*0.34} ${1262-h*0.45} Z" fill="${i%3?'#5AA6EE':'#2E8EEA'}"/>`;}
+ s+=`<rect x="0" y="1256" width="1080" height="664" fill="#E8F0F9"/><rect x="0" y="1300" width="1080" height="200" fill="#D3DEEC"/><rect x="0" y="1300" width="1080" height="7" fill="#fff"/><rect x="0" y="1493" width="1080" height="7" fill="#fff"/>`;
+ for(let i=0;i<8;i++) s+=`<rect x="${((i*170+t*9)%1360+1360)%1360-140}" y="1394" width="96" height="12" rx="6" fill="#fff"/>`;
+ return s}
+const uid=(h,p)=>h.replace(/(id="|url\(#)(bp|fire2|ec0|ec1|skyH)\b/g,'$1'+p+'$2');
+const SKYDEF=`<defs><linearGradient id="skyH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D3E6FB"/><stop offset="1" stop-color="#F7FBFF"/></linearGradient></defs>`;
+
+/* ---------- the hook: drive, fear, snap, blast, heart monitor, death, grey, epitaph; the flat tone is remixed into the song ---------- */
+const HK=[[0,'calm'],[44,'fear',14],[T_SNAP,'squeeze',4],[T_BOOM+6,'shock',4],[T_BOOM+22,'sad',20],[T_DEATH,'dead',3]];
+function hook(f){const L0=$('hookL'), on=f<T_LIGHT+16; L0.style.display=on?'block':'none'; if(!on) return;
+ const R=lerp(0,1250,E.io(seg(f,T_LIGHT-6,T_LIGHT+14)));
+ L0.style.clipPath=f>=T_LIGHT-6?`path(evenodd,'M0 0 H1080 V1920 H0 Z M${540-R} 1000 a${R} ${R} 0 1 0 ${2*R} 0 a${R} ${R} 0 1 0 ${-2*R} 0 Z')`:'none';
+ // world speed: cruising, then the blast stops the car
+ const v=f<T_BOOM?14:14*Math.exp(-(f-T_BOOM)/6), tw=f<T_BOOM?f*14:T_BOOM*14+14*6*(1-Math.exp(-(f-T_BOOM)/6));
+ const rpm=t=>10*t+0.06*t*t*t/90, pos=f<T_SNAP?rpm(f):rpm(T_SNAP)+(f-T_SNAP)*22;
+ const broken=f<T_SNAP?0:(f<T_BOOM?seg(f,T_SNAP,T_SNAP+10):1), boom=f>=T_BOOM?f-T_BOOM:-1;
+ const sh=(f>=T_SNAP&&f<T_SNAP+10?(10-(f-T_SNAP))*1.5:0)+(boom>=0?Math.max(0,28-boom*1.5):0)+Math.pow(seg(f,40,T_SNAP),2)*4;
+ const jolt=boom>=0?-6*Math.exp(-boom/6)*Math.sin(boom/2):0, bob=f<T_BOOM?Math.sin(f*0.9)*2.5:0;
+ const e=expr(HK,f);
+ $('hookS').innerHTML=uid(SKYDEF+sideRoad(tw)+`<g transform="translate(${CX+Math.sin(f*2.9)*sh} ${CY+bob+Math.cos(f*3.3)*sh*0.6}) rotate(${jolt}) scale(1.1)">${carSvg(f,{pos,wheel:-tw*0.85,e,wink:0,broken,boom,robot:0,char:seg(f,T_BOOM+4,T_BOOM+14),smoke:f>=T_BOOM+10?1:0})}</g>`,'h');
+ $('hookW').style.opacity=(f>=T_SNAP?0.5*Math.exp(-(f-T_SNAP)/3):0)+(boom>=0?0.9*Math.exp(-boom/4):0);
+ // grey once it's dead
+ const gr=seg(f,T_DEATH+2,T_DEATH+16); $('hookS').style.filter=gr>0?`grayscale(${gr}) brightness(${1-0.12*gr})`:'none';
+ // heart monitor box above the car
+ const mb=$('ecgBox'), mo=E.oc(seg(f,T_ECG-6,T_ECG+4)); mb.style.opacity=mo; mb.style.transform=`scale(${lerp(0.8,1,E.back(seg(f,T_ECG-6,T_ECG+8)))})`;
+ if(mo>0){const W=700, X0=30, head=lerp(X0,X0+W,seg(f,T_ECG,T_FLAT+20)); let d=`M${X0} 0`;
+  for(let x=X0;x<=X0+W&&x<=head;x+=5){let y=0; [[T_BEAT[0],1],[T_BEAT[1],0.6]].forEach(([t,amp])=>{const bx=lerp(X0,X0+W,seg(t,T_ECG,T_FLAT+20)), u=(x-bx)/26;
+    if(Math.abs(u)<2) y+=amp*(-80*Math.exp(-Math.pow(u/0.22,2))+20*Math.exp(-Math.pow((u-0.55)/0.25,2))-9*Math.exp(-Math.pow((u+0.9)/0.3,2)))}); d+=` L${x} ${y.toFixed(1)}`}
+  const rm=seg(f,T_REMIX,T_LIGHT-6); let tr;
+  if(f<T_REMIX) tr=`<path d="${d}" fill="none" stroke="#E6EBF2" stroke-width="16" opacity=".25" filter="url(#eg2)"/><path d="${d}" fill="none" stroke="#E6EBF2" stroke-width="6" stroke-linejoin="round"/><circle cx="${head}" cy="0" r="8" fill="#fff"/>`;
+  else {const ph=((f-T_REMIX)/(BEAT/2))%1, a=lerp(24,78,rm)*Math.exp(-ph*4), m=380;
+   const p=`M${X0} 0 L${m-60} 0 L${m-36} ${-a*0.3} L${m-14} ${a*0.6} L${m+8} ${-a} L${m+30} ${a*0.4} L${m+52} 0 L${X0+W} 0`;
+   tr=`<path d="${p}" fill="none" stroke="#78CDFF" stroke-width="18" opacity=".45" filter="url(#eg2)"/><path d="${p}" fill="none" stroke="#2196F3" stroke-width="7" stroke-linejoin="round"/>`;}
+  $('ecgT').innerHTML=`<defs><filter id="eg2" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="6"/></filter></defs><g transform="translate(0 110)">${tr}</g>`;
+  $('ecgHr').innerHTML=svg('heart',f<T_DEATH?'#E6EBF2':'#6E7D96',38); $('ecgHr').style.transform=`scale(${1+0.25*T_BEAT.reduce((a,t)=>a+Math.exp(-Math.pow((f-t-2)/3,2)),0)})`;}
+ const lp=seg(f,T_ECG+24,T_ECG+36), l=$('late2'); l.style.opacity=E.oc(cl(lp*2))*(1-seg(f,T_DEATH-4,T_DEATH+4)); l.style.transform=`scale(${lp<=0?0.6:lerp(0.6,1,E.back(lp))})`;
+ // the epitaph
+ const ep=seg(f,T_DEATH+10,T_DEATH+22), eo=E.oc(cl(ep*2))*(1-seg(f,T_REMIX-6,T_REMIX+2)), ev=$('epi'); ev.style.opacity=eo; ev.style.transform=`translateY(${(1-E.oc(ep))*-40}px) rotate(${(1-E.back(ep))*-4}deg)`;
+}
+
+/* ---------- the happy ending: the same car rolling, an AI mechanic sitting in the hood ---------- */
+const HP=[[0,'happy']];
+function happy(f){const L0=$('happyL'), on=f>=T_S5-4&&f<T_CTA+6; L0.style.display=on?'block':'none'; if(!on) return;
+ L0.style.opacity=E.oc(seg(f,T_S5-4,T_S5+8))*(1-seg(f,T_CTA-4,T_CTA+6));
+ const tw=f*12, wink=Math.exp(-Math.pow((f-(T_S5+70))/3,2));
+ $('happyS').innerHTML=uid(SKYDEF+sideRoad(tw)+`<g transform="translate(${CX} ${CY+Math.sin(f*0.9)*2.5}) scale(1.1)">${carSvg(f,{pos:f*10,wheel:-tw*0.85,e:EXPR.happy,wink,broken:0,boom:-1,robot:1,char:0,smoke:0})}</g>`,'p');
+ const bp=seg(f,T_S5+20,T_S5+32), bb=$('bubble'); bb.style.opacity=E.oc(cl(bp*2)); bb.style.transform=`scale(${bp<=0?0.5:lerp(0.5,1,E.back(bp))})`;
+ $('ok3').innerHTML=[[svg('check',GRN,44),'بدون دیاگ'],[svg('check',GRN,44),'کاملاً رایگان']].map(([i,t],k)=>{const p=seg(f,T_S5+40+k*14,T_S5+52+k*14);
+  return `<span class="chip" style="background:#DEF6E6;color:${GRN};opacity:${E.oc(cl(p*2))};transform:scale(${p<=0?0.5:lerp(0.5,1,E.back(p))})">${i}${t}</span>`}).join('');
+}
 
 /* ---------- the cockpit + camera ---------- */
 // camera stops: [focus x, focus y, where it lands x, y, zoom]; the monitor sits at 100..980 x 1090..1590
@@ -378,8 +550,8 @@ function endc(f){const L0=$('endL'), on=f>=T_END; L0.style.display=on?'block':'n
 
 /* ---------- titles ---------- */
 const TT=[
- {w:['تسمه','تایم','<b>پاره</b>','<b>شد!</b>'],a:T_DARK+4,b:T_REMIX-8,dk:1,top:720},
- {w:['فقط','چون','<b>یادت</b>','<b>رفت</b>'],a:T_REMIX-4,b:T_LIGHT-8,dk:1,top:720},
+ {w:['تسمه','تایم','<b>پاره</b>','شد!'],a:T_BOOM+8,b:T_DEATH-4},
+ {w:['فقط','چون','<b>یادت</b>','رفت'],a:T_REMIX-2,b:T_LIGHT-8},
  {w:['مانیتور','ماشینت','وقت','تعویض','\n','<b>مصرفی‌ها</b>','رو','یادت','میاره!'],a:T_LIGHT+2,b:T_S1+30,s:66,pl:1},
  {w:['۱.','ماشینت','رو','<b>تعریف</b>','کن'],a:T_S1+32,b:T_S2-6,s:74,pl:1},
  {w:['۲.','سرویس‌هات','رو','<b>اضافه</b>','کن'],a:T_S2-2,b:T_S3-6,s:70,pl:1},
@@ -395,7 +567,7 @@ function titles(f){TT.forEach((t,i)=>{const el=$('tt'+i), on=f>=t.a-1&&f<t.b+14;
  [...el.querySelectorAll('.w>span')].forEach((w,k)=>{const a=t.a+4+k*3, p=seg(f,a,a+12), q=seg(f,t.b-4+k*1.5,t.b+5+k*1.5);
   w.style.transform=`translateY(${(1-E.oc(p))*115-E.ic(q)*115}%)`;});});}
 
-function render(f){belt(f); dark(f); cockpit(f); cta(f); endc(f); titles(f);}
+function render(f){hook(f); happy(f); cockpit(f); cta(f); endc(f); titles(f);}
 window.READY=document.fonts.ready.then(()=>{beltLayout();render(0);return true});
 </script>
 </body></html>
