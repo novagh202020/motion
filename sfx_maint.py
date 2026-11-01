@@ -40,36 +40,75 @@ def metal(f0, dur):                           # a struck piece of metal: inharmo
 
 
 b = np.zeros((N, 2))
-# --- spin-up: engine pitch and belt whine climb, rattles get denser
+# --- spin-up: engine climbs; the belt squeals, flaps faster and groans as it stretches (loud: this is the story)
 n = int(F(T_SNAP) * SR); t = np.arange(n) / SR; u = t / t[-1]
 f_eng = 42 + 30 * u ** 2; ph = 2 * np.pi * np.cumsum(f_eng) / SR
 eng = (0.55 * np.sin(ph) + 0.3 * np.sin(2 * ph + .4) + 0.2 * np.sin(3 * ph)) * (0.7 + 0.3 * np.sin(2 * np.pi * 9 * t))
 eng += 0.25 * lp_fast(rng.standard_normal(n), 700)
-f_wh = 1500 + 1100 * u ** 2; whine = np.sin(2 * np.pi * np.cumsum(f_wh) / SR) * (0.05 + 0.5 * u ** 3) * (0.8 + 0.2 * np.sin(2 * np.pi * 23 * t))
-add(b, (eng * np.minimum(1, t / 0.4) + whine) * 0.6, 0, 0.5)
+add(b, eng * np.minimum(1, t / 0.4) * 0.35, 0, 0.5)
+ramp = seg = np.clip((t - F(36)) / (F(T_SNAP) - F(36)), 0, 1)
+f_sq = 1900 + 900 * ramp ** 1.5 + 140 * np.sin(2 * np.pi * 13 * t)                       # rubber squeal: wobbling, rising
+squeal = np.sin(2 * np.pi * np.cumsum(f_sq) / SR) + 0.5 * np.sin(2 * np.pi * np.cumsum(f_sq * 1.51) / SR)
+squeal += 0.8 * hp_fast(lp_fast(rng.standard_normal(n), 4200), 1800)
+squeal *= (0.15 + ramp ** 1.3) * (0.75 + 0.25 * np.sin(2 * np.pi * 23 * t))
+add(b, squeal * 0.55, 0, 1.0)
+groan = np.sin(2 * np.pi * np.cumsum(110 - 45 * ramp) / SR) * (0.6 + 0.4 * np.sin(2 * np.pi * 5 * t)) * ramp ** 1.2   # the belt stretching
+add(b, groan * 0.7, 0, 1.0)
+tt = 46.0
+while tt < T_SNAP - 1:                                                                  # flapping: thwap-thwap, faster and harder
+    k = (tt - 46) / (T_SNAP - 46); nb_ = int(0.06 * SR)
+    th = lp_fast(rng.standard_normal(nb_), 900) * np.exp(-np.arange(nb_) / (0.012 * SR))
+    add(b, th, F(tt), 0.5 + 0.9 * k, rng.uniform(-.3, .3)); tt += max(1.6, 5.5 - 4.5 * k)
 tt = 40.0
-while tt < T_SNAP: add(b, tick(900 + rng.integers(0, 900), 0.02), F(tt), 0.08 + 0.2 * (tt - 40) / 50, rng.uniform(-.6, .6)); tt += max(1.0, 6 - (tt - 40) / 10)
-add(b, pop(260, 0.18), F(58), 0.4); add(b, pop(200, 0.16), F(63), 0.3)                      # the car gulps when it feels the belt going
-# --- the snap: a whip crack and a ringing ping
-nn = int(0.3 * SR); whip = rng.standard_normal(nn) * np.exp(-np.arange(nn) / (0.03 * SR))
-add(b, whip, F(T_SNAP), 0.9); add(b, metal(1830, 0.7), F(T_SNAP), 0.5); add(b, thump(0.5), F(T_SNAP), 0.8)
+while tt < T_SNAP: add(b, tick(900 + rng.integers(0, 900), 0.02), F(tt), 0.1 + 0.25 * (tt - 40) / 50, rng.uniform(-.6, .6)); tt += max(1.0, 6 - (tt - 40) / 10)
+add(b, pop(260, 0.18), F(58), 0.5); add(b, pop(200, 0.16), F(63), 0.4)                      # the car gulps
+# --- the snap: very loud whip crack, a ringing ping, a rubber twang
+nn = int(0.35 * SR); whip = rng.standard_normal(nn) * np.exp(-np.arange(nn) / (0.035 * SR))
+add(b, whip * 1.6, F(T_SNAP), 1.0); add(b, metal(1830, 0.9), F(T_SNAP), 0.8); add(b, thump(0.6), F(T_SNAP), 1.0)
+nt = int(0.5 * SR); tw_ = np.arange(nt) / SR; twang = np.sin(2 * np.pi * np.cumsum(220 * np.exp(-tw_ / 0.12) + 70) / SR) * np.exp(-tw_ / 0.18)
+add(b, twang, F(T_SNAP), 0.9)
 # --- free-running overspeed + grinding between snap and boom
 n = int(F(T_BOOM - T_SNAP) * SR); t = np.arange(n) / SR; u = t / t[-1]
 grind = hp_fast(rng.standard_normal(n), 1500) * (0.2 + 0.8 * u ** 2) * (0.6 + 0.4 * np.sin(2 * np.pi * 37 * t))
 over = np.sin(2 * np.pi * np.cumsum(2600 + 1600 * u ** 2) / SR) * 0.4 * u
-add(b, grind * 0.35 + over * 0.3, F(T_SNAP + 1), 0.8)
+add(b, grind * 0.45 + over * 0.35, F(T_SNAP + 1), 0.9)
+
+# --- horror score under the hook (0 .. the snap): drone, a dissonant tremolo cluster, a speeding heartbeat kick,
+#     a riser and «braam» hits; it cuts dead at the snap
+hz = np.zeros((N, 2)); n = int(F(T_SNAP) * SR); t = np.arange(n) / SR; u = t / t[-1]
+def sawp(fr):                                                                            # band-limited-ish saw from a frequency curve
+    ph = 2 * np.pi * np.cumsum(fr) / SR; return sum(((-1) ** (h + 1)) * np.sin(h * ph) / h for h in range(1, 9))
+drone = sawp(np.full(n, 49.0)) + sawp(np.full(n, 49.4)) + 0.8 * sawp(np.full(n, 69.3))       # G1 against D♭2 (tritone)
+drone = lp_fast(drone, 320) * (0.5 + 0.5 * u)
+clus = sum(np.sin(2 * np.pi * fq * t + k) for k, fq in enumerate((196.0, 207.65, 277.18, 293.66, 415.3)))  # G3 A♭3 D♭4 D4 A♭4
+clus *= (0.55 + 0.45 * np.sin(2 * np.pi * (6 + 6 * u) * t)) * u ** 1.4                    # tremolo speeds up as it swells
+riser = sawp(200 + 1300 * u ** 2) * u ** 2.2; riser = lp_fast(riser, 3500)
+screech = np.sin(2 * np.pi * np.cumsum(1400 + 900 * u ** 3 + 30 * np.sin(2 * np.pi * 7 * t)) / SR) * np.clip((u - 0.55) / 0.45, 0, 1) ** 2
+bed = drone * 0.9 + clus * 0.35 + riser * 0.35 + screech * 0.25
+bed[-int(0.01 * SR):] *= np.linspace(1, 0, int(0.01 * SR))
+add(hz, bed, 0, 1.0)
+tt = 6.0
+while tt < T_SNAP - 2:                                                                  # heartbeat kick: lub-dub, faster and faster
+    k = tt / T_SNAP; add(hz, thump(0.35), F(tt), 0.9); add(hz, thump(0.25), F(tt + 6 - 3 * k), 0.6); tt += max(9, 26 - 18 * k)
+for t0, g in ((0, 1.0), (44, 1.0)):                                                      # braams
+    nb_ = int(1.8 * SR); tb_ = np.arange(nb_) / SR
+    br = (sawp(np.full(nb_, 49.0)) + sawp(np.full(nb_, 98.0)) + 0.7 * sawp(np.full(nb_, 146.8)) + 0.6 * sawp(np.full(nb_, 138.6)))
+    br = lp_fast(br, 900) * np.minimum(1, tb_ / 0.04) * np.exp(-tb_ / 0.9)
+    add(hz, br, F(t0), g)
+nr = int(F(T_SNAP - 60) * SR); rv = lp_fast(rng.standard_normal(nr), 6000) * np.linspace(0, 1, nr) ** 3   # reverse-cymbal swell into the snap
+add(hz, rv, F(60), 0.6)
 # --- the gears let go: boom, sub drop, a shower of metal, debris tinkles
 nb = int(2.4 * SR); tb = np.arange(nb) / SR
 boom = lp_fast(rng.standard_normal(nb), 380) * np.exp(-tb / 0.55) * 3
 sub = np.sin(2 * np.pi * np.cumsum(70 * np.exp(-tb / 0.5) + 28) / SR) * np.exp(-tb / 0.8)
-add(b, boom + 1.2 * sub, F(T_BOOM), 1.0); add(b, zap(0.4, 3000, 120), F(T_BOOM), 0.4)
+add(b, (boom + 1.2 * sub) * 1.5, F(T_BOOM), 1.0); add(b, zap(0.4, 3000, 120), F(T_BOOM), 0.4)
 for k in range(26):
     add(b, metal(rng.uniform(700, 3400), rng.uniform(0.15, 0.45)), F(T_BOOM + rng.uniform(0, 18)), rng.uniform(0.15, 0.4), rng.uniform(-.8, .8))
 for k in range(30):
     add(b, tick(rng.uniform(3000, 7000), 0.02), F(T_BOOM + 8 + rng.uniform(0, 26)), rng.uniform(0.04, 0.12), rng.uniform(-.9, .9))
 # --- heart monitor: two beeps, then flat on D6 until the remix bar
-for t0 in T_BEAT: add(b, tone(D6, 0.13), F(t0 + 1), 0.32)
-flat = tone(D6, F(T_REMIX - T_FLAT), a=0.004, r=0.003); add(b, flat, F(T_FLAT + 2), 0.30)
+for t0 in T_BEAT: add(b, tone(D6, 0.13), F(t0 + 1), 0.5)
+flat = tone(D6, F(T_REMIX - T_FLAT), a=0.004, r=0.003); add(b, flat, F(T_FLAT + 2), 0.45)
 # --- the remix bar: the flat tone chopped on the 16ths, climbing a G-major arpeggio, song opening underneath
 pat = [D6, D6, D6, D6, G5, B5, D6, G6, G5, B5, D6, G6, B5, D6, G6, D6 * 2]
 for i, fq in enumerate(pat):
@@ -103,5 +142,5 @@ seg_ = mus[i0:i1].copy(); low = np.stack([lp_fast(seg_[:, c], 350) for c in rang
 w = np.linspace(0, 1, i1 - i0) ** 2
 mus[i0:i1] = (low * (1 - w)[:, None] + seg_ * w[:, None]) * np.linspace(0.25, 1, i1 - i0)[:, None]
 mus[:i0] = 0
-mix = norm(mus, -1) * 0.95 + fx * 0.6
+mix = norm(mus, -1) * 0.95 + fx * 0.6 + norm(hz, -1) * 0.75
 write('mix_maint.wav', norm(softclip(mix), -1)); print('ok')
