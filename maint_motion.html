@@ -78,8 +78,8 @@ body{font-family:V,sans-serif;color:#10203C}
  <!-- ===== the happy ending: the same car with an AI mechanic in the hood ===== -->
  <div id="happyL" class="L" style="z-index:5">
   <svg id="happyS" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
-  <div id="bubble" class="a" style="left:20px;top:720px;opacity:0;transform-origin:70% 100%">
-   <div style="position:relative;background:#fff;border:4px solid #2196F3;border-radius:36px;padding:18px 34px;font-weight:900;font-size:46px;color:#1565C0;direction:rtl;white-space:nowrap;box-shadow:0 18px 36px rgba(20,40,80,.16)">حواسم بهت هست!
+  <div id="bubble" class="a" style="left:10px;top:790px;opacity:0;transform-origin:70% 100%">
+   <div style="position:relative;background:#fff;border:4px solid #2196F3;border-radius:36px;padding:22px 34px 18px;font-weight:900;font-size:46px;color:#1565C0;direction:rtl;white-space:nowrap;text-align:center;box-shadow:0 18px 36px rgba(20,40,80,.16)"><div id="bubLogo" style="display:flex;justify-content:center;margin-bottom:8px"></div>حواسم بهت هست!
     <div style="position:absolute;right:120px;bottom:-30px;width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-top:30px solid #2196F3"></div></div></div>
   <div id="ok3" class="a" style="left:0;top:1580px;width:1080px;display:flex;justify-content:center;gap:22px;direction:rtl"></div>
  </div>
@@ -389,6 +389,7 @@ function hook(f){const L0=$('hookL'), on=f<T_LIGHT+16; L0.style.display=on?'bloc
 
 /* ---------- the happy ending: the same car rolling, an AI mechanic sitting in the hood ---------- */
 const HP=[[0,'happy']];
+$('bubLogo').innerHTML=LOGO(220,'#2196F3',7);
 function happy(f){const L0=$('happyL'), on=f>=T_S5-4&&f<T_CTA+6; L0.style.display=on?'block':'none'; if(!on) return;
  L0.style.opacity=E.oc(seg(f,T_S5-4,T_S5+8))*(1-seg(f,T_CTA-4,T_CTA+6));
  const tw=f*12, wink=Math.exp(-Math.pow((f-(T_S5+70))/3,2));
