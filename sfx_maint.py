@@ -97,15 +97,20 @@ for t0, g in ((0, 1.0), (44, 1.0)):                                             
     add(hz, br, F(t0), g)
 nr = int(F(T_SNAP - 60) * SR); rv = lp_fast(rng.standard_normal(nr), 6000) * np.linspace(0, 1, nr) ** 3   # reverse-cymbal swell into the snap
 add(hz, rv, F(60), 0.6)
-# --- the gears let go: boom, sub drop, a shower of metal, debris tinkles
-nb = int(2.4 * SR); tb = np.arange(nb) / SR
-boom = lp_fast(rng.standard_normal(nb), 380) * np.exp(-tb / 0.55) * 3
-sub = np.sin(2 * np.pi * np.cumsum(70 * np.exp(-tb / 0.5) + 28) / SR) * np.exp(-tb / 0.8)
-add(b, (boom + 1.2 * sub) * 1.5, F(T_BOOM), 1.0); add(b, zap(0.4, 3000, 120), F(T_BOOM), 0.4)
-for k in range(26):
-    add(b, metal(rng.uniform(700, 3400), rng.uniform(0.15, 0.45)), F(T_BOOM + rng.uniform(0, 18)), rng.uniform(0.15, 0.4), rng.uniform(-.8, .8))
-for k in range(30):
-    add(b, tick(rng.uniform(3000, 7000), 0.02), F(T_BOOM + 8 + rng.uniform(0, 26)), rng.uniform(0.04, 0.12), rng.uniform(-.9, .9))
+# --- the gears let go: a bomb, not a crack. A dull impact, a long sub boom falling in pitch, a rolling rumble;
+#     the metal is low and quiet underneath
+nb = int(3.2 * SR); tb = np.arange(nb) / SR
+hit = lp_fast(rng.standard_normal(nb), 600) * np.exp(-tb / 0.05) * 2.2                     # the punch
+sub = np.sin(2 * np.pi * np.cumsum(55 * np.exp(-tb / 0.35) + 24) / SR) * np.minimum(1, tb / 0.006) * np.exp(-tb / 1.1)
+rumble = lp_fast(rng.standard_normal(nb), 140) * np.exp(-tb / 1.0) * 4.0
+rumble *= 0.7 + 0.3 * np.sin(2 * np.pi * 3 * tb)
+body = lp_fast(rng.standard_normal(nb), 320) * np.exp(-tb / 0.35) * 2.5
+add(b, (hit + 2.2 * sub + rumble + body) * 1.6, F(T_BOOM), 1.0)
+add(b, thump(0.8), F(T_BOOM), 1.0)
+for k in range(10):
+    add(b, lp_fast(metal(rng.uniform(250, 700), rng.uniform(0.2, 0.4)), 1500), F(T_BOOM + rng.uniform(2, 16)), rng.uniform(0.08, 0.16), rng.uniform(-.8, .8))
+for k in range(14):
+    nd = int(0.05 * SR); add(b, lp_fast(rng.standard_normal(nd), 900) * np.exp(-np.arange(nd) / (0.01 * SR)), F(T_BOOM + 10 + rng.uniform(0, 26)), rng.uniform(0.1, 0.25), rng.uniform(-.9, .9))
 # --- heart monitor: two beeps, then flat on D6 until the remix bar
 for t0 in T_BEAT: add(b, tone(D6, 0.13), F(t0 + 1), 0.5)
 flat = tone(D6, F(T_REMIX - T_FLAT), a=0.004, r=0.003); add(b, flat, F(T_FLAT + 2), 0.45)
