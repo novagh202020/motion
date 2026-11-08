@@ -33,15 +33,18 @@ body{font-family:V,sans-serif;color:#10203C}
 <div id="stage">
  <!-- A/B hook: the price cracks into four -->
  <div id="sHook" class="L">
-  <div id="price0" class="ctr ltr" style="top:770px;font-weight:900;font-size:176px;line-height:1.2;color:#10203C;letter-spacing:-3px"></div>
-  <svg id="cracks" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="hBg" class="a" style="left:0;top:0;width:1080px;height:1920px;background:radial-gradient(ellipse at 50% 42%,#42A5F5 0%,#2196F3 40%,#1565C0 100%)"></div>
+  <div id="sw" class="a" style="left:300px;top:930px;width:480px;height:250px;border-radius:125px;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 5px rgba(255,255,255,.5)">
+   <div id="swK" class="a" style="top:20px;left:20px;width:210px;height:210px;border-radius:50%;background:#fff;box-shadow:0 14px 30px rgba(11,19,34,.3)"></div></div>
+  <svg id="spark" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
   <div id="tiles" class="a" style="left:0;top:0;width:1080px;height:1920px"></div>
   <img id="dpLogoA" src="assets/digipay.png" class="a" style="left:430px;top:1150px;width:220px;opacity:0">
  </div>
  <!-- C product -->
  <div id="sProd" class="L">
-  <div id="glow" class="a" style="left:140px;top:560px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.22) 0%,rgba(40,160,255,0) 66%)"></div>
-  <div id="hero" class="a" style="left:220px;top:720px;width:640px;height:462px">
+  <div id="glow" class="a" style="left:60px;top:500px;width:960px;height:960px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.22) 0%,rgba(40,160,255,0) 66%)"></div>
+  <div id="mock" class="a" style="left:590px;top:600px;width:350px;height:753px;border-radius:52px;overflow:hidden;box-shadow:0 40px 80px rgba(20,40,80,.25);transform-origin:50% 50%"><img src="assets/app_home.png" style="width:100%;height:100%"></div>
+  <div id="hero" class="a" style="left:80px;top:800px;width:500px;height:361px">
    <img src="assets/diag_front.png" style="position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 40px 50px rgba(20,40,80,.25))">
    <div id="sweep" style="position:absolute;inset:0;-webkit-mask-image:url(assets/diag_front.png);mask-image:url(assets/diag_front.png);-webkit-mask-size:100% 100%;mask-size:100% 100%"></div></div>
  </div>
@@ -53,16 +56,17 @@ body{font-family:V,sans-serif;color:#10203C}
  </div>
  <!-- E installments -->
  <div id="sInst" class="L">
-  <div id="instN" class="ctr" style="top:760px;font-weight:900;font-size:200px;line-height:1.15;color:#1565C0;letter-spacing:-3px">۳۹۷٬۵۰۰</div>
-  <div id="instT" class="ctr" style="top:1000px;font-weight:800;font-size:64px;color:#1565C0">تومان</div>
+  <div class="a" style="left:0;top:0;width:1080px;height:1920px;background:radial-gradient(ellipse at 50% 45%,#42A5F5 0%,#2196F3 45%,#1565C0 100%)"></div>
+  <div id="instN" class="ctr" style="top:760px;font-weight:900;font-size:200px;line-height:1.15;color:#fff;letter-spacing:-3px">۳۹۷٬۵۰۰</div>
+  <div id="instT" class="ctr" style="top:1000px;font-weight:800;font-size:64px;color:#E3EFFC">تومان</div>
   <div id="segs" class="a" style="left:0;top:1150px;width:1080px;display:flex;justify-content:center;gap:22px;direction:rtl"></div>
-  <img id="dpLogoE" src="assets/digipay.png" class="a" style="left:450px;top:1330px;width:180px">
+  <div id="dpLogoE" class="a" style="left:420px;top:1310px;width:240px;height:254px;border-radius:40px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px rgba(11,19,34,.25)"><img src="assets/digipay.png" style="width:170px"></div>
  </div>
  <!-- F checkout -->
  <div id="phone"><div id="screen"></div><div class="tapdot" id="tap"></div></div>
  <!-- G montage / H break / I CTA -->
  <div id="sMont" class="L"><div id="mIc" class="ctr" style="top:640px"></div><div id="mW" class="ctr" style="top:960px;font-weight:900;font-size:150px;line-height:1.2"></div></div>
- <div id="sBreak" class="L"><div id="br1" class="ctr" style="top:760px;font-weight:900;font-size:128px">همه‌ی این‌ها،</div><div id="br2" class="ctr" style="top:930px;font-weight:900;font-size:150px;color:#2196F3">با ۴ قسط.</div></div>
+ <div id="sBreak" class="L"><div id="br1" class="ctr" style="top:760px;font-weight:900;font-size:120px">حالا با خیال راحت</div><div id="br2" class="ctr" style="top:930px;font-weight:900;font-size:136px;color:#2196F3">کاردیاگ قسطی بخر</div></div>
  <div id="sCta" class="L">
   <div id="cLogo" class="a" style="left:290px;top:560px"></div>
   <div id="cName" class="ctr ltr" style="top:770px;font-weight:900;font-size:110px;color:#1565C0">CarDiag AI</div>
@@ -116,40 +120,44 @@ const io=(el,f,a,b,s0=1.06)=>{const p=E.oc(seg(f,a,a+10)), q=E.ic(seg(f,b-8,b));
  el.style.filter=(p<1||q>0)?`blur(${(1-p)*14+q*14}px)`:'none'; el.style.transform=`scale(${lerp(s0,1,p)*(1-0.06*q)})`;};
 
 /* ---------- A/B hook: «۱٬۵۹۰٬۰۰۰ تومان» slams in, cracks on the beats, splits into four blue tiles ---------- */
-$('price0').innerHTML='۱٬۵۹۰٬۰۰۰ <span style="font-size:96px;font-weight:800">تومان</span>';
-const CR=[[700,'M700 760 L688 820 L712 860 L690 930 L706 980'],[540,'M540 750 L556 815 L528 870 L552 940 L536 990'],[380,'M380 760 L366 818 L392 872 L370 930 L384 984']];
-const TX=[[-345,0],[-115,0],[115,0],[345,0]];
-function hook(f){if(!show('sHook',0,Bk(2)+8,f)) return; const el=$('sHook'); el.style.opacity=1-seg(f,Bk(2),Bk(2)+8); el.style.filter=f>Bk(2)?`blur(${seg(f,Bk(2),Bk(2)+8)*14}px)`:'none';
- const sl=E.oc(seg(f,0,7)), split=seg(f,Bk(1)-4,Bk(1)+10), p=$('price0');
- const kick=[BEAT,2*BEAT,3*BEAT].reduce((a,t)=>a+Math.exp(-Math.pow((f-t)/2.5,2)),0);
- p.style.opacity=sl*(1-seg(f,Bk(1)-4,Bk(1)+4)); p.style.transform=`scale(${lerp(1.35,1,sl)}) translateX(${Math.sin(f*3.1)*kick*6}px)`;
- p.style.filter=sl<1?`blur(${(1-sl)*16}px)`:'none';
- let c=''; CR.forEach(([x,d],i)=>{const t=BEAT*(i+1), k=seg(f,t-1,t+3); if(k>0&&f<Bk(1)+4) c+=`<path d="${d}" fill="none" stroke="#2196F3" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="300" stroke-dashoffset="${300*(1-k)}"/>`});
- $('cracks').innerHTML=c;
- // the four tiles: born at the split, then line up
- let h=''; if(f>=Bk(1)-4){TX.forEach(([x],i)=>{const q=E.back(seg(f,Bk(1)-2+i*2,Bk(1)+14+i*2)), s=210, y=860+(1-q)*40, cx=540+x*q*1.0;
-  const lit=1;
-  h+=`<div style="position:absolute;left:${cx-s/2}px;top:${y-s/2+40}px;width:${s}px;height:${s}px;border-radius:48px;background:linear-gradient(160deg,#42A5F5,#1565C0);opacity:${cl(q*2)};transform:scale(${lerp(0.4,1,q)});
-   box-shadow:0 24px 44px rgba(33,150,243,.32);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:110px">${fa(4-i)}</div>`});}
+const TX=[-345,-115,115,345];
+const T_SW=Bt(0,2), T_PAID=[Bt(1,1),Bt(1,2),Bt(1,3),Bk(2)], H_END=Bt(2,1);
+function hook(f){if(!show('sHook',0,H_END+8,f)) return; const el=$('sHook'); el.style.opacity=1-seg(f,H_END,H_END+8); el.style.filter=f>H_END?`blur(${seg(f,H_END,H_END+8)*14}px)`:'none';
+ // the switch flips on (blue field), then the field clears to white for the four tiles
+ const bo=1-seg(f,Bk(1)-4,Bk(1)+6); $('hBg').style.opacity=bo;
+ const si=E.back(seg(f,2,12)), on=E.io(seg(f,T_SW,T_SW+7)), sw=$('sw');
+ sw.style.opacity=cl(si*2)*(1-seg(f,Bk(1)-6,Bk(1)+2)); sw.style.transform=`scale(${lerp(0.5,1,si)*(1+0.06*Math.exp(-Math.pow((f-T_SW-7)/3,2)))})`;
+ sw.style.background=on>0.5?`rgba(34,160,80,${0.75+0.25*on})`:'rgba(255,255,255,.22)'; $('swK').style.left=(20+250*on)+'px';
+ let sp=''; if(f>=T_SW+6&&f<T_SW+30){const t=f-T_SW-6; for(let i=0;i<12;i++){const a=i/12*Math.PI*2, r0=150+t*12, r1=r0+30;
+   sp+=`<line x1="${540+Math.cos(a)*r0*1.5}" y1="${1055+Math.sin(a)*r0}" x2="${540+Math.cos(a)*r1*1.5}" y2="${1055+Math.sin(a)*r1}" stroke="#fff" stroke-width="10" stroke-linecap="round" opacity="${1-t/24}"/>`}
+  sp+=`<circle cx="540" cy="1055" r="${200+t*16}" fill="none" stroke="#fff" stroke-width="${Math.max(0,8-t*0.35)}" opacity="${1-t/24}"/>`;}
+ $('spark').innerHTML=sp;
+ // four tiles, then they turn green one per beat: paid, month by month
+ let h=''; if(f>=Bk(1)-4){TX.forEach((x,i)=>{const q=E.back(seg(f,Bk(1)-2+i*2,Bk(1)+12+i*2)), s=210, k=3-i, t=T_PAID[k], pd=seg(f,t,t+6), paid=f>=t;
+  const bg=paid?'linear-gradient(160deg,#34C26A,#22A050)':'linear-gradient(160deg,#42A5F5,#1565C0)', hit=Math.exp(-Math.pow((f-t-2)/3,2));
+  h+=`<div style="position:absolute;left:${540+x-s/2}px;top:${900+(1-q)*60}px;width:${s}px;height:${s}px;border-radius:48px;background:${bg};opacity:${cl(q*2)};transform:scale(${lerp(0.4,1,q)*(1+0.1*hit)});
+   box-shadow:0 24px 44px ${paid?'rgba(34,160,80,.35)':'rgba(33,150,243,.32)'};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:110px">
+   ${paid?`<span style="display:inline-flex;transform:scale(${E.back(pd)})">${svg('check','#fff',130)}</span>`:fa(k+1)}</div>`});}
  $('tiles').innerHTML=h;
- const lg=seg(f,Bk(1)+BEAT,Bk(1)+BEAT+12); $('dpLogoA').style.opacity=E.oc(lg); $('dpLogoA').style.transform=`translateY(${(1-E.oc(lg))*30}px)`;
+ const lg=seg(f,Bk(1)+6,Bk(1)+18); $('dpLogoA').style.opacity=E.oc(lg); $('dpLogoA').style.transform=`translateY(${(1-E.oc(lg))*30}px)`;
 }
 /* ---------- C product reveal ---------- */
-function prod(f){if(!show('sProd',Bk(2)-4,Bk(3)+8,f)) return; io($('sProd'),f,Bk(2)-4,Bk(3)+8,1.12);
- const t=seg(f,Bk(2),Bk(3)), h=$('hero'); h.style.transform=`perspective(1600px) rotateY(${lerp(-24,10,E.io(t))}deg) rotate(${lerp(-6,0,E.oc(t))}deg) scale(${lerp(0.88,1,E.oc(t))})`;
- const sx=lerp(-60,160,seg(f,Bk(2)+6,Bk(2)+40)); $('sweep').style.background=`linear-gradient(105deg,rgba(255,255,255,0) ${sx-20}%,rgba(255,255,255,.85) ${sx}%,rgba(255,255,255,0) ${sx+20}%)`;
+function prod(f){if(!show('sProd',H_END-4,Bt(3,2)+2,f)) return; io($('sProd'),f,H_END-4,Bt(3,2)+2,1.12);
+ const mp=E.oc(seg(f,H_END+4,H_END+20)), mk=$('mock'); mk.style.opacity=cl(mp*2); mk.style.transform=`translateY(${(1-mp)*120+Math.sin(f/14)*6}px) rotate(${lerp(8,3,mp)}deg)`;
+ const t=seg(f,H_END,Bt(3,2)), h=$('hero'); h.style.transform=`perspective(1600px) rotateY(${lerp(-24,10,E.io(t))}deg) rotate(${lerp(-6,0,E.oc(t))}deg) scale(${lerp(0.88,1,E.oc(t))})`;
+ const sx=lerp(-60,160,seg(f,H_END+6,H_END+40)); $('sweep').style.background=`linear-gradient(105deg,rgba(255,255,255,0) ${sx-20}%,rgba(255,255,255,.85) ${sx}%,rgba(255,255,255,0) ${sx+20}%)`;
  $('glow').style.opacity=0.6+0.4*Math.sin(f/9);}
 /* ---------- D price: old struck, the new one rolls in on the bar ---------- */
 const OLD='1900000', NEW='1590000';
 $('newP').innerHTML=[...NEW].map((d,i)=>`${i==1||i==4?'<span>٬</span>':''}<span class="dg"><span id="dg${i}">${[...Array(30)].map((_,k)=>`<i>${fa(k%10)}</i>`).join('')}</span></span>`).join('');
-function price(f){if(!show('sPrice',Bk(3)-4,Bk(5)+8,f)) return; io($('sPrice'),f,Bk(3)-4,Bk(5)+8);
- $('strike').style.transform=`scaleX(${E.io(seg(f,Bt(3,2),Bt(3,2)+8))})`;
- [...NEW].forEach((n,i)=>{const o=+OLD[i], t=(+n)+10*(i==0?0:(i<3?1:2))-o; const a=Bk(4)+(6-i)*1.4, p=E.oc(seg(f,a,Bk(4)+30+(6-i)*1.4)); $('dg'+i).style.transform=`translateY(${-(o+((t%10+10)%10+10*(i==0?0:(i<3?1:2)))*p)*1.15}em)`;});
- const k=Math.exp(-Math.pow((f-Bk(4)-36)/5,2)); $('newP').style.transform=`scale(${1+0.04*k})`;}
+function price(f){if(!show('sPrice',Bt(3,2),Bk(5)+8,f)) return; io($('sPrice'),f,Bt(3,2),Bk(5)+8);
+ $('strike').style.transform=`scaleX(${E.io(seg(f,Bt(3,3),Bt(3,3)+6))})`;
+ [...NEW].forEach((n,i)=>{const o=+OLD[i], t=(+n)+10*(i==0?0:(i<3?1:2))-o; const a=Bk(4)+(6-i)*0.6, p=E.oc(seg(f,a,Bk(4)+9+(6-i)*0.6)); $('dg'+i).style.transform=`translateY(${-(o+((t%10+10)%10+10*(i==0?0:(i<3?1:2)))*p)*1.15}em)`;});
+ const k=Math.exp(-Math.pow((f-Bk(4)-14)/4,2)); $('newP').style.transform=`scale(${1+0.04*k})`;}
 /* ---------- E «در ۴ قسط ماهانه ۳۹۷٬۵۰۰ تومان» ---------- */
 function inst(f){if(!show('sInst',Bk(5)-4,Bk(7)+8,f)) return; io($('sInst'),f,Bk(5)-4,Bk(7)+8);
  const n=seg(f,Bk(5)+10,Bk(5)+22); $('instN').style.transform=`scale(${n<=0?0.7:lerp(0.7,1,E.back(n))})`; $('instN').style.opacity=E.oc(cl(n*2)); $('instT').style.opacity=E.oc(seg(f,Bk(5)+18,Bk(5)+26));
- $('segs').innerHTML=[0,1,2,3].map(i=>{const t=Bt(6,i), p=seg(f,t-1,t+6), on=f>=t; return `<span style="width:150px;height:22px;border-radius:11px;background:${on?'#2196F3':'#E2E8F0'};transform:scaleY(${1+0.6*Math.exp(-Math.pow((f-t-1)/2.5,2))});opacity:${0.35+0.65*E.oc(cl(p*2+(on?0:0)))}"></span>`}).join('');
+ $('segs').innerHTML=[0,1,2,3].map(i=>{const t=Bt(6,i), p=seg(f,t-1,t+6), on=f>=t; return `<span style="width:150px;height:22px;border-radius:11px;background:${on?'#fff':'rgba(255,255,255,.28)'};transform:scaleY(${1+0.6*Math.exp(-Math.pow((f-t-1)/2.5,2))});opacity:${0.35+0.65*E.oc(cl(p*2+(on?0:0)))}"></span>`}).join('');
  $('dpLogoE').style.opacity=E.oc(seg(f,Bk(5)+24,Bk(5)+34));}
 /* ---------- F checkout on the site: pick «۴ قسط با دیجی‌پی», pay, done ---------- */
 $('screen').innerHTML=`<div class="sbar"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>
@@ -178,11 +186,11 @@ function checkout(f){const ph=$('phone'), on=f>=Bk(7)-4&&f<Bk(9)+8; ph.style.dis
  const d=seg(f,T_DONE,T_DONE+8); $('done').style.opacity=E.oc(d); $('doneC').style.transform=`scale(${d<=0?0.3:lerp(0.3,1,E.back(seg(f,T_DONE,T_DONE+12)))})`;
  if(!(tapAt(f,T_PICK,'o2')||tapAt(f,T_PAY,'pay'))) $('tap').style.opacity=0;}
 /* ---------- G montage: one feature per beat ---------- */
-const MON=[['warn','خطایابی.'],['car','سفر.'],['robot','هوش مصنوعی.'],['eye','مانیتورینگ.']];
+const MON=[['warn','خطایابی'],['car','سفر'],['robot','هوش مصنوعی'],['eye','مانیتورینگ']];
 function mont(f){if(!show('sMont',Bk(9)-2,Bk(10)+4,f)) return; const i=Math.min(3,Math.max(0,Math.floor((f-Bk(9))/BEAT))), t=f-Bt(9,i), p=E.oc(seg(t,0,6));
  $('sMont').style.opacity=1-seg(f,Bk(10)-2,Bk(10)+4);
  $('mIc').innerHTML=`<span style="display:inline-flex;width:240px;height:240px;border-radius:64px;background:linear-gradient(160deg,#42A5F5,#1565C0);align-items:center;justify-content:center;box-shadow:0 30px 60px rgba(33,150,243,.3);transform:scale(${lerp(0.6,1,E.back(seg(t,0,7)))}) rotate(${(1-p)*-10}deg)">${svg(MON[i][0],'#fff',140)}</span>`;
- $('mW').textContent=MON[i][1]; $('mW').style.opacity=p; $('mW').style.transform=`translateY(${(1-p)*40}px)`; $('mW').style.color=i==2?'#2196F3':'#10203C';}
+ $('mW').textContent=MON[i][1]; $('mW').style.opacity=p; $('mW').style.transform=`translateY(${(1-p)*40}px)`; $('mW').style.color=['#10203C','#2196F3','#1565C0','#2196F3'][i];}
 /* ---------- H break ---------- */
 function brk(f){if(!show('sBreak',Bk(10)-2,Bk(11)+6,f)) return; $('sBreak').style.opacity=1-seg(f,Bk(11),Bk(11)+6);
  [['br1',Bk(10)],['br2',Bt(10,2)]].forEach(([id,a])=>{const p=E.oc(seg(f,a,a+10)); $(id).style.opacity=p; $(id).style.transform=`translateY(${(1-p)*50}px)`; $(id).style.filter=p<1?`blur(${(1-p)*12}px)`:'none';});}
@@ -200,14 +208,14 @@ function cta(f){if(!show('sCta',Bk(11)-2,NF+1,f)) return; const hit=Math.exp(-Ma
 
 /* ---------- titles ---------- */
 const TT=[
- {w:['یه‌جا','<b>نده.</b>'],a:4,b:Bk(1)-6,top:400},
- {w:['۴','قسطه','<b>بده.</b>'],a:Bk(1),b:Bk(2)-6,top:400},
- {w:['کاردیاگ.'],a:Bk(2)+6,b:Bk(3)-6,top:1290},
- {w:['قیمت','<b>ویژه.</b>'],a:Bk(3),b:Bk(5)-6,top:420},
- {w:['در','<b>۴</b>','قسط','ماهانه'],a:Bk(5),b:Bk(7)-6,top:420},
- {w:['انتخاب','کن.','<b>تموم.</b>'],a:Bk(7),b:Bk(9)-6,top:140,s:104},
+ {w:['خرید','<span style="color:#fff">قسطی</span>','کاردیاگ','\n','<span style="color:#B9F5CF">فعال</span>','<span style="color:#B9F5CF">شد</span>'],a:3,b:Bk(1)-6,top:440,c:'#fff',s:118},
+ {w:['۴','قسطه','<b>پرداخت</b>','<b>کن</b>'],a:Bk(1),b:H_END-6,top:500,s:108},
+ {w:['کاردیاگ'],a:H_END+6,b:Bt(3,2)-6,top:1440,s:120},
+ {w:['قیمت','<b>ویژه</b>'],a:Bt(3,2),b:Bk(5)-6,top:440},
+ {w:['در','۴','قسط','ماهانه'],a:Bk(5),b:Bk(7)-6,top:440,c:'#fff'},
+ {w:['انتخاب','کن،','<b>تموم</b>'],a:Bk(7),b:Bk(9)-6,top:140,s:104},
 ];
-$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl" id="tt${i}" style="top:${t.top}px"><div class="h"${t.s?` style="font-size:${t.s}px"`:''}>${t.w.map(w=>`<span class="w"><span>${w}</span></span>`).join(' ')}</div></div>`).join('');
+$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl" id="tt${i}" style="top:${t.top}px"><div class="h" style="${t.s?`font-size:${t.s}px;`:''}${t.c?`color:${t.c};`:''}">${t.w.map(w=>w==='\n'?'<br>':`<span class="w"><span>${w}</span></span>`).join(' ')}</div></div>`).join('');
 function titles(f){TT.forEach((t,i)=>{const el=$('tt'+i), on=f>=t.a-1&&f<t.b+12; el.style.display=on?'block':'none'; if(!on) return;
  [...el.querySelectorAll('.w>span')].forEach((w,k)=>{const a=t.a+k*3, p=seg(f,a,a+11), q=seg(f,t.b-4+k*1.5,t.b+5+k*1.5);
   w.style.transform=`translateY(${(1-E.oc(p))*115-E.ic(q)*115}%)`;});});}

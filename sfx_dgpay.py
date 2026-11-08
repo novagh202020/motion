@@ -13,19 +13,20 @@ def tap(b, t, g=0.4): add(b, tick(), F(t), g)
 
 
 b = np.zeros((N, 2))
-add(b, thump(0.5), F(0), 1.0); add(b, whoosh(0.3, 4000, 300, False), F(0), 0.3)                 # the price slams in
-for i in range(3):                                                                           # it cracks on the beats
-    nn = int(0.08 * SR); cr = rng.standard_normal(nn) * np.exp(-np.arange(nn) / (0.012 * SR))
-    add(b, cr, F(Bt(0, i + 1)), 0.5 + 0.15 * i, 0.3 * (i - 1)); add(b, tick(1600 - 200 * i, 0.04), F(Bt(0, i + 1)), 0.5)
-add(b, zap(0.25, 2400, 500), F(Bk(1) - 3), 0.3); add(b, thump(0.4), F(Bk(1)), 0.8)            # splits into four
-for i in range(4): add(b, pop(700 + 120 * i, 0.11), F(Bk(1) - 2 + i * 2), 0.32, 0.4 * (1.5 - i) / 1.5)
-add(b, chime((1568, 2093), 0.05, 0.6), F(Bt(1, 1)), 0.26)                                     # Digipay logo
-for t in (Bk(2), Bk(3), Bk(5), Bk(7), Bk(9), Bk(11)): add(b, whoosh(0.4, 300, 5000), F(t - 6), 0.22)
-add(b, shimmer(1.0), F(Bk(2) + 6), 0.32)                                                     # the product's light sweep
-add(b, whoosh(0.35, 700, 3000), F(Bt(3, 2)), 0.25)                                           # strike
+H_END = Bt(2, 1); T_SW = Bt(0, 2); T_PAID = [Bt(1, 1), Bt(1, 2), Bt(1, 3), Bk(2)]
+add(b, thump(0.4), F(0), 0.8); add(b, pop(520, 0.14), F(4), 0.4)                                # the switch appears
+add(b, tick(1500, 0.05), F(T_SW), 0.9); add(b, pop(380, 0.1), F(T_SW + 1), 0.6)                  # click: on
+add(b, shimmer(1.0), F(T_SW + 5), 0.45); add(b, chime((1318.5, 1661.2, 1975.5), 0.05, 0.9), F(T_SW + 6), 0.3)
+add(b, whoosh(0.4, 300, 5000), F(Bk(1) - 6), 0.25)
+for i in range(4): add(b, pop(700 + 120 * i, 0.11), F(Bk(1) - 2 + i * 2), 0.3, 0.4 * (1.5 - i) / 1.5)
+for i, t0 in enumerate(T_PAID):                                                              # paid, month by month
+    add(b, chime((1046.5 * 2 ** (i * 2 / 12), 1318.5 * 2 ** (i * 2 / 12)), 0.04, 0.5), F(t0), 0.3); add(b, tick(2400, 0.04), F(t0), 0.3)
+for t in (H_END, Bt(3, 2), Bk(5), Bk(7), Bk(9), Bk(11)): add(b, whoosh(0.4, 300, 5000), F(t - 6), 0.22)
+add(b, shimmer(1.0), F(H_END + 6), 0.32)                                                     # the product's light sweep
+add(b, whoosh(0.35, 700, 3000), F(Bt(3, 3)), 0.25)                                           # strike
 t = Bk(4)
-while t < Bk(4) + 38: add(b, tick(2800 + 300 * np.sin(t), 0.02), F(t), 0.12 * (1 - (t - Bk(4)) / 40) + 0.03); t += 1.5
-add(b, pop(980, 0.12), F(Bk(4) + 36), 0.3)
+while t < Bk(4) + 12: add(b, tick(2800 + 300 * np.sin(t), 0.02), F(t), 0.14); t += 1.2
+add(b, pop(980, 0.12), F(Bk(4) + 12), 0.34); add(b, thump(0.3), F(Bk(4) + 12), 0.5)
 add(b, pop(820, 0.12), F(Bk(5) + 10), 0.3)
 for i in range(4): add(b, pop(760 + 90 * i, 0.1), F(Bt(6, i)), 0.3)                           # four installments
 tap(b, Bt(7, 2)); add(b, pop(900, 0.1), F(Bt(7, 2) + 2), 0.22)
