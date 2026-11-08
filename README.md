@@ -49,5 +49,7 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 - poster_a1.html      A1 print poster (594x841 mm): Peyda title, 4 features, app phone + diag on stage, yellow discount card with
                        coupon QR (QR_URL env, default https://www.cardiag.ir/?coupon=IRAN) + free-test address, site address.
                        Customer version without the card: ?v=general. Render (both): python3 poster.py out_dir 300
+- banner_shine.html   100x200 cm wall banner for Shine car wash: price-label box, Shine 10% offer + coupon QR (code shine),
+                       free-test address, phone, site. Render: python3 banner.py out_dir 150 (PDF is 1000x2000 mm)
 - box_sheet.html       (no longer rendered) die-cut card pocket: 140x70 front, 8 mm walls, tabs into poster slits
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)
