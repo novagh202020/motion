@@ -160,11 +160,11 @@ if(new URLSearchParams(location.search).get('v'))document.body.classList.add('v-
 const L=(d)=>`<svg width="150" height="150" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 const FI={
  ai:L('<rect x="13" y="13" width="22" height="22" rx="4"/><path d="M19 13V7M24 13V7M29 13V7M19 41v-6M24 41v-6M29 41v-6M13 19H7M13 24H7M13 29H7M41 19h-6M41 24h-6M41 29h-6"/><path d="M18.5 29.5l3-11h1l3 11M19.6 26h4.8M29 18.5v11"/>'),
- trip:L('<path d="M8 34a17 17 0 1 1 32 0"/><path d="M24 31l8-11"/><circle cx="24" cy="31" r="3"/><path d="M12 22l2.5 1.5M24 15v3M36 22l-2.5 1.5"/><path d="M6 40h36"/>'),
+ live:L('<rect x="5" y="9" width="38" height="26" rx="4"/><path d="M18 41h12M24 35v6"/><path d="M10 25h6l3-8 4 12 3-9 2 5h10"/><circle cx="37" cy="15" r="2.4" fill="#FFCD11" stroke="#FFCD11"/>'),
  ecu:L('<path d="M9 21h4l3-4h10l3 4h4v4h3v-3h3v12h-3v-3h-3v5h-5l-3 3H17l-4-4H9z"/><path d="M5 23v10"/><path d="M23 23v5M23 31.5v.5"/>'),
  bat:L('<rect x="6" y="15" width="36" height="24" rx="4"/><path d="M12 15v-4h6v4M30 15v-4h6v4"/><path d="M12 25h6M15 22v6M30 25h6"/><path d="M25 19l-4 8h6l-4 8" stroke="#FFCD11"/>'),
 };
-const FEAT=[['ai','عیب‌یابی خودرو<br>با هوش مصنوعی'],['trip','تحلیل خودرو<br>در حال حرکت'],['ecu','اسکن و حذف<br>خطاهای <span class="ltr">ECU</span>'],['bat','تست سلامت<br>باتری و دینام']];
+const FEAT=[['ai','عیب‌یابی خودرو<br>با هوش مصنوعی'],['live','مشاهده زنده<br>سنسورهای خودرو'],['ecu','اسکن و حذف<br>خطاهای <span class="ltr">ECU</span>'],['bat','تست سلامت<br>باتری و دینام']];
 document.getElementById('featRow').innerHTML=FEAT.map(([k,t])=>`<div class="f"><div class="ib">${FI[k]}</div><div class="t">${t}</div></div>`).join('');
 
 // app home screen (same layout as the app)
