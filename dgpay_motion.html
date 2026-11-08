@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Digipay Ad</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#fff}
+body{font-family:V,sans-serif;color:#10203C}
+#stage{position:absolute;inset:0;overflow:hidden;background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 55%,#F1F6FD 100%)}
+.a{position:absolute}.ltr{direction:ltr;unicode-bidi:isolate}
+.L{position:absolute;left:0;top:0;width:1080px;height:1920px;display:none}
+.ctr{position:absolute;left:0;width:1080px;text-align:center;direction:rtl}
+/* big Apple-style words, rising out of a mask */
+.ttl{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;z-index:50;display:none}
+.ttl .h{font-weight:900;font-size:128px;line-height:1.2;color:#10203C;white-space:nowrap;letter-spacing:-1px}
+.ttl .h b{font-weight:900;color:#2196F3}
+.ttl .w{display:inline-block;overflow:hidden;vertical-align:top;padding:6px 10px 30px;margin:-6px 0 -30px}
+.ttl .w>span{display:inline-block}
+.dg{display:inline-block;width:.56em;height:1.15em;overflow:hidden;vertical-align:top}
+.dg>span{display:block}.dg>span>i{display:block;height:1.15em;font-style:normal;text-align:center}
+/* phone */
+#phone{position:absolute;left:240px;top:330px;width:600px;height:1290px;border-radius:78px;background:#181C24;border:3px solid #5F6878;
+ box-shadow:0 50px 90px rgba(20,40,80,.22),0 12px 26px rgba(20,40,80,.14);display:none;transform-origin:50% 0}
+#screen{position:absolute;left:11px;top:11px;width:572px;height:1262px;border-radius:66px;overflow:hidden;background:#F5F7FB;direction:rtl}
+.sbar{height:52px;display:flex;justify-content:space-between;align-items:center;padding:8px 40px 0;font-weight:700;font-size:19px;direction:ltr;color:#10203C}
+.pcard{background:#fff;border:2px solid #E2E8F0;border-radius:24px;margin:14px 18px 0;padding:18px 20px}
+.opt{display:flex;align-items:center;gap:14px;background:#fff;border:3px solid #E2E8F0;border-radius:22px;margin:14px 18px 0;padding:18px 20px}
+.rad{width:34px;height:34px;border-radius:50%;border:3px solid #98A3B8;flex:none;display:flex;align-items:center;justify-content:center}
+.tapdot{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:5px solid rgba(33,150,243,.9);background:rgba(33,150,243,.15);opacity:0;z-index:40}
+</style></head><body>
+<div id="stage">
+ <!-- A/B hook: the price cracks into four -->
+ <div id="sHook" class="L">
+  <div id="price0" class="ctr ltr" style="top:770px;font-weight:900;font-size:176px;line-height:1.2;color:#10203C;letter-spacing:-3px"></div>
+  <svg id="cracks" class="a" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="tiles" class="a" style="left:0;top:0;width:1080px;height:1920px"></div>
+  <img id="dpLogoA" src="assets/digipay.png" class="a" style="left:430px;top:1150px;width:220px;opacity:0">
+ </div>
+ <!-- C product -->
+ <div id="sProd" class="L">
+  <div id="glow" class="a" style="left:140px;top:560px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.22) 0%,rgba(40,160,255,0) 66%)"></div>
+  <div id="hero" class="a" style="left:220px;top:720px;width:640px;height:462px">
+   <img src="assets/diag_front.png" style="position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 40px 50px rgba(20,40,80,.25))">
+   <div id="sweep" style="position:absolute;inset:0;-webkit-mask-image:url(assets/diag_front.png);mask-image:url(assets/diag_front.png);-webkit-mask-size:100% 100%;mask-size:100% 100%"></div></div>
+ </div>
+ <!-- D price -->
+ <div id="sPrice" class="L">
+  <div class="ctr" style="top:760px"><span style="position:relative;font-weight:800;font-size:84px;color:#98A3B8;white-space:nowrap">۱٬۹۰۰٬۰۰۰ تومان<i id="strike" style="position:absolute;left:-10px;right:-10px;top:52%;height:9px;border-radius:5px;background:#10203C;transform-origin:100% 50%;transform:scaleX(0)"></i></span></div>
+  <div class="ctr" style="top:900px"><span id="newP" style="display:inline-flex;direction:ltr;font-weight:900;font-size:184px;line-height:1.15;color:#1565C0;letter-spacing:-3px"></span></div>
+  <div id="toman" class="ctr" style="top:1130px;font-weight:800;font-size:64px;color:#1565C0">تومان</div>
+ </div>
+ <!-- E installments -->
+ <div id="sInst" class="L">
+  <div id="instN" class="ctr" style="top:760px;font-weight:900;font-size:200px;line-height:1.15;color:#1565C0;letter-spacing:-3px">۳۹۷٬۵۰۰</div>
+  <div id="instT" class="ctr" style="top:1000px;font-weight:800;font-size:64px;color:#1565C0">تومان</div>
+  <div id="segs" class="a" style="left:0;top:1150px;width:1080px;display:flex;justify-content:center;gap:22px;direction:rtl"></div>
+  <img id="dpLogoE" src="assets/digipay.png" class="a" style="left:450px;top:1330px;width:180px">
+ </div>
+ <!-- F checkout -->
+ <div id="phone"><div id="screen"></div><div class="tapdot" id="tap"></div></div>
+ <!-- G montage / H break / I CTA -->
+ <div id="sMont" class="L"><div id="mIc" class="ctr" style="top:640px"></div><div id="mW" class="ctr" style="top:960px;font-weight:900;font-size:150px;line-height:1.2"></div></div>
+ <div id="sBreak" class="L"><div id="br1" class="ctr" style="top:760px;font-weight:900;font-size:128px">همه‌ی این‌ها،</div><div id="br2" class="ctr" style="top:930px;font-weight:900;font-size:150px;color:#2196F3">با ۴ قسط.</div></div>
+ <div id="sCta" class="L">
+  <div id="cLogo" class="a" style="left:290px;top:560px"></div>
+  <div id="cName" class="ctr ltr" style="top:770px;font-weight:900;font-size:110px;color:#1565C0">CarDiag AI</div>
+  <div id="url" class="ctr" style="top:1000px"><span style="display:inline-flex;align-items:center;gap:18px;height:130px;padding:0 54px;border-radius:65px;background:#fff;border:3px solid #E2E8F0;box-shadow:0 24px 50px rgba(20,40,80,.12);direction:ltr;font-weight:800;font-size:72px;color:#10203C" id="urlI"></span></div>
+  <div id="go" class="ctr" style="top:1200px"><span id="goB" style="display:inline-flex;align-items:center;height:120px;padding:0 70px;border-radius:60px;background:#2196F3;color:#fff;font-weight:900;font-size:58px;white-space:nowrap;box-shadow:0 24px 48px rgba(33,150,243,.35)">همین حالا سر بزن</span></div>
+  <div id="cDp" class="ctr" style="top:1420px;display:flex;justify-content:center;align-items:center;gap:26px;direction:rtl"><span style="font-weight:800;font-size:56px;color:#33415C">۴ قسط ماهانه با</span><img src="assets/digipay.png" style="width:150px"></div>
+ </div>
+ <div id="titles"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>cl((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ic:t=>t*t*t,back:t=>{const c1=1.55,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)}};
+const imp=(f,k,d=4)=>f>=k?Math.exp(-(f-k)/d):0;
+const FA='۰۱۲۳۴۵۶۷۸۹', fa=s=>String(s).replace(/[0-9]/g,d=>FA[d]);
+const vis=(el,o)=>{el.style.opacity=o; el.style.display=o<=0.001?'none':'block';};
+const IC={
+ warn:'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+ car:'M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z',
+ check:'M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z',
+ checkc:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+ home:'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z', add:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
+ more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+ arrow:'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
+ play:'M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z',
+ trash:'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
+ search:'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z',
+ bt:'M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z',
+ down:'M7 10l5 5 5-5z',
+ plug:'M16 7V3h-2v4h-4V3H8v4h-.01C6.9 6.99 6 7.89 6 8.98v5.52L9.5 18v3h5v-3l3.5-3.51v-5.5c0-1.1-.9-2-2-2z',
+ close:'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
+ wrench:'M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z',
+ eye:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
+ batt:'M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z',
+ trend:'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z',
+ gift:'M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z',
+ medal:'M12 7a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm2.6 9.2L12 14.6l-2.6 1.6.7-3-2.3-2 3-.3L12 8.2l1.2 2.7 3 .3-2.3 2 .7 3zM7 2h10l-2 4H9z',
+};
+const svg=(p,c='#2196F3',s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path fill="${c}" d="${IC[p]}"/></svg>`;
+/* brand mark (car outline + pulse) as on the splash */
+const LOGO=(w,c,sw=7)=>`<svg width="${w}" height="${w*0.36}" viewBox="0 0 400 144"><path class="lg" d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="${c}" stroke-width="${sw*1.6}" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle class="lg" cx="104" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/><circle class="lg" cx="188" cy="114" r="16" fill="none" stroke="${c}" stroke-width="${sw*1.3}"/></svg>`;
+/* ---------- timeline: song/song_ad.wav, bar k starts at 67.5*k (beat 16.875); final hit bar 13 ---------- */
+const BAR=67.5, BEAT=16.875, Bk=k=>BAR*k, Bt=(k,b)=>BAR*k+BEAT*b;
+const F_HIT=Bk(13), NF=898;
+Object.assign(IC,{lock:'M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z',
+ robot:'M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4c1.66 0 3-1.34 3-3s-1.34-3-3-3zM7.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.83 13 9 13s-1.5-.67-1.5-1.5zM16 17H8v-2h8v2zm-1-4c-.83 0-1.5-.67-1.5-1.5S14.17 10 15 10s1.5.67 1.5 1.5S15.83 13 15 13z'});
+const show=(id,a,b,f)=>{const el=$(id), on=f>=a&&f<b; el.style.display=on?'block':'none'; return on};
+// scene in/out: a soft Apple-like blur+scale crossfade
+const io=(el,f,a,b,s0=1.06)=>{const p=E.oc(seg(f,a,a+10)), q=E.ic(seg(f,b-8,b)); el.style.opacity=p*(1-q);
+ el.style.filter=(p<1||q>0)?`blur(${(1-p)*14+q*14}px)`:'none'; el.style.transform=`scale(${lerp(s0,1,p)*(1-0.06*q)})`;};
+
+/* ---------- A/B hook: «۱٬۵۹۰٬۰۰۰ تومان» slams in, cracks on the beats, splits into four blue tiles ---------- */
+$('price0').innerHTML='۱٬۵۹۰٬۰۰۰ <span style="font-size:96px;font-weight:800">تومان</span>';
+const CR=[[700,'M700 760 L688 820 L712 860 L690 930 L706 980'],[540,'M540 750 L556 815 L528 870 L552 940 L536 990'],[380,'M380 760 L366 818 L392 872 L370 930 L384 984']];
+const TX=[[-345,0],[-115,0],[115,0],[345,0]];
+function hook(f){if(!show('sHook',0,Bk(2)+8,f)) return; const el=$('sHook'); el.style.opacity=1-seg(f,Bk(2),Bk(2)+8); el.style.filter=f>Bk(2)?`blur(${seg(f,Bk(2),Bk(2)+8)*14}px)`:'none';
+ const sl=E.oc(seg(f,0,7)), split=seg(f,Bk(1)-4,Bk(1)+10), p=$('price0');
+ const kick=[BEAT,2*BEAT,3*BEAT].reduce((a,t)=>a+Math.exp(-Math.pow((f-t)/2.5,2)),0);
+ p.style.opacity=sl*(1-seg(f,Bk(1)-4,Bk(1)+4)); p.style.transform=`scale(${lerp(1.35,1,sl)}) translateX(${Math.sin(f*3.1)*kick*6}px)`;
+ p.style.filter=sl<1?`blur(${(1-sl)*16}px)`:'none';
+ let c=''; CR.forEach(([x,d],i)=>{const t=BEAT*(i+1), k=seg(f,t-1,t+3); if(k>0&&f<Bk(1)+4) c+=`<path d="${d}" fill="none" stroke="#2196F3" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="300" stroke-dashoffset="${300*(1-k)}"/>`});
+ $('cracks').innerHTML=c;
+ // the four tiles: born at the split, then line up
+ let h=''; if(f>=Bk(1)-4){TX.forEach(([x],i)=>{const q=E.back(seg(f,Bk(1)-2+i*2,Bk(1)+14+i*2)), s=210, y=860+(1-q)*40, cx=540+x*q*1.0;
+  const lit=1;
+  h+=`<div style="position:absolute;left:${cx-s/2}px;top:${y-s/2+40}px;width:${s}px;height:${s}px;border-radius:48px;background:linear-gradient(160deg,#42A5F5,#1565C0);opacity:${cl(q*2)};transform:scale(${lerp(0.4,1,q)});
+   box-shadow:0 24px 44px rgba(33,150,243,.32);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:110px">${fa(4-i)}</div>`});}
+ $('tiles').innerHTML=h;
+ const lg=seg(f,Bk(1)+BEAT,Bk(1)+BEAT+12); $('dpLogoA').style.opacity=E.oc(lg); $('dpLogoA').style.transform=`translateY(${(1-E.oc(lg))*30}px)`;
+}
+/* ---------- C product reveal ---------- */
+function prod(f){if(!show('sProd',Bk(2)-4,Bk(3)+8,f)) return; io($('sProd'),f,Bk(2)-4,Bk(3)+8,1.12);
+ const t=seg(f,Bk(2),Bk(3)), h=$('hero'); h.style.transform=`perspective(1600px) rotateY(${lerp(-24,10,E.io(t))}deg) rotate(${lerp(-6,0,E.oc(t))}deg) scale(${lerp(0.88,1,E.oc(t))})`;
+ const sx=lerp(-60,160,seg(f,Bk(2)+6,Bk(2)+40)); $('sweep').style.background=`linear-gradient(105deg,rgba(255,255,255,0) ${sx-20}%,rgba(255,255,255,.85) ${sx}%,rgba(255,255,255,0) ${sx+20}%)`;
+ $('glow').style.opacity=0.6+0.4*Math.sin(f/9);}
+/* ---------- D price: old struck, the new one rolls in on the bar ---------- */
+const OLD='1900000', NEW='1590000';
+$('newP').innerHTML=[...NEW].map((d,i)=>`${i==1||i==4?'<span>٬</span>':''}<span class="dg"><span id="dg${i}">${[...Array(30)].map((_,k)=>`<i>${fa(k%10)}</i>`).join('')}</span></span>`).join('');
+function price(f){if(!show('sPrice',Bk(3)-4,Bk(5)+8,f)) return; io($('sPrice'),f,Bk(3)-4,Bk(5)+8);
+ $('strike').style.transform=`scaleX(${E.io(seg(f,Bt(3,2),Bt(3,2)+8))})`;
+ [...NEW].forEach((n,i)=>{const o=+OLD[i], t=(+n)+10*(i==0?0:(i<3?1:2))-o; const a=Bk(4)+(6-i)*1.4, p=E.oc(seg(f,a,Bk(4)+30+(6-i)*1.4)); $('dg'+i).style.transform=`translateY(${-(o+((t%10+10)%10+10*(i==0?0:(i<3?1:2)))*p)*1.15}em)`;});
+ const k=Math.exp(-Math.pow((f-Bk(4)-36)/5,2)); $('newP').style.transform=`scale(${1+0.04*k})`;}
+/* ---------- E «در ۴ قسط ماهانه ۳۹۷٬۵۰۰ تومان» ---------- */
+function inst(f){if(!show('sInst',Bk(5)-4,Bk(7)+8,f)) return; io($('sInst'),f,Bk(5)-4,Bk(7)+8);
+ const n=seg(f,Bk(5)+10,Bk(5)+22); $('instN').style.transform=`scale(${n<=0?0.7:lerp(0.7,1,E.back(n))})`; $('instN').style.opacity=E.oc(cl(n*2)); $('instT').style.opacity=E.oc(seg(f,Bk(5)+18,Bk(5)+26));
+ $('segs').innerHTML=[0,1,2,3].map(i=>{const t=Bt(6,i), p=seg(f,t-1,t+6), on=f>=t; return `<span style="width:150px;height:22px;border-radius:11px;background:${on?'#2196F3':'#E2E8F0'};transform:scaleY(${1+0.6*Math.exp(-Math.pow((f-t-1)/2.5,2))});opacity:${0.35+0.65*E.oc(cl(p*2+(on?0:0)))}"></span>`}).join('');
+ $('dpLogoE').style.opacity=E.oc(seg(f,Bk(5)+24,Bk(5)+34));}
+/* ---------- F checkout on the site: pick «۴ قسط با دیجی‌پی», pay, done ---------- */
+$('screen').innerHTML=`<div class="sbar"><span>۱۲:۳۴</span><span>●●● ▮ ۱۰۰٪</span></div>
+ <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 26px 14px;border-bottom:2px solid #E2E8F0;background:#fff">
+  <span style="font-weight:800;font-size:28px">تسویه حساب</span><span class="ltr" style="display:flex;align-items:center;gap:8px;font-weight:800;font-size:22px;color:#1565C0">${svg('lock','#22A050',22)}cardiag.ir</span></div>
+ <div class="pcard" style="display:flex;align-items:center;gap:16px"><img src="assets/diag_front.png" style="width:120px">
+  <div><div style="font-weight:800;font-size:23px">دیاگ بلوتوثی کاردیاگ</div><div style="font-weight:900;font-size:27px;color:#1565C0;margin-top:6px">۱٬۵۹۰٬۰۰۰ تومان</div></div></div>
+ <div style="padding:26px 26px 0;font-weight:800;font-size:24px;color:#6E7D96">روش پرداخت</div>
+ <div class="opt" id="o1"><span class="rad" id="r1"></span><span style="font-weight:700;font-size:23px">پرداخت آنلاین</span></div>
+ <div class="opt" id="o2"><span class="rad" id="r2"></span><div style="flex:1"><div style="font-weight:800;font-size:23px">پرداخت ۴ قسطه با دیجی‌پی</div>
+  <div style="font-weight:600;font-size:18px;color:#6E7D96;margin-top:4px">۴ قسط ماهانه ۳۹۷٬۵۰۰ تومان</div></div><img src="assets/digipay.png" style="width:62px"></div>
+ <div id="pay" style="position:absolute;left:18px;right:18px;bottom:40px;height:84px;border-radius:42px;background:#98A3B8;color:#fff;font-weight:900;font-size:30px;display:flex;align-items:center;justify-content:center">پرداخت</div>
+ <div id="done" style="position:absolute;inset:0;background:rgba(245,247,251,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;opacity:0">
+  <div id="doneC" style="width:150px;height:150px;border-radius:50%;background:#22A050;display:flex;align-items:center;justify-content:center">${svg('check','#fff',96)}</div>
+  <div style="font-weight:900;font-size:38px">سفارش ثبت شد</div></div>`;
+function tapAt(f,a,id){const t=f-a, el=$('tap'); if(t<-4||t>14) return false; const r=$(id).getBoundingClientRect(), sc=$('screen').getBoundingClientRect(), k=sc.width/572;
+ el.style.left=(11+(r.left+r.width/2-sc.left)/k)+'px'; el.style.top=(11+(r.top+r.height/2-sc.top)/k)+'px';
+ el.style.opacity=t<0?seg(t,-4,0):1-seg(t,4,14); el.style.transform=`scale(${t<0?1.2-0.2*seg(t,-4,0):1+0.6*seg(t,0,14)})`; return true}
+const T_PICK=Bt(7,2), T_PAY=Bt(8,1), T_DONE=Bt(8,2);
+function checkout(f){const ph=$('phone'), on=f>=Bk(7)-4&&f<Bk(9)+8; ph.style.display=on?'block':'none'; if(!on) return;
+ const p=E.oc(seg(f,Bk(7)-4,Bk(7)+12)), q=E.ic(seg(f,Bk(9),Bk(9)+8)); ph.style.opacity=p*(1-q); ph.style.transform=`translateY(${(1-p)*220}px) scale(${1.3*(1-0.08*q)})`; ph.style.filter=q>0?`blur(${q*14}px)`:'none';
+ const pk=f>=T_PICK+2; $('o2').style.borderColor=pk?'#2196F3':'#E2E8F0'; $('o2').style.boxShadow=pk?'0 0 0 8px rgba(33,150,243,.12)':'none';
+ $('r2').style.borderColor=pk?'#2196F3':'#98A3B8'; $('r2').innerHTML=pk?`<span style="width:18px;height:18px;border-radius:50%;background:#2196F3;transform:scale(${E.back(seg(f,T_PICK+2,T_PICK+8))})"></span>`:'';
+ $('o2').style.transform=`scale(${1-0.03*Math.exp(-Math.pow((f-T_PICK-1)/3,2))})`;
+ $('pay').style.background=pk?'#2196F3':'#98A3B8'; $('pay').style.transform=`scale(${1-0.05*Math.exp(-Math.pow((f-T_PAY-1)/3,2))})`;
+ const d=seg(f,T_DONE,T_DONE+8); $('done').style.opacity=E.oc(d); $('doneC').style.transform=`scale(${d<=0?0.3:lerp(0.3,1,E.back(seg(f,T_DONE,T_DONE+12)))})`;
+ if(!(tapAt(f,T_PICK,'o2')||tapAt(f,T_PAY,'pay'))) $('tap').style.opacity=0;}
+/* ---------- G montage: one feature per beat ---------- */
+const MON=[['warn','خطایابی.'],['car','سفر.'],['robot','هوش مصنوعی.'],['eye','مانیتورینگ.']];
+function mont(f){if(!show('sMont',Bk(9)-2,Bk(10)+4,f)) return; const i=Math.min(3,Math.max(0,Math.floor((f-Bk(9))/BEAT))), t=f-Bt(9,i), p=E.oc(seg(t,0,6));
+ $('sMont').style.opacity=1-seg(f,Bk(10)-2,Bk(10)+4);
+ $('mIc').innerHTML=`<span style="display:inline-flex;width:240px;height:240px;border-radius:64px;background:linear-gradient(160deg,#42A5F5,#1565C0);align-items:center;justify-content:center;box-shadow:0 30px 60px rgba(33,150,243,.3);transform:scale(${lerp(0.6,1,E.back(seg(t,0,7)))}) rotate(${(1-p)*-10}deg)">${svg(MON[i][0],'#fff',140)}</span>`;
+ $('mW').textContent=MON[i][1]; $('mW').style.opacity=p; $('mW').style.transform=`translateY(${(1-p)*40}px)`; $('mW').style.color=i==2?'#2196F3':'#10203C';}
+/* ---------- H break ---------- */
+function brk(f){if(!show('sBreak',Bk(10)-2,Bk(11)+6,f)) return; $('sBreak').style.opacity=1-seg(f,Bk(11),Bk(11)+6);
+ [['br1',Bk(10)],['br2',Bt(10,2)]].forEach(([id,a])=>{const p=E.oc(seg(f,a,a+10)); $(id).style.opacity=p; $(id).style.transform=`translateY(${(1-p)*50}px)`; $(id).style.filter=p<1?`blur(${(1-p)*12}px)`:'none';});}
+/* ---------- I CTA: cardiag.ir ---------- */
+$('cLogo').innerHTML=LOGO(500,'#2196F3',7);
+function cta(f){if(!show('sCta',Bk(11)-2,NF+1,f)) return; const hit=Math.exp(-Math.pow((f-F_HIT)/4,2))+0.5*Math.exp(-Math.pow((f-Bt(12,0))/4,2));
+ const lg=[...$('cLogo').querySelectorAll('.lg')]; lg.forEach((p,i)=>{const L=p.getTotalLength(); p.style.strokeDasharray=L; p.style.strokeDashoffset=L*(1-E.io(seg(f,Bk(11)+i*3,Bk(11)+26+i*3)));});
+ $('cLogo').style.transform=`scale(${1+0.05*hit})`;
+ const nm=E.oc(seg(f,Bk(11)+14,Bk(11)+24)); $('cName').style.opacity=nm; $('cName').style.transform=`translateY(${(1-nm)*30}px)`;
+ const u=E.oc(seg(f,Bt(11,2)-4,Bt(11,2)+6)); $('url').style.opacity=u; $('url').style.transform=`scale(${lerp(0.85,1,E.back(seg(f,Bt(11,2)-4,Bt(11,2)+10)))})`;
+ const s='cardiag.ir', n=Math.round(s.length*seg(f,Bt(11,2)+4,Bt(11,4))), car=f<Bt(11,4)+10&&Math.floor(f/8)%2==0;
+ $('urlI').innerHTML=`${svg('lock','#22A050',54)}<span>${s.slice(0,n)}</span><span style="display:inline-block;width:5px;height:70px;background:#2196F3;opacity:${car?1:0}"></span>`;
+ const g=seg(f,Bk(12)-2,Bk(12)+10); $('go').style.opacity=E.oc(cl(g*2)); $('goB').style.transform=`scale(${(g<=0?0.6:lerp(0.6,1,E.back(g)))*(1+0.06*hit+(f>Bk(12)+10?0.03*Math.max(0,Math.sin((f-Bk(12))/5)):0))})`;
+ const dp=E.oc(seg(f,Bt(12,2),Bt(12,2)+10)); $('cDp').style.opacity=dp; $('cDp').style.transform=`translateY(${(1-dp)*30}px)`;}
+
+/* ---------- titles ---------- */
+const TT=[
+ {w:['یه‌جا','<b>نده.</b>'],a:4,b:Bk(1)-6,top:400},
+ {w:['۴','قسطه','<b>بده.</b>'],a:Bk(1),b:Bk(2)-6,top:400},
+ {w:['کاردیاگ.'],a:Bk(2)+6,b:Bk(3)-6,top:1290},
+ {w:['قیمت','<b>ویژه.</b>'],a:Bk(3),b:Bk(5)-6,top:420},
+ {w:['در','<b>۴</b>','قسط','ماهانه'],a:Bk(5),b:Bk(7)-6,top:420},
+ {w:['انتخاب','کن.','<b>تموم.</b>'],a:Bk(7),b:Bk(9)-6,top:140,s:104},
+];
+$('titles').innerHTML=TT.map((t,i)=>`<div class="ttl" id="tt${i}" style="top:${t.top}px"><div class="h"${t.s?` style="font-size:${t.s}px"`:''}>${t.w.map(w=>`<span class="w"><span>${w}</span></span>`).join(' ')}</div></div>`).join('');
+function titles(f){TT.forEach((t,i)=>{const el=$('tt'+i), on=f>=t.a-1&&f<t.b+12; el.style.display=on?'block':'none'; if(!on) return;
+ [...el.querySelectorAll('.w>span')].forEach((w,k)=>{const a=t.a+k*3, p=seg(f,a,a+11), q=seg(f,t.b-4+k*1.5,t.b+5+k*1.5);
+  w.style.transform=`translateY(${(1-E.oc(p))*115-E.ic(q)*115}%)`;});});}
+
+function render(f){hook(f); prod(f); price(f); inst(f); checkout(f); mont(f); brk(f); cta(f); titles(f);}
+window.READY=document.fonts.ready.then(()=>{render(0);return true});
+</script>
+</body></html>
