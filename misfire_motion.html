@@ -6,28 +6,29 @@
 @font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
 @font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:1080px;height:1920px;overflow:hidden;background:#2196F3}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#10203C}
 body{font-family:V,sans-serif;color:#10203C}
-#stage{position:absolute;inset:0;overflow:hidden;background:#2196F3}
+#stage{position:absolute;inset:0;overflow:hidden;background:#10203C}
 .a{position:absolute}
-.sc{position:absolute;left:0;top:0;width:1080px;height:1920px;display:none}
+.sc{position:absolute;left:0;top:0;width:1080px;height:1920px;display:none;overflow:visible}
+.sc>svg{position:absolute;left:0;top:0;overflow:visible}
 .ltr{direction:ltr;unicode-bidi:isolate}
 svg text{direction:rtl}
-/* paper headline strip (UI layer) */
 #ttl{position:absolute;left:0;top:150px;width:1080px;height:150px;z-index:60;display:flex;justify-content:center;align-items:center}
-#ttlP{background:#FFFFFF;padding:14px 54px 22px;direction:rtl;font-weight:900;font-size:80px;line-height:1.15;color:#10203C;white-space:nowrap;
- filter:url(#paper);opacity:0}
+#ttlP{background:#FFFFFF;padding:14px 54px 22px;direction:rtl;font-weight:900;font-size:80px;line-height:1.15;color:#10203C;white-space:nowrap;filter:url(#paper);opacity:0}
 #grain{position:absolute;inset:0;z-index:80;pointer-events:none;mix-blend-mode:multiply;opacity:.28}
 #vig{position:absolute;inset:0;z-index:79;pointer-events:none;background:radial-gradient(ellipse 80% 65% at 50% 48%,rgba(255,255,255,.10),rgba(20,40,80,.22))}
+#fx,#fxTop{position:absolute;left:0;top:0;z-index:55;overflow:visible;pointer-events:none}
+#fxTop{z-index:58}
+.tw{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:54;display:none;overflow:visible}
+.tw>.sc{display:block!important}
 .pp{filter:url(#paper)}
-/* phone screen (crisp, pasted into the paper phone) */
-.scr{position:absolute;left:24px;top:24px;width:472px;height:1002px;border-radius:44px;overflow:hidden;background:#EEF2F8;direction:rtl;font-family:V}
-.abar{height:118px;background:#2196F3;color:#fff;display:flex;align-items:flex-end;padding:0 26px 22px;font-weight:800;font-size:30px;gap:12px}
-.card{background:#fff;border:2px solid #DEE6F2;border-radius:24px;margin:18px 18px;padding:20px 22px}
+.scr{position:absolute;left:24px;top:24px;width:472px;height:812px;border-radius:44px;overflow:hidden;background:#EEF2F8;direction:rtl;font-family:V}
+.abar{height:110px;background:#2196F3;color:#fff;display:flex;align-items:flex-end;padding:0 26px 20px;font-weight:800;font-size:32px;gap:12px}
+.card{background:#fff;border:2px solid #DEE6F2;border-radius:24px;margin:16px 16px;padding:18px 20px}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute">
  <defs>
-  <!-- cut paper: slightly ragged edge + fibre grain + short hard shadow -->
   <filter id="paper" x="-8%" y="-8%" width="116%" height="124%" color-interpolation-filters="sRGB">
    <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" result="n"/>
    <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
@@ -42,51 +43,71 @@ svg text{direction:rtl}
    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
    <feDropShadow in="d" dx="2" dy="4" stdDeviation="1.5" flood-color="#142850" flood-opacity=".35"/>
   </filter>
+  <!-- big soft shadow under a lifted sheet -->
+  <filter id="lift" x="-10%" y="-10%" width="125%" height="125%" color-interpolation-filters="sRGB">
+   <feDropShadow dx="14" dy="22" stdDeviation="14" flood-color="#142850" flood-opacity=".45"/>
+  </filter>
+  <!-- crumple: the sheet buckles into creases with light/shade on the folds -->
+  <filter id="crumple" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+   <feTurbulence type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="9" result="n"/>
+   <feDisplacementMap id="crD" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="B" result="d"/>
+   <feTurbulence type="turbulence" baseFrequency="0.011" numOctaves="2" seed="3" result="n2"/>
+   <feDiffuseLighting in="n2" surfaceScale="9" lighting-color="#FFFFFF" result="l"><feDistantLight azimuth="225" elevation="42"/></feDiffuseLighting>
+   <feComposite in="l" in2="d" operator="in" result="li"/>
+   <feBlend in="d" in2="li" mode="multiply" result="b"/>
+   <feComposite id="crA" in="d" in2="b" operator="arithmetic" k1="0" k2="1" k3="0" k4="0" result="c"/>
+   <feDropShadow in="c" dx="10" dy="16" stdDeviation="8" flood-color="#142850" flood-opacity=".4"/>
+  </filter>
   <filter id="grainF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="11"/>
    <feColorMatrix type="matrix" values="0 0 0 0 0.92  0 0 0 0 0.95  0 0 0 0 1  0.9 0 0 0 -0.25"/></filter>
   <filter id="fibreF"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.18" numOctaves="2" seed="5"/>
    <feColorMatrix type="matrix" values="0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 0 0.31  0.5 0 0 0 -0.2"/></filter>
-  <!-- check-engine silhouette -->
+  <linearGradient id="flapG" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D5E0EE"/></linearGradient>
   <path id="engine" d="M-95,-10 h18 v-22 h30 v-16 h-14 v-14 h62 v14 h-14 v16 h34 l18,18 h16 v-16 h18 v72 h-18 v-16 h-16 l-22,30 h-74 l-14,-20 h-6 v18 h-18 z"/>
   <path id="star" d="M0,-34 L9,-10 L34,-12 L14,4 L22,30 L0,15 L-22,30 L-14,4 L-34,-12 L-9,-10 Z"/>
+  <!-- paper hand: pinch point at 0,0, arm leaves towards +45deg (down-right) -->
+  <g id="hand">
+   <g class="pp">
+    <path d="M149,101 L452,404 L374,482 L71,179 Z" fill="#1565C0"/>
+    <path d="M149,101 L181,133 L103,211 L71,179 Z" fill="#FFFFFF"/>
+   </g>
+   <g class="pp" fill="#F2C9A0">
+    <ellipse cx="82" cy="92" rx="70" ry="56" transform="rotate(45 82 92)"/>
+    <line x1="98" y1="48" x2="72" y2="20" stroke="#F2C9A0" stroke-width="30" stroke-linecap="round"/>
+    <line x1="120" y1="66" x2="96" y2="38" stroke="#F2C9A0" stroke-width="30" stroke-linecap="round"/>
+    <line x1="136" y1="92" x2="112" y2="66" stroke="#F2C9A0" stroke-width="28" stroke-linecap="round"/>
+    <line x1="56" y1="40" x2="2" y2="-8" stroke="#F2C9A0" stroke-width="32" stroke-linecap="round"/>
+    <line x1="36" y1="118" x2="-8" y2="6" stroke="#F2C9A0" stroke-width="34" stroke-linecap="round"/>
+   </g>
+  </g>
  </defs>
 </svg>
 
 <div id="stage">
- <!-- background paper layers -->
- <svg class="a" width="1080" height="1920" style="left:0;top:0">
-  <rect width="1080" height="1920" fill="#2196F3"/>
-  <rect width="1080" height="1920" filter="url(#fibreF)" opacity=".5"/>
-  <g class="pp" id="bgHills"><path d="M0,1700 C200,1640 380,1690 560,1650 C760,1606 900,1660 1080,1630 V1920 H0 Z" fill="#1565C0"/></g>
- </svg>
 
- <!-- ===== S1: dashboard + check-engine ===== -->
+ <!-- ===== S1: dashboard + check-engine (hook, and reprise at the end) ===== -->
  <div class="sc" id="s1"><svg width="1080" height="1920">
   <g id="s1dash">
    <g class="pp"><path d="M-40,760 Q540,610 1120,760 V1820 H-40 Z" fill="#10203C"/></g>
    <g class="pp"><path d="M40,800 Q540,680 1040,800 V1700 H40 Z" fill="#181C24"/></g>
-   <!-- gauges -->
-   <g id="gL" transform="translate(300,1130)">
-    <g class="pp"><circle r="210" fill="#E6EBF2"/></g>
-    <g class="pp"><circle r="180" fill="#FFFFFF"/></g>
+   <g transform="translate(300,1130)">
+    <g class="pp"><circle r="210" fill="#E6EBF2"/></g><g class="pp"><circle r="180" fill="#FFFFFF"/></g>
     <g id="ticksL"></g>
     <g class="pp" id="needleL"><path d="M-10,0 L0,-160 L10,0 Z" fill="#10203C"/></g>
     <g class="pp"><circle r="26" fill="#10203C"/></g>
    </g>
-   <g id="gR" transform="translate(780,1130)">
-    <g class="pp"><circle r="210" fill="#E6EBF2"/></g>
-    <g class="pp"><circle r="180" fill="#FFFFFF"/></g>
+   <g transform="translate(780,1130)">
+    <g class="pp"><circle r="210" fill="#E6EBF2"/></g><g class="pp"><circle r="180" fill="#FFFFFF"/></g>
     <g id="ticksR"></g>
     <g class="pp" id="needleR"><path d="M-10,0 L0,-160 L10,0 Z" fill="#10203C"/></g>
     <g class="pp"><circle r="26" fill="#10203C"/></g>
    </g>
-   <!-- warning lamp -->
    <g transform="translate(540,1470)">
     <g id="glow" opacity="0">
      <g class="pp"><circle r="150" fill="#F28012" opacity=".55"/></g>
      <g class="pp"><circle r="112" fill="#FFC446" opacity=".8"/></g>
     </g>
-    <g id="ceOff"><use href="#engine" fill="#3A4252" transform="scale(1.15)"/></g>
+    <use href="#engine" fill="#3A4252" transform="scale(1.15)"/>
     <g id="ceOn" class="pp" opacity="0"><use href="#engine" fill="#F28012" transform="scale(1.15)"/></g>
    </g>
   </g>
@@ -94,7 +115,6 @@ svg text{direction:rtl}
 
  <!-- ===== S2: Arash shrugs + calendar + stuttering pulse ===== -->
  <div class="sc" id="s2"><svg width="1080" height="1920">
-  <!-- calendar -->
   <g transform="translate(250,480)">
    <g class="pp"><rect x="-150" y="0" width="300" height="330" rx="18" fill="#FFFFFF"/></g>
    <g class="pp"><rect x="-150" y="0" width="300" height="90" rx="18" fill="#1565C0"/></g>
@@ -103,8 +123,7 @@ svg text{direction:rtl}
    <text x="0" y="66" text-anchor="middle" font-family="V" font-weight="800" font-size="46" fill="#FFFFFF">روز</text>
    <g id="calFlip" class="pp" opacity="0"><rect x="-150" y="90" width="300" height="240" fill="#E6EBF2"/></g>
   </g>
-  <!-- Arash -->
-  <g id="arashW" transform="translate(620,1330) scale(1.3)"><g id="arash">
+  <g transform="translate(620,1330) scale(1.3)">
    <g class="pp"><path d="M-130,420 L-110,120 Q0,70 110,120 L130,420 Z" fill="#1565C0"/></g>
    <g id="armL" class="pp"><path d="M-104,140 L-210,250 L-180,280 L-90,200 Z" fill="#1565C0"/><circle cx="-198" cy="268" r="26" fill="#F2C9A0"/></g>
    <g id="armR" class="pp"><path d="M104,140 L210,250 L180,280 L90,200 Z" fill="#1565C0"/><circle cx="198" cy="268" r="26" fill="#F2C9A0"/></g>
@@ -115,13 +134,11 @@ svg text{direction:rtl}
     <g class="pp"><circle cx="-34" cy="-10" r="11" fill="#10203C"/><circle cx="34" cy="-10" r="11" fill="#10203C"/></g>
     <g class="pp"><path d="M-30,40 Q0,52 30,40" stroke="#10203C" stroke-width="8" fill="none" stroke-linecap="round"/></g>
    </g>
-   <!-- speech bubble -->
    <g id="bub" transform="translate(-230,-250)" opacity="0">
     <g class="pp"><path d="M-150,-70 H150 Q180,-70 180,-40 V40 Q180,70 150,70 H40 L0,120 L-10,70 H-150 Q-180,70 -180,40 V-40 Q-180,-70 -150,-70 Z" fill="#FFFFFF"/></g>
-    <text x="0" y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#10203C" direction="rtl">بعداً!</text>
+    <text x="0" y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#10203C">بعداً!</text>
    </g>
-  </g></g>
-  <!-- pulse strip -->
+  </g>
   <g transform="translate(500,640)">
    <g class="pp"><rect x="-20" y="-80" width="560" height="160" rx="10" fill="#FFFFFF" transform="rotate(-1.5 260 0)"/></g>
    <path id="pulse" d="" stroke="#2196F3" stroke-width="10" fill="none" stroke-linejoin="round" stroke-linecap="round" filter="url(#paperS)"/>
@@ -141,44 +158,70 @@ svg text{direction:rtl}
  <div class="sc" id="s4"><svg width="1080" height="1920">
   <g class="pp"><path d="M-40,1500 H1120 V1920 H-40 Z" fill="#10203C"/></g>
   <g class="pp"><path d="M-40,1500 H1120 V1530 H-40 Z" fill="#1565C0"/></g>
-  <g id="spot" opacity=".45"><path d="M540,250 L280,1500 H800 Z" fill="#ADD6FA"/></g>
+  <g opacity=".45"><path id="spotP" d="M540,250 L280,1500 H800 Z" fill="#ADD6FA"/></g>
   <g id="sus"></g>
+ </svg></div>
+
+ <!-- ===== S5: unburnt fuel cooks the catalyst; small fault -> big bill ===== -->
+ <div class="sc" id="s5"><svg width="1080" height="1920">
+  <g class="pp"><rect x="860" y="700" width="200" height="360" rx="24" fill="#FFFFFF"/></g>
+  <g class="pp"><rect x="900" y="760" width="50" height="110" rx="10" fill="#10203C"/><rect x="970" y="760" width="50" height="110" rx="10" fill="#10203C"/></g>
+  <g class="pp"><rect x="40" y="860" width="840" height="46" rx="10" fill="#6E7D96"/></g>
+  <g class="pp"><rect x="140" y="820" width="180" height="126" rx="40" fill="#6E7D96"/></g>
+  <g id="drops"></g>
+  <g id="heat"></g>
+  <g class="pp"><rect id="cat" x="420" y="780" width="250" height="206" rx="36" fill="#6E7D96"/></g>
+  <g class="pp" stroke="#10203C" stroke-width="7" opacity=".55"><line x1="470" y1="810" x2="470" y2="956"/><line x1="520" y1="810" x2="520" y2="956"/><line x1="570" y1="810" x2="570" y2="956"/><line x1="620" y1="810" x2="620" y2="956"/></g>
+  <g id="smoke"></g>
+  <g transform="translate(545,1060)"><g class="pp"><rect x="-150" y="-44" width="300" height="88" rx="12" fill="#FFFFFF"/></g>
+   <text y="20" text-anchor="middle" font-family="V" font-weight="900" font-size="50" fill="#10203C">کاتالیست</text></g>
+  <!-- price tags: small fault (right) -> big bill (left) -->
+  <g id="tagS" opacity="0" transform="translate(830,1420)">
+   <g class="pp"><path d="M-130,-62 H100 L140,0 L100,62 H-130 Z" fill="#FFFFFF"/></g>
+   <circle cx="104" cy="0" r="12" fill="#2196F3"/>
+   <text x="-20" y="20" text-anchor="middle" font-family="V" font-weight="900" font-size="56" fill="#10203C">شمع</text>
+  </g>
+  <g id="arrow" opacity="0"><g class="pp"><path d="M660,1420 H500 V1388 L440,1430 L500,1472 V1440 H660 Z" fill="#10203C" transform="translate(0,-10)"/></g></g>
+  <g id="tagB" opacity="0" transform="translate(230,1420)">
+   <g class="pp"><path d="M-200,-120 H150 L215,0 L150,120 H-200 Z" fill="#FFFFFF" stroke="#F28012" stroke-width="12"/></g>
+   <circle cx="160" cy="0" r="18" fill="#2196F3"/>
+   <text x="-20" y="30" text-anchor="middle" font-family="V" font-weight="900" font-size="80" fill="#10203C">کاتالیست</text>
+  </g>
  </svg></div>
 
  <!-- ===== S6: diag + phone reveal ===== -->
  <div class="sc" id="s6">
-  <svg width="1080" height="1920" class="a" style="left:0;top:0">
-   <!-- dash corner with OBD port -->
+  <svg width="1080" height="1920">
    <g class="pp"><path d="M-40,330 H600 Q650,330 650,380 V560 H-40 Z" fill="#10203C"/></g>
    <g class="pp"><path d="M90,560 H330 L305,620 H115 Z" fill="#181C24"/></g>
    <g id="waves" transform="translate(330,560)"></g>
+   <g id="mini6"></g>
   </svg>
   <img id="diag" class="a pp" src="assets/diag_plug.png" style="width:330px;left:60px;top:560px;transform-origin:50% 0">
-  <!-- paper phone -->
-  <div id="ph" class="a" style="left:470px;top:640px;width:520px;height:1050px">
-   <svg width="520" height="1050" class="a" style="left:0;top:0"><g class="pp"><rect x="0" y="0" width="520" height="1050" rx="64" fill="#181C24"/></g></svg>
+  <div id="ph" class="a" style="left:480px;top:660px;width:520px;height:860px">
+   <svg width="520" height="860" class="a" style="left:0;top:0"><g class="pp"><rect x="0" y="0" width="520" height="860" rx="64" fill="#181C24"/></g></svg>
    <div class="scr">
-    <div class="abar"><span>خطایابی ECU</span></div>
+    <div class="abar"><span>خطایابی <span class="ltr">ECU</span></span></div>
     <div class="card" style="text-align:center">
-     <div style="font-weight:700;font-size:26px;color:#6E7D96">نتیجه اسکن</div>
-     <div id="scanBar" style="height:16px;border-radius:8px;background:#E6EBF2;margin:16px 0 4px;overflow:hidden"><div id="scanFill" style="height:100%;width:0;background:#2196F3"></div></div>
+     <div style="font-weight:700;font-size:28px;color:#6E7D96">اسکن خطاها</div>
+     <div style="height:18px;border-radius:9px;background:#E6EBF2;margin:14px 0 4px;overflow:hidden"><div id="scanFill" style="height:100%;width:0;background:#2196F3"></div></div>
     </div>
     <div id="dtc" class="card" style="opacity:0">
-     <div style="background:#FFECEC;border-radius:20px;padding:10px 0;text-align:center"><span class="ltr" style="font-weight:900;font-size:64px;color:#DC3232">P۰۳۰۱</span></div>
-     <div style="font-weight:800;font-size:28px;color:#10203C;margin-top:16px;line-height:1.45">احتراق ناقص در سیلندر ۱</div>
+     <div style="background:#FFECEC;border-radius:20px;padding:8px 0;text-align:center"><span class="ltr" style="font-weight:900;font-size:70px;color:#DC3232">P۰۳۰۱</span></div>
+     <div style="font-weight:800;font-size:31px;color:#10203C;margin-top:14px;line-height:1.4">احتراق ناقص در سیلندر ۱</div>
     </div>
     <div id="ai" class="card" style="opacity:0;border-color:#ADD6FA">
-     <div style="font-weight:800;font-size:24px;color:#1565C0">CarDiag AI</div>
-     <div style="font-weight:500;font-size:26px;color:#10203C;margin-top:8px;line-height:1.55">محتمل‌ترین علت: شمع سیلندر ۱ فرسوده است.</div>
+     <div class="ltr" style="font-weight:800;font-size:26px;color:#1565C0;text-align:right">CarDiag AI</div>
+     <div style="font-weight:700;font-size:31px;color:#10203C;margin-top:8px;line-height:1.5">علت محتمل: شمع سیلندر ۱ فرسوده است.</div>
     </div>
-    <div style="position:absolute;left:0;bottom:0;width:472px;height:90px;background:#2196F3"></div>
+    <div style="position:absolute;left:0;bottom:0;width:472px;height:80px;background:#2196F3"></div>
    </div>
   </div>
  </div>
 
  <!-- ===== S7: smooth again, health 92% ===== -->
  <div class="sc" id="s7"><svg width="1080" height="1920">
-  <g transform="translate(540,1050)">
+  <g transform="translate(540,960)">
    <g class="pp"><rect x="-430" y="-330" width="860" height="560" rx="40" fill="#FFFFFF"/></g>
    <text x="0" y="-210" text-anchor="middle" font-family="V" font-weight="800" font-size="50" fill="#10203C">سلامت خودرو</text>
    <g transform="translate(-360,-110)">
@@ -191,8 +234,23 @@ svg text{direction:rtl}
    <g id="chip" opacity="0"><g class="pp"><rect x="-110" y="140" width="220" height="76" rx="38" fill="#DEF6E6"/></g>
     <text x="0" y="192" text-anchor="middle" font-family="V" font-weight="700" font-size="40" fill="#22A050">سالم</text></g>
   </g>
-  <g id="mini" transform="translate(540,1520)"></g>
+  <g id="mini7" transform="translate(540,1460)"></g>
  </svg></div>
+
+ <!-- ===== S9: paper end card ===== -->
+ <div class="sc" id="se">
+  <div id="eCard" class="a pp" style="left:70px;top:380px;width:940px;height:1320px;background:#FFFFFF;border-radius:30px"></div>
+  <img id="eDiag" class="a" src="assets/diag_front.png" style="left:280px;top:470px;width:520px;transform-origin:50% 60%">
+  <svg width="1080" height="1920"><path id="ePulse" d="M200,960 H430 L460,900 L490,1020 L520,860 L550,990 L570,960 H880" stroke="#2196F3" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#paperS)"/></svg>
+  <div id="eBrand" class="a ltr" style="left:0;top:1020px;width:1080px;text-align:center;font-weight:900;font-size:126px;color:#1565C0;line-height:1.2">CarDiag AI</div>
+  <div id="eTag" class="a" style="left:0;top:1200px;width:1080px;text-align:center;direction:rtl;font-weight:500;font-size:44px;color:#6E7D96">مکانیک تو جیبِت!</div>
+  <div id="eUrl" class="a ltr" style="left:0;top:1440px;width:1080px;text-align:center;font-weight:700;font-size:60px;color:#506482">cardiag.ir</div>
+ </div>
+
+ <!-- transition helpers -->
+ <div id="twL" class="tw"></div><div id="twR" class="tw"></div>
+ <svg id="fx" width="1080" height="1920"></svg>
+ <svg id="fxTop" width="1080" height="1920"></svg>
 
  <div id="vig"></div>
  <svg id="grain" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#grainF)"/></svg>
@@ -200,25 +258,37 @@ svg text{direction:rtl}
 </div>
 
 <script>
-const FPS=30, STEP=FPS/12;                 // stop-motion: hold each pose for 2.5 frames (12 poses/s)
+const FPS=30, STEP=FPS/12;                 // stop-motion: 12 poses per second
 const $=id=>document.getElementById(id);
 const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>clamp((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
-const E={oc:t=>1-Math.pow(1-t,3),ic:t=>t*t*t,back:t=>{const c=1.7;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2)}};
+const E={oc:t=>1-Math.pow(1-t,3),ic:t=>t*t*t,io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,back:t=>{const c=1.7;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2)}};
 const hash=n=>{const s=Math.sin(n*127.1+311.7)*43758.5453;return s-Math.floor(s)};
-const FA=(n)=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
-// scene table (frames)
-const S={s1:[0,120],s2:[120,300],s3:[300,540],s4:[540,720],s6:[900,1140],s7:[1140,1380]};
-const TT=[[0,120,'این چراغ رو دیدی؟'],[130,300,'آرش بی‌خیال شد…'],[310,540,'یه سیلندر خاموشه!'],[550,720,'مقصر کیه؟ ۳ مظنون'],
- [910,1140,'کاردیاگ مقصر رو لو داد'],[1150,1380,'قبل از خرابی بفهم']];
-// jitter per stop-motion pose (tiny, like hand-placed paper)
+const FA=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 const jit=(q,k,a)=>(hash(q*13.7+k)-.5)*a;
+const mix=(c1,c2,t)=>{const p=c=>[1,3,5].map(i=>parseInt(c.substr(i,2),16));const A=p(c1),B=p(c2);return 'rgb('+A.map((v,i)=>Math.round(lerp(v,B[i],t))).join(',')+')'};
+const HAND=(x,y,deg,s=1)=>`<use href="#hand" transform="translate(${x.toFixed(1)},${y.toFixed(1)}) rotate(${(deg-45).toFixed(1)}) scale(${s})"/>`;
 
+// every scene is its own sheet of blue paper
+document.querySelectorAll('.sc').forEach(sc=>{const bg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ bg.setAttribute('width',1080);bg.setAttribute('height',1920);
+ bg.innerHTML=`<rect width="1080" height="1920" fill="#2196F3"/><rect width="1080" height="1920" filter="url(#fibreF)" opacity=".5"/>
+  <g class="pp"><path d="M0,1700 C200,1640 380,1690 560,1650 C760,1606 900,1660 1080,1630 V1920 H0 Z" fill="#1565C0"/></g>`;
+ sc.insertBefore(bg,sc.firstChild);});
+
+// ---------- timeline ----------
+const SC=[{id:'s1',a:0,b:120,fn:s1},{id:'s2',a:120,b:300,fn:s2},{id:'s3',a:300,b:540,fn:s3},{id:'s4',a:540,b:720,fn:s4},
+ {id:'s5',a:720,b:900,fn:s5},{id:'s6',a:900,b:1140,fn:s6},{id:'s7',a:1140,b:1380,fn:s7},{id:'s1',a:1380,b:1435,fn:s1r},{id:'se',a:1435,b:1500,fn:se}];
+const TRN=['flip','crumple','tear','slide','crumple','flip','slide','flip'];   // between SC[i] and SC[i+1]
+const H=12;                                                                     // half-length of a transition (frames)
+const TT=[[0,120,'این چراغ رو دیدی؟'],[130,300,'آرش بی‌خیال شد…'],[310,540,'یه سیلندر خاموشه!'],[550,720,'مقصر کیه؟ ۳ مظنون'],
+ [730,900,'بی‌توجهی، گرون تموم می‌شه'],[910,1140,'کاردیاگ مقصر رو لو داد'],[1150,1380,'قبل از خرابی بفهم'],[1390,1435,'چراغ خاموش شد'],[1445,1500,'نبض ماشینت رو بگیر']];
+
+// ---------- static builds ----------
 function ticks(id){let s='';for(let i=0;i<=10;i++){const a=(-120+24*i)*Math.PI/180,r1=150,r2=i%2?132:118;
  s+=`<line x1="${Math.sin(a)*r1}" y1="${-Math.cos(a)*r1}" x2="${Math.sin(a)*r2}" y2="${-Math.cos(a)*r2}" stroke="#10203C" stroke-width="${i%2?6:10}" stroke-linecap="round"/>`}
  $(id).innerHTML=`<g filter="url(#paperS)">${s}</g>`}
 ticks('ticksL');ticks('ticksR');
 
-// cylinders: index 0 = cylinder 1 (drawn on the right, RTL reading)
 (function(){let s='';for(let i=0;i<4;i++){const x=315-210*i;
  s+=`<g transform="translate(${x},0)">
   <g class="pp"><rect x="-80" y="-300" width="160" height="560" rx="18" fill="#10203C"/></g>
@@ -230,67 +300,177 @@ ticks('ticksL');ticks('ticksR');
  </g>`}
  $('cyls').innerHTML=s})();
 
-// suspects
-(function(){const P=[
+const SUS=[
  {x:810,n:'شمع',d:'<rect x="-30" y="-330" width="60" height="70" rx="8"/><path d="M-62,-260 h124 v90 h-124 z"/><rect x="-44" y="-170" width="88" height="170" rx="20"/><rect x="-22" y="0" width="44" height="90"/><rect x="-8" y="90" width="16" height="40"/>'},
  {x:540,n:'کوئل',d:'<rect x="-90" y="-360" width="180" height="120" rx="20"/><rect x="-46" y="-240" width="92" height="260" rx="16"/><path d="M-60,20 h120 l-20,110 h-80 z"/>'},
  {x:270,n:'انژکتور',d:'<rect x="-70" y="-360" width="140" height="70" rx="14"/><rect x="-40" y="-290" width="80" height="250" rx="18"/><path d="M-30,-40 h60 l-12,130 h-36 z"/><rect x="-8" y="90" width="16" height="40"/>'}];
- let s='';P.forEach((p,i)=>{s+=`<g id="sp${i}" transform="translate(${p.x},1360)">
+(function(){let s='';SUS.forEach((p,i)=>{s+=`<g id="sp${i}" transform="translate(${p.x},1360)">
   <g class="pp"><g fill="#10203C">${p.d}</g></g>
   <g id="q${i}" transform="translate(0,-450)"><g class="pp"><circle r="62" fill="#FFFFFF"/></g><text y="34" text-anchor="middle" font-family="V" font-weight="900" font-size="96" fill="#10203C">؟</text></g>
   <g transform="translate(0,190)"><g class="pp"><rect x="-120" y="-50" width="240" height="96" rx="12" fill="#FFFFFF"/></g>
    <text y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="54" fill="#10203C">${p.n}</text></g></g>`});
- $('sus').innerHTML=s})();
+ $('sus').innerHTML=s;
+ // mini suspects next to the phone (S6): plug on the right, they get eliminated
+ let m='';SUS.forEach((p,i)=>{m+=`<g id="ms${i}"><g id="msGlow${i}" opacity="0"><g class="pp"><circle cx="0" cy="-130" r="150" fill="#FFC446" opacity=".55"/></g></g>
+  <g class="pp" fill="#10203C">${p.d}</g><g transform="translate(0,190)"><g class="pp"><rect x="-120" y="-50" width="240" height="96" rx="12" fill="#FFFFFF"/></g>
+  <text y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="54" fill="#10203C">${p.n}</text></g></g>`});
+ $('mini6').innerHTML=m;
+ // mini engine (S7): four cylinders, all firing
+ let e='';for(let i=0;i<4;i++){const x=255-170*i;e+=`<g transform="translate(${x},0)"><g class="pp"><rect x="-60" y="-90" width="120" height="180" rx="16" fill="#10203C"/></g>
+  <g id="m7s${i}" opacity="0"><g class="pp"><use href="#star" fill="#FFFFFF" transform="scale(1.4)"/><use href="#star" fill="#78CDFF" transform="scale(.85)"/></g></g></g>`}
+ $('mini7').innerHTML=e;})();
 
 function pulsePath(t,mess){let d='';for(let x=0;x<=500;x+=5){const ph=(x/500+t*.6)%1;let y=0;
   const b=ph*4%1; if(b>.42&&b<.5)y=-60*Math.sin((b-.42)/.08*Math.PI); if(b>.5&&b<.56)y=36*Math.sin((b-.5)/.06*Math.PI);
   y+=mess*(hash(Math.floor(x/15)+Math.floor(t*12)*7)-.5)*70; d+=(x?'L':'M')+(x+10)+','+y.toFixed(1)}return d}
 
-function show(id,f){const [a,b]=S[id];const on=f>=a&&f<b;$(id).style.display=on?'block':'none';return on}
+// ---------- scenes (lf = frames since scene start, may be negative while it is revealed under a transition) ----------
+function s1(lf,q,t){
+ const shake=lf>30?1:0; $('s1dash').setAttribute('transform',`translate(${jit(q,2,10*shake)},${jit(q,3,8*shake)})`);
+ const on=lf>18&&(Math.floor(lf/12)%2==0); $('ceOn').setAttribute('opacity',on?1:0); $('glow').setAttribute('opacity',on?1:0);
+ $('needleL').setAttribute('transform',`rotate(${-70+jit(q,4,6)})`); $('needleR').setAttribute('transform',`rotate(${-30+18*Math.sin(t*3)})`);}
+function s1r(lf,q,t){            // reprise: the lamp goes out, the dash is calm
+ $('s1dash').setAttribute('transform','');
+ const on=lf<16; $('ceOn').setAttribute('opacity',on?1:0); $('glow').setAttribute('opacity',on?1:0);
+ $('needleL').setAttribute('transform','rotate(-62)'); $('needleR').setAttribute('transform',`rotate(${-30+4*Math.sin(t*1.5)})`);}
+function s2(lf,q,t){
+ const day=lf<60?1:lf<110?7:30; $('calDay').textContent=FA(day);
+ $('calFlip').setAttribute('opacity',(lf>52&&lf<60)||(lf>102&&lf<110)?1:0);
+ const sh=Math.sin(seg(lf,8,30)*Math.PI); $('armL').setAttribute('transform',`rotate(${sh*-28} -104 140)`); $('armR').setAttribute('transform',`rotate(${sh*28} 104 140)`);
+ $('head').setAttribute('transform',`rotate(${sh*-8})`); $('bub').setAttribute('opacity',lf>10&&lf<70?1:0);
+ $('pulse').setAttribute('d',pulsePath(t,seg(lf,60,170)));}
+function s3(lf,q,t){const pop=E.back(seg(lf,0,18));
+ $('eng').setAttribute('transform',`translate(540,${lerp(1900,1080,pop)}) scale(1,${lerp(.2,1,pop)})`);
+ const order=[0,2,3,1];
+ for(let i=0;i<4;i++){const ph=(t*1.4+order[i]/4)%1;const y=-200+160*(.5-.5*Math.cos(ph*2*Math.PI));
+  $('pis'+i).setAttribute('transform',`translate(${jit(q,i,i==0?6:0)},${y})`);
+  const fire=ph<.14&&lf>20; $('spk'+i).setAttribute('opacity',i==0?0:fire?1:0); $('pf'+i).setAttribute('opacity',i==0&&ph<.2&&lf>20?1:0);}}
+function s4(lf,q,t){
+ for(let i=0;i<3;i++){const k=E.back(seg(lf,6+i*10,22+i*10));$('sp'+i).setAttribute('transform',`translate(${SUS[i].x},${lerp(1950,1360,k)})`);
+  $('q'+i).setAttribute('transform',`translate(0,-450) rotate(${jit(q,i+9,24)})`);}
+ const sx=540+300*Math.sin(t*1.6); $('spotP').setAttribute('d',`M540,250 L${sx-230},1500 H${sx+230} Z`);}
+function s5(lf,q,t){
+ const heat=seg(lf,20,100);
+ $('cat').setAttribute('fill',heat<.5?mix('#6E7D96','#FFC446',heat*2):mix('#FFC446','#F28012',heat*2-1));
+ let d='';for(let k=0;k<6;k++){const p=((lf-8)/40+k/6);if(p<0)continue;const u=p%1;d+=`<circle cx="${lerp(860,660,u)}" cy="${883+jit(k,1,10)}" r="17" fill="#F28012" opacity="${u<.9?1:0}" filter="url(#paperS)"/>`}
+ $('drops').innerHTML=lf>8?d:'';
+ let h='';if(heat>.4)for(let k=0;k<3;k++){const y=740-((lf/14+k/3)%1)*120;h+=`<path d="M${470+70*k},${y+60} q-20,-20 0,-40 q20,-20 0,-40" stroke="#F28012" stroke-width="10" fill="none" stroke-linecap="round" opacity="${(heat-.4)/.6}" filter="url(#paperS)"/>`}
+ $('heat').innerHTML=h;
+ let s='';for(let k=0;k<4;k++){const u=((lf/30+k/4)%1);s+=`<circle cx="${40-u*60}" cy="${880-u*220}" r="${18+u*40}" fill="#C9D0DA" opacity="${(1-u)*.9}" filter="url(#paperS)"/>`}
+ $('smoke').innerHTML=s;
+ const a=seg(lf,92,98)>0?1:0; $('tagS').setAttribute('opacity',a);
+ $('arrow').setAttribute('opacity',lf>108?1:0);
+ const b=seg(lf,118,132); $('tagB').setAttribute('opacity',b>0?1:0); $('tagB').setAttribute('transform',`translate(230,1420) scale(${b>0?lerp(.3,1,E.back(b)):.3}) rotate(${jit(q,7,3)})`);}
+function s6(lf,q,t){
+ const plug=E.oc(seg(lf,0,20)); $('diag').style.transform=`translateY(${lerp(400,0,plug)}px) rotate(${jit(q,5,1.5)}deg)`;
+ let w='';for(let k=0;k<3;k++){const r=((lf/18+k/3)%1);if(lf>22)w+=`<path d="M${60+r*240},${40+r*120} a${80+r*180},${80+r*180} 0 0 1 ${60+r*120},${-90-r*120}" stroke="#78CDFF" stroke-width="${14-r*6}" fill="none" stroke-linecap="round" opacity="${1-r}" filter="url(#paperS)"/>`}
+ $('waves').innerHTML=w;
+ const ph=E.back(seg(lf,10,30)); $('ph').style.transform=`translateY(${lerp(1300,0,ph)}px) rotate(${2+jit(q,6,.8)}deg)`;
+ $('scanFill').style.width=(seg(lf,34,80)*100)+'%';
+ $('dtc').style.opacity=lf>84?1:0; $('dtc').style.transform=`scale(${lf>84?E.back(seg(lf,84,96)):.8})`;
+ $('ai').style.opacity=lf>130?1:0; $('ai').style.transform=`translateY(${lf>130?(1-E.oc(seg(lf,130,144)))*40:40}px)`;
+ // the three mini suspects: injector and coil drop out, the plug lights up
+ const X=[392,238,84];
+ for(let i=0;i<3;i++){const inn=E.back(seg(lf,40+i*6,56+i*6));let y=lerp(2300,1460,inn),r=0;
+  if(i>0){const fall=E.ic(seg(lf,150+i*8,172+i*8));y+=fall*900;r=fall*(i==1?70:-70)}
+  $('ms'+i).setAttribute('transform',`translate(${X[i]},${y}) rotate(${r}) scale(.6)`);}
+ $('msGlow0').setAttribute('opacity',lf>176?1:0);}
+function s7(lf,q,t){const h=E.oc(seg(lf,20,80));
+ $('hclipR').setAttribute('width',720*.92*h); $('hNum').textContent=FA(Math.round(92*h))+'٪'; $('chip').setAttribute('opacity',lf>84?1:0);
+ const order=[0,2,3,1]; for(let i=0;i<4;i++){const ph=(t*1.6+order[i]/4)%1; $('m7s'+i).setAttribute('opacity',lf>4&&ph<.18?1:0);}}
+function se(lf,q,t){
+ const c=E.back(seg(lf,-4,12)); $('eCard').style.transform=`translateY(${(1-c)*120}px) rotate(${lerp(-3,-.6,c)}deg)`;
+ const d=E.back(seg(lf,6,20)); $('eDiag').style.transform=`scale(${d<=0?.001:lerp(.4,1,d)*(1+.05*Math.exp(-Math.pow((lf-48)/4,2)))}) rotate(${lerp(8,0,d)}deg)`;
+ const p=$('ePulse'),L=p.getTotalLength(),pd=E.io(seg(lf,14,34)); p.style.strokeDasharray=L; p.style.strokeDashoffset=L*(1-pd);
+ [['eBrand',18],['eTag',26],['eUrl',32]].forEach(([id,a])=>{const k=seg(lf,a,a+3)>0?1:0;$(id).style.opacity=k;$(id).style.transform=`translateY(${k?0:30}px)`;});}
 
+// ---------- transitions (p: 0..1 across the cut, out = outgoing sheet element) ----------
+function polyClip(poly,n,M,keepPos){const out=[];const s=p=>(p[0]-M[0])*n[0]+(p[1]-M[1])*n[1];
+ for(let i=0;i<poly.length;i++){const A=poly[i],B=poly[(i+1)%poly.length],sa=s(A),sb=s(B),ia=keepPos?sa>=0:sa<0,ib=keepPos?sb>=0:sb<0;
+  if(ia)out.push(A); if(ia!==ib){const k=sa/(sa-sb);out.push([A[0]+(B[0]-A[0])*k,A[1]+(B[1]-A[1])*k])}}return out}
+const RECT=[[0,0],[1080,0],[1080,1920],[0,1920]];
+const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+
+function tFlip(out,p,q,fx){           // a hand lifts the bottom-left corner and peels the page away (right-to-left book)
+ const C=[0,1920];
+ const reach=seg(p,0,.25), peel=E.io(seg(p,.22,1));
+ if(peel<=0){fx.innerHTML=HAND(C[0]-10+jit(q,1,6),C[1]+380*(1-E.oc(reach)),110);return}
+ const ang=lerp(-38,-58,peel)*Math.PI/180, Lr=4600*peel;
+ const P=[C[0]+Math.cos(ang)*Lr,C[1]+Math.sin(ang)*Lr];
+ const dx=P[0]-C[0],dy=P[1]-C[1],len=Math.hypot(dx,dy),n=[dx/len,dy/len],M=[(C[0]+P[0])/2,(C[1]+P[1])/2];
+ const keep=polyClip(RECT,n,M,true), cut=polyClip(RECT,n,M,false);
+ out.style.clipPath=keep.length>2?`polygon(${keep.map(p=>p[0].toFixed(1)+'px '+p[1].toFixed(1)+'px').join(',')})`:'polygon(0 0,0 0,0 0)';
+ const flap=cut.map(p=>{const s=(p[0]-M[0])*n[0]+(p[1]-M[1])*n[1];return [p[0]-2*s*n[0],p[1]-2*s*n[1]]});
+ const g=document.getElementById('flapG');g.setAttribute('x1',M[0]);g.setAttribute('y1',M[1]);g.setAttribute('x2',P[0]);g.setAttribute('y2',P[1]);
+ fx.innerHTML=`<polygon points="${pts(flap)}" fill="url(#flapG)" filter="url(#lift)"/>`+HAND(P[0],P[1],lerp(110,30,peel));}
+
+function tCrumple(out,p,q,fx){        // two hands squeeze the sheet into a ball, then toss it
+ const sq=E.io(seg(p,.1,.62)), s=lerp(1,.24,sq), rot=lerp(0,-24,sq)+jit(q,3,3);
+ const cx=540,cy=1000;
+ if(p<.62){
+  $('crD').setAttribute('scale',(70*seg(p,.08,.55)).toFixed(1));
+  const a=.8*seg(p,.04,.35);
+  // the outline pulls in unevenly, like paper gathering under the fingers
+  const bl=[];const per=[[0,0],[1080,0],[1080,1920],[0,1920]];
+  for(let e=0;e<4;e++){const A=per[e],B=per[(e+1)%4];for(let k=0;k<7;k++){const u=k/7,x=lerp(A[0],B[0],u),y=lerp(A[1],B[1],u);
+   const pull=sq*(.12+.32*hash(e*7+k+.5));bl.push([lerp(x,540,pull),lerp(y,960,pull)]);}}
+  out.style.clipPath=`polygon(${bl.map(p=>p[0].toFixed(1)+'px '+p[1].toFixed(1)+'px').join(',')})`; $('crA').setAttribute('k2',1-a); $('crA').setAttribute('k3',a);
+  out.style.filter='url(#crumple)'; out.style.transformOrigin=`${cx}px ${cy}px`; out.style.transform=`scale(${s}) rotate(${rot}deg)`;
+  const w=540*s, reach=E.oc(seg(p,0,.12));
+  fx.innerHTML=HAND(cx-w-lerp(500,0,reach),cy+40,190,1.1)+HAND(cx+w+lerp(500,0,reach),cy-30,-20,1.1);
+ } else {
+  out.style.display='none';
+  const k=E.ic(seg(p,.66,1)), bx=lerp(cx,1400,k), by=lerp(cy,-300,k)-260*Math.sin(k*Math.PI), r=110;
+  let ball='';for(let i=0;i<14;i++){const a=i/14*Math.PI*2, rr=r*(.82+.3*hash(i*3.3));ball+=`${(Math.cos(a)*rr).toFixed(1)},${(Math.sin(a)*rr).toFixed(1)} `}
+  const creases=[[-60,-30,20,10],[10,-70,-20,40],[30,20,80,-10],[-40,50,30,60],[-80,10,-20,-60]].map(c=>`<line x1="${c[0]}" y1="${c[1]}" x2="${c[2]}" y2="${c[3]}" stroke="#ADD6FA" stroke-width="7" stroke-linecap="round"/>`).join('');
+  fx.innerHTML=`<g transform="translate(${bx},${by}) rotate(${lerp(0,540,k)+jit(q,4,10)})"><g filter="url(#lift)"><polygon points="${ball}" fill="#FFFFFF"/>
+   <polygon points="-70,-60 10,-90 30,-20 -40,0" fill="#2196F3"/><polygon points="20,30 90,10 70,70" fill="#2196F3"/><polygon points="-90,30 -30,40 -60,90" fill="#78CDFF"/>${creases}</g></g>`
+   +HAND(bx+70,by-20+jit(q,5,4),lerp(-20,-50,k),1.1);}}
+
+function tTear(out,p,q,fx){           // two hands rip the sheet down the middle
+ const L=$('twL'),R=$('twR');
+ [L,R].forEach(w=>{w.innerHTML='';const c=out.cloneNode(true);c.removeAttribute('id');c.style.display='block';c.style.zIndex='';w.appendChild(c);w.style.display='block';});
+ out.style.display='none';
+ let jag=[];for(let y=0;y<=1920;y+=60)jag.push([540+(hash(y*.37)-.5)*70,y]);
+ const left=[[0,0],...jag,[0,1920]], right=[[1080,0],...jag,[1080,1920]];
+ L.firstChild.style.clipPath=`polygon(${left.map(p=>p[0]+'px '+p[1]+'px').join(',')})`;
+ R.firstChild.style.clipPath=`polygon(${right.map(p=>p[0]+'px '+p[1]+'px').join(',')})`;
+ const edge=`<polyline points="${pts(jag)}" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="round" filter="url(#paperS)"/>`;
+ const reach=E.oc(seg(p,0,.2)), rip=seg(p,.2,.5), fly=E.ic(seg(p,.5,1));
+ const th=6*rip+18*fly, dx=900*fly;
+ [[L,-1],[R,1]].forEach(([w,sd])=>{w.style.transformOrigin=`540px 1920px`;w.style.transform=`translateX(${sd*dx}px) rotate(${sd*th+jit(q,sd+5,.6)}deg)`;
+  const hx=sd<0?110:970; const hand=HAND(hx+sd*lerp(420,0,reach),300,sd<0?200:-20,1.1);
+  const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('width',1080);s.setAttribute('height',1920);
+  s.style.cssText='position:absolute;left:0;top:0;overflow:visible';s.innerHTML=(rip>0?edge:'')+hand;
+  if(rip>0)s.firstChild.style.clipPath=sd<0?`polygon(0 0,600px 0,600px 1920px,0 1920px)`:`polygon(480px 0,1080px 0,1080px 1920px,480px 1920px)`;
+  w.appendChild(s);});
+ fx.innerHTML='';}
+
+function tSlide(out,p,q,fx){          // a hand grabs the left edge and drags the sheet away
+ const reach=E.oc(seg(p,0,.25)), pull=E.ic(seg(p,.22,1));
+ const dx=-1350*pull, r=-5*pull;
+ out.style.transformOrigin='0 1920px'; out.style.transform=`translateX(${dx}px) rotate(${r}deg)`; out.style.filter='url(#lift)';
+ const a=r*Math.PI/180, hx0=40, hy0=1000; const hx=dx+hx0*Math.cos(a)-(hy0-1920)*Math.sin(a), hy=1920+hx0*Math.sin(a)+(hy0-1920)*Math.cos(a);
+ fx.innerHTML=HAND(hx-lerp(500,0,reach),hy,185,1.1);}
+
+const TF={flip:tFlip,crumple:tCrumple,tear:tTear,slide:tSlide};
+
+// ---------- frame ----------
 function render(f0){
- const q=Math.floor(f0/STEP), f=q*STEP, t=f/FPS;   // quantised time for stop-motion
+ const q=Math.floor(f0/STEP), f=q*STEP, t=f/FPS;
+ // reset sheets
+ document.querySelectorAll('#stage>.sc').forEach(el=>{el.style.display='none';el.style.clipPath='';el.style.transform='';el.style.filter='';el.style.zIndex=''});
+ ['twL','twR'].forEach(id=>{$(id).style.display='none';$(id).innerHTML=''});
+ $('fx').innerHTML='';
+ // draw every sheet that is on screen (outgoing above incoming)
+ SC.forEach((s,i)=>{const a=i?s.a-H:s.a, b=i<SC.length-1?s.b+H:s.b; if(f<a||f>=b)return;
+  const el=$(s.id); el.style.display='block'; el.style.zIndex=40-i; s.fn(f-s.a,q,t);});
+ // transitions
+ for(let i=0;i<SC.length-1;i++){const b=SC[i].b; if(f>=b-H&&f<b+H){TF[TRN[i]]($(SC[i].id),(f-(b-H))/(2*H),q,$('fx'));}}
  // headline
- let txt='',o=0,dy=0;TT.forEach(([a,b,s])=>{if(f>=a&&f<b){txt=s;const pin=seg(f,a,a+8),pout=seg(f,b-6,b);o=pin>0?1:0;o*=pout<1?1:0;dy=(1-E.oc(pin))*-120}});
+ let txt='',o=0,dy=0;TT.forEach(([a,b,s])=>{if(f>=a&&f<b){txt=s;const pin=seg(f,a,a+8),pout=seg(f,b-6,b);o=pin>0&&pout<1?1:0;dy=(1-E.oc(pin))*-120}});
  const tp=$('ttlP'); if(tp.textContent!==txt)tp.textContent=txt; tp.style.opacity=o;
  tp.style.transform=`translateY(${dy}px) rotate(${-1.2+jit(q,1,.6)}deg)`;
-
- // S1
- if(show('s1',f)){const lf=f-S.s1[0];
-  const shake=lf>30?1:0; $('s1dash').setAttribute('transform',`translate(${jit(q,2,10*shake)},${jit(q,3,8*shake)})`);
-  const on=lf>18&&(Math.floor(lf/12)%2==0); $('ceOn').setAttribute('opacity',on?1:0); $('glow').setAttribute('opacity',on?1:0);
-  $('needleL').setAttribute('transform',`rotate(${-70+jit(q,4,6)})`); $('needleR').setAttribute('transform',`rotate(${-30+18*Math.sin(t*3)})`);}
- // S2
- if(show('s2',f)){const lf=f-S.s2[0];
-  const day=lf<60?1:lf<110?7:30; $('calDay').textContent=FA(day);
-  $('calFlip').setAttribute('opacity',(lf>52&&lf<60)||(lf>102&&lf<110)?1:0);
-  const sh=Math.sin(seg(lf,8,30)*Math.PI); $('armL').setAttribute('transform',`rotate(${sh*-28} -104 140)`); $('armR').setAttribute('transform',`rotate(${sh*28} 104 140)`);
-  $('head').setAttribute('transform',`rotate(${sh*-8})`); $('bub').setAttribute('opacity',lf>10&&lf<70?1:0);
-  $('pulse').setAttribute('d',pulsePath(t,seg(lf,60,170)));}
- // S3
- if(show('s3',f)){const lf=f-S.s3[0];const pop=E.back(seg(lf,0,18));
-  $('eng').setAttribute('transform',`translate(540,${lerp(1900,1080,pop)}) scale(1,${lerp(.2,1,pop)})`);
-  const order=[0,2,3,1];
-  for(let i=0;i<4;i++){const ph=(t*1.4+order[i]/4)%1;const y=-200+160*(.5-.5*Math.cos(ph*2*Math.PI));
-   $('pis'+i).setAttribute('transform',`translate(${jit(q,i,i==0?6:0)},${y})`);
-   const fire=ph<.12&&lf>20; $('spk'+i).setAttribute('opacity',i==0?0:fire?1:0); $('pf'+i).setAttribute('opacity',i==0&&ph<.18&&lf>20?1:0);}}
- // S4
- if(show('s4',f)){const lf=f-S.s4[0];
-  for(let i=0;i<3;i++){const k=E.back(seg(lf,6+i*10,22+i*10));$('sp'+i).setAttribute('transform',`translate(${[810,540,270][i]},${lerp(1950,1360,k)})`);
-   $('q'+i).setAttribute('transform',`translate(0,-450) rotate(${jit(q,i+9,24)})`);}
-  const sx=540+300*Math.sin(t*1.6); $('spot').querySelector('path').setAttribute('d',`M540,250 L${sx-230},1500 H${sx+230} Z`);}
- // S6
- if(show('s6',f)){const lf=f-S.s6[0];
-  const plug=E.oc(seg(lf,0,20)); $('diag').style.transform=`translateY(${lerp(400,0,plug)}px) rotate(${jit(q,5,1.5)}deg)`;
-  let w='';for(let k=0;k<3;k++){const r=((lf/18+k/3)%1);if(lf>22)w+=`<path d="M${60+r*240},${40+r*120} a${80+r*180},${80+r*180} 0 0 1 ${60+r*120},${-90-r*120}" stroke="#78CDFF" stroke-width="${14-r*6}" fill="none" stroke-linecap="round" opacity="${1-r}" filter="url(#paperS)"/>`}
-  $('waves').innerHTML=w;
-  const ph=E.back(seg(lf,10,30)); $('ph').style.transform=`translateY(${lerp(1300,0,ph)}px) rotate(${2+jit(q,6,.8)}deg)`;
-  $('scanFill').style.width=(seg(lf,34,80)*100)+'%';
-  $('dtc').style.opacity=lf>84?1:0; $('dtc').style.transform=`scale(${lf>84?E.back(seg(lf,84,96)):.8})`;
-  $('ai').style.opacity=lf>130?1:0; $('ai').style.transform=`translateY(${lf>130?(1-E.oc(seg(lf,130,144)))*40:40}px)`;}
- // S7
- if(show('s7',f)){const lf=f-S.s7[0];const h=E.oc(seg(lf,20,80));
-  $('hclipR').setAttribute('width',720*.92*h); $('hNum').textContent=FA(Math.round(92*h))+'٪'; $('chip').setAttribute('opacity',lf>84?1:0);}
 }
 window.READY=document.fonts.ready.then(()=>{render(0);return true});
 </script>
