@@ -85,7 +85,10 @@ svg text{direction:rtl}
 
 <div id="stage">
 
- <!-- ===== S1: dashboard + check-engine (hook, and reprise at the end) ===== -->
+ <!-- ===== S0: wide city shot, the car hiccups and the lamp pops up ===== -->
+ <div class="sc" id="s0" data-city="3,1450,300,720,820,230,3"><svg width="1080" height="1920"><g id="car0"></g></svg></div>
+
+ <!-- ===== S1: dashboard close-up (after zoom-in, and reprise at the end) ===== -->
  <div class="sc" id="s1"><svg width="1080" height="1920">
   <g id="s1dash">
    <g class="pp"><path d="M-40,760 Q540,610 1120,760 V1820 H-40 Z" fill="#10203C"/></g>
@@ -113,9 +116,9 @@ svg text{direction:rtl}
   </g>
  </svg></div>
 
- <!-- ===== S2: Arash shrugs + calendar + stuttering pulse ===== -->
- <div class="sc" id="s2"><svg width="1080" height="1920">
-  <g transform="translate(250,480)">
+ <!-- ===== S2: days pass, Arash keeps driving, the car gets worse ===== -->
+ <div class="sc" id="s2" data-city="7,1450,260,560,0,780,0"><svg width="1080" height="1920">
+  <g transform="translate(250,420)">
    <g class="pp"><rect x="-150" y="0" width="300" height="330" rx="18" fill="#FFFFFF"/></g>
    <g class="pp"><rect x="-150" y="0" width="300" height="90" rx="18" fill="#1565C0"/></g>
    <g class="pp"><circle cx="-80" cy="0" r="14" fill="#10203C"/><circle cx="80" cy="0" r="14" fill="#10203C"/></g>
@@ -123,25 +126,14 @@ svg text{direction:rtl}
    <text x="0" y="66" text-anchor="middle" font-family="V" font-weight="800" font-size="46" fill="#FFFFFF">روز</text>
    <g id="calFlip" class="pp" opacity="0"><rect x="-150" y="90" width="300" height="240" fill="#E6EBF2"/></g>
   </g>
-  <g transform="translate(620,1330) scale(1.3)">
-   <g class="pp"><path d="M-130,420 L-110,120 Q0,70 110,120 L130,420 Z" fill="#1565C0"/></g>
-   <g id="armL" class="pp"><path d="M-104,140 L-210,250 L-180,280 L-90,200 Z" fill="#1565C0"/><circle cx="-198" cy="268" r="26" fill="#F2C9A0"/></g>
-   <g id="armR" class="pp"><path d="M104,140 L210,250 L180,280 L90,200 Z" fill="#1565C0"/><circle cx="198" cy="268" r="26" fill="#F2C9A0"/></g>
-   <g class="pp"><rect x="-26" y="60" width="52" height="60" fill="#F2C9A0"/></g>
-   <g id="head">
-    <g class="pp"><ellipse cx="0" cy="-20" rx="92" ry="104" fill="#F2C9A0"/></g>
-    <g class="pp"><path d="M-96,-30 Q-100,-140 0,-132 Q100,-140 96,-30 Q60,-100 0,-90 Q-60,-100 -96,-30 Z" fill="#10203C"/></g>
-    <g class="pp"><circle cx="-34" cy="-10" r="11" fill="#10203C"/><circle cx="34" cy="-10" r="11" fill="#10203C"/></g>
-    <g class="pp"><path d="M-30,40 Q0,52 30,40" stroke="#10203C" stroke-width="8" fill="none" stroke-linecap="round"/></g>
-   </g>
-   <g id="bub" transform="translate(-230,-250)" opacity="0">
-    <g class="pp"><path d="M-150,-70 H150 Q180,-70 180,-40 V40 Q180,70 150,70 H40 L0,120 L-10,70 H-150 Q-180,70 -180,40 V-40 Q-180,-70 -150,-70 Z" fill="#FFFFFF"/></g>
-    <text x="0" y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#10203C">بعداً!</text>
-   </g>
-  </g>
-  <g transform="translate(500,640)">
+  <g transform="translate(500,585)">
    <g class="pp"><rect x="-20" y="-80" width="560" height="160" rx="10" fill="#FFFFFF" transform="rotate(-1.5 260 0)"/></g>
    <path id="pulse" d="" stroke="#2196F3" stroke-width="10" fill="none" stroke-linejoin="round" stroke-linecap="round" filter="url(#paperS)"/>
+  </g>
+  <g id="car2"></g>
+  <g id="bub" opacity="0">
+   <g class="pp"><path d="M-150,-70 H150 Q180,-70 180,-40 V40 Q180,70 150,70 H60 L90,120 L10,70 H-150 Q-180,70 -180,40 V-40 Q-180,-70 -150,-70 Z" fill="#FFFFFF"/></g>
+   <text x="0" y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#10203C">بعداً!</text>
   </g>
  </svg></div>
 
@@ -219,22 +211,23 @@ svg text{direction:rtl}
   </div>
  </div>
 
- <!-- ===== S7: smooth again, health 92% ===== -->
- <div class="sc" id="s7"><svg width="1080" height="1920">
-  <g transform="translate(540,960)">
-   <g class="pp"><rect x="-430" y="-330" width="860" height="560" rx="40" fill="#FFFFFF"/></g>
-   <text x="0" y="-210" text-anchor="middle" font-family="V" font-weight="800" font-size="50" fill="#10203C">سلامت خودرو</text>
-   <g transform="translate(-360,-110)">
+ <!-- ===== S7: fixed - health 92%, the car glides through the city ===== -->
+ <div class="sc" id="s7" data-city="5,1450,180,330,0,0"><svg width="1080" height="1920">
+  <g transform="translate(540,760)">
+   <g class="pp"><rect x="-430" y="-330" width="860" height="720" rx="40" fill="#FFFFFF"/></g>
+   <text x="0" y="-220" text-anchor="middle" font-family="V" font-weight="800" font-size="50" fill="#10203C">سلامت خودرو</text>
+   <g transform="translate(-360,-150)">
     <g class="pp"><rect width="720" height="70" rx="35" fill="#E6EBF2"/></g>
     <defs><linearGradient id="hg"><stop offset="0" stop-color="#E63C3C"/><stop offset=".35" stop-color="#F59628"/><stop offset=".65" stop-color="#D7C832"/><stop offset="1" stop-color="#32B455"/></linearGradient>
      <clipPath id="hclip"><rect id="hclipR" width="0" height="70" rx="35"/></clipPath></defs>
     <g clip-path="url(#hclip)"><rect width="720" height="70" rx="35" fill="url(#hg)"/></g>
    </g>
-   <text id="hNum" x="0" y="110" text-anchor="middle" font-family="V" font-weight="900" font-size="130" fill="#22A050">۰٪</text>
-   <g id="chip" opacity="0"><g class="pp"><rect x="-110" y="140" width="220" height="76" rx="38" fill="#DEF6E6"/></g>
+   <text id="hNum" x="0" y="50" text-anchor="middle" font-family="V" font-weight="900" font-size="130" fill="#22A050">۰٪</text>
+   <g id="chip" opacity="0" transform="translate(0,-40)"><g class="pp"><rect x="-110" y="140" width="220" height="76" rx="38" fill="#DEF6E6"/></g>
     <text x="0" y="192" text-anchor="middle" font-family="V" font-weight="700" font-size="40" fill="#22A050">سالم</text></g>
+   <g id="mini7" transform="translate(0,290) scale(.62)"></g>
   </g>
-  <g id="mini7" transform="translate(540,1460)"></g>
+  <g id="car7"></g>
  </svg></div>
 
  <!-- ===== S9: paper end card ===== -->
@@ -269,18 +262,76 @@ const mix=(c1,c2,t)=>{const p=c=>[1,3,5].map(i=>parseInt(c.substr(i,2),16));cons
 const HAND=(x,y,deg,s=1)=>`<use href="#hand" transform="translate(${x.toFixed(1)},${y.toFixed(1)}) rotate(${(deg-45).toFixed(1)}) scale(${s})"/>`;
 
 // every scene is its own sheet of blue paper
+// ---------- paper city ----------
+function MILAD(x,G){return `<g class="pp" fill="#FFFFFF"><rect x="${x-13}" y="${G-1000}" width="26" height="1000"/>
+ <path d="M${x-90},${G-760} h180 l-34,-62 h-112 z"/><rect x="${x-62}" y="${G-872}" width="124" height="46" rx="14"/>
+ <path d="M${x-46},${G-872} h92 l-22,-44 h-48 z"/><rect x="${x-4}" y="${G-1130}" width="8" height="216"/></g>
+ <g class="pp"><rect x="${x-74}" y="${G-800}" width="148" height="10" fill="#10203C"/><rect x="${x-50}" y="${G-856}" width="100" height="10" fill="#10203C"/></g>`}
+function AZADI(x,G){return `<g class="pp" transform="translate(${x},${G})"><path d="M-160,0 C-128,-130 -78,-270 -46,-350 L46,-350 C78,-270 128,-130 160,0 L86,0 C66,-110 34,-168 0,-178 C-34,-168 -66,-110 -86,0 Z" fill="#FFFFFF"/>
+ <rect x="-52" y="-388" width="104" height="40" fill="#FFFFFF"/><rect x="-28" y="-336" width="56" height="12" fill="#10203C"/><rect x="-34" y="-306" width="68" height="10" fill="#ADD6FA"/></g>`}
+function city(seed,G,hmin,hmax,milad,azadi,clouds){let s='',x=-40,k=0;
+ for(let i=0;i<(clouds||0);i++){const cx=120+i*330+hash(seed+i*5)*120,cy=G-hmax-150-hash(seed*7+i)*190,w=1+hash(i+seed)*.5;
+  s+=`<g class="pp" transform="translate(${cx.toFixed(0)},${cy.toFixed(0)}) scale(${w.toFixed(2)})"><path d="M-110,30 Q-120,-10 -80,-20 Q-70,-70 -20,-60 Q10,-100 55,-62 Q100,-70 105,-20 Q130,0 115,30 Z" fill="#FFFFFF"/></g>`}
+ s+='<g opacity=".6">';
+ while(x<1100){const w=90+hash(seed+k)*120,h=(hmin+(hmax-hmin)*hash(seed+k*3.1))*1.25;s+=`<rect x="${x.toFixed(0)}" y="${(G-h).toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" fill="#78CDFF"/>`;x+=w-8;k++}
+ s+='</g>'; if(milad)s+=MILAD(milad,G);
+ const PAL=[['#FFFFFF','#10203C'],['#E6EBF2','#6E7D96'],['#6E7D96','#E6EBF2'],['#10203C','#ADD6FA'],['#FFFFFF','#2196F3']];
+ x=-30;k=0;while(x<1100){const w=110+hash(seed*2+k)*130,h=hmin+(hmax-hmin)*hash(seed*5+k*1.7);
+  if(azadi&&Math.abs(x+w/2-azadi)<170){x+=330;k++;continue}
+  const [fill,win]=PAL[Math.floor(hash(seed+k*9.3)*PAL.length)],st=Math.floor(hash(seed+k*4.4)*3);let wn='';
+  if(st==0){for(let yy=G-h+30;yy<G-70;yy+=56)for(let xx=x+18;xx<x+w-34;xx+=38)wn+=`<rect x="${xx.toFixed(0)}" y="${yy.toFixed(0)}" width="18" height="28" fill="${win}"/>`}
+  else if(st==1){for(let xx=x+16;xx<x+w-22;xx+=24)wn+=`<rect x="${xx.toFixed(0)}" y="${(G-h+26).toFixed(0)}" width="9" height="${(h-90).toFixed(0)}" fill="${win}"/>`}
+  else{for(let yy=G-h+30;yy<G-60;yy+=42)wn+=`<rect x="${(x+16).toFixed(0)}" y="${yy.toFixed(0)}" width="${(w-32).toFixed(0)}" height="13" fill="${win}"/>`}
+  s+=`<g class="pp"><rect x="${x.toFixed(0)}" y="${(G-h).toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" fill="${fill}"/>${wn}</g>`;x+=w+hash(k+seed)*28-4;k++}
+ if(azadi)s+=AZADI(azadi,G);
+ s+=`<g class="pp"><rect x="-40" y="${G}" width="1160" height="40" fill="#E6EBF2"/></g>`;
+ for(let i=0;i<5;i++){const tx=60+i*240+hash(seed+i)*60,r=42+hash(seed*3+i)*22;
+  s+=`<g class="pp"><rect x="${tx-7}" y="${G-60}" width="14" height="70" fill="#10203C"/><circle cx="${tx}" cy="${G-60-r*.7}" r="${r}" fill="${i%2?'#1565C0':'#ADD6FA'}"/></g>`}
+ s+=`<g class="pp"><rect x="-40" y="${G+40}" width="1160" height="230" fill="#10203C"/></g><g class="pp">`;
+ for(let i=0;i<9;i++)s+=`<rect x="${i*140-20}" y="${G+150}" width="72" height="12" fill="#FFFFFF"/>`;
+ s+=`</g><g class="pp"><rect x="-40" y="${G+270}" width="1160" height="400" fill="#1565C0"/></g>`;return s}
+
+// paper car (faces left = forward in RTL), origin under the body between the wheels
+function CAR(p){const wheel=(x,i)=>`<g transform="translate(${x},-40)"><g class="pp"><circle r="54" fill="#10203C"/><circle r="23" fill="#E6EBF2"/></g><g id="${p}s${i}"><rect x="-5" y="-50" width="10" height="24" fill="#6E7D96"/></g></g>`;
+ return `<g id="${p}">
+ <g id="${p}puff"></g>
+ <g id="${p}b">
+  <g class="pp"><path d="M-262,-40 Q-266,-100 -222,-112 L-132,-124 L-72,-194 Q-57,-208 -30,-208 L112,-208 Q138,-208 152,-193 L212,-128 L248,-120 Q268,-113 265,-70 L262,-40 Z" fill="#FFFFFF"/></g>
+  <g class="pp"><path d="M-116,-128 L-64,-188 L18,-188 L18,-128 Z" fill="#ADD6FA"/><path d="M36,-128 L36,-188 L106,-188 Q121,-188 132,-175 L176,-128 Z" fill="#ADD6FA"/></g>
+  <g class="pp"><circle cx="-14" cy="-152" r="24" fill="#F2C9A0"/><path d="M-39,-156 Q-40,-184 -14,-184 Q12,-184 11,-160 Q-6,-172 -39,-156 Z" fill="#10203C"/></g>
+  <g class="pp"><rect x="-258" y="-90" width="516" height="16" fill="#2196F3"/><ellipse cx="-252" cy="-100" rx="13" ry="10" fill="#78CDFF"/><rect x="252" y="-108" width="12" height="24" fill="#10203C"/><rect x="258" y="-54" width="28" height="12" fill="#6E7D96"/></g>
+ </g>
+ ${wheel(-160,1)}${wheel(160,2)}
+ <g id="${p}lamp" transform="translate(-10,-330)" opacity="0">
+  <g class="pp"><circle r="80" fill="#FFFFFF"/><path d="M-22,68 L6,116 L22,68 Z" fill="#FFFFFF"/></g>
+  <use href="#engine" fill="#3A4252" transform="scale(.62)"/><g id="${p}lon" class="pp"><use href="#engine" fill="#F28012" transform="scale(.62)"/></g>
+ </g></g>`}
+// hiccups: list of frames where the engine misfires (the car lurches and coughs smoke)
+function setCar(p,x,y,lf,o={}){const ev=o.ev||[];let bump=0,kick=0,puff='';
+ ev.forEach(e=>{const a=lf-e;bump+=-16*Math.exp(-Math.pow(a/2.2,2));kick+=20*Math.exp(-Math.pow(a/2.6,2));
+  if(a>=0&&a<30)for(let j=0;j<3;j++){const b=a-j*3;if(b<0)continue;const sz=(o.puff||1);
+   puff+=`<circle cx="${290+b*5+j*14}" cy="${-56-b*3.2-j*8}" r="${(16+b*1.6)*sz}" fill="#6E7D96" opacity="${(1-b/30)*.95}" filter="url(#paperS)"/>`}});
+ $(p).setAttribute('transform',`translate(${(x+kick).toFixed(1)},${y}) scale(${o.s||1})`);
+ $(p+'b').setAttribute('transform',`translate(0,${bump.toFixed(1)}) rotate(${(bump*.12).toFixed(2)} 0 -40)`);
+ $(p+'puff').innerHTML=puff;
+ const spin=(o.spin||0); $(p+'s1').setAttribute('transform',`rotate(${spin})`); $(p+'s2').setAttribute('transform',`rotate(${spin+90})`);
+ $(p+'lamp').setAttribute('opacity',o.lamp?1:0); $(p+'lon').setAttribute('opacity',o.lampOn?1:0);}
+
+// every scene is its own sheet of blue paper
 document.querySelectorAll('.sc').forEach(sc=>{const bg=document.createElementNS('http://www.w3.org/2000/svg','svg');
  bg.setAttribute('width',1080);bg.setAttribute('height',1920);
- bg.innerHTML=`<rect width="1080" height="1920" fill="#2196F3"/><rect width="1080" height="1920" filter="url(#fibreF)" opacity=".5"/>
-  <g class="pp"><path d="M0,1700 C200,1640 380,1690 560,1650 C760,1606 900,1660 1080,1630 V1920 H0 Z" fill="#1565C0"/></g>`;
+ const c=sc.dataset.city;
+ bg.innerHTML=`<rect width="1080" height="1920" fill="#2196F3"/><rect width="1080" height="1920" filter="url(#fibreF)" opacity=".5"/>`+
+  (c?city(...c.split(',').map(Number)):`<g class="pp"><path d="M0,1700 C200,1640 380,1690 560,1650 C760,1606 900,1660 1080,1630 V1920 H0 Z" fill="#1565C0"/></g>`);
  sc.insertBefore(bg,sc.firstChild);});
+['car0','car2','car7'].forEach(id=>{$(id).outerHTML=CAR(id.replace('car','c'))});
 
 // ---------- timeline ----------
-const SC=[{id:'s1',a:0,b:120,fn:s1},{id:'s2',a:120,b:300,fn:s2},{id:'s3',a:300,b:540,fn:s3},{id:'s4',a:540,b:720,fn:s4},
+const SC=[{id:'s0',a:0,b:90,fn:s0},{id:'s1',a:90,b:150,fn:s1},{id:'s2',a:150,b:330,fn:s2},{id:'s3',a:330,b:540,fn:s3},{id:'s4',a:540,b:720,fn:s4},
  {id:'s5',a:720,b:900,fn:s5},{id:'s6',a:900,b:1140,fn:s6},{id:'s7',a:1140,b:1380,fn:s7},{id:'s1',a:1380,b:1435,fn:s1r},{id:'se',a:1435,b:1500,fn:se}];
-const TRN=['flip','crumple','tear','slide','crumple','flip','slide','flip'];   // between SC[i] and SC[i+1]
+const TRN=['zoom','flip','crumple','tear','slide','crumple','flip','slide','flip'];   // between SC[i] and SC[i+1]
 const H=12;                                                                     // half-length of a transition (frames)
-const TT=[[0,120,'این چراغ رو دیدی؟'],[130,300,'آرش بی‌خیال شد…'],[310,540,'یه سیلندر خاموشه!'],[550,720,'مقصر کیه؟ ۳ مظنون'],
+const TT=[[0,150,'این چراغ رو دیدی؟'],[160,330,'آرش بی‌خیال شد…'],[340,540,'یه سیلندر خاموشه!'],[550,720,'مقصر کیه؟ ۳ مظنون'],
  [730,900,'بی‌توجهی، گرون تموم می‌شه'],[910,1140,'کاردیاگ مقصر رو لو داد'],[1150,1380,'قبل از خرابی بفهم'],[1390,1435,'چراغ خاموش شد'],[1445,1500,'نبض ماشینت رو بگیر']];
 
 // ---------- static builds ----------
@@ -325,20 +376,26 @@ function pulsePath(t,mess){let d='';for(let x=0;x<=500;x+=5){const ph=(x/500+t*.
   y+=mess*(hash(Math.floor(x/15)+Math.floor(t*12)*7)-.5)*70; d+=(x?'L':'M')+(x+10)+','+y.toFixed(1)}return d}
 
 // ---------- scenes (lf = frames since scene start, may be negative while it is revealed under a transition) ----------
+function s0(lf,q,t){             // wide shot: the car rolls in, coughs, the lamp pops up
+ const k=E.oc(seg(lf,0,30)), x=lerp(1400,560,k);
+ setCar('c0',x,1630,lf,{s:1.3,ev:[40,58,76],spin:-k*840,lamp:lf>24,lampOn:lf>24&&Math.floor((lf-24)/10)%2==0});
+ $('c0lamp').setAttribute('transform',`translate(-10,-330) scale(${E.back(seg(lf,24,34))})`);}
 function s1(lf,q,t){
- const shake=lf>30?1:0; $('s1dash').setAttribute('transform',`translate(${jit(q,2,10*shake)},${jit(q,3,8*shake)})`);
- const on=lf>18&&(Math.floor(lf/12)%2==0); $('ceOn').setAttribute('opacity',on?1:0); $('glow').setAttribute('opacity',on?1:0);
+ const shake=1; $('s1dash').setAttribute('transform',`translate(${jit(q,2,10*shake)},${jit(q,3,8*shake)})`);
+ const on=Math.floor((lf+60)/12)%2==0; $('ceOn').setAttribute('opacity',on?1:0); $('glow').setAttribute('opacity',on?1:0);
  $('needleL').setAttribute('transform',`rotate(${-70+jit(q,4,6)})`); $('needleR').setAttribute('transform',`rotate(${-30+18*Math.sin(t*3)})`);}
 function s1r(lf,q,t){            // reprise: the lamp goes out, the dash is calm
  $('s1dash').setAttribute('transform','');
  const on=lf<16; $('ceOn').setAttribute('opacity',on?1:0); $('glow').setAttribute('opacity',on?1:0);
  $('needleL').setAttribute('transform','rotate(-62)'); $('needleR').setAttribute('transform',`rotate(${-30+4*Math.sin(t*1.5)})`);}
-function s2(lf,q,t){
- const day=lf<60?1:lf<110?7:30; $('calDay').textContent=FA(day);
- $('calFlip').setAttribute('opacity',(lf>52&&lf<60)||(lf>102&&lf<110)?1:0);
- const sh=Math.sin(seg(lf,8,30)*Math.PI); $('armL').setAttribute('transform',`rotate(${sh*-28} -104 140)`); $('armR').setAttribute('transform',`rotate(${sh*28} 104 140)`);
- $('head').setAttribute('transform',`rotate(${sh*-8})`); $('bub').setAttribute('opacity',lf>10&&lf<70?1:0);
- $('pulse').setAttribute('d',pulsePath(t,seg(lf,60,170)));}
+function s2(lf,q,t){             // three passes = day 1, 7, 30; each pass coughs more
+ const S0=[0,60,120],k=lf<58?0:lf<118?1:2,u=clamp((lf-S0[k])/58),x=lerp(1400,-360,u);
+ const EV=[[24],[12,26,40],[6,14,22,30,38,46]];
+ setCar('c2',x,1630,lf,{ev:EV[k].map(e=>e+S0[k]),puff:1+k*.35,spin:-u*1800,lamp:true,lampOn:Math.floor(lf/10)%2==0});
+ $('calDay').textContent=FA([1,7,30][k]);
+ $('calFlip').setAttribute('opacity',(lf>52&&lf<60)||(lf>112&&lf<120)?1:0);
+ const bo=k==0&&u>.08&&u<.8; $('bub').setAttribute('opacity',bo?1:0); $('bub').setAttribute('transform',`translate(${x+60},${1630-560})`);
+ $('pulse').setAttribute('d',pulsePath(t,seg(lf,50,170)));}
 function s3(lf,q,t){const pop=E.back(seg(lf,0,18));
  $('eng').setAttribute('transform',`translate(540,${lerp(1900,1080,pop)}) scale(1,${lerp(.2,1,pop)})`);
  const order=[0,2,3,1];
@@ -377,7 +434,8 @@ function s6(lf,q,t){
  $('msGlow0').setAttribute('opacity',lf>176?1:0);}
 function s7(lf,q,t){const h=E.oc(seg(lf,20,80));
  $('hclipR').setAttribute('width',720*.92*h); $('hNum').textContent=FA(Math.round(92*h))+'٪'; $('chip').setAttribute('opacity',lf>84?1:0);
- const order=[0,2,3,1]; for(let i=0;i<4;i++){const ph=(t*1.6+order[i]/4)%1; $('m7s'+i).setAttribute('opacity',lf>4&&ph<.18?1:0);}}
+ const order=[0,2,3,1]; for(let i=0;i<4;i++){const ph=(t*1.6+order[i]/4)%1; $('m7s'+i).setAttribute('opacity',lf>4&&ph<.18?1:0);}
+ const u=seg(lf,0,250); setCar('c7',lerp(1400,-380,u),1630,lf,{spin:-u*2400});}
 function se(lf,q,t){
  const c=E.back(seg(lf,-4,12)); $('eCard').style.transform=`translateY(${(1-c)*120}px) rotate(${lerp(-3,-.6,c)}deg)`;
  const d=E.back(seg(lf,6,20)); $('eDiag').style.transform=`scale(${d<=0?.001:lerp(.4,1,d)*(1+.05*Math.exp(-Math.pow((lf-48)/4,2)))}) rotate(${lerp(8,0,d)}deg)`;
@@ -453,13 +511,16 @@ function tSlide(out,p,q,fx){          // a hand grabs the left edge and drags th
  const a=r*Math.PI/180, hx0=40, hy0=1000; const hx=dx+hx0*Math.cos(a)-(hy0-1920)*Math.sin(a), hy=1920+hx0*Math.sin(a)+(hy0-1920)*Math.cos(a);
  fx.innerHTML=HAND(hx-lerp(500,0,reach),hy,185,1.1);}
 
-const TF={flip:tFlip,crumple:tCrumple,tear:tTear,slide:tSlide};
+function tZoom(out,p,q,fx){          // camera pushes through the windscreen into the dashboard
+ const z=E.ic(p); out.style.transformOrigin='501px 1425px'; out.style.transform=`scale(${1+16*z})`;
+ out.style.opacity=p<.82?1:0; fx.innerHTML='';}
+const TF={flip:tFlip,crumple:tCrumple,tear:tTear,slide:tSlide,zoom:tZoom};
 
 // ---------- frame ----------
 function render(f0){
  const q=Math.floor(f0/STEP), f=q*STEP, t=f/FPS;
  // reset sheets
- document.querySelectorAll('#stage>.sc').forEach(el=>{el.style.display='none';el.style.clipPath='';el.style.transform='';el.style.filter='';el.style.zIndex=''});
+ document.querySelectorAll('#stage>.sc').forEach(el=>{el.style.display='none';el.style.clipPath='';el.style.transform='';el.style.filter='';el.style.zIndex='';el.style.opacity=''});
  ['twL','twR'].forEach(id=>{$(id).style.display='none';$(id).innerHTML=''});
  $('fx').innerHTML='';
  // draw every sheet that is on screen (outgoing above incoming)
