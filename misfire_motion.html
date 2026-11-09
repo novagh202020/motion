@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Misfire Story</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#2196F3}
+body{font-family:V,sans-serif;color:#10203C}
+#stage{position:absolute;inset:0;overflow:hidden;background:#2196F3}
+.a{position:absolute}
+.sc{position:absolute;left:0;top:0;width:1080px;height:1920px;display:none}
+.ltr{direction:ltr;unicode-bidi:isolate}
+svg text{direction:rtl}
+/* paper headline strip (UI layer) */
+#ttl{position:absolute;left:0;top:150px;width:1080px;height:150px;z-index:60;display:flex;justify-content:center;align-items:center}
+#ttlP{background:#FFFFFF;padding:14px 54px 22px;direction:rtl;font-weight:900;font-size:80px;line-height:1.15;color:#10203C;white-space:nowrap;
+ filter:url(#paper);opacity:0}
+#grain{position:absolute;inset:0;z-index:80;pointer-events:none;mix-blend-mode:multiply;opacity:.28}
+#vig{position:absolute;inset:0;z-index:79;pointer-events:none;background:radial-gradient(ellipse 80% 65% at 50% 48%,rgba(255,255,255,.10),rgba(20,40,80,.22))}
+.pp{filter:url(#paper)}
+/* phone screen (crisp, pasted into the paper phone) */
+.scr{position:absolute;left:24px;top:24px;width:472px;height:1002px;border-radius:44px;overflow:hidden;background:#EEF2F8;direction:rtl;font-family:V}
+.abar{height:118px;background:#2196F3;color:#fff;display:flex;align-items:flex-end;padding:0 26px 22px;font-weight:800;font-size:30px;gap:12px}
+.card{background:#fff;border:2px solid #DEE6F2;border-radius:24px;margin:18px 18px;padding:20px 22px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <!-- cut paper: slightly ragged edge + fibre grain + short hard shadow -->
+  <filter id="paper" x="-8%" y="-8%" width="116%" height="124%" color-interpolation-filters="sRGB">
+   <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" result="n"/>
+   <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+   <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="2" result="g"/>
+   <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.45 0 0 0 -0.16" result="ga"/>
+   <feComposite in="ga" in2="d" operator="in" result="gin"/>
+   <feMerge result="m"><feMergeNode in="d"/><feMergeNode in="gin"/></feMerge>
+   <feDropShadow in="m" dx="4" dy="8" stdDeviation="3" flood-color="#142850" flood-opacity=".38"/>
+  </filter>
+  <filter id="paperS" x="-8%" y="-8%" width="116%" height="124%" color-interpolation-filters="sRGB">
+   <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="4" result="n"/>
+   <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+   <feDropShadow in="d" dx="2" dy="4" stdDeviation="1.5" flood-color="#142850" flood-opacity=".35"/>
+  </filter>
+  <filter id="grainF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="11"/>
+   <feColorMatrix type="matrix" values="0 0 0 0 0.92  0 0 0 0 0.95  0 0 0 0 1  0.9 0 0 0 -0.25"/></filter>
+  <filter id="fibreF"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.18" numOctaves="2" seed="5"/>
+   <feColorMatrix type="matrix" values="0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 0 0.31  0.5 0 0 0 -0.2"/></filter>
+  <!-- check-engine silhouette -->
+  <path id="engine" d="M-95,-10 h18 v-22 h30 v-16 h-14 v-14 h62 v14 h-14 v16 h34 l18,18 h16 v-16 h18 v72 h-18 v-16 h-16 l-22,30 h-74 l-14,-20 h-6 v18 h-18 z"/>
+  <path id="star" d="M0,-34 L9,-10 L34,-12 L14,4 L22,30 L0,15 L-22,30 L-14,4 L-34,-12 L-9,-10 Z"/>
+ </defs>
+</svg>
+
+<div id="stage">
+ <!-- background paper layers -->
+ <svg class="a" width="1080" height="1920" style="left:0;top:0">
+  <rect width="1080" height="1920" fill="#2196F3"/>
+  <rect width="1080" height="1920" filter="url(#fibreF)" opacity=".5"/>
+  <g class="pp" id="bgHills"><path d="M0,1700 C200,1640 380,1690 560,1650 C760,1606 900,1660 1080,1630 V1920 H0 Z" fill="#1565C0"/></g>
+ </svg>
+
+ <!-- ===== S1: dashboard + check-engine ===== -->
+ <div class="sc" id="s1"><svg width="1080" height="1920">
+  <g id="s1dash">
+   <g class="pp"><path d="M-40,760 Q540,610 1120,760 V1820 H-40 Z" fill="#10203C"/></g>
+   <g class="pp"><path d="M40,800 Q540,680 1040,800 V1700 H40 Z" fill="#181C24"/></g>
+   <!-- gauges -->
+   <g id="gL" transform="translate(300,1130)">
+    <g class="pp"><circle r="210" fill="#E6EBF2"/></g>
+    <g class="pp"><circle r="180" fill="#FFFFFF"/></g>
+    <g id="ticksL"></g>
+    <g class="pp" id="needleL"><path d="M-10,0 L0,-160 L10,0 Z" fill="#10203C"/></g>
+    <g class="pp"><circle r="26" fill="#10203C"/></g>
+   </g>
+   <g id="gR" transform="translate(780,1130)">
+    <g class="pp"><circle r="210" fill="#E6EBF2"/></g>
+    <g class="pp"><circle r="180" fill="#FFFFFF"/></g>
+    <g id="ticksR"></g>
+    <g class="pp" id="needleR"><path d="M-10,0 L0,-160 L10,0 Z" fill="#10203C"/></g>
+    <g class="pp"><circle r="26" fill="#10203C"/></g>
+   </g>
+   <!-- warning lamp -->
+   <g transform="translate(540,1470)">
+    <g id="glow" opacity="0">
+     <g class="pp"><circle r="150" fill="#F28012" opacity=".55"/></g>
+     <g class="pp"><circle r="112" fill="#FFC446" opacity=".8"/></g>
+    </g>
+    <g id="ceOff"><use href="#engine" fill="#3A4252" transform="scale(1.15)"/></g>
+    <g id="ceOn" class="pp" opacity="0"><use href="#engine" fill="#F28012" transform="scale(1.15)"/></g>
+   </g>
+  </g>
+ </svg></div>
+
+ <!-- ===== S2: Arash shrugs + calendar + stuttering pulse ===== -->
+ <div class="sc" id="s2"><svg width="1080" height="1920">
+  <!-- calendar -->
+  <g transform="translate(250,480)">
+   <g class="pp"><rect x="-150" y="0" width="300" height="330" rx="18" fill="#FFFFFF"/></g>
+   <g class="pp"><rect x="-150" y="0" width="300" height="90" rx="18" fill="#1565C0"/></g>
+   <g class="pp"><circle cx="-80" cy="0" r="14" fill="#10203C"/><circle cx="80" cy="0" r="14" fill="#10203C"/></g>
+   <text id="calDay" x="0" y="230" text-anchor="middle" font-family="V" font-weight="900" font-size="120" fill="#10203C">۱</text>
+   <text x="0" y="66" text-anchor="middle" font-family="V" font-weight="800" font-size="46" fill="#FFFFFF">روز</text>
+   <g id="calFlip" class="pp" opacity="0"><rect x="-150" y="90" width="300" height="240" fill="#E6EBF2"/></g>
+  </g>
+  <!-- Arash -->
+  <g id="arashW" transform="translate(620,1330) scale(1.3)"><g id="arash">
+   <g class="pp"><path d="M-130,420 L-110,120 Q0,70 110,120 L130,420 Z" fill="#1565C0"/></g>
+   <g id="armL" class="pp"><path d="M-104,140 L-210,250 L-180,280 L-90,200 Z" fill="#1565C0"/><circle cx="-198" cy="268" r="26" fill="#F2C9A0"/></g>
+   <g id="armR" class="pp"><path d="M104,140 L210,250 L180,280 L90,200 Z" fill="#1565C0"/><circle cx="198" cy="268" r="26" fill="#F2C9A0"/></g>
+   <g class="pp"><rect x="-26" y="60" width="52" height="60" fill="#F2C9A0"/></g>
+   <g id="head">
+    <g class="pp"><ellipse cx="0" cy="-20" rx="92" ry="104" fill="#F2C9A0"/></g>
+    <g class="pp"><path d="M-96,-30 Q-100,-140 0,-132 Q100,-140 96,-30 Q60,-100 0,-90 Q-60,-100 -96,-30 Z" fill="#10203C"/></g>
+    <g class="pp"><circle cx="-34" cy="-10" r="11" fill="#10203C"/><circle cx="34" cy="-10" r="11" fill="#10203C"/></g>
+    <g class="pp"><path d="M-30,40 Q0,52 30,40" stroke="#10203C" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+   </g>
+   <!-- speech bubble -->
+   <g id="bub" transform="translate(-230,-250)" opacity="0">
+    <g class="pp"><path d="M-150,-70 H150 Q180,-70 180,-40 V40 Q180,70 150,70 H40 L0,120 L-10,70 H-150 Q-180,70 -180,40 V-40 Q-180,-70 -150,-70 Z" fill="#FFFFFF"/></g>
+    <text x="0" y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#10203C" direction="rtl">بعداً!</text>
+   </g>
+  </g></g>
+  <!-- pulse strip -->
+  <g transform="translate(500,640)">
+   <g class="pp"><rect x="-20" y="-80" width="560" height="160" rx="10" fill="#FFFFFF" transform="rotate(-1.5 260 0)"/></g>
+   <path id="pulse" d="" stroke="#2196F3" stroke-width="10" fill="none" stroke-linejoin="round" stroke-linecap="round" filter="url(#paperS)"/>
+  </g>
+ </svg></div>
+
+ <!-- ===== S3: pop-up engine, 4 cylinders ===== -->
+ <div class="sc" id="s3"><svg width="1080" height="1920">
+  <g id="eng" transform="translate(540,1080)">
+   <g class="pp"><path d="M-470,-420 H470 V-340 H-470 Z" fill="#6E7D96"/></g>
+   <g class="pp"><path d="M-440,-340 H440 V420 Q440,470 390,470 H-390 Q-440,470 -440,420 Z" fill="#FFFFFF"/></g>
+   <g id="cyls"></g>
+  </g>
+ </svg></div>
+
+ <!-- ===== S4: three suspects ===== -->
+ <div class="sc" id="s4"><svg width="1080" height="1920">
+  <g class="pp"><path d="M-40,1500 H1120 V1920 H-40 Z" fill="#10203C"/></g>
+  <g class="pp"><path d="M-40,1500 H1120 V1530 H-40 Z" fill="#1565C0"/></g>
+  <g id="spot" opacity=".45"><path d="M540,250 L280,1500 H800 Z" fill="#ADD6FA"/></g>
+  <g id="sus"></g>
+ </svg></div>
+
+ <!-- ===== S6: diag + phone reveal ===== -->
+ <div class="sc" id="s6">
+  <svg width="1080" height="1920" class="a" style="left:0;top:0">
+   <!-- dash corner with OBD port -->
+   <g class="pp"><path d="M-40,330 H600 Q650,330 650,380 V560 H-40 Z" fill="#10203C"/></g>
+   <g class="pp"><path d="M90,560 H330 L305,620 H115 Z" fill="#181C24"/></g>
+   <g id="waves" transform="translate(330,560)"></g>
+  </svg>
+  <img id="diag" class="a pp" src="assets/diag_plug.png" style="width:330px;left:60px;top:560px;transform-origin:50% 0">
+  <!-- paper phone -->
+  <div id="ph" class="a" style="left:470px;top:640px;width:520px;height:1050px">
+   <svg width="520" height="1050" class="a" style="left:0;top:0"><g class="pp"><rect x="0" y="0" width="520" height="1050" rx="64" fill="#181C24"/></g></svg>
+   <div class="scr">
+    <div class="abar"><span>خطایابی ECU</span></div>
+    <div class="card" style="text-align:center">
+     <div style="font-weight:700;font-size:26px;color:#6E7D96">نتیجه اسکن</div>
+     <div id="scanBar" style="height:16px;border-radius:8px;background:#E6EBF2;margin:16px 0 4px;overflow:hidden"><div id="scanFill" style="height:100%;width:0;background:#2196F3"></div></div>
+    </div>
+    <div id="dtc" class="card" style="opacity:0">
+     <div style="background:#FFECEC;border-radius:20px;padding:10px 0;text-align:center"><span class="ltr" style="font-weight:900;font-size:64px;color:#DC3232">P۰۳۰۱</span></div>
+     <div style="font-weight:800;font-size:28px;color:#10203C;margin-top:16px;line-height:1.45">احتراق ناقص در سیلندر ۱</div>
+    </div>
+    <div id="ai" class="card" style="opacity:0;border-color:#ADD6FA">
+     <div style="font-weight:800;font-size:24px;color:#1565C0">CarDiag AI</div>
+     <div style="font-weight:500;font-size:26px;color:#10203C;margin-top:8px;line-height:1.55">محتمل‌ترین علت: شمع سیلندر ۱ فرسوده است.</div>
+    </div>
+    <div style="position:absolute;left:0;bottom:0;width:472px;height:90px;background:#2196F3"></div>
+   </div>
+  </div>
+ </div>
+
+ <!-- ===== S7: smooth again, health 92% ===== -->
+ <div class="sc" id="s7"><svg width="1080" height="1920">
+  <g transform="translate(540,1050)">
+   <g class="pp"><rect x="-430" y="-330" width="860" height="560" rx="40" fill="#FFFFFF"/></g>
+   <text x="0" y="-210" text-anchor="middle" font-family="V" font-weight="800" font-size="50" fill="#10203C">سلامت خودرو</text>
+   <g transform="translate(-360,-110)">
+    <g class="pp"><rect width="720" height="70" rx="35" fill="#E6EBF2"/></g>
+    <defs><linearGradient id="hg"><stop offset="0" stop-color="#E63C3C"/><stop offset=".35" stop-color="#F59628"/><stop offset=".65" stop-color="#D7C832"/><stop offset="1" stop-color="#32B455"/></linearGradient>
+     <clipPath id="hclip"><rect id="hclipR" width="0" height="70" rx="35"/></clipPath></defs>
+    <g clip-path="url(#hclip)"><rect width="720" height="70" rx="35" fill="url(#hg)"/></g>
+   </g>
+   <text id="hNum" x="0" y="110" text-anchor="middle" font-family="V" font-weight="900" font-size="130" fill="#22A050">۰٪</text>
+   <g id="chip" opacity="0"><g class="pp"><rect x="-110" y="140" width="220" height="76" rx="38" fill="#DEF6E6"/></g>
+    <text x="0" y="192" text-anchor="middle" font-family="V" font-weight="700" font-size="40" fill="#22A050">سالم</text></g>
+  </g>
+  <g id="mini" transform="translate(540,1520)"></g>
+ </svg></div>
+
+ <div id="vig"></div>
+ <svg id="grain" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#grainF)"/></svg>
+ <div id="ttl"><div id="ttlP"></div></div>
+</div>
+
+<script>
+const FPS=30, STEP=FPS/12;                 // stop-motion: hold each pose for 2.5 frames (12 poses/s)
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>clamp((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),ic:t=>t*t*t,back:t=>{const c=1.7;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2)}};
+const hash=n=>{const s=Math.sin(n*127.1+311.7)*43758.5453;return s-Math.floor(s)};
+const FA=(n)=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+// scene table (frames)
+const S={s1:[0,120],s2:[120,300],s3:[300,540],s4:[540,720],s6:[900,1140],s7:[1140,1380]};
+const TT=[[0,120,'این چراغ رو دیدی؟'],[130,300,'آرش بی‌خیال شد…'],[310,540,'یه سیلندر خاموشه!'],[550,720,'مقصر کیه؟ ۳ مظنون'],
+ [910,1140,'کاردیاگ مقصر رو لو داد'],[1150,1380,'قبل از خرابی بفهم']];
+// jitter per stop-motion pose (tiny, like hand-placed paper)
+const jit=(q,k,a)=>(hash(q*13.7+k)-.5)*a;
+
+function ticks(id){let s='';for(let i=0;i<=10;i++){const a=(-120+24*i)*Math.PI/180,r1=150,r2=i%2?132:118;
+ s+=`<line x1="${Math.sin(a)*r1}" y1="${-Math.cos(a)*r1}" x2="${Math.sin(a)*r2}" y2="${-Math.cos(a)*r2}" stroke="#10203C" stroke-width="${i%2?6:10}" stroke-linecap="round"/>`}
+ $(id).innerHTML=`<g filter="url(#paperS)">${s}</g>`}
+ticks('ticksL');ticks('ticksR');
+
+// cylinders: index 0 = cylinder 1 (drawn on the right, RTL reading)
+(function(){let s='';for(let i=0;i<4;i++){const x=315-210*i;
+ s+=`<g transform="translate(${x},0)">
+  <g class="pp"><rect x="-80" y="-300" width="160" height="560" rx="18" fill="#10203C"/></g>
+  <g id="pis${i}"><g class="pp"><rect x="-68" y="0" width="136" height="110" rx="10" fill="#6E7D96"/><rect x="-14" y="110" width="28" height="200" fill="#6E7D96"/></g></g>
+  <g id="spk${i}" transform="translate(0,-230)" opacity="0"><g class="pp"><use href="#star" fill="#FFFFFF" transform="scale(1.9)"/><use href="#star" fill="#78CDFF" transform="scale(1.15)"/></g></g>
+  <g id="pf${i}" opacity="0"><g class="pp"><circle cx="-30" cy="-180" r="26" fill="#ADB6C4"/><circle cx="20" cy="-200" r="34" fill="#C9D0DA"/><circle cx="34" cy="-160" r="20" fill="#ADB6C4"/></g></g>
+  <g class="pp"><rect x="-60" y="300" width="120" height="78" rx="14" fill="${i==0?'#F28012':'#1565C0'}"/></g>
+  <text x="0" y="356" text-anchor="middle" font-family="V" font-weight="900" font-size="52" fill="#FFFFFF">${FA(i+1)}</text>
+ </g>`}
+ $('cyls').innerHTML=s})();
+
+// suspects
+(function(){const P=[
+ {x:810,n:'شمع',d:'<rect x="-30" y="-330" width="60" height="70" rx="8"/><path d="M-62,-260 h124 v90 h-124 z"/><rect x="-44" y="-170" width="88" height="170" rx="20"/><rect x="-22" y="0" width="44" height="90"/><rect x="-8" y="90" width="16" height="40"/>'},
+ {x:540,n:'کوئل',d:'<rect x="-90" y="-360" width="180" height="120" rx="20"/><rect x="-46" y="-240" width="92" height="260" rx="16"/><path d="M-60,20 h120 l-20,110 h-80 z"/>'},
+ {x:270,n:'انژکتور',d:'<rect x="-70" y="-360" width="140" height="70" rx="14"/><rect x="-40" y="-290" width="80" height="250" rx="18"/><path d="M-30,-40 h60 l-12,130 h-36 z"/><rect x="-8" y="90" width="16" height="40"/>'}];
+ let s='';P.forEach((p,i)=>{s+=`<g id="sp${i}" transform="translate(${p.x},1360)">
+  <g class="pp"><g fill="#10203C">${p.d}</g></g>
+  <g id="q${i}" transform="translate(0,-450)"><g class="pp"><circle r="62" fill="#FFFFFF"/></g><text y="34" text-anchor="middle" font-family="V" font-weight="900" font-size="96" fill="#10203C">؟</text></g>
+  <g transform="translate(0,190)"><g class="pp"><rect x="-120" y="-50" width="240" height="96" rx="12" fill="#FFFFFF"/></g>
+   <text y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="54" fill="#10203C">${p.n}</text></g></g>`});
+ $('sus').innerHTML=s})();
+
+function pulsePath(t,mess){let d='';for(let x=0;x<=500;x+=5){const ph=(x/500+t*.6)%1;let y=0;
+  const b=ph*4%1; if(b>.42&&b<.5)y=-60*Math.sin((b-.42)/.08*Math.PI); if(b>.5&&b<.56)y=36*Math.sin((b-.5)/.06*Math.PI);
+  y+=mess*(hash(Math.floor(x/15)+Math.floor(t*12)*7)-.5)*70; d+=(x?'L':'M')+(x+10)+','+y.toFixed(1)}return d}
+
+function show(id,f){const [a,b]=S[id];const on=f>=a&&f<b;$(id).style.display=on?'block':'none';return on}
+
+function render(f0){
+ const q=Math.floor(f0/STEP), f=q*STEP, t=f/FPS;   // quantised time for stop-motion
+ // headline
+ let txt='',o=0,dy=0;TT.forEach(([a,b,s])=>{if(f>=a&&f<b){txt=s;const pin=seg(f,a,a+8),pout=seg(f,b-6,b);o=pin>0?1:0;o*=pout<1?1:0;dy=(1-E.oc(pin))*-120}});
+ const tp=$('ttlP'); if(tp.textContent!==txt)tp.textContent=txt; tp.style.opacity=o;
+ tp.style.transform=`translateY(${dy}px) rotate(${-1.2+jit(q,1,.6)}deg)`;
+
+ // S1
+ if(show('s1',f)){const lf=f-S.s1[0];
+  const shake=lf>30?1:0; $('s1dash').setAttribute('transform',`translate(${jit(q,2,10*shake)},${jit(q,3,8*shake)})`);
+  const on=lf>18&&(Math.floor(lf/12)%2==0); $('ceOn').setAttribute('opacity',on?1:0); $('glow').setAttribute('opacity',on?1:0);
+  $('needleL').setAttribute('transform',`rotate(${-70+jit(q,4,6)})`); $('needleR').setAttribute('transform',`rotate(${-30+18*Math.sin(t*3)})`);}
+ // S2
+ if(show('s2',f)){const lf=f-S.s2[0];
+  const day=lf<60?1:lf<110?7:30; $('calDay').textContent=FA(day);
+  $('calFlip').setAttribute('opacity',(lf>52&&lf<60)||(lf>102&&lf<110)?1:0);
+  const sh=Math.sin(seg(lf,8,30)*Math.PI); $('armL').setAttribute('transform',`rotate(${sh*-28} -104 140)`); $('armR').setAttribute('transform',`rotate(${sh*28} 104 140)`);
+  $('head').setAttribute('transform',`rotate(${sh*-8})`); $('bub').setAttribute('opacity',lf>10&&lf<70?1:0);
+  $('pulse').setAttribute('d',pulsePath(t,seg(lf,60,170)));}
+ // S3
+ if(show('s3',f)){const lf=f-S.s3[0];const pop=E.back(seg(lf,0,18));
+  $('eng').setAttribute('transform',`translate(540,${lerp(1900,1080,pop)}) scale(1,${lerp(.2,1,pop)})`);
+  const order=[0,2,3,1];
+  for(let i=0;i<4;i++){const ph=(t*1.4+order[i]/4)%1;const y=-200+160*(.5-.5*Math.cos(ph*2*Math.PI));
+   $('pis'+i).setAttribute('transform',`translate(${jit(q,i,i==0?6:0)},${y})`);
+   const fire=ph<.12&&lf>20; $('spk'+i).setAttribute('opacity',i==0?0:fire?1:0); $('pf'+i).setAttribute('opacity',i==0&&ph<.18&&lf>20?1:0);}}
+ // S4
+ if(show('s4',f)){const lf=f-S.s4[0];
+  for(let i=0;i<3;i++){const k=E.back(seg(lf,6+i*10,22+i*10));$('sp'+i).setAttribute('transform',`translate(${[810,540,270][i]},${lerp(1950,1360,k)})`);
+   $('q'+i).setAttribute('transform',`translate(0,-450) rotate(${jit(q,i+9,24)})`);}
+  const sx=540+300*Math.sin(t*1.6); $('spot').querySelector('path').setAttribute('d',`M540,250 L${sx-230},1500 H${sx+230} Z`);}
+ // S6
+ if(show('s6',f)){const lf=f-S.s6[0];
+  const plug=E.oc(seg(lf,0,20)); $('diag').style.transform=`translateY(${lerp(400,0,plug)}px) rotate(${jit(q,5,1.5)}deg)`;
+  let w='';for(let k=0;k<3;k++){const r=((lf/18+k/3)%1);if(lf>22)w+=`<path d="M${60+r*240},${40+r*120} a${80+r*180},${80+r*180} 0 0 1 ${60+r*120},${-90-r*120}" stroke="#78CDFF" stroke-width="${14-r*6}" fill="none" stroke-linecap="round" opacity="${1-r}" filter="url(#paperS)"/>`}
+  $('waves').innerHTML=w;
+  const ph=E.back(seg(lf,10,30)); $('ph').style.transform=`translateY(${lerp(1300,0,ph)}px) rotate(${2+jit(q,6,.8)}deg)`;
+  $('scanFill').style.width=(seg(lf,34,80)*100)+'%';
+  $('dtc').style.opacity=lf>84?1:0; $('dtc').style.transform=`scale(${lf>84?E.back(seg(lf,84,96)):.8})`;
+  $('ai').style.opacity=lf>130?1:0; $('ai').style.transform=`translateY(${lf>130?(1-E.oc(seg(lf,130,144)))*40:40}px)`;}
+ // S7
+ if(show('s7',f)){const lf=f-S.s7[0];const h=E.oc(seg(lf,20,80));
+  $('hclipR').setAttribute('width',720*.92*h); $('hNum').textContent=FA(Math.round(92*h))+'٪'; $('chip').setAttribute('opacity',lf>84?1:0);}
+}
+window.READY=document.fonts.ready.then(()=>{render(0);return true});
+</script>
+</body></html>
