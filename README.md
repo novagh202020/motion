@@ -79,3 +79,7 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 - endcard.js           shared end card: diag + phone with live link, "دیاگ رو بخر، / اشتراک طلایی هدیه بگیر" (initEnd(null,{health,t0,beats}): phone health %, start frame, heartbeat frames)
 - cover*.html          Instagram / YouTube covers (cover_ecu.html = ECU post, cover_bat.html = battery post, render: python3 shot.py cover_ecu.html out.png); product_shot.html = white-background site image
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)
+
+## Token-cheap QA
+    PAGE=x_motion.html python3 contact.py 0,150,300,450,600,750 sheet.png 3 300   # one tiled image of key frames
+Project skill: `.claude/skills/cardiag-motion/SKILL.md` (workflow + QA checklist). render.py auto-uses /opt/pw-browsers/chromium (override: CHROME_PATH).
