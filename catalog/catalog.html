@@ -1,0 +1,366 @@
+<title>کاتالوگ عمده CarDiag</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one calm reading column (max 980px); the wholesale offer sits right under the hero so a buyer sees price first. */
+@font-face{font-family:VFD;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf) format("truetype");font-display:swap}
+@font-face{font-family:VFD;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf) format("truetype");font-display:swap}
+@font-face{font-family:VFD;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf) format("truetype");font-display:swap}
+@font-face{font-family:VFD;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf) format("truetype");font-display:swap}
+:root{
+ --blue:#2196F3; --deep:#1565C0; --soft:#ADD6FA; --tint:#E3EFFC;
+ --navy:#10203C; --slate:#6E7D96; --url:#506482;
+ --green:#22A050; --greenT:#DEF6E6; --amber:#F28012;
+ --gold-ink:#4B3005;
+ --bg-top:#FBFCFF; --bg-bot:#ECF3FC; --card:#FFFFFF; --hair:#DEE6F2; --track:#E6EBF2;
+ --device:#181C24; --edge:#5F6878;
+ --shadow:0 18px 40px rgba(20,40,80,.10),0 4px 12px rgba(20,40,80,.06);
+ --font:VFD,Vazirmatn,Tahoma,sans-serif;
+ color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--bg-top)}
+body{margin:0;font-family:var(--font);color:var(--navy);direction:rtl;font-size:17px;line-height:1.85;
+ background:linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bot) 100%);
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 120px}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:72px}
+.ltr{direction:ltr;unicode-bidi:isolate}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.3}
+h2{font-weight:900;font-size:clamp(28px,4.4vw,40px)}
+h3{font-weight:800;font-size:21px}
+p{margin:0}
+.lead{color:var(--slate);font-weight:500;font-size:18px;max-width:62ch}
+.eyebrow{font-weight:700;font-size:15px;color:var(--blue);letter-spacing:.02em}
+.sec{display:flex;flex-direction:column;gap:28px}
+.sec>header{display:flex;flex-direction:column;gap:8px}
+.card{background:var(--card);border:2px solid var(--hair);border-radius:28px;box-shadow:var(--shadow)}
+.ic{width:52px;height:52px;border-radius:16px;background:var(--tint);display:flex;align-items:center;justify-content:center;flex:none}
+.ic svg{width:28px;height:28px;fill:var(--blue)}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px 0}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:24px;color:var(--deep)}
+.brand svg{width:64px;height:24px}
+.tag{font-weight:700;font-size:14px;color:var(--deep);background:var(--tint);border-radius:999px;padding:6px 14px;white-space:nowrap}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.hero>div{min-width:0}
+.hero h1{font-weight:900;font-size:clamp(36px,6.4vw,62px)}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero .lead{margin-top:16px}
+.hero-img{position:relative;margin-top:26px;max-width:420px}
+.hero-img img{width:100%;display:block;filter:drop-shadow(0 22px 26px rgba(20,40,80,.22))}
+.hero-img::before{content:"";position:absolute;inset:-12% -8%;border-radius:50%;background:radial-gradient(circle,rgba(40,160,255,.26) 0%,rgba(40,160,255,.08) 45%,rgba(40,160,255,0) 70%);z-index:-1}
+.phone{position:relative;width:100%;max-width:330px;margin-inline:auto;aspect-ratio:9/16;border-radius:42px;background:var(--device);border:3px solid var(--edge);padding:9px;
+ box-shadow:0 40px 70px rgba(20,40,80,.26),0 10px 22px rgba(20,40,80,.16)}
+.phone video,.phone img{width:100%;height:100%;object-fit:cover;border-radius:32px;display:block;background:var(--bg-bot)}
+.cap{text-align:center;color:var(--slate);font-weight:500;font-size:14px;margin-top:12px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{padding:20px 18px;display:flex;flex-direction:column;gap:2px}
+.stat b{font-weight:900;font-size:30px;color:var(--blue);line-height:1.3}
+.stat span{color:var(--slate);font-weight:500;font-size:15px}
+
+/* offer */
+.offer{display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.offer>div{padding:34px 34px 30px;min-width:0}
+.offer .price{background:linear-gradient(160deg,var(--blue) 0%,var(--deep) 100%);color:#fff;display:flex;flex-direction:column;gap:10px}
+.price .k{font-weight:500;font-size:16px;opacity:.9}
+.price .v{font-weight:900;font-size:clamp(40px,6vw,56px);line-height:1.15}
+.price .v small{font-size:22px;font-weight:700;opacity:.9;margin-right:6px}
+.price ul{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.price li{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px}
+.price li svg{width:26px;height:26px;fill:#fff;flex:none}
+.calc h3{margin-bottom:6px}
+.calc p{color:var(--slate);font-weight:500;font-size:15px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto;margin-top:16px}
+th,td{text-align:right;padding:12px 10px;border-bottom:2px solid #EEF2F8;white-space:nowrap}
+th{font-weight:700;font-size:14px;color:var(--slate)}
+td{font-weight:800;font-size:17px}
+td.g{color:var(--green)}
+tr:last-child td{border-bottom:0}
+.note{font-size:14px;color:var(--slate);font-weight:500;margin-top:12px}
+
+/* product */
+.prod{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:center}
+.prod>div{min-width:0}
+.prod img{width:100%;max-width:440px;display:block;margin-inline:auto;filter:drop-shadow(0 20px 24px rgba(20,40,80,.2))}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:s}
+.steps li{display:flex;gap:16px;align-items:flex-start;padding:18px 20px}
+.steps li::before{counter-increment:s;content:counter(s,persian);width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center;flex:none}
+.steps b{display:block;font-weight:800;font-size:18px}
+.steps span{color:var(--slate);font-weight:500;font-size:15px}
+
+/* features with teaser clips */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feat{padding:14px 14px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.clip{aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:var(--bg-bot);border:2px solid var(--hair)}
+.clip video,.clip img{width:100%;height:100%;object-fit:cover;display:block}
+.feat h3{padding-inline:6px}
+.feat p{padding-inline:6px;color:var(--slate);font-weight:500;font-size:15px;line-height:1.7}
+
+/* reasons */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.why{padding:22px;display:flex;gap:16px;align-items:flex-start}
+.why>div{min-width:0}
+.why b{display:block;font-weight:800;font-size:18px}
+.why span{color:var(--slate);font-weight:500;font-size:15px}
+.gold{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:4px 16px;background:linear-gradient(180deg,#FFEA9C 0%,#F6CD5C 45%,#E0A82C 100%);color:var(--gold-ink);font-weight:800;font-size:16px}
+
+/* specs + box */
+.specs td{font-weight:700;font-size:16px;white-space:normal}
+.specs td:first-child{color:var(--slate);font-weight:500;width:38%}
+.specs{padding:10px 26px}
+.box{padding:26px;display:flex;flex-direction:column;gap:16px}
+.box ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.box li{display:flex;gap:14px;align-items:center;font-weight:700}
+
+/* compatibility */
+.cars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.car{padding:18px 20px}
+.car b{display:block;font-weight:800;font-size:17px}
+.car span{color:var(--slate);font-weight:500;font-size:14px;line-height:1.7;display:block;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-weight:700;font-size:14px;background:var(--greenT);color:var(--green)}
+
+/* order + contact */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:f}
+.flow li{list-style:none;padding:22px;display:flex;flex-direction:column;gap:8px}
+.flow li::before{counter-increment:f;content:"مرحله " counter(f,persian);font-weight:700;font-size:14px;color:var(--blue)}
+.flow b{font-weight:800;font-size:19px}
+.flow span{color:var(--slate);font-weight:500;font-size:15px}
+.flow{margin:0;padding:0}
+.contact{padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.contact>div{min-width:0}
+.lines{display:flex;flex-direction:column;gap:12px}
+.line{display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid var(--hair);border-radius:18px;background:var(--bg-top)}
+.line .k{font-weight:500;font-size:14px;color:var(--slate);display:block;line-height:1.4}
+.line .v{font-weight:800;font-size:19px;user-select:all}
+.line>div{flex:1;min-width:0}
+.copy{font:inherit;font-weight:700;font-size:14px;color:var(--deep);background:var(--tint);border:0;border-radius:999px;padding:6px 14px;cursor:pointer}
+.copy:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.sample{display:inline-block;font-weight:700;font-size:13px;color:var(--amber);background:#FFF3E3;border-radius:999px;padding:2px 10px;margin-top:8px}
+.endmark{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.endmark .b{font-weight:900;font-size:clamp(40px,7vw,64px);color:var(--deep);direction:ltr}
+.endmark .u{font-weight:700;font-size:22px;color:var(--url);direction:ltr}
+.pulse{width:min(420px,90%);height:auto}
+@media screen{ .print-only{display:none!important} }
+
+@media (max-width:760px){
+ .hero,.prod,.offer,.contact,.grid2{grid-template-columns:1fr}
+ .stats{grid-template-columns:1fr 1fr}
+ .feats,.cars{grid-template-columns:1fr 1fr}
+ .flow{grid-template-columns:1fr}
+ .wrap{gap:56px}
+ .offer>div{padding:26px 22px}
+}
+@media (max-width:420px){ .feats{grid-template-columns:1fr 1fr;gap:12px} .feat{padding:10px 10px 14px} .cars{grid-template-columns:1fr} }
+@media screen and (prefers-reduced-motion:reduce){ .clip video{display:none} .clip .print-only{display:block!important} }
+
+/* PDF (A4) */
+@page{size:A4;margin:12mm 11mm}
+@media print{
+ body{background:#fff;padding:0;font-size:13px}
+ .wrap{gap:30px;max-width:none}
+ video,.copy,.screen-only{display:none!important}
+ .print-only{display:block}
+ .card{box-shadow:none}
+ .sec,.card,.feat,.car,.why,.stat{break-inside:avoid}
+ .feats{grid-template-columns:repeat(6,1fr);gap:10px}
+ .feat{padding:8px 8px 12px}
+ .feat p{font-size:11px}
+ .feat h3{font-size:14px}
+ .phone{max-width:240px}
+ .hero h1{font-size:44px}
+ .newpage{break-before:page}
+}
+</style>
+
+<div class="wrap">
+ <div class="top">
+  <div class="brand"><svg viewBox="0 0 400 144" aria-hidden="true"><path d="M8 92 L58 92 Q66 92 72 80 Q92 40 140 38 L176 38 Q214 38 236 74 L248 92 L262 92 L280 60 L304 128 L330 30 L350 92 L392 92" fill="none" stroke="#2196F3" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><circle cx="104" cy="114" r="16" fill="none" stroke="#2196F3" stroke-width="11"/><circle cx="188" cy="114" r="16" fill="none" stroke="#2196F3" stroke-width="11"/></svg><span class="ltr">CarDiag AI</span></div>
+  <span class="tag">کاتالوگ فروش عمده</span>
+ </div>
+
+ <!-- hero -->
+ <section class="hero">
+  <div>
+   <p class="eyebrow">دیاگ بلوتوثی + عیب‌یاب هوش مصنوعی فارسی</p>
+   <h1>دیاگی که <em>خودش</em> فروش می‌ره</h1>
+   <p class="lead">کاردیاگ به سوکت OBD2 خودرو وصل می‌شود و اپ فارسی‌اش خطاهای ایسیو را می‌خواند و علت مشکل را به زبان ساده توضیح می‌دهد. مشتری شما قبل از رفتن به تعمیرگاه می‌فهمد ماشینش چه مشکلی دارد.</p>
+   <div class="hero-img"><img src="media/diag_front.png" alt="دستگاه دیاگ بلوتوثی کاردیاگ"></div>
+  </div>
+  <div>
+   <div class="phone">
+    <video src="media/teaser.mp4" poster="media/teaser.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="تیزر معرفی کاردیاگ برای فروش عمده"></video>
+    <img class="print-only" src="media/teaser.jpg" alt="">
+   </div>
+   <p class="cap screen-only">تیزر ۲۰ ثانیه‌ای · برای صدا روی ویدیو بزنید</p>
+  </div>
+ </section>
+
+ <section class="stats" aria-label="آمار کلیدی">
+  <div class="card stat"><b>+۵٬۰۰۰</b><span>دستگاه فروش در ۳ ماه گذشته</span></div>
+  <div class="card stat"><b>۶ ماه</b><span>گارانتی تعویض شرکت</span></div>
+  <div class="card stat"><b>+۵۰ مدل</b><span>خودروی تست‌شده</span></div>
+  <div class="card stat"><b>۵ روز</b><span>مرجوعی اگر وصل نشد</span></div>
+ </section>
+
+ <!-- wholesale offer -->
+ <section class="sec" id="offer">
+  <header><p class="eyebrow">پیشنهاد همکاری</p><h2>قیمت ویژه همکار</h2></header>
+  <div class="card offer">
+   <div class="price">
+    <span class="k">قیمت عمده هر دستگاه</span>
+    <span class="v">۱٬۱۹۰٬۰۰۰<small>تومان</small></span>
+    <ul>
+     <li><svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4l16-.02V7z"/></svg>حداقل سفارش ۳۰ عدد</li>
+     <li><svg viewBox="0 0 24 24"><path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/></svg>پرداخت نقدی</li>
+     <li><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>گارانتی و پشتیبانی با شرکت</li>
+    </ul>
+   </div>
+   <div class="calc">
+    <h3>سود شما با قیمت فعلی سایت</h3>
+    <p>قیمت مصرف‌کننده روی cardiag.ir: <b>۱٬۴۹۰٬۰۰۰ تومان</b> (قیمت پایه ۲٬۱۵۰٬۰۰۰). یعنی <b style="color:var(--green)">۳۰۰٬۰۰۰ تومان سود</b> روی هر دستگاه.</p>
+    <div class="tbl">
+     <table>
+      <thead><tr><th>تعداد</th><th>مبلغ خرید (تومان)</th><th>سود فروش (تومان)</th></tr></thead>
+      <tbody>
+       <tr><td>۳۰ عدد</td><td>۳۵٬۷۰۰٬۰۰۰</td><td class="g">۹٬۰۰۰٬۰۰۰</td></tr>
+       <tr><td>۵۰ عدد</td><td>۵۹٬۵۰۰٬۰۰۰</td><td class="g">۱۵٬۰۰۰٬۰۰۰</td></tr>
+       <tr><td>۱۰۰ عدد</td><td>۱۱۹٬۰۰۰٬۰۰۰</td><td class="g">۳۰٬۰۰۰٬۰۰۰</td></tr>
+      </tbody>
+     </table>
+    </div>
+    <p class="note">سود بر اساس فروش با قیمت فعلی سایت حساب شده است.</p>
+   </div>
+  </div>
+ </section>
+
+ <!-- product -->
+ <section class="sec">
+  <header><p class="eyebrow">معرفی محصول</p><h2>یه دیاگ، همه‌چیز</h2>
+   <p class="lead">دستگاه کوچک بلوتوثی که زیر داشبورد وصل می‌شود و اطلاعات لحظه‌ای موتور، سنسورها و خطاهای ایسیو را روی گوشی نشان می‌دهد. تنظیمات خودرو را تغییر نمی‌دهد و فقط اطلاعات را می‌خواند.</p></header>
+  <div class="prod">
+   <div><img src="media/diag_plug.png" alt="سوکت OBD2 دیاگ کاردیاگ"></div>
+   <ol class="steps">
+    <li class="card"><div><b>دستگاه را وصل کنید</b><span>به سوکت OBD2 زیر داشبورد، کنار فرمان. ابزار و تخصص لازم نیست.</span></div></li>
+    <li class="card"><div><b>اپ را نصب کنید</b><span>اپ رایگان از سایت دانلود می‌شود و اشتراک طلایی خودکار فعال می‌شود.</span></div></li>
+    <li class="card"><div><b>بلوتوث را روشن کنید</b><span>اتصال در کمتر از ۳۰ ثانیه برقرار می‌شود.</span></div></li>
+   </ol>
+  </div>
+ </section>
+
+ <!-- features -->
+ <section class="sec newpage">
+  <header><p class="eyebrow">بخش‌های اپ</p><h2>روی گوشی مشتری چی می‌بینه؟</h2>
+   <p class="lead">هر ویدیو یکی از بخش‌های اپ کاردیاگ را نشان می‌دهد.</p></header>
+  <div class="feats">
+   <article class="card feat"><div class="clip"><video src="media/clip_ecu.mp4" poster="media/clip_ecu.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_ecu.jpg" alt=""></div>
+    <h3>خطایابی <span class="ltr">ECU</span></h3><p>کد خطا به فارسی، علت احتمالی، و پاک کردن خطا و چراغ چک.</p></article>
+   <article class="card feat"><div class="clip"><video src="media/clip_ai.mp4" poster="media/clip_ai.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_ai.jpg" alt=""></div>
+    <h3>عیب‌یاب هوش مصنوعی</h3><p>مشکل را می‌نویسی و جواب ساده و قدم‌به‌قدم می‌گیری.</p></article>
+   <article class="card feat"><div class="clip"><video src="media/clip_trip.mp4" poster="media/clip_trip.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_trip.jpg" alt=""></div>
+    <h3>گزارش سفر</h3><p>ثبت داده‌ها حین رانندگی و گزارش کامل PDF در پایان مسیر.</p></article>
+   <article class="card feat"><div class="clip"><video src="media/clip_bat.mp4" poster="media/clip_bat.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_bat.jpg" alt=""></div>
+    <h3>تست باتری و دینام</h3><p>ولتاژ لحظه‌به‌لحظه؛ قبل از خرید باتری نو، مقصر را پیدا کن.</p></article>
+   <article class="card feat"><div class="clip"><video src="media/clip_km.mp4" poster="media/clip_km.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_km.jpg" alt=""></div>
+    <h3>اصالت کیلومتر</h3><p>مقایسه کیلومتر داشبورد با شمارنده ایسیو، برای خرید ماشین کارکرده.</p></article>
+   <article class="card feat"><div class="clip"><video src="media/clip_mon.mp4" poster="media/clip_mon.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_mon.jpg" alt=""></div>
+    <h3>مانیتورینگ زنده</h3><p>دمای موتور، دور، ولتاژ و سنسور اکسیژن، همزمان و زنده.</p></article>
+  </div>
+ </section>
+
+ <!-- why it sells -->
+ <section class="sec">
+  <header><p class="eyebrow">چرا مشتری می‌خره؟</p><h2>خیال مشتری‌ات راحته</h2></header>
+  <div class="grid2">
+   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></span><div><b>یک بار خرید، دیاگ رایگان</b><span>هر بار دیاگ در تعمیرگاه ۲۰۰ تا ۴۰۰ هزار تومان هزینه دارد؛ با کاردیاگ هر وقت بخواهد، رایگان.</span></div></div>
+   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg></span><div><b><span class="gold">اشتراک طلایی هدیه</span></b><span>همراه هر دستگاه، با ۷۲ اعتبار هوش مصنوعی.</span></div></div>
+   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span><div><b>کاملاً ایمن</b><span>فقط اطلاعات را می‌خواند و هیچ تنظیمی در خودرو تغییر نمی‌دهد.</span></div></div>
+   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></span><div><b>کاملاً فارسی، بدون دانش فنی</b><span>رابط ساده برای همه رانندگان؛ جواب‌ها به زبان ساده.</span></div></div>
+  </div>
+ </section>
+
+ <!-- specs + box -->
+ <section class="sec newpage">
+  <header><p class="eyebrow">مشخصات</p><h2>مشخصات فنی و محتویات بسته</h2></header>
+  <div class="grid2">
+   <div class="card specs"><table><tbody>
+    <tr><td>نوع</td><td>دیاگ بلوتوثی OBD2 با نرم‌افزار اختصاصی فارسی</td></tr>
+    <tr><td>پروتکل‌ها</td><td class="ltr" style="text-align:right">CAN · KWP2000 · ISO 9141 · J1850</td></tr>
+    <tr><td>اتصال</td><td>بلوتوث ۴٫۰</td></tr>
+    <tr><td>سیستم‌عامل</td><td>اندروید ۵ به بالا</td></tr>
+    <tr><td>خودروها</td><td>بیش از ۵۰ مدل تست‌شده</td></tr>
+    <tr><td>زبان اپ</td><td>فارسی</td></tr>
+    <tr><td>گارانتی</td><td>۶ ماه تعویض + پشتیبانی فارسی</td></tr>
+   </tbody></table></div>
+   <div class="card box">
+    <h3>داخل هر بسته</h3>
+    <ul>
+     <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M16 7V3h-2v4h-4V3H8v4h-.01C6.9 6.99 6 7.89 6 8.98v5.52L9.5 18v3h5v-3l3.5-3.51v-5.5c0-1.1-.9-2-2-2z"/></svg></span>دیاگ بلوتوثی کاردیاگ</li>
+     <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span>کارت فعال‌سازی اشتراک طلایی</li>
+     <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg></span>کیف زیپ‌دار نگهداری</li>
+    </ul>
+    <p class="note">فقط برای گوشی‌های اندروید؛ این نکته را هنگام فروش به مشتری بگویید.</p>
+   </div>
+  </div>
+ </section>
+
+ <!-- compatibility -->
+ <section class="sec">
+  <header><p class="eyebrow">سازگاری</p><h2>به ماشین مشتری وصل می‌شه؟</h2>
+   <p class="lead">همه خودروهای چینی و خارجی با استاندارد OBD2 و حدود ۹۰٪ خودروهای ایرانی. اگر به خودروی مشتری وصل نشد، تا ۵ روز امکان مرجوعی دارد.</p></header>
+  <div class="cars">
+   <div class="card car"><b>پژو ۲۰۶</b><span>تیپ ۲، تیپ ۵، تیپ ۶، صندوق‌دار V8</span></div>
+   <div class="card car"><b>پژو ۲۰۷، ۴۰۵، پارس</b><span>۲۰۷ دستی/اتوماتیک و پانوراما، 405 GLX و SLX، پارس</span></div>
+   <div class="card car"><b>سمند و سورن</b><span>EF7، LX، سورن ELX، سورن توربو و پلاس</span></div>
+   <div class="card car"><b>پراید</b><span>۱۱۱، ۱۳۱، ۱۳۲، ۱۵۱ وانت</span></div>
+   <div class="card car"><b>تیبا، ساینا، کوییک، شاهین</b><span>تیبا ۲، ساینا S، کوییک G/GX/R/S، شاهین</span></div>
+   <div class="card car"><b>دنا، رنو، ال ۹۰</b><span>دنا EF7، ساندرو و استپ‌وی، تندر ۹۰</span></div>
+  </div>
+  <p><span class="chip">✓ همه خودروهای چینی و خارجی</span></p>
+ </section>
+
+ <!-- order -->
+ <section class="sec">
+  <header><p class="eyebrow">سفارش</p><h2>سفارش در سه قدم</h2></header>
+  <ol class="flow">
+   <li class="card"><b>تماس و هماهنگی</b><span>تعداد سفارش (حداقل ۳۰ عدد) و روش ارسال را تلفنی هماهنگ کنید.</span></li>
+   <li class="card"><b>پرداخت نقدی</b><span>صورت‌حساب ارسال می‌شود و پس از واریز، سفارش ثبت می‌شود.</span></li>
+   <li class="card"><b>ارسال و پشتیبانی</b><span>دستگاه‌ها ارسال می‌شوند؛ گارانتی و پشتیبانی مشتری‌ها با شرکت است.</span></li>
+  </ol>
+ </section>
+
+ <!-- contact -->
+ <section class="sec" id="contact">
+  <header><p class="eyebrow">تماس</p><h2>همین حالا سفارش بده</h2></header>
+  <div class="card contact">
+   <div class="lines">
+    <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+     <div><span class="k">تلفن فروش عمده</span><span class="v ltr" id="tel">۰۲۱ ۰۰۰۰ ۰۰۰۰</span></div><button class="copy" type="button" data-copy="tel">کپی</button></div>
+    <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg></span>
+     <div><span class="k">واتس‌اپ و تلگرام</span><span class="v ltr" id="wa">۰۹۱۲ ۰۰۰ ۰۰۰۰</span></div><button class="copy" type="button" data-copy="wa">کپی</button></div>
+    <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></span>
+     <div><span class="k">کانال تلگرام</span><span class="v ltr" id="tg">@cardiagai</span></div><button class="copy" type="button" data-copy="tg">کپی</button></div>
+    <span class="sample">شماره‌ها نمونه‌اند و پیش از ارسال جایگزین می‌شوند</span>
+   </div>
+   <div class="endmark">
+    <span class="b">CarDiag AI</span>
+    <a class="u" href="https://cardiag.ir" target="_blank" rel="noopener" style="text-decoration:none;color:var(--url)">cardiag.ir</a>
+    <svg class="pulse" viewBox="0 0 420 90" aria-hidden="true"><path d="M0 50 H150 L166 50 L178 30 L190 50 L204 50 L222 8 L242 82 L258 38 L268 56 L278 50 H420" fill="none" stroke="#2196F3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <p class="note">مکانیک تو جیبِ مشتری‌هات</p>
+   </div>
+  </div>
+ </section>
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+ const el=document.getElementById(b.dataset.copy), t=el.textContent.trim();
+ const done=()=>{const o=b.textContent;b.textContent='کپی شد';setTimeout(()=>b.textContent=o,1500)};
+ const sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)};
+ try{navigator.clipboard.writeText(t).then(done,sel)}catch(e){sel()}
+}));
+</script>

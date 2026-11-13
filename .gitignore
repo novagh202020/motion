@@ -5,3 +5,4 @@ kf/
 *.wav
 __pycache__/
 out/
+catalog/media/*.mp4
