@@ -1,15 +1,19 @@
 import cv2, numpy as np, sys
+# usage: photo_grade.py src out [y0 y1 x0 screenB,G,R]
+#   y0:y1 = source rows to keep (drop burnt captions / letterbox), x0 = horizontal crop after scaling,
+#   screen = BGR of the phone screen in the raw shot (used for white balance)
 src, out = sys.argv[1], sys.argv[2]
-im = cv2.imread(src)[6:1476]                      # drop burnt-in caption
+y0, y1, x0 = (int(v) for v in sys.argv[3:6]) if len(sys.argv) > 5 else (6, 1476, 55)
+ref = np.array([float(v) for v in sys.argv[6].split(',')] if len(sys.argv) > 6 else [165, 193, 203], np.float32)
+im = cv2.imread(src)[y0:y1]
 im = cv2.fastNlMeansDenoisingColored(im, None, 4, 5, 7, 21)
 f = im.astype(np.float32)/255
 # white balance: phone screen should read white (80% correction)
-ref = np.array([165, 193, 203], np.float32)
 g = ref.mean()/ref; g = 1 + 0.8*(g-1)
 f = np.clip(f*g, 0, 1)
 s = 1920/f.shape[0]
 f = cv2.resize(f, (round(f.shape[1]*s), 1920), interpolation=cv2.INTER_LANCZOS4)
-x0 = 55; f = np.clip(f[:, x0:x0+1080], 0, 1)
+f = np.clip(f[:, x0:x0+1080], 0, 1)
 # luminance levels (same for all channels -> no colour shift)
 lum = f @ np.array([0.114, 0.587, 0.299], np.float32)
 lo, hi = np.percentile(lum, 0.5), np.percentile(lum, 99.6)
