@@ -12,7 +12,7 @@ URL = (HERE / os.environ.get("PAGE", "motion.html")).as_uri()
 
 
 def page_ctx(p):
-    b = p.chromium.launch(args=["--disable-web-security", "--allow-file-access-from-files", "--force-color-profile=srgb"])
+    b = p.chromium.launch(executable_path=os.environ.get("CHROME_PATH") or None, args=["--disable-web-security", "--allow-file-access-from-files", "--force-color-profile=srgb"])
     pg = b.new_page(viewport={"width": int(os.environ.get("VW", 1080)), "height": int(os.environ.get("VH", 1920))}, device_scale_factor=1)
     errs = []
     pg.on("console", lambda m: errs.append(m.text) if m.type == "error" else None)
