@@ -1,6 +1,6 @@
 # Car-wash wall banners: python3 banner.py [out_dir] [dpi]
 # banner_shine.html 100 x 200 cm (code shine), banner_azadi.html 120 x 150 cm (code azadi),
-# banner_mehdi.html 100 x 150 cm (code mehdi); QR -> https://www.cardiag.ir/?coupon=<CODE>
+# banner_mehdi.html 100 x 150 cm (code mehdi), banner_azaran.html 100 x 200 cm (code azaran); QR -> https://www.cardiag.ir/?coupon=<CODE>
 # -> <name>.pdf (print, exact size), <name>_<dpi>dpi.jpg, <name>_preview.jpg
 import os, sys, pathlib
 os.environ.setdefault("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
@@ -14,7 +14,8 @@ dpi = int(sys.argv[2]) if len(sys.argv) > 2 else 150   # 100-150 dpi is the norm
 out.mkdir(parents=True, exist_ok=True)
 W = 2245                               # design width in px for every banner
 BANNERS = [("banner_shine", 1000, 2000, "SHINE"), ("banner_azadi", 1200, 1500, "AZADI"),
-           ("banner_mehdi", 1000, 1500, "MEHDI")]
+           ("banner_mehdi", 1000, 1500, "MEHDI"),
+           ("banner_azaran", 1000, 2000, "AZARAN")]
 
 def shot(pg, page, path, dpi_out):
     pg.goto(page); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(600)

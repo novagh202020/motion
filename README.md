@@ -53,5 +53,6 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
                        free-test address, phone, site. Render: python3 banner.py out_dir 150 (PDF is 1000x2000 mm)
 - banner_azadi.html   120x150 cm wall banner for Azadi car wash (code azadi), two-column middle. Both banners: python3 banner.py out_dir 150
 - banner_mehdi.html   100x150 cm wall banner for Mehdi oil-change shop (code mehdi), no free-test address
+- banner_azaran.html  100x200 cm wall banner for Azaran car wash (code azaran), Shine layout with free-test address
 - box_sheet.html       (no longer rendered) die-cut card pocket: 140x70 front, 8 mm walls, tabs into poster slits
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)
