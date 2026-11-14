@@ -51,5 +51,6 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
                        Customer version without the card: ?v=general. Render (both): python3 poster.py out_dir 300
 - banner_shine.html   100x200 cm wall banner for Shine car wash: price-label box, Shine 10% offer + coupon QR (code shine),
                        free-test address, phone, site. Render: python3 banner.py out_dir 150 (PDF is 1000x2000 mm)
+- banner_azadi.html   120x150 cm wall banner for Azadi car wash (code azadi), two-column middle. Both banners: python3 banner.py out_dir 150
 - box_sheet.html       (no longer rendered) die-cut card pocket: 140x70 front, 8 mm walls, tabs into poster slits
 - Brand rules: see project instructions (colors, Vazirmatn FD, RTL, max 5-word titles)
