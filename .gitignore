@@ -6,3 +6,4 @@ kf/
 __pycache__/
 out/
 catalog/media/*.mp4
+deliverables/*.zip

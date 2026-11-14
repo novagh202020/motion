@@ -73,8 +73,8 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 - mon_motion.html      Live monitoring: driver's questions -> plug diag -> fast connect -> ~1 s visible press on «مانیتورینگ خودرو» ->
                        «اسکن», 14 sensors found -> list: tick 13 on eighth notes, confirm -> «شروع خواندن»: 13 live cards refresh every
                        709 ms -> stop, «اسکن مجدد», tick 3 (battery/alternator, O2 1, O2 2) -> 3 live cards + big LIVE card -> end card (37 s)
-- wholesale_motion.html  Wholesale teaser (21 s, song/song_wh.wav = song/wh_cut.py): sales stat, diag + app, trust cards, wholesale price 1,190,000 / min 30 / cash, end card with sample phone (PHONE const)
-                       python3 sfx_wh.py -> sfx_wh_full.wav, mix_wh.wav; PAGE=wholesale_motion.html python3 render.py video silent.mp4 0 630
+- wholesale_motion.html  Wholesale teaser (30 s on song/song_cut.wav, formal copy): sales stat, diag + app, trust cards, wholesale price 1,190,000 / min 30 / cash, profit vs retail 1,800,000, end card with TEL / WA consts
+                       python3 sfx_wh.py -> sfx_wh_full.wav, mix_wh.wav; PAGE=wholesale_motion.html python3 render.py video silent.mp4 0 900
 - catalog/catalog.html  Wholesale digital catalog (web page + A4 PDF via print CSS); media/ = teaser + 6 section clips cut from existing motions
 - tg_motion.html       Telegram channel promo (@cardiagai): heartbeat line, a paper plane rides its tip and dives into the phone ->
                        channel page, one real post per bar (covers in assets/tg/) -> "what you get" card -> tap «عضو شو», bell, new-video

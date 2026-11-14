@@ -1,4 +1,4 @@
-<title>کاتالوگ عمده CarDiag</title>
+<title>کاتالوگ عمده کاردیاگ</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Layout: one calm reading column (max 980px); the wholesale offer sits right under the hero so a buyer sees price first. */
@@ -22,7 +22,7 @@ html{background:var(--bg-top)}
 body{margin:0;font-family:var(--font);color:var(--navy);direction:rtl;font-size:17px;line-height:1.85;
  background:linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bot) 100%);
  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 120px}
-.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:72px}
+.wrap{max-width:980px;margin:0 auto;overflow-x:clip;display:flex;flex-direction:column;gap:72px}
 .ltr{direction:ltr;unicode-bidi:isolate}
 h1,h2,h3{margin:0;text-wrap:balance;line-height:1.3}
 h2{font-weight:900;font-size:clamp(28px,4.4vw,40px)}
@@ -45,7 +45,7 @@ p{margin:0}
 /* hero */
 .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
 .hero>div{min-width:0}
-.hero h1{font-weight:900;font-size:clamp(36px,6.4vw,62px)}
+.hero h1{font-weight:900;font-size:clamp(32px,5.2vw,50px)}
 .hero h1 em{font-style:normal;color:var(--blue)}
 .hero .lead{margin-top:16px}
 .hero-img{position:relative;margin-top:26px;max-width:420px}
@@ -96,7 +96,7 @@ tr:last-child td{border-bottom:0}
 /* features with teaser clips */
 .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .feat{padding:14px 14px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.clip{aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:var(--bg-bot);border:2px solid var(--hair)}
+.clip{aspect-ratio:27/40;border-radius:20px;overflow:hidden;background:var(--bg-bot);border:2px solid var(--hair)}
 .clip video,.clip img{width:100%;height:100%;object-fit:cover;display:block}
 .feat h3{padding-inline:6px}
 .feat p{padding-inline:6px;color:var(--slate);font-weight:500;font-size:15px;line-height:1.7}
@@ -136,7 +136,7 @@ tr:last-child td{border-bottom:0}
 .lines{display:flex;flex-direction:column;gap:12px}
 .line{display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid var(--hair);border-radius:18px;background:var(--bg-top)}
 .line .k{font-weight:500;font-size:14px;color:var(--slate);display:block;line-height:1.4}
-.line .v{font-weight:800;font-size:19px;user-select:all}
+.line .v{font-weight:800;font-size:clamp(16px,4.4vw,19px);user-select:all;white-space:nowrap}
 .line>div{flex:1;min-width:0}
 .copy{font:inherit;font-weight:700;font-size:14px;color:var(--deep);background:var(--tint);border:0;border-radius:999px;padding:6px 14px;cursor:pointer}
 .copy:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
@@ -155,6 +155,7 @@ tr:last-child td{border-bottom:0}
  .wrap{gap:56px}
  .offer>div{padding:26px 22px}
 }
+@media (max-width:480px){ th,td{padding:8px 3px;font-size:13px} th{font-size:12px} .offer>div{padding:24px 16px} }
 @media (max-width:420px){ .feats{grid-template-columns:1fr 1fr;gap:12px} .feat{padding:10px 10px 14px} .cars{grid-template-columns:1fr} }
 @media screen and (prefers-reduced-motion:reduce){ .clip video{display:none} .clip .print-only{display:block!important} }
 
@@ -172,8 +173,10 @@ tr:last-child td{border-bottom:0}
  .feat p{font-size:11px}
  .feat h3{font-size:14px}
  .phone{max-width:240px}
- .hero h1{font-size:44px}
  .newpage{break-before:page}
+ .hero{grid-template-columns:1.25fr .75fr} .prod,.offer,.contact,.grid2{grid-template-columns:1fr 1fr}
+ .stats{grid-template-columns:repeat(4,1fr)} .cars{grid-template-columns:repeat(3,1fr)} .flow{grid-template-columns:repeat(3,1fr)}
+ .hero-img{max-width:260px} .hero h1{font-size:34px}
 }
 </style>
 
@@ -186,9 +189,10 @@ tr:last-child td{border-bottom:0}
  <!-- hero -->
  <section class="hero">
   <div>
-   <p class="eyebrow">دیاگ بلوتوثی + عیب‌یاب هوش مصنوعی فارسی</p>
-   <h1>دیاگی که <em>خودش</em> فروش می‌ره</h1>
-   <p class="lead">کاردیاگ به سوکت OBD2 خودرو وصل می‌شود و اپ فارسی‌اش خطاهای ایسیو را می‌خواند و علت مشکل را به زبان ساده توضیح می‌دهد. مشتری شما قبل از رفتن به تعمیرگاه می‌فهمد ماشینش چه مشکلی دارد.</p>
+   <p class="eyebrow">کاتالوگ فروش عمده</p>
+   <h1>دیاگ بلوتوثی و عیب‌یاب <em>هوش مصنوعی</em> کاردیاگ</h1>
+   <p class="lead">کاردیاگ با اتصال به <span class="ltr">ECU</span> خودرو، اطلاعاتی مانند کدهای خطا و اطلاعات لحظه‌ای سنسورهای خودرو، از جمله بار موتور، ولتاژ سنسور اکسیژن و ولتاژ باتری و دینام را می‌خواند و بر اساس این اطلاعات، خودرو را عیب‌یابی می‌کند.</p>
+   <p class="lead" style="margin-top:12px">این عیب‌یابی به صاحب خودرو کمک می‌کند پیش از بروز خرابی‌های پرهزینه، از ایرادهای کوچک خودروی خود مطلع شود و از هزینه‌های ناشی از عدم تسلط تعمیرکار و هزینه‌تراشی جلوگیری کند.</p>
    <div class="hero-img"><img src="media/diag_front.png" alt="دستگاه دیاگ بلوتوثی کاردیاگ"></div>
   </div>
   <div>
@@ -196,7 +200,7 @@ tr:last-child td{border-bottom:0}
     <video src="media/teaser.mp4" poster="media/teaser.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="تیزر معرفی کاردیاگ برای فروش عمده"></video>
     <img class="print-only" src="media/teaser.jpg" alt="">
    </div>
-   <p class="cap screen-only">تیزر ۲۰ ثانیه‌ای · برای صدا روی ویدیو بزنید</p>
+   <p class="cap screen-only">تیزر معرفی · برای پخش صدا، صدای ویدیو را فعال کنید</p>
   </div>
  </section>
 
@@ -204,7 +208,7 @@ tr:last-child td{border-bottom:0}
   <div class="card stat"><b>+۵٬۰۰۰</b><span>دستگاه فروش در ۳ ماه گذشته</span></div>
   <div class="card stat"><b>۶ ماه</b><span>گارانتی تعویض شرکت</span></div>
   <div class="card stat"><b>+۵۰ مدل</b><span>خودروی تست‌شده</span></div>
-  <div class="card stat"><b>۵ روز</b><span>مرجوعی اگر وصل نشد</span></div>
+  <div class="card stat"><b>۵ روز</b><span>مرجوعی در صورت عدم اتصال</span></div>
  </section>
 
  <!-- wholesale offer -->
@@ -221,32 +225,32 @@ tr:last-child td{border-bottom:0}
     </ul>
    </div>
    <div class="calc">
-    <h3>سود شما با قیمت فعلی سایت</h3>
-    <p>قیمت مصرف‌کننده روی cardiag.ir: <b>۱٬۴۹۰٬۰۰۰ تومان</b> (قیمت پایه ۲٬۱۵۰٬۰۰۰). یعنی <b style="color:var(--green)">۳۰۰٬۰۰۰ تومان سود</b> روی هر دستگاه.</p>
+    <h3>محاسبه سود همکار</h3>
+    <p>قیمت پیشنهادی فروش تکی: <b>۱٬۸۰۰٬۰۰۰ تومان</b>. سود فروش هر دستگاه <b style="color:var(--green)">۶۱۰٬۰۰۰ تومان</b> است (حدود ۵۱٪ نسبت به قیمت خرید).</p>
     <div class="tbl">
      <table>
-      <thead><tr><th>تعداد</th><th>مبلغ خرید (تومان)</th><th>سود فروش (تومان)</th></tr></thead>
+      <thead><tr><th>تعداد</th><th>مبلغ خرید</th><th>مبلغ فروش</th><th>سود</th></tr></thead>
       <tbody>
-       <tr><td>۳۰ عدد</td><td>۳۵٬۷۰۰٬۰۰۰</td><td class="g">۹٬۰۰۰٬۰۰۰</td></tr>
-       <tr><td>۵۰ عدد</td><td>۵۹٬۵۰۰٬۰۰۰</td><td class="g">۱۵٬۰۰۰٬۰۰۰</td></tr>
-       <tr><td>۱۰۰ عدد</td><td>۱۱۹٬۰۰۰٬۰۰۰</td><td class="g">۳۰٬۰۰۰٬۰۰۰</td></tr>
+       <tr><td>۳۰ عدد</td><td>۳۵٬۷۰۰٬۰۰۰</td><td>۵۴٬۰۰۰٬۰۰۰</td><td class="g">۱۸٬۳۰۰٬۰۰۰</td></tr>
+       <tr><td>۵۰ عدد</td><td>۵۹٬۵۰۰٬۰۰۰</td><td>۹۰٬۰۰۰٬۰۰۰</td><td class="g">۳۰٬۵۰۰٬۰۰۰</td></tr>
+       <tr><td>۱۰۰ عدد</td><td>۱۱۹٬۰۰۰٬۰۰۰</td><td>۱۸۰٬۰۰۰٬۰۰۰</td><td class="g">۶۱٬۰۰۰٬۰۰۰</td></tr>
       </tbody>
      </table>
     </div>
-    <p class="note">سود بر اساس فروش با قیمت فعلی سایت حساب شده است.</p>
+    <p class="note">مبالغ به تومان و بر اساس قیمت پیشنهادی فروش تکی ۱٬۸۰۰٬۰۰۰ تومان محاسبه شده است.</p>
    </div>
   </div>
  </section>
 
  <!-- product -->
  <section class="sec">
-  <header><p class="eyebrow">معرفی محصول</p><h2>یه دیاگ، همه‌چیز</h2>
+  <header><p class="eyebrow">معرفی محصول</p><h2>یک دستگاه، همه امکانات</h2>
    <p class="lead">دستگاه کوچک بلوتوثی که زیر داشبورد وصل می‌شود و اطلاعات لحظه‌ای موتور، سنسورها و خطاهای ایسیو را روی گوشی نشان می‌دهد. تنظیمات خودرو را تغییر نمی‌دهد و فقط اطلاعات را می‌خواند.</p></header>
   <div class="prod">
    <div><img src="media/diag_plug.png" alt="سوکت OBD2 دیاگ کاردیاگ"></div>
    <ol class="steps">
     <li class="card"><div><b>دستگاه را وصل کنید</b><span>به سوکت OBD2 زیر داشبورد، کنار فرمان. ابزار و تخصص لازم نیست.</span></div></li>
-    <li class="card"><div><b>اپ را نصب کنید</b><span>اپ رایگان از سایت دانلود می‌شود و اشتراک طلایی خودکار فعال می‌شود.</span></div></li>
+    <li class="card"><div><b>اپلیکیشن را نصب کنید</b><span>اپلیکیشن رایگان از سایت دانلود می‌شود و اشتراک طلایی به‌صورت خودکار فعال می‌شود.</span></div></li>
     <li class="card"><div><b>بلوتوث را روشن کنید</b><span>اتصال در کمتر از ۳۰ ثانیه برقرار می‌شود.</span></div></li>
    </ol>
   </div>
@@ -254,32 +258,32 @@ tr:last-child td{border-bottom:0}
 
  <!-- features -->
  <section class="sec newpage">
-  <header><p class="eyebrow">بخش‌های اپ</p><h2>روی گوشی مشتری چی می‌بینه؟</h2>
-   <p class="lead">هر ویدیو یکی از بخش‌های اپ کاردیاگ را نشان می‌دهد.</p></header>
+  <header><p class="eyebrow">اپلیکیشن</p><h2>امکانات اپلیکیشن کاردیاگ</h2>
+   <p class="lead">هر ویدیو یکی از بخش‌های اپلیکیشن کاردیاگ را نمایش می‌دهد.</p></header>
   <div class="feats">
    <article class="card feat"><div class="clip"><video src="media/clip_ecu.mp4" poster="media/clip_ecu.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_ecu.jpg" alt=""></div>
-    <h3>خطایابی <span class="ltr">ECU</span></h3><p>کد خطا به فارسی، علت احتمالی، و پاک کردن خطا و چراغ چک.</p></article>
+    <h3>خطایابی <span class="ltr">ECU</span></h3><p>نمایش کد خطا به فارسی، علت احتمالی، و پاک کردن خطا و چراغ چک.</p></article>
    <article class="card feat"><div class="clip"><video src="media/clip_ai.mp4" poster="media/clip_ai.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_ai.jpg" alt=""></div>
-    <h3>عیب‌یاب هوش مصنوعی</h3><p>مشکل را می‌نویسی و جواب ساده و قدم‌به‌قدم می‌گیری.</p></article>
+    <h3>عیب‌یاب هوش مصنوعی</h3><p>شرح مشکل و دریافت پاسخ ساده و مرحله‌به‌مرحله.</p></article>
    <article class="card feat"><div class="clip"><video src="media/clip_trip.mp4" poster="media/clip_trip.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_trip.jpg" alt=""></div>
     <h3>گزارش سفر</h3><p>ثبت داده‌ها حین رانندگی و گزارش کامل PDF در پایان مسیر.</p></article>
    <article class="card feat"><div class="clip"><video src="media/clip_bat.mp4" poster="media/clip_bat.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_bat.jpg" alt=""></div>
-    <h3>تست باتری و دینام</h3><p>ولتاژ لحظه‌به‌لحظه؛ قبل از خرید باتری نو، مقصر را پیدا کن.</p></article>
+    <h3>تست باتری و دینام</h3><p>نمایش لحظه‌ای ولتاژ و تشخیص ایراد باتری یا دینام پیش از تعویض.</p></article>
    <article class="card feat"><div class="clip"><video src="media/clip_km.mp4" poster="media/clip_km.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_km.jpg" alt=""></div>
-    <h3>اصالت کیلومتر</h3><p>مقایسه کیلومتر داشبورد با شمارنده ایسیو، برای خرید ماشین کارکرده.</p></article>
+    <h3>اصالت کیلومتر</h3><p>مقایسه کیلومتر داشبورد با شمارنده ایسیو، برای خرید خودروی کارکرده.</p></article>
    <article class="card feat"><div class="clip"><video src="media/clip_mon.mp4" poster="media/clip_mon.jpg" autoplay muted loop playsinline preload="metadata"></video><img class="print-only" src="media/clip_mon.jpg" alt=""></div>
-    <h3>مانیتورینگ زنده</h3><p>دمای موتور، دور، ولتاژ و سنسور اکسیژن، همزمان و زنده.</p></article>
+    <h3>مانیتورینگ زنده</h3><p>نمایش هم‌زمان دمای موتور، دور موتور، بار موتور، ولتاژ و سنسور اکسیژن.</p></article>
   </div>
  </section>
 
  <!-- why it sells -->
  <section class="sec">
-  <header><p class="eyebrow">چرا مشتری می‌خره؟</p><h2>خیال مشتری‌ات راحته</h2></header>
+  <header><p class="eyebrow">مزایا</p><h2>مزایا برای مشتری نهایی</h2></header>
   <div class="grid2">
-   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></span><div><b>یک بار خرید، دیاگ رایگان</b><span>هر بار دیاگ در تعمیرگاه ۲۰۰ تا ۴۰۰ هزار تومان هزینه دارد؛ با کاردیاگ هر وقت بخواهد، رایگان.</span></div></div>
-   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg></span><div><b><span class="gold">اشتراک طلایی هدیه</span></b><span>همراه هر دستگاه، با ۷۲ اعتبار هوش مصنوعی.</span></div></div>
+   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></span><div><b>یک بار خرید، عیب‌یابی نامحدود</b><span>هزینه هر بار دیاگ در تعمیرگاه ۲۰۰ تا ۴۰۰ هزار تومان است؛ با کاردیاگ، عیب‌یابی در هر زمان بدون هزینه انجام می‌شود.</span></div></div>
+   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg></span><div><b><span class="gold">اشتراک طلایی اپلیکیشن کاردیاگ</span></b><span>همراه هر دستگاه ارائه می‌شود.</span></div></div>
    <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span><div><b>کاملاً ایمن</b><span>فقط اطلاعات را می‌خواند و هیچ تنظیمی در خودرو تغییر نمی‌دهد.</span></div></div>
-   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></span><div><b>کاملاً فارسی، بدون دانش فنی</b><span>رابط ساده برای همه رانندگان؛ جواب‌ها به زبان ساده.</span></div></div>
+   <div class="card why"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></span><div><b>کاملاً فارسی، بدون دانش فنی</b><span>رابط کاربری ساده برای همه رانندگان و ارائه نتایج به زبان ساده.</span></div></div>
   </div>
  </section>
 
@@ -289,11 +293,11 @@ tr:last-child td{border-bottom:0}
   <div class="grid2">
    <div class="card specs"><table><tbody>
     <tr><td>نوع</td><td>دیاگ بلوتوثی OBD2 با نرم‌افزار اختصاصی فارسی</td></tr>
-    <tr><td>پروتکل‌ها</td><td class="ltr" style="text-align:right">CAN · KWP2000 · ISO 9141 · J1850</td></tr>
+    <tr><td>پروتکل‌ها</td><td>تمامی پروتکل‌های استاندارد OBD2:<br><span class="ltr" style="font-weight:500;font-size:14px">ISO 15765-4 (CAN) · ISO 14230-4 (KWP2000) · ISO 9141-2 · SAE J1850 PWM · SAE J1850 VPW</span></td></tr>
     <tr><td>اتصال</td><td>بلوتوث ۴٫۰</td></tr>
     <tr><td>سیستم‌عامل</td><td>اندروید ۵ به بالا</td></tr>
     <tr><td>خودروها</td><td>بیش از ۵۰ مدل تست‌شده</td></tr>
-    <tr><td>زبان اپ</td><td>فارسی</td></tr>
+    <tr><td>زبان اپلیکیشن</td><td>فارسی</td></tr>
     <tr><td>گارانتی</td><td>۶ ماه تعویض + پشتیبانی فارسی</td></tr>
    </tbody></table></div>
    <div class="card box">
@@ -303,54 +307,55 @@ tr:last-child td{border-bottom:0}
      <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span>کارت فعال‌سازی اشتراک طلایی</li>
      <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg></span>کیف زیپ‌دار نگهداری</li>
     </ul>
-    <p class="note">فقط برای گوشی‌های اندروید؛ این نکته را هنگام فروش به مشتری بگویید.</p>
+    <p class="note">این محصول با گوشی‌های اندروید سازگار است؛ لطفاً هنگام فروش به مشتری اطلاع دهید.</p>
    </div>
   </div>
  </section>
 
  <!-- compatibility -->
  <section class="sec">
-  <header><p class="eyebrow">سازگاری</p><h2>به ماشین مشتری وصل می‌شه؟</h2>
-   <p class="lead">همه خودروهای چینی و خارجی با استاندارد OBD2 و حدود ۹۰٪ خودروهای ایرانی. اگر به خودروی مشتری وصل نشد، تا ۵ روز امکان مرجوعی دارد.</p></header>
+  <header><p class="eyebrow">سازگاری</p><h2>خودروهای سازگار</h2>
+   <p class="lead">تمامی خودروهای چینی و خارجی دارای استاندارد OBD2 و حدود ۸۰٪ خودروهای ایرانی. در صورت عدم اتصال به خودروی مشتری، امکان مرجوعی تا ۵ روز وجود دارد.</p></header>
   <div class="cars">
    <div class="card car"><b>پژو ۲۰۶</b><span>تیپ ۲، تیپ ۵، تیپ ۶، صندوق‌دار V8</span></div>
    <div class="card car"><b>پژو ۲۰۷، ۴۰۵، پارس</b><span>۲۰۷ دستی/اتوماتیک و پانوراما، 405 GLX و SLX، پارس</span></div>
    <div class="card car"><b>سمند و سورن</b><span>EF7، LX، سورن ELX، سورن توربو و پلاس</span></div>
-   <div class="card car"><b>پراید</b><span>۱۱۱، ۱۳۱، ۱۳۲، ۱۵۱ وانت</span></div>
+   <div class="card car"><b>خودروهای چینی</b><span>چری، ام‌وی‌ام، جک، هایما، فونیکس، دیگنیتی و سایر برندها</span></div>
    <div class="card car"><b>تیبا، ساینا، کوییک، شاهین</b><span>تیبا ۲، ساینا S، کوییک G/GX/R/S، شاهین</span></div>
    <div class="card car"><b>دنا، رنو، ال ۹۰</b><span>دنا EF7، ساندرو و استپ‌وی، تندر ۹۰</span></div>
   </div>
-  <p><span class="chip">✓ همه خودروهای چینی و خارجی</span></p>
+  <p><span class="chip">✓ سازگار با خودروهای کره‌ای، ژاپنی و اروپایی دارای OBD2</span></p>
  </section>
 
  <!-- order -->
  <section class="sec">
   <header><p class="eyebrow">سفارش</p><h2>سفارش در سه قدم</h2></header>
   <ol class="flow">
-   <li class="card"><b>تماس و هماهنگی</b><span>تعداد سفارش (حداقل ۳۰ عدد) و روش ارسال را تلفنی هماهنگ کنید.</span></li>
+   <li class="card"><b>تماس و هماهنگی</b><span>تعداد سفارش (حداقل ۳۰ عدد) و روش ارسال به‌صورت تلفنی هماهنگ می‌شود.</span></li>
    <li class="card"><b>پرداخت نقدی</b><span>صورت‌حساب ارسال می‌شود و پس از واریز، سفارش ثبت می‌شود.</span></li>
-   <li class="card"><b>ارسال و پشتیبانی</b><span>دستگاه‌ها ارسال می‌شوند؛ گارانتی و پشتیبانی مشتری‌ها با شرکت است.</span></li>
+   <li class="card"><b>ارسال و پشتیبانی</b><span>دستگاه‌ها ارسال می‌شوند و گارانتی و پشتیبانی مشتریان بر عهده شرکت است.</span></li>
   </ol>
  </section>
 
  <!-- contact -->
  <section class="sec" id="contact">
-  <header><p class="eyebrow">تماس</p><h2>همین حالا سفارش بده</h2></header>
+  <header><p class="eyebrow">تماس</p><h2>اطلاعات تماس</h2></header>
   <div class="card contact">
    <div class="lines">
     <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
-     <div><span class="k">تلفن فروش عمده</span><span class="v ltr" id="tel">۰۲۱ ۰۰۰۰ ۰۰۰۰</span></div><button class="copy" type="button" data-copy="tel">کپی</button></div>
+     <div><span class="k">تلفن فروش عمده</span><span class="v ltr" id="tel">۰۲۱-۹۱۰۹۹۳۸۹</span></div><button class="copy" type="button" data-copy="tel">کپی</button></div>
     <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg></span>
-     <div><span class="k">واتس‌اپ و تلگرام</span><span class="v ltr" id="wa">۰۹۱۲ ۰۰۰ ۰۰۰۰</span></div><button class="copy" type="button" data-copy="wa">کپی</button></div>
+     <div><span class="k">واتس‌اپ</span><span class="v ltr" id="wa">۰۹۳۰ ۵۵۹ ۳۶۶۸</span></div><button class="copy" type="button" data-copy="wa">کپی</button></div>
     <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></span>
      <div><span class="k">کانال تلگرام</span><span class="v ltr" id="tg">@cardiagai</span></div><button class="copy" type="button" data-copy="tg">کپی</button></div>
-    <span class="sample">شماره‌ها نمونه‌اند و پیش از ارسال جایگزین می‌شوند</span>
+    <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+     <div><span class="k">آدرس</span><span class="v" id="addr">تهران، آژیده، پلاک ۳</span></div></div>
    </div>
    <div class="endmark">
     <span class="b">CarDiag AI</span>
     <a class="u" href="https://cardiag.ir" target="_blank" rel="noopener" style="text-decoration:none;color:var(--url)">cardiag.ir</a>
     <svg class="pulse" viewBox="0 0 420 90" aria-hidden="true"><path d="M0 50 H150 L166 50 L178 30 L190 50 L204 50 L222 8 L242 82 L258 38 L268 56 L278 50 H420" fill="none" stroke="#2196F3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <p class="note">مکانیک تو جیبِ مشتری‌هات</p>
+    <p class="note">دیاگ بلوتوثی و عیب‌یاب هوش مصنوعی خودرو</p>
    </div>
   </div>
  </section>
