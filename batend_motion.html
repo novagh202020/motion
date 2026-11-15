@@ -37,7 +37,7 @@ body{font-family:V,sans-serif;color:#10203C}
   <div id="sName" class="ctr ltr" style="top:850px;font-weight:900;font-size:120px;color:#1565C0">CarDiag AI</div>
   <div id="url" class="ctr" style="top:1070px"><span id="urlI" style="display:inline-flex;align-items:center;gap:18px;height:140px;padding:0 60px;border-radius:70px;background:#fff;border:3px solid #E2E8F0;box-shadow:0 24px 50px rgba(20,40,80,.14);direction:ltr;font-weight:800;font-size:80px;color:#10203C"></span></div>
  </div>
-<div id="cmT" class="ctr" style="top:150px;z-index:20;font-weight:900;font-size:66px;line-height:1.4;white-space:nowrap">برای دریافت اطلاعات محصول،<br>کلمه‌ی <span style="color:#2196F3">«تست باتری و دینام»</span><br>رو کامنت کن</div>
+<div id="cmT" class="ctr" style="top:190px;z-index:20;font-weight:900;font-size:64px;line-height:1.45;white-space:nowrap">برای دریافت اطلاعات محصول،<br>کلمه‌ی <span style="color:#2196F3">«تست باتری»</span> رو کامنت کن</div>
 </div>
 <script>
 const $=id=>document.getElementById(id);
@@ -75,7 +75,7 @@ const LOGO=(w,c,sw=7)=>`<svg width="${w}" height="${w*0.36}" viewBox="0 0 400 14
 Object.assign(IC,{lock:'M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z',
  send:'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z'});
 /* timeline (30 fps, 10 s): battery 0-62, product 55-148, comment 140-240, site 235-300 */
-const NF=300, T_FULL=40, T_OPEN=50, T_P=55, T_TILE=88, T_C=140, T_TY=[164,200], T_SEND=206, T_RE=220, T_S=236, T_URL=[250,272], T_HIT=276;
+const NF=300, T_FULL=40, T_OPEN=50, T_P=55, T_TILE=88, T_C=140, T_TY=[166,196], T_SEND=206, T_RE=220, T_S=236, T_URL=[250,272], T_HIT=276;
 const show=(id,a,b,f)=>{const el=$(id), on=f>=a&&f<b; el.style.display=on?'block':'none'; return on};
 const io=(el,f,a,b)=>{const p=E.oc(seg(f,a,a+12)), q=E.ic(seg(f,b-10,b)); el.style.opacity=p*(1-q); el.style.transform=`scale(${lerp(1.06,1,p)*(1-0.05*q)})`; el.style.filter=(p<1||q>0)?`blur(${(1-p)*12+q*12}px)`:'none'};
 /* 1. battery */
@@ -98,7 +98,7 @@ function prod(f){if(!show('sProd',T_P,T_C+8,f)) return; io($('sProd'),f,T_P,T_C+
 /* 3. comment */
 $('sheet').innerHTML=`<div style="font-weight:800;font-size:40px;text-align:center;padding-bottom:20px;border-bottom:2px solid #EEF2F8">کامنت‌ها</div>
  ${[0,1].map(i=>`<div style="display:flex;align-items:center;gap:20px;padding:20px 0"><span class="av" style="background:#E3EFFC"></span><div style="flex:1"><div class="ln" style="width:${[40,30][i]}%"></div><div class="ln" style="width:${[80,60][i]}%;margin-top:12px;background:#EEF2F8"></div></div></div>`).join('')}
- <div id="cmMe" style="display:flex;align-items:center;gap:20px;padding:20px 0;opacity:0"><span class="av" style="background:linear-gradient(135deg,#78CDFF,#2196F3)"></span><div><div style="font-weight:700;font-size:28px;color:#6E7D96">شما</div><div style="font-weight:900;font-size:50px">تست باتری و دینام</div></div></div>
+ <div id="cmMe" style="display:flex;align-items:center;gap:20px;padding:20px 0;opacity:0"><span class="av" style="background:linear-gradient(135deg,#78CDFF,#2196F3)"></span><div><div style="font-weight:700;font-size:28px;color:#6E7D96">شما</div><div style="font-weight:900;font-size:50px">تست باتری</div></div></div>
  <div id="cmRe" style="opacity:0;margin-top:10px;display:flex;gap:18px;align-items:flex-start"><span class="av" style="background:#2196F3;display:flex;align-items:center;justify-content:center">${LOGO(56,'#fff',6)}</span>
   <div style="background:#E3EFFC;border-radius:28px;padding:22px 30px"><div class="ltr" style="font-weight:800;font-size:26px;color:#1565C0;text-align:right">@cardiagai</div>
    <div style="font-weight:800;font-size:36px;color:#10203C;margin-top:4px">اطلاعات محصول برات ارسال شد ✓</div></div></div>
@@ -111,7 +111,7 @@ const caret=(f,a,b)=>f>=a&&f<b+8?`<span style="display:inline-block;width:3px;he
 function cm(f){if(!show('sCm',T_C,T_S+8,f)) return; io($('sCm'),f,T_C,T_S+8);
   const sp=E.oc(seg(f,T_C+8,T_C+22)); $('sheet').style.transform=`translateY(${(1-sp)*260}px)`; $('sheet').style.opacity=cl(sp*2);
  const ph='<span style="color:#98A3B8;font-weight:500">یه کامنت بنویس...</span>';
- $('cmIn').innerHTML=f<T_TY[0]?ph:(f<T_SEND?typ('تست باتری و دینام',...T_TY,f)+caret(f,...T_TY):ph); $('cmIn').style.borderColor=f>=T_TY[0]&&f<T_SEND?'#2196F3':'#DEE6F2';
+ $('cmIn').innerHTML=f<T_TY[0]?ph:(f<T_SEND?typ('تست باتری',...T_TY,f)+caret(f,...T_TY):ph); $('cmIn').style.borderColor=f>=T_TY[0]&&f<T_SEND?'#2196F3':'#DEE6F2';
  $('cmSend').style.transform=`scale(${1-0.14*Math.exp(-Math.pow((f-T_SEND)/3,2))})`;
  const m=seg(f,T_SEND+2,T_SEND+10); $('cmMe').style.opacity=E.oc(m); $('cmMe').style.transform=`translateY(${(1-E.oc(m))*40}px)`;
  const r=seg(f,T_RE,T_RE+10); $('cmRe').style.opacity=E.oc(r); $('cmRe').style.transform=`translateY(${(1-E.oc(r))*40}px) scale(${r<=0?0.8:lerp(0.8,1,E.back(r))})`;}
