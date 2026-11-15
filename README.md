@@ -75,6 +75,8 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
                        709 ms -> stop, «اسکن مجدد», tick 3 (battery/alternator, O2 1, O2 2) -> 3 live cards + big LIVE card -> end card (37 s)
 - wholesale_motion.html  Wholesale teaser (30 s on song/song_cut.wav, formal copy): sales stat, diag + app, trust cards, wholesale price 1,190,000 / min 30 / cash, profit vs retail 1,800,000, end card with TEL / WA consts
                        python3 sfx_wh.py -> sfx_wh_full.wav, mix_wh.wav; PAGE=wholesale_motion.html python3 render.py video silent.mp4 0 900
+- retail_motion.html  Retail intro motion (30 s, song_cut): diag drop, 7 app sections one per bar (clips composited by tools/mux_retail.py from out/clip_*.mp4), recap, gold/warranty/return, end card with buy button; price strip 1,590,000 always on screen
+                       PAGE=retail_motion.html python3 render.py video out/rt_base.mp4 0 900; python3 tools/mux_retail.py; python3 sfx_rt.py -> sfx_rt_full.wav, mix_rt.wav
 - catalog/retail.html  Retail product catalog (price 1,590,000 / 1,800,000, comparison, FAQ, Aparat video slots: edit const APARAT); python3 tools/build_retail.py -> out/final/cardiag_catalog.pdf + out/site_retail
 - catalog/catalog.html  Wholesale digital catalog (web page + A4 PDF via print CSS; Vazirmatn FD embedded as data URIs); media/ = teaser + 6 section clips cut from existing motions
 - tg_motion.html       Telegram channel promo (@cardiagai): heartbeat line, a paper plane rides its tip and dives into the phone ->

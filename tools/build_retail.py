@@ -18,19 +18,24 @@ dl=('\n <section class="sec screen-only" id="downloads">\n  <header><p class="ey
     '  <p><a class="buy" href="downloads/cardiag_catalog.pdf" download>دریافت فایل PDF کاتالوگ</a></p>\n </section>\n</div>\n\n<script>')
 b2=body.replace('\n</div>\n\n<script>',dl,1); assert b2!=body
 (site/'index.html').write_text(doc(b2),encoding='utf8')
-for f in ['hero.jpg','diag_plug.png']+[f'clip_{n}.{e}' for n in ['ecu','ai','trip','bat','km','mon','svc'] for e in ['mp4','jpg']]:
+for f in ['retail.mp4','retail.jpg','diag_plug.png']+[f'clip_{n}.{e}' for n in ['ecu','ai','trip','bat','km','mon','svc'] for e in ['mp4','jpg']]:
   shutil.copy('catalog/media/'+f,site/'media'/f)
 (site/'downloads').mkdir(); shutil.copy(PDF,site/'downloads')
+v=root/'videos'; v.mkdir()
+for f in ['cardiag_retail_music.mp4','cardiag_retail_sfx.mp4']: shutil.copy(out/f,v/f)
 (root/'README.txt').write_text('''کاتالوگ محصول کاردیاگ (مشتریان خرد) - راهنمای فایل‌ها
 
 cardiag-catalog/     پوشه سایت؛ کل پوشه را روی هاست آپلود کنید (مثلاً cardiag.ir/catalog/)
   index.html         صفحه کاتالوگ (فونت وزیرمتن داخل خود صفحه قرار دارد)
-  media/             عکس محصول و ویدیوهای کوتاه بخش‌ها
+  media/             ویدیوی معرفی و ویدیوهای کوتاه بخش‌ها
   downloads/         نسخه PDF کاتالوگ
+videos/
+  cardiag_retail_music.mp4   موشن ۳۰ ثانیه‌ای معرفی با موزیک کاردیاگ (۱۰۸۰×۱۹۲۰)
+  cardiag_retail_sfx.mp4     همان موشن فقط با افکت صوتی (برای آهنگ‌های اینستاگرام)
 
 ویدیوهای آپارات:
 در فایل index.html، بخش «const APARAT» را پیدا کنید و لینک هر ویدیو را جلوی کلید آن بگذارید:
   hero = ویدیوی معرفی (۱)، ecu، ai، trip، bat، km، mon، svc = ویدیوهای ۲ تا ۸
-تا زمانی که لینکی وارد نشده باشد، عکس محصول و کلیپ‌های کوتاه فعلی نمایش داده می‌شوند.
+تا زمانی که لینکی وارد نشده باشد، ویدیوی معرفی و کلیپ‌های کوتاه فعلی نمایش داده می‌شوند.
 ''',encoding='utf8')
 print('ok')

@@ -234,7 +234,11 @@ tr:last-child td{border-bottom:0}
   <div>
    <!-- video 1 (Aparat key: hero) — until a link is set, the product photo shows here -->
    <div class="vslot hero-slot" data-key="hero" data-title="معرفی کاردیاگ">
-    <img class="hero-photo" src="media/hero.jpg" alt="دیاگ بلوتوثی کاردیاگ به‌همراه کیف زیپ‌دار" width="1100" height="733">
+    <div class="phone">
+     <video src="media/retail.mp4" poster="media/retail.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="ویدیوی معرفی کاردیاگ"></video>
+     <img class="print-only" src="media/retail.jpg" alt="">
+    </div>
+    <p class="cap screen-only">ویدیوی معرفی · برای پخش صدا، صدای ویدیو را فعال کنید</p>
    </div>
   </div>
  </section>
@@ -411,7 +415,7 @@ tr:last-child td{border-bottom:0}
 <script>
 /* ===== Aparat videos =====
    Paste each Aparat link (e.g. https://www.aparat.com/v/abc123) next to its key; leave '' to keep the built-in clip / photo.
-   hero = video 1 (intro), ecu..svc = videos 2-8 */
+   hero = video 1 (intro; until set, media/retail.mp4 plays), ecu..svc = videos 2-8 */
 const APARAT={
  hero:'',
  ecu:'', ai:'', trip:'', bat:'', km:'', mon:'', svc:''
