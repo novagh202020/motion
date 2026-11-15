@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="fa"><head><meta charset="utf-8"><title>CarDiag Rose Banner</title>
 <style>
-/* wall banner 180 x 120 cm (landscape) for Rose car wash. Designed at 3300 x 2200 px, printed via PDF scale. render: python3 banner.py */
+/* wall banner 180 x 100 cm (landscape) for Rose car wash. Designed at 3600 x 2000 px, printed via PDF scale. render: python3 banner.py */
 @font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
 @font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
 @font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
 @font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
 @font-face{font-family:Peyda;font-weight:800;src:url(fonts/Peyda-ExtraBold.ttf)}
-@page{size:1800mm 1200mm;margin:0}
+@page{size:1800mm 1000mm;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:3300px;height:2200px;overflow:hidden;background:#0F57B5}
+html,body{width:3600px;height:2000px;overflow:hidden;background:#0F57B5}
 body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-#c{position:relative;width:3300px;height:2200px;overflow:hidden;
+#c{position:relative;width:3600px;height:2000px;overflow:hidden;
  background:linear-gradient(180deg,#2793EB 0%,#0F57B5 100%)}
 .a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
 
@@ -159,6 +159,32 @@ body.t-p2 #title,body.t-p2 #titleF{width:3300px;top:270px;font-size:146px}
 #shine .qrs{gap:90px;margin-top:4px}#shine .qrw{gap:10px}
 #shine .qr{width:280px;height:280px;padding:22px;border-radius:24px}#shine .qr img{width:236px;height:236px}
 #shine .cap{font-size:21px}#shine .cap b{font-size:32px}
+
+/* ---- 180 x 100 (overrides above): three columns under the header ---- */
+#brand{top:120px;width:3600px}
+body.t-p2 #title,body.t-p2 #titleF{width:3600px;top:270px;font-size:140px}
+#sub{width:3600px;top:630px;font-size:52px}
+#phone{left:330px;top:800px;transform:scale(.75) rotate(-4deg)}
+#prodGlow{left:540px;top:1370px;width:760px;height:500px}
+#prod{left:620px;top:1420px;width:540px}
+#prodShadow{left:600px;top:1735px;width:580px;height:95px}
+#podTop{left:-120px;top:1600px;width:3840px;height:380px}#podium{left:-240px;top:1620px;width:4080px;height:540px}
+#ring1{left:-300px;top:1790px;width:4200px;height:400px}#ring2{left:-400px;top:1860px;width:4400px;height:440px}
+#featRow{left:1240px;width:1200px;top:790px}
+#feat{left:1240px;width:1200px;top:860px;height:250px}
+.f{width:300px}.f .ib{width:136px;height:136px}.f .ib svg{width:104px;height:104px}
+.f .t{margin-top:14px;font-size:38px}
+#shine{left:1240px;top:1160px;width:1200px;padding:30px 40px 32px;gap:12px}
+#shine .k2s{font-size:52px}#shine .k2s b{font-size:70px}
+#shine .k1{font-size:42px}
+#shine .pc{font-size:120px}#shine .pt{font-size:52px}
+#shine .qr{width:244px;height:244px;padding:20px}#shine .qr img{width:204px;height:204px}
+#price{left:2510px;top:790px;width:820px;height:300px}
+#addr{left:2510px;top:1140px;width:820px}
+#addr .h{font-size:60px}#addr .h svg{width:56px;height:56px}#addr .b{font-size:42px}
+#tel{left:2510px;top:1450px;width:820px}#dl{left:2510px;top:1600px;width:820px}
+#tel .p,#url{height:118px}
+#tel .n{font-size:58px}#url .u{font-size:64px}
 </style></head><body>
 <div id="c">
  <div id="brand" class="a">
@@ -196,7 +222,7 @@ body.t-p2 #title,body.t-p2 #titleF{width:3300px;top:270px;font-size:146px}
 
  <div id="addr" class="a">
   <div class="h"><svg width="80" height="80" viewBox="0 0 24 24"><path fill="#FFCD11" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>تست رایگان حضوری</div>
-  <div class="b">نمایندگی قزوین: ولیعصر،<br>مجتمع تجاری نیایش،<br>طبقه منفی ۱</div>
+  <div class="b">نمایندگی قزوین: ولیعصر،<br>مجتمع تجاری نیایش، طبقه منفی ۱</div>
  </div>
 
  <div id="tel" class="a"><div class="p"><span class="gl"><svg width="60" height="60" viewBox="0 0 24 24"><path fill="#0B3A80" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>

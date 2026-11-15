@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="fa"><head><meta charset="utf-8"><title>CarDiag Azadi Banner</title>
 <style>
-/* wall banner 120 x 150 cm for Azadi car wash (same parts as banner_shine.html, two-column middle). Designed at 2245 x 2806 px, printed via PDF scale. render: python3 banner.py */
+/* wall banner 100 x 150 cm for Azadi car wash (banner_mehdi layout + free-test address). Designed at 2245 x 3368 px, printed via PDF scale. render: python3 banner.py */
 @font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
 @font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
 @font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
 @font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
 @font-face{font-family:Peyda;font-weight:800;src:url(fonts/Peyda-ExtraBold.ttf)}
-@page{size:1200mm 1500mm;margin:0}
+@page{size:1000mm 1500mm;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:2245px;height:2806px;overflow:hidden;background:#0F57B5}
+html,body{width:2245px;height:3368px;overflow:hidden;background:#0F57B5}
 body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-#c{position:relative;width:2245px;height:2806px;overflow:hidden;
+#c{position:relative;width:2245px;height:3368px;overflow:hidden;
  background:linear-gradient(180deg,#2793EB 0%,#0F57B5 100%)}
 .a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
 
@@ -142,21 +142,54 @@ body.t-p2 #title,body.t-p2 #titleF{font-size:160px;line-height:1.2;top:290px}
 #tel .gl,#url .gl{width:96px;height:96px}
 #tel .n{font-size:68px}#url .u{font-size:72px}
 
-/* two QRs: buy with code + product catalog */
-#price{height:240px}
-#shine{top:1580px;flex-direction:column;align-items:stretch;gap:16px;padding:34px 36px 36px}
+/* ---- 100 x 150 layout (overrides the 120 x 150 values above) ---- */
+#brand{top:200px}
+body.t-p2 #title,body.t-p2 #titleF{font-size:170px;top:350px}
+#sub{top:830px;font-size:60px}
+#featRow{top:960px}
+#feat{top:1045px;height:310px}
+#podTop{top:2420px;height:400px}#podium{top:2440px;height:580px}
+#ring1{top:2650px;height:420px}#ring2{top:2730px;height:460px}
+#phone{left:230px;top:1500px;transform:scale(.86) rotate(-4deg)}
+#prodGlow{left:250px;top:2180px;width:760px;height:500px}
+#prod{left:330px;top:2230px;width:580px}
+#prodShadow{left:320px;top:2590px;width:610px;height:105px}
+#price{top:1500px;height:300px}
+#price .h{height:95px;font-size:58px}
+#shine{top:1850px;flex-direction:column;align-items:stretch;gap:18px;padding:40px 44px 44px}
 #shine .hd{text-align:center}
-#shine .k2s{font-weight:800;font-size:48px;line-height:1.3}
-#shine .k2s b{font-family:Peyda;font-weight:800;font-size:64px;color:#0D47A1}
-#shine .k1{font-size:42px;line-height:1.2}
-#shine .mid{display:flex;align-items:center;justify-content:center;gap:28px}
-#shine .big{margin-top:0}#shine .pc{font-size:116px}#shine .pt{font-size:50px}
-#shine .code{margin-top:0;font-size:30px}#shine .code b{font-size:44px}
-#shine .qrs{display:flex;justify-content:center;gap:70px}
-#shine .qrw{gap:10px}
-#shine .qr{width:236px;height:236px;padding:18px;border-radius:22px}#shine .qr img{width:200px;height:200px}
-#shine .cap{text-align:center;font-weight:700;font-size:20px;line-height:1.35;white-space:nowrap}
-#shine .cap b{display:block;font-weight:900;font-size:30px;line-height:1.25}
+#shine .k1{font-size:50px}
+#shine .k2{font-size:76px}
+#shine .row{display:flex;align-items:center;justify-content:space-between;gap:24px}
+#shine .tx{align-items:center}
+#shine .pc{font-size:170px}#shine .pt{font-size:66px}
+#shine .code{margin-top:18px}
+#shine .qr{width:320px;height:320px}#shine .qr img{width:276px;height:276px}
+#tel{top:2920px}#dl{top:2920px}
+#tel .p,#url{height:150px}
+#tel .n{font-size:72px}#url .u{font-size:76px}
+
+/* two QRs: buy with code + product catalog */
+#shine .mid{display:flex;align-items:center;justify-content:center;gap:30px}
+#shine .big{margin-top:0}#shine .pc{font-size:140px}#shine .pt{font-size:58px}
+#shine .code{margin-top:0}
+#shine .qrs{display:flex;justify-content:center;gap:80px}
+#shine .qrw{gap:12px}
+#shine .qr{width:290px;height:290px;padding:22px}#shine .qr img{width:246px;height:246px}
+#shine .cap{text-align:center;font-weight:700;font-size:23px;line-height:1.35;white-space:nowrap}
+#shine .cap b{display:block;font-weight:900;font-size:34px;line-height:1.25}
+
+/* ---- Azadi: address added under the two columns (overrides above) ---- */
+#brand{top:170px}
+body.t-p2 #title,body.t-p2 #titleF{top:310px}
+#sub{top:780px}
+#featRow{top:900px}#feat{top:985px}
+#phone{top:1420px}#price{top:1420px}#shine{top:1770px}
+#prodGlow{top:2100px}#prod{top:2150px}#prodShadow{top:2510px}
+#podTop{top:2340px}#podium{top:2360px}#ring1{top:2570px}#ring2{top:2650px}
+#addr{left:200px;top:2740px;width:1845px}
+#addr .h{font-size:76px}#addr .h svg{width:68px;height:68px}#addr .b{font-size:52px}
+#tel,#dl{top:2990px}
 </style></head><body>
 <div id="c">
  <div id="brand" class="a">
@@ -184,7 +217,7 @@ body.t-p2 #title,body.t-p2 #titleF{font-size:160px;line-height:1.2;top:290px}
  <div id="price" class="a"><div class="h">قیمت</div></div>
 
  <div id="shine" class="a">
-  <div class="hd"><div class="k2s">تخفیف ویژه کارواش <b>آزادی</b></div><div class="k1">به مشتریان</div></div>
+  <div class="hd"><div class="k1">تخفیف ویژه</div><div class="k2">کارواش آزادی</div><div class="k1">به مشتریان</div></div>
   <div class="mid"><div class="big"><div class="pc">۱۰٪</div><div class="pt">تخفیف</div></div><div class="code">کد تخفیف:<b>azadi</b></div></div>
   <div class="qrs">
    <div class="qrw"><div class="qr"><img src="assets/qr_azadi.svg"></div><div class="cap"><b>خرید با تخفیف</b>اسکن کن، تخفیف خودکار اعمال میشه</div></div>

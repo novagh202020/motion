@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="fa"><head><meta charset="utf-8"><title>CarDiag Azaran Banner</title>
 <style>
-/* wall banner 120 x 120 cm for Azaran car wash. Designed at 2600 x 2600 px, printed via PDF scale. render: python3 banner.py */
+/* wall banner 100 x 120 cm for Azaran car wash (banner_azadi two-column layout, compressed). Designed at 2245 x 2694 px, printed via PDF scale. render: python3 banner.py */
 @font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
 @font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
 @font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
 @font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
 @font-face{font-family:Peyda;font-weight:800;src:url(fonts/Peyda-ExtraBold.ttf)}
-@page{size:1200mm 1200mm;margin:0}
+@page{size:1000mm 1200mm;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:2600px;height:2600px;overflow:hidden;background:#0F57B5}
+html,body{width:2245px;height:2694px;overflow:hidden;background:#0F57B5}
 body{font-family:V,sans-serif;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-#c{position:relative;width:2600px;height:2600px;overflow:hidden;
+#c{position:relative;width:2245px;height:2694px;overflow:hidden;
  background:linear-gradient(180deg,#2793EB 0%,#0F57B5 100%)}
 .a{position:absolute}.rtl{direction:rtl}.ltr{direction:ltr;unicode-bidi:isolate}
 
@@ -106,59 +106,78 @@ body.t-p2 #titleF .l2{color:#fff}
 #url .gl{width:106px;height:106px;border-radius:50%;background:#FFCD11;display:flex;align-items:center;justify-content:center}
 #url .u{font-weight:800;font-size:84px;color:#fff;letter-spacing:2px;line-height:1}
 
-/* two QRs: buy with code + product catalog */
-#shine .k{line-height:1.25}
-#shine .pc{font-size:200px}#shine .pt{font-size:90px}
-#shine .qrs{flex:none;display:flex;gap:70px}
-#shine .qr{width:330px;height:330px;padding:24px}#shine .qr img{width:282px;height:282px}
-#shine .qrw{gap:14px}
-#shine .cap{text-align:center;font-weight:700;font-size:26px;line-height:1.35;white-space:nowrap}
-#shine .cap b{display:block;font-weight:900;font-size:40px;line-height:1.25}
-#addr{top:3800px}#tel{top:4035px}#dl{top:4195px}
-
-#shine{flex-direction:column;align-items:stretch;gap:16px;border-radius:40px}
-#shine .hd{text-align:center}
-#shine .k2s{font-weight:800;line-height:1.3}
-#shine .k2s b{font-family:Peyda;font-weight:800;color:#0D47A1}
-#shine .k1{font-weight:800;line-height:1.2}
-#shine .mid{display:flex;align-items:center;justify-content:center}
-#shine .big{margin-top:0}#shine .code{margin-top:0}
-#shine .qrs{display:flex;justify-content:center}
-#shine .cap{text-align:center;font-weight:700;line-height:1.35;white-space:nowrap}
-#shine .cap b{display:block;font-weight:900;line-height:1.25}
-
-/* ---- 120 x 120 square layout ---- */
-#brand{top:170px;width:2600px}
-body.t-p2 #title,body.t-p2 #titleF{width:2600px;top:320px;font-size:180px}
-#sub{width:2600px;top:790px;font-size:62px}
-#featRow{left:170px;width:2260px;top:910px}
-#feat{left:170px;width:2260px;top:1000px;height:310px}
-.f .ib{width:180px;height:180px}.f .ib svg{width:136px;height:136px}
-.f .t{margin-top:22px;font-size:52px}
-#podTop{left:-100px;top:2180px;width:2800px;height:380px}#podium{left:-200px;top:2200px;width:3000px;height:560px}
-#ring1{left:-260px;top:2380px;width:3120px;height:420px}#ring2{left:-360px;top:2450px;width:3320px;height:460px}
-#phone{left:250px;top:1400px;transform:scale(.72) rotate(-4deg)}
-#prodGlow{left:280px;top:1930px;width:700px;height:470px}
-#prod{left:360px;top:1980px;width:520px}
-#prodShadow{left:350px;top:2300px;width:550px;height:95px}
-#price{left:960px;top:1400px;width:700px;height:300px}
-#price .h{height:96px;font-size:58px}
-#addr{left:960px;top:1750px;width:700px}
-#addr .h{font-size:66px;gap:14px}#addr .h svg{width:60px;height:60px}
-#addr .b{font-size:44px;line-height:1.4}
-#tel{left:960px;top:2020px;width:700px}#dl{left:960px;top:2180px;width:700px}
-#tel .p,#url{height:126px;padding:0 44px 0 14px;gap:22px}
+/* ---- 120 x 150 layout: phone + diag left, price + offer stacked right, phone and site in one row ---- */
+#brand{top:150px}
+#brand .fa{font-size:100px}#brand .mark{height:90px}
+body.t-p2 #title,body.t-p2 #titleF{font-size:160px;line-height:1.2;top:290px}
+#sub{top:705px;font-size:58px}
+#featRow{left:200px;top:830px;width:1845px}
+#feat{left:200px;top:915px;width:1845px;height:300px}
+.f .ib{width:170px;height:170px}.f .ib svg{width:128px;height:128px}
+.f .t{margin-top:20px;font-size:50px}
+#podTop{top:2120px;height:380px}#podium{top:2140px;height:560px}
+#ring1{top:2330px;height:400px}#ring2{top:2400px;height:440px}
+#phone{left:240px;top:1300px;transform:scale(.74) rotate(-4deg)}
+#prodGlow{left:250px;top:1900px;width:700px;height:460px}
+#prod{left:330px;top:1950px;width:520px}
+#prodShadow{left:320px;top:2270px;width:550px;height:95px}
+#price{left:1150px;top:1300px;width:895px;height:250px}
+#price .h{height:90px;font-size:56px}
+#shine{left:1150px;top:1600px;width:895px;padding:40px 40px 40px 36px;gap:30px;border-radius:40px}
+#shine .k1{font-weight:800;font-size:44px;line-height:1.3}
+#shine .k2{font-family:Peyda;font-weight:800;font-size:70px;line-height:1.25;color:#0D47A1}
+#shine .big{gap:18px;margin-top:4px}
+#shine .pc{font-size:150px}#shine .pt{font-size:62px}
+#shine .code{margin-top:14px;padding:6px 24px 10px;font-size:34px;gap:12px;border-radius:16px}
+#shine .code b{font-size:50px;letter-spacing:4px}
+#shine .qr{width:300px;height:300px;padding:22px;border-radius:26px}
+#shine .qr img{width:256px;height:256px}
+#shine .cap{font-size:30px;line-height:1.35;text-align:center;white-space:normal}
+#addr{left:200px;top:2290px;width:1845px}
+#addr .h{font-size:76px}#addr .h svg{width:68px;height:68px}
+#addr .b{font-size:52px}
+#tel{left:1122px;top:2500px;width:1123px;justify-content:flex-start;padding-left:24px;direction:ltr}
+#dl{left:0;top:2500px;width:1123px;justify-content:flex-end;padding-right:24px}
+#tel .p,#url{height:130px}
 #tel .gl,#url .gl{width:96px;height:96px}
-#tel .n{font-size:62px}#url .u{font-size:68px}
-#shine{left:1710px;top:1400px;width:720px;padding:36px 34px 40px}
-#shine .k2s{font-size:46px}#shine .k2s b{font-size:62px}
-#shine .k1{font-size:42px}
-#shine .mid{flex-direction:column;gap:12px}
-#shine .pc{font-size:140px}#shine .pt{font-size:60px}#shine .big{gap:18px}
-#shine .code{font-size:32px}#shine .code b{font-size:48px}
-#shine .qrs{gap:64px;margin-top:6px}#shine .qrw{gap:10px}
-#shine .qr{width:270px;height:270px;padding:20px;border-radius:24px}#shine .qr img{width:230px;height:230px}
-#shine .cap{font-size:20px}#shine .cap b{font-size:32px}
+#tel .n{font-size:68px}#url .u{font-size:72px}
+
+/* two QRs: buy with code + product catalog */
+#price{height:240px}
+#shine{top:1580px;flex-direction:column;align-items:stretch;gap:16px;padding:34px 36px 36px}
+#shine .hd{text-align:center}
+#shine .k2s{font-weight:800;font-size:48px;line-height:1.3}
+#shine .k2s b{font-family:Peyda;font-weight:800;font-size:64px;color:#0D47A1}
+#shine .k1{font-size:42px;line-height:1.2}
+#shine .mid{display:flex;align-items:center;justify-content:center;gap:28px}
+#shine .big{margin-top:0}#shine .pc{font-size:116px}#shine .pt{font-size:50px}
+#shine .code{margin-top:0;font-size:30px}#shine .code b{font-size:44px}
+#shine .qrs{display:flex;justify-content:center;gap:70px}
+#shine .qrw{gap:10px}
+#shine .qr{width:236px;height:236px;padding:18px;border-radius:22px}#shine .qr img{width:200px;height:200px}
+#shine .cap{text-align:center;font-weight:700;font-size:20px;line-height:1.35;white-space:nowrap}
+#shine .cap b{display:block;font-weight:900;font-size:30px;line-height:1.25}
+
+/* ---- 100 x 120 (overrides above) ---- */
+#brand{top:140px}
+body.t-p2 #title,body.t-p2 #titleF{font-size:152px;top:265px}
+#sub{top:655px;font-size:54px}
+#featRow{top:765px}
+#feat{top:845px;height:290px}
+.f .ib{width:160px;height:160px}.f .ib svg{width:120px;height:120px}
+.f .t{margin-top:18px;font-size:46px}
+#phone{left:240px;top:1200px;transform:scale(.72) rotate(-4deg)}
+#prodGlow{left:250px;top:1790px;width:700px;height:460px}
+#prod{left:330px;top:1840px;width:500px}
+#prodShadow{left:320px;top:2140px;width:530px;height:90px}
+#podTop{top:2010px}#podium{top:2030px}#ring1{top:2220px}#ring2{top:2290px}
+#price{top:1200px;height:230px}#price .h{height:86px;font-size:54px}
+#shine{top:1470px}
+#addr{top:2175px}
+#addr .h{font-size:70px}#addr .h svg{width:62px;height:62px}#addr .b{font-size:48px}
+#tel,#dl{top:2370px}
+#tel .p,#url{height:124px}#tel .gl,#url .gl{width:92px;height:92px}
+#tel .n{font-size:64px}#url .u{font-size:68px}
 </style></head><body>
 <div id="c">
  <div id="brand" class="a">
@@ -196,7 +215,7 @@ body.t-p2 #title,body.t-p2 #titleF{width:2600px;top:320px;font-size:180px}
 
  <div id="addr" class="a">
   <div class="h"><svg width="80" height="80" viewBox="0 0 24 24"><path fill="#FFCD11" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>تست رایگان حضوری</div>
-  <div class="b">نمایندگی قزوین: ولیعصر،<br>مجتمع تجاری نیایش، طبقه منفی ۱</div>
+  <div class="b">نمایندگی قزوین: ولیعصر، مجتمع تجاری نیایش، طبقه منفی ۱</div>
  </div>
 
  <div id="tel" class="a"><div class="p"><span class="gl"><svg width="60" height="60" viewBox="0 0 24 24"><path fill="#0B3A80" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
