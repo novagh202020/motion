@@ -51,7 +51,7 @@ add(b, whoosh(0.7, 300, 3000), F(46), 0.9)                                   # t
 add(b, whoosh(0.5, 2500, 500, 0.6), F(55), 0.6)                              # diag and phone land
 add(b, tapf(), F(88), 0.8); add(b, ding(2093, 0.5), F(89), 0.15)              # the battery tile lights
 add(b, whoosh(0.6, 400, 2500), F(146), 0.7)                                  # the comment sheet slides up
-for k in range(9): add(b, key(), F(166 + k * 30 / 9 + rng.uniform(-0.6, 0.6)), 0.75, rng.uniform(-.2, .2))
+for k in range(17): add(b, key(), F(164 + k * 36 / 17 + rng.uniform(-0.5, 0.5)), 0.75, rng.uniform(-.2, .2))
 add(b, tapf(), F(206), 0.8); add(b, whoosh(0.35, 800, 5000, 0.8), F(207), 0.6)  # send
 add(b, ding(1318.5, 1.0), F(220), 0.35); add(b, ding(1760, 0.8), F(223), 0.25)  # the reply notification
 add(b, whoosh(0.6, 300, 3000), F(232), 0.7)                                  # to the site
