@@ -1,6 +1,7 @@
 # Car-wash wall banners: python3 banner.py [out_dir] [dpi]
 # banner_shine.html 100 x 200 cm (code shine), banner_azadi.html 120 x 150 cm (code azadi),
-# banner_mehdi.html 100 x 150 cm (code mehdi), banner_azaran.html 100 x 200 cm (code azaran); buy QR -> https://www.cardiag.ir/?coupon=<CODE>,
+# banner_mehdi.html 100 x 150 cm (code mehdi), banner_azaran.html 120 x 120 cm (code azaran),
+# banner_rose.html 180 x 120 cm landscape (code rose); buy QR -> https://www.cardiag.ir/?coupon=<CODE>,
 # catalog QR -> https://cardiag.ir/catalog
 # -> <name>.pdf (print, exact size), <name>_<dpi>dpi.jpg, <name>_preview.jpg
 import os, sys, pathlib
@@ -13,10 +14,10 @@ Image.MAX_IMAGE_PIXELS = None
 out = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".")
 dpi = int(sys.argv[2]) if len(sys.argv) > 2 else 150   # 100-150 dpi is the norm for wall banners
 out.mkdir(parents=True, exist_ok=True)
-W = 2245                               # design width in px for every banner
-BANNERS = [("banner_shine", 1000, 2000, "SHINE"), ("banner_azadi", 1200, 1500, "AZADI"),
-           ("banner_mehdi", 1000, 1500, "MEHDI"),
-           ("banner_azaran", 1000, 2000, "AZARAN")]
+BANNERS = [  # name, width mm, height mm, coupon code, design width px
+    ("banner_shine", 1000, 2000, "SHINE", 2245), ("banner_azadi", 1200, 1500, "AZADI", 2245),
+    ("banner_mehdi", 1000, 1500, "MEHDI", 2245), ("banner_azaran", 1200, 1200, "AZARAN", 2600),
+    ("banner_rose", 1800, 1200, "ROSE", 3300)]
 
 def shot(pg, page, path, dpi_out):
     pg.goto(page); pg.evaluate("document.fonts.ready"); pg.wait_for_timeout(600)
@@ -27,7 +28,7 @@ with sync_playwright() as p:
     exe = "/opt/pw-browsers/chromium"
     b = p.chromium.launch(args=["--allow-file-access-from-files", "--force-color-profile=srgb"], executable_path=exe if os.path.exists(exe) else None)
     segno.make("https://cardiag.ir/catalog", error="q").save("assets/qr_catalog.svg", scale=10, border=0, dark="#10203C")
-    for name, wmm, hmm, code in BANNERS:
+    for name, wmm, hmm, code, W in BANNERS:
         segno.make(f"https://www.cardiag.ir/?coupon={code}", error="q").save(f"assets/qr_{code.lower()}.svg", scale=10, border=0, dark="#10203C")
         page = pathlib.Path(f"{name}.html").resolve().as_uri()
         H = round(W * hmm / wmm)
