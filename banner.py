@@ -1,6 +1,7 @@
 # Car-wash wall banners: python3 banner.py [out_dir] [dpi]
 # banner_shine.html 100 x 200 cm (code shine), banner_azadi.html 120 x 150 cm (code azadi),
-# banner_mehdi.html 100 x 150 cm (code mehdi), banner_azaran.html 100 x 200 cm (code azaran); QR -> https://www.cardiag.ir/?coupon=<CODE>
+# banner_mehdi.html 100 x 150 cm (code mehdi), banner_azaran.html 100 x 200 cm (code azaran); buy QR -> https://www.cardiag.ir/?coupon=<CODE>,
+# catalog QR -> https://cardiag.ir/catalog
 # -> <name>.pdf (print, exact size), <name>_<dpi>dpi.jpg, <name>_preview.jpg
 import os, sys, pathlib
 os.environ.setdefault("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
@@ -25,6 +26,7 @@ def shot(pg, page, path, dpi_out):
 with sync_playwright() as p:
     exe = "/opt/pw-browsers/chromium"
     b = p.chromium.launch(args=["--allow-file-access-from-files", "--force-color-profile=srgb"], executable_path=exe if os.path.exists(exe) else None)
+    segno.make("https://cardiag.ir/catalog", error="q").save("assets/qr_catalog.svg", scale=10, border=0, dark="#10203C")
     for name, wmm, hmm, code in BANNERS:
         segno.make(f"https://www.cardiag.ir/?coupon={code}", error="q").save(f"assets/qr_{code.lower()}.svg", scale=10, border=0, dark="#10203C")
         page = pathlib.Path(f"{name}.html").resolve().as_uri()
