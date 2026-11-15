@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag ECU Clear Screen</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+/* the app's ECU screen after clearing the codes, at the phone's native 1080x2400, for compositing into the cover photo */
+html,body{width:1080px;height:2400px;overflow:hidden;background:#F4F6FA;font-family:V,sans-serif;color:#10203C;direction:rtl}
+.ltr{direction:ltr;unicode-bidi:isolate;font-family:Inter,sans-serif}
+.sb{height:96px;background:#2196F3;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 64px 0;font-weight:700;font-size:38px;direction:ltr}
+.hd{height:200px;background:#2196F3;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 54px}
+.hd .t{display:flex;align-items:center;gap:26px;font-weight:900;font-size:80px}
+.hd .h{display:flex;align-items:center;gap:12px;font-weight:700;font-size:38px}
+.tabs{height:120px;background:#fff;display:flex}
+.tabs div{flex:1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:40px;color:#98A3B8;position:relative}
+.tabs .on{color:#2196F3}.tabs .on:after{content:"";position:absolute;bottom:0;width:180px;height:8px;border-radius:4px;background:#2196F3}
+.body{padding:40px 50px 0}
+.btn{height:120px;border-radius:60px;background:#2196F3;color:#fff;font-weight:900;font-size:44px;display:flex;align-items:center;justify-content:center;gap:16px}
+.card{background:#fff;border:3px solid #DEE6F2;border-radius:40px;padding:34px 40px;margin-top:34px}
+.cnt{display:flex;text-align:center;margin-top:20px}.cnt div{flex:1}.cnt b{display:block;font-weight:900;font-size:90px;color:#22A050;line-height:1.2}.cnt span{font-weight:700;font-size:36px}
+.dtc{display:flex;align-items:center;justify-content:space-between;margin-top:34px;padding:30px 40px;border-radius:32px;background:#fff;border:3px solid #DEE6F2}
+</style></head><body>
+<div class="sb"><span>11:57</span><span>▮▮▮ 33%</span></div>
+<div class="hd"><div class="t"><svg width="70" height="70" viewBox="0 0 24 24"><path fill="#fff" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>خطایابی <span class="ltr">ECU</span></div>
+ <div class="h"><svg width="44" height="44" viewBox="0 0 24 24"><path fill="#fff" d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>آموزش</div></div>
+<div class="tabs"><div class="on">اسکن جدید</div><div>تاریخچه</div></div>
+<div class="body">
+ <div class="card" style="margin-top:0;border-color:#BFE6CC;border-width:5px;text-align:center;padding:46px 40px 42px">
+  <div style="width:200px;height:200px;margin:0 auto;border-radius:50%;background:#22A050;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 26px #DEF6E6"><svg width="130" height="130" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.17L4.83 12l-1.42 1.42L9 19 21 7l-1.41-1.41z"/></svg></div>
+  <div style="margin-top:46px;font-weight:900;font-size:66px;color:#22A050">خطاها پاک شد</div>
+  <div style="margin-top:8px;font-weight:700;font-size:42px;color:#33415C">چراغ چک خاموش شد</div></div>
+ <div class="dtc"><div><div class="ltr" style="font-weight:900;font-size:52px;color:#98A3B8;text-decoration:line-through;text-align:right">P0301</div>
+  <div style="font-weight:600;font-size:32px;color:#6E7D96;margin-top:4px">احتراق ناقص در سیلندر ۱</div></div>
+  <span style="display:inline-flex;align-items:center;gap:10px;height:76px;padding:0 30px;border-radius:38px;background:#DEF6E6;color:#22A050;font-weight:800;font-size:34px">پاک شد</span></div>
+ <div class="card"><div style="font-weight:500;font-size:32px;color:#6E7D96">آخرین اسکن: ۱۴۰۵/۰۸/۲۴ — ۱۱:۵۷</div>
+  <div class="cnt"><div><b>۰</b><span>خطاهای در انتظار</span></div><div><b>۰</b><span>خطاهای ذخیره شده</span></div></div></div>
+ <div class="btn" style="margin-top:40px"><svg width="54" height="54" viewBox="0 0 24 24"><path fill="#fff" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>اسکن دوباره</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:0;height:200px;background:#2196F3;display:flex;padding-bottom:20px;color:#fff;font-weight:700;font-size:32px">
+ <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><span style="width:150px;height:70px;border-radius:35px;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center"><svg width="50" height="50" viewBox="0 0 24 24"><path fill="#fff" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span>خانه</div>
+ <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="64" height="64" viewBox="0 0 24 24"><path fill="#fff" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>افزودن خودرو</div>
+ <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><svg width="60" height="60" viewBox="0 0 24 24"><path fill="#fff" d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>بیشتر</div></div>
+</body></html>
