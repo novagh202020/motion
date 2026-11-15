@@ -369,10 +369,25 @@ function ticks(id){let s='';for(let i=0;i<=10;i++){const a=(-120+24*i)*Math.PI/1
  $(id).innerHTML=`<g filter="url(#paperS)">${s}</g>`}
 ticks('ticksL');ticks('ticksR');
 
+// piston workers with minion goggles; i==0 is cylinder 1, the lazy one (prayer beads + slipper)
+function PISTON(i){const lazy=i==0;
+ const eye=(x)=>`<g transform="translate(${x},44)"><circle r="27" fill="#E6EBF2"/><circle r="20" fill="#FFFFFF"/>
+  <g id="pp${i}_${x<0?'l':'r'}"><circle r="8" fill="#10203C"/><circle cx="-2.5" cy="-3" r="2.5" fill="#FFFFFF"/></g>
+  <clipPath id="pc${i}_${x<0?'l':'r'}"><circle r="20"/></clipPath><rect id="pl${i}_${x<0?'l':'r'}" clip-path="url(#pc${i}_${x<0?'l':'r'})" x="-22" y="-22" width="44" height="0" fill="#9AA6B8"/></g>`;
+ let g=`<g class="pp"><rect x="-14" y="150" width="28" height="${lazy?150:180}" fill="#6E7D96"/>
+  <rect x="-70" y="0" width="140" height="150" rx="22" fill="#ADB6C4"/><rect x="-72" y="34" width="144" height="18" fill="#10203C"/></g>
+  ${eye(-32)}${eye(32)}<g id="pm${i}"></g><g id="pb${i}"></g>`;
+ if(lazy) g+=`<g id="tasbih" transform="translate(86,96)"><path d="M-14,-6 Q4,10 0,30" stroke="#ADB6C4" stroke-width="16" stroke-linecap="round" fill="none" class="pp"/>
+   <g id="beads" transform="translate(0,34)">${[...Array(13)].map((_,k)=>{const a=k/13*Math.PI*2;return `<circle cx="${(Math.sin(a)*22).toFixed(1)}" cy="${(30-Math.cos(a)*30).toFixed(1)}" r="6" fill="#FFC446" stroke="#B86E0A" stroke-width="1.5"/>`}).join('')}
+    <path d="M0,60 l-6,22 h12 z" fill="#F28012"/></g><circle cx="0" cy="32" r="12" fill="#10203C" class="pp"/></g>
+  <g id="sandal" transform="translate(0,300)"><g class="pp"><path d="M-46,4 Q-50,-8 -36,-10 H40 Q54,-8 50,6 Q48,16 36,16 H-36 Q-48,16 -46,4 Z" fill="#8A5A34"/>
+   <path d="M-26,-8 Q0,-40 26,-8" stroke="#5E3B1F" stroke-width="12" fill="none"/><path d="M-30,-8 L18,-30 M30,-8 L-18,-30" stroke="#5E3B1F" stroke-width="9"/></g></g>`;
+ return g}
+
 (function(){let s='';for(let i=0;i<4;i++){const x=315-210*i;
  s+=`<g transform="translate(${x},0)">
   <g class="pp"><rect x="-80" y="-300" width="160" height="560" rx="18" fill="#10203C"/></g>
-  <g id="pis${i}"><g class="pp"><rect x="-68" y="0" width="136" height="110" rx="10" fill="#6E7D96"/><rect x="-14" y="110" width="28" height="200" fill="#6E7D96"/></g></g>
+  <g id="pis${i}">${PISTON(i)}</g>
   <g id="spk${i}" transform="translate(0,-230)" opacity="0"><g class="pp"><use href="#star" fill="#FFFFFF" transform="scale(1.9)"/><use href="#star" fill="#78CDFF" transform="scale(1.15)"/></g></g>
   <g id="pf${i}" opacity="0"><g class="pp"><circle cx="-30" cy="-180" r="26" fill="#ADB6C4"/><circle cx="20" cy="-200" r="34" fill="#C9D0DA"/><circle cx="34" cy="-160" r="20" fill="#ADB6C4"/></g></g>
   <g class="pp"><rect x="-60" y="300" width="120" height="78" rx="14" fill="${i==0?'#F28012':'#1565C0'}"/></g>
@@ -431,16 +446,29 @@ function s2(lf,q,t){             // 6.2-14.7s  Mohandes "seens" it, shrugs, doze
  $('calDay').textContent=ct; $('calFlip').setAttribute('opacity',C.some(([a])=>a&&lf>=a-6&&lf<a)?1:0);
  let z='';if(doze)for(let k=0;k<3;k++){const u=((lf/24+k/3)%1);z+=`<text x="${360+u*90+k*10}" y="${1300-u*200}" font-family="V" font-weight="900" font-size="${44+u*30}" fill="#FFFFFF" opacity="${1-u}" style="direction:ltr" filter="url(#paperS)">Z</text>`}
  $('zz2').innerHTML=z;}
-function s3(lf,q,t){const pop=E.back(seg(lf,6,22));   // 14.7-26.0s
+function s3(lf,q,t){const pop=E.back(seg(lf,6,22)); const Y=[0,0,0,0];  // 14.7-26.0s
  $('eng').setAttribute('transform',`translate(540,${lerp(1900,1080,pop)}) scale(1,${lerp(.2,1,pop)})`);
  const order=[0,2,3,1];
  for(let i=0;i<4;i++){const ph=(t*1.4+order[i]/4)%1;const y=-200+160*(.5-.5*Math.cos(ph*2*Math.PI));
   $('pis'+i).setAttribute('transform',`translate(${jit(q,i,i==0?6:0)},${y})`);
-  const fire=ph<.14&&lf>20; $('spk'+i).setAttribute('opacity',i==0?0:fire?1:0); $('pf'+i).setAttribute('opacity',i==0&&ph<.2&&lf>20&&lf<192?1:0);
-  if(i==0&&lf>=192)$('pis0').setAttribute('transform','translate(0,-40)');}           // 21.1s: cylinder 1 clocks out
+  const fire=ph<.14&&lf>20; $('spk'+i).setAttribute('opacity',i==0?0:fire?1:0); $('pf'+i).setAttribute('opacity',0);
+  Y[i]=y;
+  if(i==0){                                                    // the lazy one: sits still, yawns, counts his beads
+   Y[0]=-110+4*Math.sin(t*2); $('pis0').setAttribute('transform',`translate(0,${Y[0]})`);
+   const yawn=(lf>=40&&lf<80)||(lf>=196&&lf<240), lid=yawn?.95:.62;
+   ['l','r'].forEach(k=>{$('pl0_'+k).setAttribute('height',44*lid);$('pp0_'+k).setAttribute('transform','translate(0,5)')});
+   $('pm0').innerHTML=yawn?`<ellipse cx="0" cy="108" rx="24" ry="${22+6*Math.sin(lf/3)}" fill="#10203C" class="pp"/>`:`<path d="M-20,106 Q0,112 20,104" stroke="#10203C" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+   $('pb0').innerHTML=`<path d="M-50,20 L-14,28 M14,28 L50,20" stroke="#10203C" stroke-width="6" stroke-linecap="round"/>`;
+   $('beads').setAttribute('transform',`translate(0,34) rotate(${14*Math.sin(t*3.2)})`);
+   $('sandal').setAttribute('transform',`translate(${6*Math.sin(t*2.4)},300) rotate(${-10+8*Math.sin(t*2.4)}) scale(1.4)`);
+  } else {                                                     // the workers: squeezed eyes, angry brows, gritted teeth
+   const push=Math.sin(ph*2*Math.PI);
+   ['l','r'].forEach(k=>{$('pl'+i+'_'+k).setAttribute('height',44*(.38+.12*push));$('pp'+i+'_'+k).setAttribute('transform',`translate(${k=='l'?3:-3},2)`)});
+   $('pm'+i).innerHTML=`<g class="pp"><rect x="-30" y="92" width="60" height="26" rx="8" fill="#FFFFFF"/></g><path d="M-30,105 H30 M-15,92 V118 M0,92 V118 M15,92 V118" stroke="#10203C" stroke-width="3"/>`;
+   $('pb'+i).innerHTML=`<path d="M-56,14 L-12,26 M12,26 L56,14" stroke="#10203C" stroke-width="7" stroke-linecap="round"/>`;}}
  // 17.8-20.8s "جون می‌کندن": sweat flies off cylinders 2-4
- let sw='';if(lf>=93)for(let i=1;i<4;i++)for(let k=0;k<2;k++){const u=((lf/16+k/2+i*.3)%1),x=315-210*i;
-  sw+=`<path d="M${x+(k?70:-70)+(k?1:-1)*u*60},${-330+u*90-120*Math.sin(u*Math.PI)} q-10,18 0,26 q10,-8 0,-26 z" fill="#78CDFF" opacity="${1-u}" filter="url(#paperS)"/>`}
+ let sw='';if(lf>=24)for(let i=1;i<4;i++)for(let k=0;k<3;k++){const u=((lf/14+k/3+i*.3)%1),x=315-210*i,side=k%2?1:-1;
+  sw+=`<path d="M${x+side*(60+u*50)},${Y[i]+20+u*70-80*Math.sin(u*Math.PI)} q-14,24 0,36 q14,-12 0,-36 z" fill="#78CDFF" opacity="${1-u}" filter="url(#paperS)"/>`}
  $('sweat').innerHTML=sw;
  $('tea').setAttribute('opacity',lf>=198?1:0);
  let st='';for(let k=0;k<2;k++){const u=((lf/20+k/2)%1);st+=`<path d="M${-8+k*16},${-80-u*40} q-12,-14 0,-28 q12,-14 0,-28" opacity="${1-u}"/>`}$('steam').innerHTML=st;
