@@ -1,4 +1,4 @@
-# Car-wash wall banners: python3 banner.py [out_dir] [dpi]
+# Car-wash wall banners: python3 banner.py [out_dir] [dpi] [banner names...]
 # banner_shine.html 100 x 200 cm (code shine), banner_azadi.html 100 x 150 cm (code azadi),
 # banner_mehdi.html 100 x 150 cm (code mehdi), banner_azaran.html 100 x 120 cm (code azaran),
 # banner_rose.html 180 x 100 cm landscape (code rose); buy QR -> https://www.cardiag.ir/?coupon=<CODE>,
@@ -28,7 +28,9 @@ with sync_playwright() as p:
     exe = "/opt/pw-browsers/chromium"
     b = p.chromium.launch(args=["--allow-file-access-from-files", "--force-color-profile=srgb"], executable_path=exe if os.path.exists(exe) else None)
     segno.make("https://cardiag.ir/catalog", error="q").save("assets/qr_catalog.svg", scale=10, border=0, dark="#10203C")
+    only = sys.argv[3:]                    # optional: banner names to render
     for name, wmm, hmm, code, W in BANNERS:
+        if only and name not in only: continue
         segno.make(f"https://www.cardiag.ir/?coupon={code}", error="q").save(f"assets/qr_{code.lower()}.svg", scale=10, border=0, dark="#10203C")
         page = pathlib.Path(f"{name}.html").resolve().as_uri()
         H = round(W * hmm / wmm)
