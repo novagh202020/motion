@@ -135,6 +135,9 @@ tr:last-child td{border-bottom:0}
 .line .k{font-weight:500;font-size:14px;color:var(--slate);display:block;line-height:1.4}
 .line .v{font-weight:800;font-size:clamp(16px,4.4vw,19px);user-select:all;white-space:nowrap}
 .line>div{flex:1;min-width:0}
+.line a.v{color:var(--deep);text-decoration:underline;text-decoration-color:var(--soft);text-underline-offset:5px}
+.line a.v:hover{text-decoration-color:var(--blue)}
+.line a.v:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
 .copy{font:inherit;font-weight:700;font-size:14px;color:var(--deep);background:var(--tint);border:0;border-radius:999px;padding:6px 14px;cursor:pointer}
 .copy:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .sample{display:inline-block;font-weight:700;font-size:13px;color:var(--amber);background:#FFF3E3;border-radius:999px;padding:2px 10px;margin-top:8px}
@@ -342,7 +345,9 @@ tr:last-child td{border-bottom:0}
     <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg></span>
      <div><span class="k">واتس‌اپ</span><span class="v ltr" id="wa">۰۹۳۰ ۵۵۹ ۳۶۶۸</span></div><button class="copy" type="button" data-copy="wa">کپی</button></div>
     <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></span>
-     <div><span class="k">کانال تلگرام</span><span class="v ltr" id="tg">@cardiagai</span></div><button class="copy" type="button" data-copy="tg">کپی</button></div>
+     <div><span class="k">کانال تلگرام</span><a class="v ltr" id="tg" href="https://t.me/cardiagai" target="_blank" rel="noopener">@cardiagai</a></div><button class="copy" type="button" data-copy="tg">کپی</button></div>
+    <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#2196F3" stroke-width="2.2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="#2196F3" stroke-width="2.2"/><circle cx="17.3" cy="6.7" r="1.3" fill="#2196F3"/></svg></span>
+     <div><span class="k">صفحه اینستاگرام</span><a class="v ltr" id="ig" href="https://www.instagram.com/cardiagai/" target="_blank" rel="noopener">@cardiagai</a></div><button class="copy" type="button" data-copy="ig">کپی</button></div>
     <div class="line"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
      <div><span class="k">آدرس</span><span class="v" id="addr">تهران، آژیده، پلاک ۳</span></div></div>
    </div>
