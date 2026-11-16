@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Mohandes Ep2</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#10203C}
+body{font-family:V,sans-serif;color:#10203C}
+#stage{position:absolute;inset:0;overflow:hidden;background:#10203C}
+.a{position:absolute}
+.sc{position:absolute;left:0;top:0;width:1080px;height:1920px;display:none;overflow:visible}
+.sc>svg{position:absolute;left:0;top:0;overflow:visible}
+.ltr{direction:ltr;unicode-bidi:isolate}
+svg text{direction:rtl}
+#ttl{position:absolute;left:0;top:150px;width:1080px;height:150px;z-index:60;display:flex;justify-content:center;align-items:center}
+#ttlP{background:#FFFFFF;padding:14px 54px 22px;direction:rtl;font-weight:900;font-size:80px;line-height:1.15;color:#10203C;white-space:nowrap;filter:url(#paper);opacity:0}
+#grain{position:absolute;inset:0;z-index:80;pointer-events:none;mix-blend-mode:multiply;opacity:.28}
+#vig{position:absolute;inset:0;z-index:79;pointer-events:none;background:radial-gradient(ellipse 80% 65% at 50% 48%,rgba(255,255,255,.10),rgba(20,40,80,.22))}
+#fx,#fxTop{position:absolute;left:0;top:0;z-index:55;overflow:visible;pointer-events:none}
+#fxTop{z-index:58}
+.tw{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:54;display:none;overflow:visible}
+.tw>.sc{display:block!important}
+.pp{filter:url(#paper)}
+.scr{position:absolute;left:24px;top:24px;width:472px;height:812px;border-radius:44px;overflow:hidden;background:#EEF2F8;direction:rtl;font-family:V}
+.abar{height:110px;background:#2196F3;color:#fff;display:flex;align-items:flex-end;padding:0 26px 20px;font-weight:800;font-size:32px;gap:12px}
+.card{background:#fff;border:2px solid #DEE6F2;border-radius:24px;margin:16px 16px;padding:18px 20px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <filter id="paper" x="-8%" y="-8%" width="116%" height="124%" color-interpolation-filters="sRGB">
+   <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" result="n"/>
+   <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+   <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="2" result="g"/>
+   <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.45 0 0 0 -0.16" result="ga"/>
+   <feComposite in="ga" in2="d" operator="in" result="gin"/>
+   <feMerge result="m"><feMergeNode in="d"/><feMergeNode in="gin"/></feMerge>
+   <feDropShadow in="m" dx="4" dy="8" stdDeviation="3" flood-color="#142850" flood-opacity=".38"/>
+  </filter>
+  <filter id="paperS" x="-8%" y="-8%" width="116%" height="124%" color-interpolation-filters="sRGB">
+   <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="4" result="n"/>
+   <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+   <feDropShadow in="d" dx="2" dy="4" stdDeviation="1.5" flood-color="#142850" flood-opacity=".35"/>
+  </filter>
+  <!-- big soft shadow under a lifted sheet -->
+  <filter id="lift" x="-10%" y="-10%" width="125%" height="125%" color-interpolation-filters="sRGB">
+   <feDropShadow dx="14" dy="22" stdDeviation="14" flood-color="#142850" flood-opacity=".45"/>
+  </filter>
+  <!-- crumple: the sheet buckles into creases with light/shade on the folds -->
+  <filter id="crumple" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+   <feTurbulence type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="9" result="n"/>
+   <feDisplacementMap id="crD" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="B" result="d"/>
+   <feTurbulence type="turbulence" baseFrequency="0.011" numOctaves="2" seed="3" result="n2"/>
+   <feDiffuseLighting in="n2" surfaceScale="9" lighting-color="#FFFFFF" result="l"><feDistantLight azimuth="225" elevation="42"/></feDiffuseLighting>
+   <feComposite in="l" in2="d" operator="in" result="li"/>
+   <feBlend in="d" in2="li" mode="multiply" result="b"/>
+   <feComposite id="crA" in="d" in2="b" operator="arithmetic" k1="0" k2="1" k3="0" k4="0" result="c"/>
+   <feDropShadow in="c" dx="10" dy="16" stdDeviation="8" flood-color="#142850" flood-opacity=".4"/>
+  </filter>
+  <filter id="grainF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="11"/>
+   <feColorMatrix type="matrix" values="0 0 0 0 0.92  0 0 0 0 0.95  0 0 0 0 1  0.9 0 0 0 -0.25"/></filter>
+  <filter id="fibreF"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.18" numOctaves="2" seed="5"/>
+   <feColorMatrix type="matrix" values="0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 0 0.31  0.5 0 0 0 -0.2"/></filter>
+  <linearGradient id="flapG" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D5E0EE"/></linearGradient>
+  <path id="engine" d="M-95,-10 h18 v-22 h30 v-16 h-14 v-14 h62 v14 h-14 v16 h34 l18,18 h16 v-16 h18 v72 h-18 v-16 h-16 l-22,30 h-74 l-14,-20 h-6 v18 h-18 z"/>
+  <path id="star" d="M0,-34 L9,-10 L34,-12 L14,4 L22,30 L0,15 L-22,30 L-14,4 L-34,-12 L-9,-10 Z"/>
+  <!-- paper hand: pinch point at 0,0, arm leaves towards +45deg (down-right) -->
+  <g id="hand">
+   <g class="pp">
+    <path d="M149,101 L452,404 L374,482 L71,179 Z" fill="#1565C0"/>
+    <path d="M149,101 L181,133 L103,211 L71,179 Z" fill="#FFFFFF"/>
+   </g>
+   <g class="pp" fill="#F2C9A0">
+    <ellipse cx="82" cy="92" rx="70" ry="56" transform="rotate(45 82 92)"/>
+    <line x1="98" y1="48" x2="72" y2="20" stroke="#F2C9A0" stroke-width="30" stroke-linecap="round"/>
+    <line x1="120" y1="66" x2="96" y2="38" stroke="#F2C9A0" stroke-width="30" stroke-linecap="round"/>
+    <line x1="136" y1="92" x2="112" y2="66" stroke="#F2C9A0" stroke-width="28" stroke-linecap="round"/>
+    <line x1="56" y1="40" x2="2" y2="-8" stroke="#F2C9A0" stroke-width="32" stroke-linecap="round"/>
+    <line x1="36" y1="118" x2="-8" y2="6" stroke="#F2C9A0" stroke-width="34" stroke-linecap="round"/>
+   </g>
+  </g>
+ </defs>
+</svg>
+
+<div id="stage">
+
+ <!-- ===== A 0-7.0s: freezing morning, the car only coughs ===== -->
+ <div class="sc" id="sA" data-city="13,1450,280,640,840,0,3" data-snow="1450"><svg width="1080" height="1920">
+  <g id="carA"></g>
+  <g transform="translate(250,1770)"><g id="mAw"></g></g>
+  <g id="qqq"></g><g id="hopA"></g>
+  <g id="snowA"></g>
+ </svg></div>
+
+ <!-- ===== B 7.0-12.6s: battery sick in bed ===== -->
+ <div class="sc" id="sB"><svg width="1080" height="1920">
+  <g id="bayB"></g>
+  <g transform="translate(540,1460) scale(1.55)"><g id="bBw"></g></g>
+  <g id="bubB" opacity="0" transform="translate(540,760)"><g class="pp"><path d="M-330,-80 H330 Q370,-80 370,-40 V40 Q370,80 330,80 H40 L-10,150 L-20,80 H-330 Q-370,80 -370,40 V-40 Q-370,-80 -330,-80 Z" fill="#FFFFFF"/></g>
+   <text y="20" text-anchor="middle" font-family="V" font-weight="900" font-size="54" fill="#10203C">«امروز نه، حالم خوب نیست!»</text></g>
+ </svg></div>
+
+ <!-- ===== C 12.6-19.5s: battery after battery ===== -->
+ <div class="sc" id="sC" data-city="17,1450,260,520,0,0,0" data-snow="1450"><svg width="1080" height="1920">
+  <g id="shopC"></g>
+  <g transform="translate(250,410)">
+   <g class="pp"><rect x="-150" y="0" width="300" height="300" rx="18" fill="#FFFFFF"/></g>
+   <g class="pp"><rect x="-150" y="0" width="300" height="90" rx="18" fill="#1565C0"/></g>
+   <g class="pp"><circle cx="-80" cy="0" r="14" fill="#10203C"/><circle cx="80" cy="0" r="14" fill="#10203C"/></g>
+   <text x="0" y="66" text-anchor="middle" font-family="V" font-weight="800" font-size="46" fill="#FFFFFF">تقویم</text>
+   <text id="calC" x="0" y="222" text-anchor="middle" font-family="V" font-weight="900" font-size="64" fill="#10203C">امروز</text>
+   <g id="calFlipC" class="pp" opacity="0"><rect x="-150" y="90" width="300" height="210" fill="#E6EBF2"/></g>
+  </g>
+  <g id="bills"></g>
+  <g transform="translate(270,1770)"><g id="mCw"></g></g>
+  <g id="boxes"></g>
+  <g id="snowC"></g>
+ </svg></div>
+
+ <!-- ===== D 19.5-31.7s: the secret - an innocent battery and a flirting alternator ===== -->
+ <div class="sc" id="sD"><svg width="1080" height="1920">
+  <g id="camD">
+   <g id="bayD"></g>
+   <g transform="translate(290,1470) scale(1.1)"><g id="bDw"></g></g>
+   <g class="pp"><rect x="600" y="820" width="16" height="560" fill="#6E7D96"/><rect x="1000" y="820" width="16" height="560" fill="#6E7D96"/>
+    <path d="M608,980 Q808,1250 1008,980" stroke="#FFFFFF" stroke-width="22" fill="none"/></g>
+   <g transform="translate(808,1250) scale(1.05)"><g id="aDw"></g></g>
+   <g class="pp"><path d="M608,980 Q808,1300 1008,980 L1008,1010 Q808,1330 608,1010 Z" fill="#FFFFFF" opacity=".95"/></g>
+   <g id="excl" opacity="0" transform="translate(808,700)"><g class="pp"><circle r="70" fill="#FFFFFF"/></g><text y="42" text-anchor="middle" font-family="V" font-weight="900" font-size="120" fill="#F28012">!</text></g>
+  </g>
+  <rect id="darkD" width="1080" height="1920" fill="#0A1428" opacity="0"/>
+  <ellipse id="spotD" cx="290" cy="1200" rx="300" ry="420" fill="#ADD6FA" opacity="0" style="mix-blend-mode:screen"/>
+  <g id="chat"></g>
+  <g id="heaterD" transform="translate(1300,560)"><g id="hDw"></g></g>
+  <g id="hearts"></g>
+ </svg></div>
+
+ <!-- ===== F 31.7-40.2s: three suspects ===== -->
+ <div class="sc" id="sF"><svg width="1080" height="1920">
+  <g class="pp"><path d="M-40,1500 H1120 V1920 H-40 Z" fill="#10203C"/></g>
+  <g class="pp"><path d="M-40,1500 H1120 V1530 H-40 Z" fill="#1565C0"/></g>
+  <g id="lineupF" opacity=".55"></g>
+  <g opacity=".45"><path id="spotF" d="M540,250 L280,1500 H800 Z" fill="#ADD6FA"/></g>
+  <g id="f0"><g transform="scale(.95)"><g id="bFw"></g></g></g>
+  <g id="f1"><g transform="scale(.95)"><g id="aFw"></g></g></g>
+  <g id="f2"><g transform="scale(.9)"><g id="tFw"></g></g></g>
+  <g id="tagsF"></g>
+  <g id="cmtF" opacity="0" transform="translate(540,1715)"><g class="pp"><path d="M-210,-62 H210 Q240,-62 240,-32 V32 Q240,62 210,62 H-120 L-160,104 L-150,62 H-210 Q-240,62 -240,32 V-32 Q-240,-62 -210,-62 Z" fill="#FFFFFF"/></g>
+   <text y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="56" fill="#1565C0">کامنت کن! 💬</text></g>
+ </svg></div>
+
+ <!-- ===== G 40.2-45.8s: on his way to battery #4 - his friend blocks him ===== -->
+ <div class="sc" id="sG" data-city="19,1450,260,520,0,0,2" data-snow="1450"><svg width="1080" height="1920">
+  <g id="shopG"></g>
+  <g id="mGpos"><g id="mGw"></g></g>
+  <g id="rGpos"><g id="rGw"></g></g>
+  <g id="snowG"></g>
+ </svg></div>
+
+ <!-- ===== H 45.8-54.4s: CarDiag catches it ===== -->
+ <div class="sc" id="sH">
+  <svg width="1080" height="1920">
+   <g class="pp"><path d="M-40,330 H600 Q650,330 650,380 V560 H-40 Z" fill="#10203C"/></g>
+   <g class="pp"><path d="M90,560 H330 L305,620 H115 Z" fill="#181C24"/></g>
+   <g id="wavesH" transform="translate(330,600)"></g>
+   <g transform="translate(240,1700) scale(.72)"><g id="aHw"></g></g>
+   <g id="phoneFall" opacity="0"><g class="pp"><rect x="-30" y="-56" width="60" height="104" rx="10" fill="#181C24"/></g><rect x="-23" y="-48" width="46" height="86" rx="5" fill="#F59628"/></g>
+  </svg>
+  <img id="cdH" class="a pp" src="assets/cardiag_paper.png" style="width:300px;left:60px;top:560px;transform-origin:50% 0">
+  <div id="phH" class="a" style="left:480px;top:660px;width:520px;height:860px">
+   <svg width="520" height="860" class="a" style="left:0;top:0"><g class="pp"><rect x="0" y="0" width="520" height="860" rx="64" fill="#181C24"/></g></svg>
+   <div class="scr">
+    <div class="abar"><span>تست باتری و دینام</span></div>
+    <div id="vb" class="card" style="opacity:0">
+     <div style="font-weight:700;font-size:28px;color:#6E7D96">ولتاژ باتری</div>
+     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+      <span style="font-weight:900;font-size:66px;color:#10203C">۱۲٫۶ <span style="font-size:34px">ولت</span></span>
+      <span id="okB" style="opacity:0;background:#DEF6E6;color:#22A050;font-weight:700;font-size:34px;border-radius:30px;padding:6px 24px">سالم</span></div>
+    </div>
+    <div id="va" class="card" style="opacity:0">
+     <div style="font-weight:700;font-size:28px;color:#6E7D96">شارژ دینام</div>
+     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+      <span style="font-weight:900;font-size:66px;color:#10203C">۱۳٫۱ <span style="font-size:34px">ولت</span></span>
+      <span id="badA" style="opacity:0;background:#FFFFFF;border:3px solid #F28012;color:#F28012;font-weight:700;font-size:34px;border-radius:30px;padding:4px 22px">ضعیف</span></div>
+    </div>
+    <div style="position:absolute;left:0;bottom:0;width:472px;height:80px;background:#2196F3"></div>
+   </div>
+  </div>
+ </div>
+
+ <!-- ===== I 54.4-56.0s: the alternator gets fixed ===== -->
+ <div class="sc" id="sI"><svg width="1080" height="1920">
+  <g id="bayI"></g>
+  <g transform="translate(540,1440) scale(1.35)"><g id="aIw"></g></g>
+  <g id="wrench"><g class="pp"><path d="M-14,-150 h28 v190 h-28 z" fill="#E6EBF2"/><path d="M-46,-196 a46,46 0 1 0 92,0 l-20,0 l0,28 l-52,0 l0,-28 z" fill="#E6EBF2"/></g></g>
+  <g id="spark"></g>
+ </svg></div>
+
+ <!-- ===== S 56.0-59.5s: one turn of the key - vroom ===== -->
+ <div class="sc" id="sS" data-city="23,1450,280,600,0,820,2" data-snow="1450"><svg width="1080" height="1920">
+  <g id="carS"></g>
+  <g transform="translate(200,1770) scale(.9)"><g id="rSw"></g></g>
+  <g id="snowS"></g>
+ </svg></div>
+
+ <!-- ===== J 59.5-62.6s: three innocent batteries retire ===== -->
+ <div class="sc" id="sJ"><svg width="1080" height="1920">
+  <g class="pp"><rect x="100" y="1300" width="880" height="40" rx="12" fill="#6E7D96"/><rect x="100" y="1180" width="880" height="34" rx="12" fill="#6E7D96"/>
+   <rect x="160" y="1340" width="26" height="200" fill="#10203C"/><rect x="894" y="1340" width="26" height="200" fill="#10203C"/></g>
+  <g transform="translate(260,1320) scale(.74)"><g id="j1w"></g></g>
+  <g transform="translate(540,1320) scale(.74)"><g id="j2w"></g></g>
+  <g transform="translate(820,1320) scale(.74)"><g id="j3w"></g></g>
+  <g class="pp"><path d="M360,1000 q30,-10 34,20 l-14,300" stroke="#8A5A34" stroke-width="12" fill="none" stroke-linecap="round"/></g>
+  <g id="knit"><g class="pp"><circle cx="600" cy="1380" r="30" fill="#2196F3"/><path d="M500,1316 L580,1366 M600,1316 L520,1366" stroke="#E6EBF2" stroke-width="7" stroke-linecap="round"/></g></g>
+  <g class="pp"><path d="M884,1236 H916 L910,1280 H890 Z" fill="#FFFFFF"/><path d="M887,1250 H913 L909,1278 H891 Z" fill="#FFC446"/></g>
+  <g id="snowJ"></g>
+ </svg></div>
+
+ <!-- ===== S9: paper end card ===== -->
+ <div class="sc" id="se">
+  <div id="eCard" class="a pp" style="left:70px;top:380px;width:940px;height:1320px;background:#FFFFFF;border-radius:30px"></div>
+  <img id="eDiag" class="a" src="assets/diag_front.png" style="left:280px;top:470px;width:520px;transform-origin:50% 60%">
+  <svg width="1080" height="1920"><path id="ePulse" d="M200,960 H430 L460,900 L490,1020 L520,860 L550,990 L570,960 H880" stroke="#2196F3" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#paperS)"/></svg>
+  <div id="eBrand" class="a ltr" style="left:0;top:1020px;width:1080px;text-align:center;font-weight:900;font-size:126px;color:#1565C0;line-height:1.2">CarDiag AI</div>
+  <div id="eTag" class="a" style="left:0;top:1200px;width:1080px;text-align:center;direction:rtl;font-weight:500;font-size:44px;color:#6E7D96">مکانیک تو جیبِت!</div>
+  <div id="eUrl" class="a ltr" style="left:0;top:1440px;width:1080px;text-align:center;font-weight:700;font-size:60px;color:#506482">cardiag.ir</div>
+  <svg width="1080" height="1920" style="position:absolute;left:0;top:0;overflow:visible"><g id="eM" transform="translate(190,1700) scale(.55)"><g id="eMw"></g></g><g id="eR" transform="translate(890,1700) scale(.55)"><g id="eRw"></g></g></svg>
+ </div>
+
+ <!-- transition helpers -->
+ <div id="twL" class="tw"></div><div id="twR" class="tw"></div>
+ <svg id="fx" width="1080" height="1920"></svg>
+ <svg id="fxTop" width="1080" height="1920"></svg>
+
+ <div id="vig"></div>
+ <svg id="grain" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#grainF)"/></svg>
+ <div id="ttl"><div id="ttlP"></div></div>
+</div>
+
+<script src="characters.js"></script>
+<script>
+const FPS=30, STEP=FPS/12;                 // stop-motion: 12 poses per second
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(f,a,b)=>clamp((f-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+const E={oc:t=>1-Math.pow(1-t,3),ic:t=>t*t*t,io:t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,back:t=>{const c=1.7;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2)}};
+const hash=n=>{const s=Math.sin(n*127.1+311.7)*43758.5453;return s-Math.floor(s)};
+const FA=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const jit=(q,k,a)=>(hash(q*13.7+k)-.5)*a;
+const mix=(c1,c2,t)=>{const p=c=>[1,3,5].map(i=>parseInt(c.substr(i,2),16));const A=p(c1),B=p(c2);return 'rgb('+A.map((v,i)=>Math.round(lerp(v,B[i],t))).join(',')+')'};
+const HAND=(x,y,deg,s=1)=>`<use href="#hand" transform="translate(${x.toFixed(1)},${y.toFixed(1)}) rotate(${(deg-45).toFixed(1)}) scale(${s})"/>`;
+
+// every scene is its own sheet of blue paper
+// ---------- paper city ----------
+function MILAD(x,G){return `<g class="pp" fill="#FFFFFF"><rect x="${x-13}" y="${G-1000}" width="26" height="1000"/>
+ <path d="M${x-90},${G-760} h180 l-34,-62 h-112 z"/><rect x="${x-62}" y="${G-872}" width="124" height="46" rx="14"/>
+ <path d="M${x-46},${G-872} h92 l-22,-44 h-48 z"/><rect x="${x-4}" y="${G-1130}" width="8" height="216"/></g>
+ <g class="pp"><rect x="${x-74}" y="${G-800}" width="148" height="10" fill="#10203C"/><rect x="${x-50}" y="${G-856}" width="100" height="10" fill="#10203C"/></g>`}
+function AZADI(x,G){return `<g class="pp" transform="translate(${x},${G})"><path d="M-160,0 C-128,-130 -78,-270 -46,-350 L46,-350 C78,-270 128,-130 160,0 L86,0 C66,-110 34,-168 0,-178 C-34,-168 -66,-110 -86,0 Z" fill="#FFFFFF"/>
+ <rect x="-52" y="-388" width="104" height="40" fill="#FFFFFF"/><rect x="-28" y="-336" width="56" height="12" fill="#10203C"/><rect x="-34" y="-306" width="68" height="10" fill="#ADD6FA"/></g>`}
+function city(seed,G,hmin,hmax,milad,azadi,clouds){let s='',x=-40,k=0;
+ for(let i=0;i<(clouds||0);i++){const cx=120+i*330+hash(seed+i*5)*120,cy=G-hmax-150-hash(seed*7+i)*190,w=1+hash(i+seed)*.5;
+  s+=`<g class="pp" transform="translate(${cx.toFixed(0)},${cy.toFixed(0)}) scale(${w.toFixed(2)})"><path d="M-110,30 Q-120,-10 -80,-20 Q-70,-70 -20,-60 Q10,-100 55,-62 Q100,-70 105,-20 Q130,0 115,30 Z" fill="#FFFFFF"/></g>`}
+ s+='<g opacity=".6">';
+ while(x<1100){const w=90+hash(seed+k)*120,h=(hmin+(hmax-hmin)*hash(seed+k*3.1))*1.25;s+=`<rect x="${x.toFixed(0)}" y="${(G-h).toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" fill="#78CDFF"/>`;x+=w-8;k++}
+ s+='</g>'; if(milad)s+=MILAD(milad,G);
+ const PAL=[['#FFFFFF','#10203C'],['#E6EBF2','#6E7D96'],['#6E7D96','#E6EBF2'],['#10203C','#ADD6FA'],['#FFFFFF','#2196F3']];
+ x=-30;k=0;while(x<1100){const w=110+hash(seed*2+k)*130,h=hmin+(hmax-hmin)*hash(seed*5+k*1.7);
+  if(azadi&&Math.abs(x+w/2-azadi)<170){x+=330;k++;continue}
+  const [fill,win]=PAL[Math.floor(hash(seed+k*9.3)*PAL.length)],st=Math.floor(hash(seed+k*4.4)*3);let wn='';
+  if(st==0){for(let yy=G-h+30;yy<G-70;yy+=56)for(let xx=x+18;xx<x+w-34;xx+=38)wn+=`<rect x="${xx.toFixed(0)}" y="${yy.toFixed(0)}" width="18" height="28" fill="${win}"/>`}
+  else if(st==1){for(let xx=x+16;xx<x+w-22;xx+=24)wn+=`<rect x="${xx.toFixed(0)}" y="${(G-h+26).toFixed(0)}" width="9" height="${(h-90).toFixed(0)}" fill="${win}"/>`}
+  else{for(let yy=G-h+30;yy<G-60;yy+=42)wn+=`<rect x="${(x+16).toFixed(0)}" y="${yy.toFixed(0)}" width="${(w-32).toFixed(0)}" height="13" fill="${win}"/>`}
+  s+=`<g class="pp"><rect x="${x.toFixed(0)}" y="${(G-h).toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" fill="${fill}"/>${wn}</g>`;x+=w+hash(k+seed)*28-4;k++}
+ if(azadi)s+=AZADI(azadi,G);
+ s+=`<g class="pp"><rect x="-40" y="${G}" width="1160" height="40" fill="#E6EBF2"/></g>`;
+ for(let i=0;i<5;i++){const tx=60+i*240+hash(seed+i)*60,r=42+hash(seed*3+i)*22;
+  s+=`<g class="pp"><rect x="${tx-7}" y="${G-60}" width="14" height="70" fill="#10203C"/><circle cx="${tx}" cy="${G-60-r*.7}" r="${r}" fill="${i%2?'#1565C0':'#ADD6FA'}"/></g>`}
+ s+=`<g class="pp"><rect x="-40" y="${G+40}" width="1160" height="230" fill="#10203C"/></g><g class="pp">`;
+ for(let i=0;i<9;i++)s+=`<rect x="${i*140-20}" y="${G+150}" width="72" height="12" fill="#FFFFFF"/>`;
+ s+=`</g><g class="pp"><rect x="-40" y="${G+270}" width="1160" height="400" fill="#1565C0"/></g>`;return s}
+
+// paper car (faces left = forward in RTL), origin under the body between the wheels
+function CAR(p){const wheel=(x,i)=>`<g transform="translate(${x},-40)"><g class="pp"><circle r="54" fill="#10203C"/><circle r="23" fill="#E6EBF2"/></g><g id="${p}s${i}"><rect x="-5" y="-50" width="10" height="24" fill="#6E7D96"/></g></g>`;
+ return `<g id="${p}">
+ <g id="${p}puff"></g>
+ <g id="${p}b">
+  <g class="pp"><path d="M-262,-40 Q-266,-100 -222,-112 L-132,-124 L-72,-194 Q-57,-208 -30,-208 L112,-208 Q138,-208 152,-193 L212,-128 L248,-120 Q268,-113 265,-70 L262,-40 Z" fill="#FFFFFF"/></g>
+  <g class="pp"><path d="M-116,-128 L-64,-188 L18,-188 L18,-128 Z" fill="#ADD6FA"/><path d="M36,-128 L36,-188 L106,-188 Q121,-188 132,-175 L176,-128 Z" fill="#ADD6FA"/></g>
+  <g class="pp"><rect x="-40" y="-186" width="50" height="58" rx="25" fill="#F2C9A0"/><rect x="-42" y="-170" width="54" height="9" fill="#10203C"/><circle cx="-15" cy="-165" r="13" fill="#E6EBF2"/><circle cx="-15" cy="-165" r="9" fill="#FFFFFF"/><circle cx="-17" cy="-163" r="4" fill="#10203C"/></g>
+  <g class="pp"><rect x="-258" y="-90" width="516" height="16" fill="#2196F3"/><ellipse cx="-252" cy="-100" rx="13" ry="10" fill="#78CDFF"/><rect x="252" y="-108" width="12" height="24" fill="#10203C"/><rect x="258" y="-54" width="28" height="12" fill="#6E7D96"/></g>
+ </g>
+ ${wheel(-160,1)}${wheel(160,2)}
+ <g id="${p}lamp" transform="translate(-10,-330)" opacity="0">
+  <g class="pp"><circle r="80" fill="#FFFFFF"/><path d="M-22,68 L6,116 L22,68 Z" fill="#FFFFFF"/></g>
+  <use href="#engine" fill="#3A4252" transform="scale(.62)"/><g id="${p}lon" class="pp"><use href="#engine" fill="#F28012" transform="scale(.62)"/></g>
+ </g>
+ <g id="${p}seen" opacity="0" transform="translate(110,-400)"><g class="pp"><rect x="-70" y="-36" width="140" height="72" rx="36" fill="#FFFFFF"/></g>
+  <path d="M-40,0 l12,14 l24,-28 M-10,0 l12,14 l24,-28" stroke="#2196F3" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+ <g id="${p}halo" opacity="0" transform="translate(-10,-250)"><g class="pp"><ellipse rx="120" ry="26" fill="none" stroke="#78CDFF" stroke-width="16"/></g></g></g>`}
+// hiccups: list of frames where the engine misfires (the car lurches and coughs smoke)
+function setCar(p,x,y,lf,o={}){const ev=o.ev||[];let bump=0,kick=0,puff='';
+ ev.forEach(e=>{const a=lf-e;bump+=-16*Math.exp(-Math.pow(a/2.2,2));kick+=20*Math.exp(-Math.pow(a/2.6,2));
+  if(a>=0&&a<30)for(let j=0;j<3;j++){const b=a-j*3;if(b<0)continue;const sz=(o.puff||1);
+   puff+=`<circle cx="${290+b*5+j*14}" cy="${-56-b*3.2-j*8}" r="${(16+b*1.6)*sz}" fill="#6E7D96" opacity="${(1-b/30)*.95}" filter="url(#paperS)"/>`}});
+ const sc=o.s||1; $(p).setAttribute('transform',`translate(${(x+(o.flip?-kick:kick)).toFixed(1)},${y}) scale(${o.flip?-sc:sc},${sc})`);
+ $(p+'seen').setAttribute('opacity',o.seen?1:0); $(p+'halo').setAttribute('opacity',o.halo?1:0);
+ $(p+'b').setAttribute('transform',`translate(0,${bump.toFixed(1)}) rotate(${(bump*.12).toFixed(2)} 0 -40)`);
+ $(p+'puff').innerHTML=puff;
+ const spin=(o.spin||0); $(p+'s1').setAttribute('transform',`rotate(${spin})`); $(p+'s2').setAttribute('transform',`rotate(${spin+90})`);
+ $(p+'lamp').setAttribute('opacity',o.lamp?1:0); $(p+'lon').setAttribute('opacity',o.lampOn?1:0);}
+
+// every scene is its own sheet of blue paper
+document.querySelectorAll('.sc').forEach(sc=>{const bg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ bg.setAttribute('width',1080);bg.setAttribute('height',1920);
+ const c=sc.dataset.city;
+ bg.innerHTML=`<rect width="1080" height="1920" fill="#2196F3"/><rect width="1080" height="1920" filter="url(#fibreF)" opacity=".5"/>`+
+  (c?city(...c.split(',').map(Number)):`<g class="pp"><path d="M0,1700 C200,1640 380,1690 560,1650 C760,1606 900,1660 1080,1630 V1920 H0 Z" fill="#1565C0"/></g>`);
+ sc.insertBefore(bg,sc.firstChild);});
+// winter: snow on the pavement and the ground for sheets with data-snow
+document.querySelectorAll('.sc[data-snow]').forEach(sc=>{const G=+sc.dataset.snow,bg=sc.firstChild;
+ bg.insertAdjacentHTML('beforeend',`<g class="pp"><path d="M-40,${G-6} Q120,${G-26} 260,${G-8} T560,${G-10} T860,${G-14} T1120,${G-8} V${G+40} H-40 Z" fill="#FFFFFF"/></g>
+  <g class="pp"><path d="M-40,${G+262} Q200,${G+246} 420,${G+262} T820,${G+258} T1120,${G+262} V${G+700} H-40 Z" fill="#E6EBF2"/></g>`);});
+function snowfall(id,lf,n=46){let s='';for(let k=0;k<n;k++){const sp=2.2+hash(k*1.3)*2.4,x=(hash(k*7.7)*1120-20+Math.sin(lf/18+k)*24),y=((hash(k*3.1)*2000+lf*sp)%2000)-40;
+ s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(4+hash(k*5.3)*6).toFixed(1)}" fill="#FFFFFF" opacity=".9"/>`}$(id).innerHTML=s}
+// under the bonnet
+function BAY(){return `<g class="pp"><rect x="40" y="440" width="1000" height="1280" rx="60" fill="#10203C"/></g>
+ <g class="pp" fill="#3A4252"><rect x="90" y="500" width="300" height="160" rx="30"/><rect x="700" y="490" width="290" height="120" rx="24"/><circle cx="880" cy="760" r="90"/></g>
+ <g class="pp" stroke="#6E7D96" stroke-width="22" fill="none" stroke-linecap="round"><path d="M120,720 C300,700 420,820 640,760"/><path d="M980,1650 C900,1500 980,1400 900,1260"/></g>`}
+// battery shop storefront
+function SHOP(x,G,s){return `<g transform="translate(${x},${G}) scale(${s})">
+ <g class="pp"><rect x="0" y="-560" width="480" height="560" fill="#FFFFFF"/><rect x="0" y="-620" width="480" height="90" fill="#10203C"/></g>
+ <text x="240" y="-560" text-anchor="middle" font-family="V" font-weight="900" font-size="54" fill="#FFFFFF">باتری‌فروشی</text>
+ <g class="pp">${[0,1,2,3,4,5].map(k=>`<path d="M${k*80},-530 h80 l-10,60 h-60 z" fill="${k%2?'#FFFFFF':'#2196F3'}"/>`).join('')}</g>
+ <g class="pp"><rect x="30" y="-430" width="260" height="250" fill="#ADD6FA"/><rect x="330" y="-420" width="120" height="420" fill="#1565C0"/></g>
+ <g>${[0,1,2].map(k=>`<g transform="translate(${70+k*80},-250)"><rect x="-30" y="-44" width="60" height="44" rx="6" fill="#10203C"/><rect x="-20" y="-52" width="12" height="10" fill="#E6EBF2"/><rect x="8" y="-52" width="12" height="10" fill="#E6EBF2"/></g>`).join('')}</g>
+ <circle cx="350" cy="-210" r="9" fill="#FFC446"/></g>`}
+const BOX=(x,y,r=0)=>`<g transform="translate(${x},${y}) rotate(${r})"><g class="pp"><rect x="-70" y="-50" width="140" height="92" rx="10" fill="#10203C"/><rect x="-70" y="-50" width="140" height="22" rx="8" fill="#3A4252"/>
+ <rect x="-52" y="-64" width="22" height="16" fill="#E6EBF2"/><rect x="30" y="-64" width="22" height="16" fill="#E6EBF2"/></g><path d="M-10,0 l-8,18 h12 l-6,16 l20,-24 h-12 l6,-10 z" fill="#78CDFF"/></g>`;
+
+['carA','carS'].forEach(id=>{$(id).outerHTML=CAR(id.replace('car','c'))});
+['cA','cS'].forEach(p=>$(p+'b').insertAdjacentHTML('beforeend',`<g id="${p}snow"><g class="pp"><path d="M-84,-204 Q-60,-240 0,-236 Q60,-244 124,-228 Q154,-220 160,-196 L150,-192 Q40,-214 -80,-196 Z" fill="#FFFFFF"/></g></g>`));
+[['mAw','mA',MOHANDES],['bBw','bB',BATTERY],['mCw','mC',MOHANDES],['bDw','bD',BATTERY],['aDw','aD',ALTERNATOR],['hDw','hD',HEATER],
+ ['bFw','bF',BATTERY],['aFw','aF',ALTERNATOR],['tFw','tF',THIEF],['mGw','mG',MOHANDES],['rGw','rG',RAFIGH],['aHw','aH',ALTERNATOR],['aIw','aI',ALTERNATOR],
+ ['rSw','rS',RAFIGH],['j1w','j1',BATTERY],['j2w','j2',BATTERY],['j3w','j3',BATTERY],['eMw','eM_',MOHANDES],['eRw','eR_',RAFIGH]].forEach(([w,id,F])=>{$(w).innerHTML=F(id)});
+['bayB','bayD','bayI'].forEach(id=>$(id).innerHTML=BAY());
+$('shopC').innerHTML=SHOP(560,1450,1.0); $('shopG').innerHTML=SHOP(620,1450,.9);
+(function(){let l='';for(let i=0;i<7;i++){const y=1480-i*100;l+=`<rect x="60" y="${y}" width="960" height="6" fill="#FFFFFF"/><text x="1010" y="${y-12}" text-anchor="end" font-family="V" font-weight="800" font-size="34" fill="#FFFFFF">${FA(100+i*20)}</text>`}$('lineupF').innerHTML=l;
+ $('tagsF').innerHTML=[[800,'باتری'],[540,'دینام'],[270,'برق‌دزد']].map(([x,n],i)=>`<g id="tg${i}" opacity="0" transform="translate(${x},1600)"><g class="pp"><rect x="-120" y="-50" width="240" height="96" rx="12" fill="#FFFFFF"/></g><text y="22" text-anchor="middle" font-family="V" font-weight="900" font-size="54" fill="#10203C">${n}</text></g>`).join('');})();
+
+// ---------- timeline (frames @30fps, synced to the narration) ----------
+const SC=[{id:'sA',a:0,b:210,fn:sA},{id:'sB',a:210,b:378,fn:sB},{id:'sC',a:378,b:585,fn:sC},{id:'sD',a:585,b:951,fn:sD},{id:'sF',a:951,b:1206,fn:sF},
+ {id:'sG',a:1206,b:1374,fn:sG},{id:'sH',a:1374,b:1632,fn:sH},{id:'sI',a:1632,b:1680,fn:sI},{id:'sS',a:1680,b:1785,fn:sS},{id:'sJ',a:1785,b:1878,fn:sJ},{id:'se',a:1878,b:2040,fn:se}];
+const TRN=['flip','slide','crumple','tear','slide','crumple','flip','slide','flip','flip'];
+const H=12;
+const TT=[[0,210,'صبح شنبه، ماشین قهره!'],[218,378,'باتری مریضه!'],[386,585,'سومین باتری این ماه!'],[593,801,'راز زیر کاپوت…'],[805,951,'دینام داره چت می‌کنه!'],
+ [959,1206,'کی برق رو می‌خوره؟'],[1214,1374,'باتری چهارم؟ نه!'],[1382,1632,'کاردیاگ مچ گرفت!'],[1640,1680,'دینام درست شد!'],[1688,1785,'یه استارت، روشن!'],
+ [1793,1878,'باتری‌ها بازنشسته شدن'],[1886,1965,'اول تست کن، بعد بخر'],[1968,2040,'نبض ماشینت رو بگیر']];
+
+// ---------- scenes ----------
+function sA(lf,q,t){        // 0-7.0  سگ‌لرز 1.5 / استارت 3.1 / سرفه 5.3
+ const inCar=lf>=86, crank=[96,106,116,126], cough=[162,176,190];
+ setCar('cA',640,1630,lf,{s:1.15,ev:inCar?crank.concat(cough):[],puff:lf>150?1.3:.5});
+ $('mAw').parentNode.setAttribute('opacity',inCar?0:1);
+ pose('mA',{winter:true,lid:.45,mouth:'o',look:[.5,0],armL:14,armR:-14,squash:.2,tilt:jit(q,3,5),bob:jit(q,4,6)*(lf>40?1:.3)});
+ $('hopA').innerHTML=lf>=86&&lf<100?`<g opacity="${1-(lf-86)/14}" filter="url(#paperS)">${[0,1,2,3].map(k=>`<circle cx="${250+Math.cos(k*1.6)*60*(1+(lf-86)/10)}" cy="${1560+Math.sin(k*1.6)*50}" r="${30-(lf-86)}" fill="#FFFFFF"/>`).join('')}</g>`:'';
+ let qq='';crank.forEach((e,i)=>{if(lf>=e&&lf<e+24)qq+=`<text x="${420+i*70}" y="${1330-(lf-e)*3}" text-anchor="middle" font-family="V" font-weight="900" font-size="70" fill="#FFFFFF" opacity="${1-(lf-e)/24}" filter="url(#paperS)">ق</text>`});
+ $('qqq').innerHTML=qq; snowfall('snowA',lf);}
+function sB(lf,q,t){        // 7.0-12.6  زیر پتو / «امروز نه...» 10.33
+ pose('bB',{cap:1,therm:1,blk:1,lid:.78,mouth:'flat',armL:10,armR:-10,bob:jit(q,5,5),tilt:jit(q,6,2)});
+ const b=seg(lf,100,110); $('bubB').setAttribute('opacity',b>0?1:0); $('bubB').setAttribute('transform',`translate(540,760) scale(${b>0?E.back(b):.3})`);}
+function sC(lf,q,t){        // 12.6-19.5  خرید 14.4 / هفته‌ی بعد 16.2 / دوباره 17.2 / باز هم 18.0
+ const BUY=[54,137,163], CAL=[[0,'امروز'],[109,'هفته بعد'],[137,'دوباره!'],[163,'باز هم!']];
+ let ct=CAL[0][1];CAL.forEach(([a,s])=>{if(lf>=a)ct=s}); $('calC').textContent=ct; $('calFlipC').setAttribute('opacity',CAL.some(([a])=>a&&lf>=a-6&&lf<a)?1:0);
+ let bx='',bl='';BUY.forEach((a,i)=>{if(lf<a)return;const k=E.oc(seg(lf,a,a+10));bx+=BOX(270+jit(i,2,16),lerp(900,1540-i*96,k),jit(i,3,8));
+  for(let j=0;j<3;j++){const kk=E.oc(seg(lf,a+4+j*3,a+16+j*3));bl+=`<g transform="translate(${lerp(760,120+i*40+j*26,kk)},${lerp(1250,1720-j*6,kk)}) rotate(${lerp(0,-20+j*18,kk)})"><g class="pp"><rect x="-40" y="-26" width="80" height="52" fill="#FFFFFF"/></g><path d="M-26,-10 H26 M-26,4 H18" stroke="#6E7D96" stroke-width="5"/></g>`}});
+ $('boxes').innerHTML=bx; $('bills').innerHTML=bl;
+ const sag=lf>=163?.3:lf>=137?.2:0;
+ pose('mC',{winter:true,lid:lf>=137?.75:.55,mouth:lf>=163?'o':'flat',armL:40,armR:-40,squash:.25+sag,tilt:-sag*10});
+ snowfall('snowC',lf,30);}
+function sD(lf,q,t){        // 19.5-31.7  راز 19.7 / بی‌تقصیر 21.2 / تنبلی 23.6 / دینام! 26.1 / اینستاگرام 28.5 / مخ بخاری 30.2
+ const dark=lf<229?.45:Math.max(0,.45-(lf-229)/20*.45); $('darkD').setAttribute('opacity',dark);
+ const sx=lf<124?290:lf<197?lerp(290,808,E.io(seg(lf,124,160))):808; $('spotD').setAttribute('cx',sx); $('spotD').setAttribute('cy',lf<123?1200:1050);
+ $('spotD').setAttribute('opacity',lf>=52&&lf<229?.32:0);
+ const z=lf>=197?E.oc(seg(lf,197,207))*(lf<229?1:1-E.io(seg(lf,229,246))):0;
+ $('camD').setAttribute('transform',`translate(${-808*.25*z},${-1050*.25*z}) scale(${1+.25*z})`);
+ $('excl').setAttribute('opacity',lf>=197&&lf<229?1:0); $('excl').setAttribute('transform',`translate(808,700) scale(${E.back(seg(lf,197,205))})`);
+ pose('bD',{halo:lf>=52,lid:lf>=229?.45:0,look:lf>=229?[1,-.3]:[0,-.6],mouth:lf>=229?'flat':'smile',armL:20,armR:-20});
+ pose('aD',{lid:lf>=197&&lf<229?0:.55,mouth:lf>=197&&lf<229?'o':'smile',look:lf>=197&&lf<229?[-.4,0]:[.4,.6],armL:10,armR:-34,tilt:-6+4*Math.sin(t*1.4)});
+ // the DM thread floats up from his phone
+ const M=[[270,'L','📸 اینستاگرام'],[300,'R','سلام خوشگله 😍'],[330,'H','وای، خجالت می‌کشم 🙈'],[348,'R','یه کم گرمم کن 🔥']];
+ let c='';M.forEach(([a,w,txt],i)=>{if(lf<a)return;const k=E.back(seg(lf,a,a+8)),y=1500-(M.filter(m=>m[0]<=lf).length-i)*120;
+  const bg=w=='R'?'#2196F3':w=='H'?'#FFFFFF':'#10203C',fg=w=='H'?'#10203C':'#FFFFFF',x=w=='H'?300:w=='R'?560:540;
+  c+=`<g transform="translate(${x},${y}) scale(${k})"><g class="pp"><rect x="-230" y="-48" width="460" height="96" rx="48" fill="${bg}"/></g><text y="18" text-anchor="middle" font-family="V" font-weight="900" font-size="44" fill="${fg}">${txt}</text></g>`});
+ $('chat').innerHTML=c;
+ const hx=lf<312?1300:lerp(1300,880,E.oc(seg(lf,312,326))); $('heaterD').setAttribute('transform',`translate(${hx},560) rotate(${-8+3*Math.sin(t*2)})`);
+ pose('hD',{lid:lf>336?.45:.15,mouth:'smile',blush:lf>=330,look:[-.6,.5]});
+ let h='';if(lf>=336)for(let k=0;k<6;k++){const u=((lf-336)/30+k/6)%1;h+=`<path transform="translate(${760+Math.sin(k*2+u*6)*80},${900-u*500}) scale(${1+u})" d="M0,10 C-30,-20 -14,-40 0,-24 C14,-40 30,-20 0,10 Z" fill="#FFFFFF" opacity="${1-u}" filter="url(#paperS)"/>`}
+ $('hearts').innerHTML=h;}
+function sF(lf,q,t){        // 31.7-40.2  باتری 33.5 / دینام 34.3 / برق‌دزد 35.0 / کار کدومه 38.4 / کامنت 39.3
+ const AT=[54,78,101],X=[800,540,270];
+ for(let i=0;i<3;i++){const k=E.back(seg(lf,AT[i],AT[i]+12));$('f'+i).setAttribute('transform',`translate(${X[i]},${lerp(2300,1500,k)})`);$('tg'+i).setAttribute('opacity',lf>=AT[i]+6?1:0);}
+ pose('bF',{lid:0,look:[0,-.5],mouth:'smile',armL:10,armR:-10});
+ pose('aF',{lid:.3,look:[.6,0],mouth:'flat',armL:10,armR:lf>120?60:-30});            // hides the phone behind his back
+ pose('tF',{mouth:lf>=160&&lf<200?'smile':'flat'});
+ const sx=540+300*Math.sin(t*1.6); $('spotF').setAttribute('d',`M540,250 L${sx-230},1500 H${sx+230} Z`);
+ const c=seg(lf,228,238); $('cmtF').setAttribute('opacity',c>0?1:0); $('cmtF').setAttribute('transform',`translate(540,1715) scale(${c>0?E.back(c):.3})`);}
+function sG(lf,q,t){        // 40.2-45.8  walks to the shop / friend jumps in 43.2 / «وایسا ببینم!» 44.8
+ const stop=lf>=104, w=seg(lf,6,104), x=lerp(130,470,w);
+ $('mGpos').setAttribute('transform',`translate(${x},${1770+(stop?0:-8*Math.abs(Math.sin(lf/3)))})`);
+ pose('mG',{winter:true,lid:stop?0:.55,mouth:stop?'o':'flat',look:stop?[1,0]:[.6,.2],armL:stop?30:12*Math.sin(lf/3),armR:stop?-30:-12*Math.sin(lf/3),bob:stop?-30*Math.exp(-Math.pow((lf-108)/4,2)):0});
+ const j=seg(lf,89,104); $('rGpos').setAttribute('transform',`translate(${lerp(1300,760,E.oc(j))},${1770-260*Math.sin(j*Math.PI)})`);
+ pose('rG',{mouth:lf>=139?'o':'smile',look:[-1,0],armL:lf>=139?150:20,armR:-30,squash:lf>=104&&lf<110?.5:0});
+ snowfall('snowG',lf,30);}
+function sH(lf,q,t){        // 45.8-54.4  وصل 45.9 / ۱۲٫۶ 47.5 / سالم 49.4 / ۱۳٫۱ 51.1 / مچ 53.5
+ const plug=E.oc(seg(lf,4,22)); $('cdH').style.transform=`translateY(${lerp(500,0,plug)}px) rotate(${jit(q,5,1.5)}deg)`;
+ let w='';for(let k=0;k<3;k++){const r=((lf/18+k/3)%1);if(lf>24)w+=`<path d="M${60+r*240},${40+r*120} a${80+r*180},${80+r*180} 0 0 1 ${60+r*120},${-90-r*120}" stroke="#78CDFF" stroke-width="${14-r*6}" fill="none" stroke-linecap="round" opacity="${1-r}" filter="url(#paperS)"/>`}
+ $('wavesH').innerHTML=w;
+ const ph=E.back(seg(lf,12,32)); $('phH').style.transform=`translateY(${lerp(1300,0,ph)}px) rotate(${2+jit(q,6,.8)}deg)`;
+ $('vb').style.opacity=lf>=52?1:0; $('vb').style.transform=`scale(${lf>=52?E.back(seg(lf,52,62)):.8})`;
+ $('okB').style.opacity=lf>=109?1:0; $('okB').style.transform=`scale(${lf>=109?E.back(seg(lf,109,117)):.5})`;
+ $('va').style.opacity=lf>=160?1:0; $('va').style.transform=`scale(${lf>=160?E.back(seg(lf,160,170)):.8})`;
+ $('badA').style.opacity=lf>=196?1:0; $('badA').style.transform=`scale(${lf>=196?E.back(seg(lf,196,204)):.5}) rotate(${lf>=196?jit(q,7,6):0}deg)`;
+ const caught=lf>=234;
+ pose('aH',{cuffs:caught,lid:caught?0:.5,mouth:caught?'o':'smile',look:caught?[0,-.5]:[.6,.4],armL:caught?40:10,armR:caught?-40:-34});
+ $('aHphone').setAttribute('opacity',caught?0:1);
+ const fy=E.ic(seg(lf,234,248)); $('phoneFall').setAttribute('opacity',caught&&fy<1?1:0); $('phoneFall').setAttribute('transform',`translate(${240+90},${lerp(1630,1760,fy)}) rotate(${fy*120})`);}
+function sI(lf,q,t){        // 54.4-56.0  «دینام درست شد»
+ const r=lf*24; $('wrench').setAttribute('transform',`translate(${540+250*Math.cos(lf/5)},${1180+90*Math.sin(lf/5)}) rotate(${r}) scale(.8)`);
+ pose('aI',{lid:.1,mouth:lf>20?'smile':'o',look:[0,-.4],armL:10,armR:lf>24?-150:-30});
+ let sp='';for(let k=0;k<5;k++){const u=((lf/10+k/5)%1);sp+=`<g transform="translate(${540+Math.cos(k*1.3)*(140+u*120)},${1240+Math.sin(k*1.3)*(140+u*120)}) scale(${1-u})"><use href="#star" fill="#78CDFF"/></g>`}$('spark').innerHTML=sp;}
+function sS(lf,q,t){        // 56.0-59.5  روشن شد ~58.3
+ const START=69, on=lf>=START;
+ setCar('cS',620,1630,lf,{s:1.15,ev:on?[START,START+3]:[],puff:.7});
+ const sf=E.oc(seg(lf,START,START+14)); $('cSsnow').setAttribute('transform',`translate(${sf*60},${-sf*260}) rotate(${sf*30})`); $('cSsnow').setAttribute('opacity',1-sf);
+ pose('rS',{mouth:on?'smile':'o',look:[1,0],armL:on?150:20,armR:on?-150:-20,bob:on?-24*Math.abs(Math.sin((lf-START)/4)):0});
+ snowfall('snowS',lf,30);}
+function sJ(lf,q,t){        // 59.5-62.6  بازنشستگی
+ pose('j1',{old:1,lid:.6,mouth:'flat',armL:10,armR:-60,look:[.5,0]});
+ pose('j2',{old:1,lid:.7,mouth:'smile',armL:40+10*Math.sin(lf/2),armR:-40-10*Math.sin(lf/2)});
+ $('knit').setAttribute('transform',`rotate(${4*Math.sin(lf/2)} 560 1340)`);
+ pose('j3',{old:1,lid:.8,mouth:'flat',armL:10,armR:-50});
+ snowfall('snowJ',lf,20);}
+function se(lf,q,t){
+ const c=E.back(seg(lf,-4,12)); $('eCard').style.transform=`translateY(${(1-c)*120}px) rotate(${lerp(-3,-.6,c)}deg)`;
+ const d=E.back(seg(lf,6,20)); $('eDiag').style.transform=`scale(${d<=0?.001:lerp(.4,1,d)*(1+.05*Math.exp(-Math.pow((lf-48)/4,2)))}) rotate(${lerp(8,0,d)}deg)`;
+ const p=$('ePulse'),L=p.getTotalLength(),pd=E.io(seg(lf,14,34)); p.style.strokeDasharray=L; p.style.strokeDashoffset=L*(1-pd);
+ [['eBrand',18],['eTag',26],['eUrl',32]].forEach(([id,a])=>{const k=seg(lf,a,a+3)>0?1:0;$(id).style.opacity=k;$(id).style.transform=`translateY(${k?0:30}px)`;});
+ const cm=E.back(seg(lf,36,48)), cr=E.back(seg(lf,40,52));
+ $('eM').setAttribute('transform',`translate(190,${lerp(2100,1700,cm)}) scale(.55)`); $('eR').setAttribute('transform',`translate(890,${lerp(2100,1700,cr)}) scale(.55)`);
+ pose('eM_',{lid:.55,mouth:'smile',armL:4,armR:lf>70?-140:-4,squash:.25}); pose('eR_',{mouth:'smile',armL:40+30*Math.sin(lf/3),armR:-30});}
+
+// ---------- transitions (p: 0..1 across the cut, out = outgoing sheet element) ----------
+function polyClip(poly,n,M,keepPos){const out=[];const s=p=>(p[0]-M[0])*n[0]+(p[1]-M[1])*n[1];
+ for(let i=0;i<poly.length;i++){const A=poly[i],B=poly[(i+1)%poly.length],sa=s(A),sb=s(B),ia=keepPos?sa>=0:sa<0,ib=keepPos?sb>=0:sb<0;
+  if(ia)out.push(A); if(ia!==ib){const k=sa/(sa-sb);out.push([A[0]+(B[0]-A[0])*k,A[1]+(B[1]-A[1])*k])}}return out}
+const RECT=[[0,0],[1080,0],[1080,1920],[0,1920]];
+const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+
+function tFlip(out,p,q,fx){           // a hand lifts the bottom-left corner and peels the page away (right-to-left book)
+ const C=[0,1920];
+ const reach=seg(p,0,.25), peel=E.io(seg(p,.22,1));
+ if(peel<=0){fx.innerHTML=HAND(C[0]-10+jit(q,1,6),C[1]+380*(1-E.oc(reach)),110);return}
+ const ang=lerp(-38,-58,peel)*Math.PI/180, Lr=4600*peel;
+ const P=[C[0]+Math.cos(ang)*Lr,C[1]+Math.sin(ang)*Lr];
+ const dx=P[0]-C[0],dy=P[1]-C[1],len=Math.hypot(dx,dy),n=[dx/len,dy/len],M=[(C[0]+P[0])/2,(C[1]+P[1])/2];
+ const keep=polyClip(RECT,n,M,true), cut=polyClip(RECT,n,M,false);
+ out.style.clipPath=keep.length>2?`polygon(${keep.map(p=>p[0].toFixed(1)+'px '+p[1].toFixed(1)+'px').join(',')})`:'polygon(0 0,0 0,0 0)';
+ const flap=cut.map(p=>{const s=(p[0]-M[0])*n[0]+(p[1]-M[1])*n[1];return [p[0]-2*s*n[0],p[1]-2*s*n[1]]});
+ const g=document.getElementById('flapG');g.setAttribute('x1',M[0]);g.setAttribute('y1',M[1]);g.setAttribute('x2',P[0]);g.setAttribute('y2',P[1]);
+ fx.innerHTML=`<polygon points="${pts(flap)}" fill="url(#flapG)" filter="url(#lift)"/>`+HAND(P[0],P[1],lerp(110,30,peel));}
+
+function tCrumple(out,p,q,fx){        // two hands squeeze the sheet into a ball, then toss it
+ const sq=E.io(seg(p,.1,.62)), s=lerp(1,.24,sq), rot=lerp(0,-24,sq)+jit(q,3,3);
+ const cx=540,cy=1000;
+ if(p<.62){
+  $('crD').setAttribute('scale',(70*seg(p,.08,.55)).toFixed(1));
+  const a=.8*seg(p,.04,.35);
+  // the outline pulls in unevenly, like paper gathering under the fingers
+  const bl=[];const per=[[0,0],[1080,0],[1080,1920],[0,1920]];
+  for(let e=0;e<4;e++){const A=per[e],B=per[(e+1)%4];for(let k=0;k<7;k++){const u=k/7,x=lerp(A[0],B[0],u),y=lerp(A[1],B[1],u);
+   const pull=sq*(.12+.32*hash(e*7+k+.5));bl.push([lerp(x,540,pull),lerp(y,960,pull)]);}}
+  out.style.clipPath=`polygon(${bl.map(p=>p[0].toFixed(1)+'px '+p[1].toFixed(1)+'px').join(',')})`; $('crA').setAttribute('k2',1-a); $('crA').setAttribute('k3',a);
+  out.style.filter='url(#crumple)'; out.style.transformOrigin=`${cx}px ${cy}px`; out.style.transform=`scale(${s}) rotate(${rot}deg)`;
+  const w=540*s, reach=E.oc(seg(p,0,.12));
+  fx.innerHTML=HAND(cx-w-lerp(500,0,reach),cy+40,190,1.1)+HAND(cx+w+lerp(500,0,reach),cy-30,-20,1.1);
+ } else {
+  out.style.display='none';
+  const k=E.ic(seg(p,.66,1)), bx=lerp(cx,1400,k), by=lerp(cy,-300,k)-260*Math.sin(k*Math.PI), r=110;
+  let ball='';for(let i=0;i<14;i++){const a=i/14*Math.PI*2, rr=r*(.82+.3*hash(i*3.3));ball+=`${(Math.cos(a)*rr).toFixed(1)},${(Math.sin(a)*rr).toFixed(1)} `}
+  const creases=[[-60,-30,20,10],[10,-70,-20,40],[30,20,80,-10],[-40,50,30,60],[-80,10,-20,-60]].map(c=>`<line x1="${c[0]}" y1="${c[1]}" x2="${c[2]}" y2="${c[3]}" stroke="#ADD6FA" stroke-width="7" stroke-linecap="round"/>`).join('');
+  fx.innerHTML=`<g transform="translate(${bx},${by}) rotate(${lerp(0,540,k)+jit(q,4,10)})"><g filter="url(#lift)"><polygon points="${ball}" fill="#FFFFFF"/>
+   <polygon points="-70,-60 10,-90 30,-20 -40,0" fill="#2196F3"/><polygon points="20,30 90,10 70,70" fill="#2196F3"/><polygon points="-90,30 -30,40 -60,90" fill="#78CDFF"/>${creases}</g></g>`
+   +HAND(bx+70,by-20+jit(q,5,4),lerp(-20,-50,k),1.1);}}
+
+function tTear(out,p,q,fx){           // two hands rip the sheet down the middle
+ const L=$('twL'),R=$('twR');
+ [L,R].forEach(w=>{w.innerHTML='';const c=out.cloneNode(true);c.removeAttribute('id');c.style.display='block';c.style.zIndex='';w.appendChild(c);w.style.display='block';});
+ out.style.display='none';
+ let jag=[];for(let y=0;y<=1920;y+=60)jag.push([540+(hash(y*.37)-.5)*70,y]);
+ const left=[[0,0],...jag,[0,1920]], right=[[1080,0],...jag,[1080,1920]];
+ L.firstChild.style.clipPath=`polygon(${left.map(p=>p[0]+'px '+p[1]+'px').join(',')})`;
+ R.firstChild.style.clipPath=`polygon(${right.map(p=>p[0]+'px '+p[1]+'px').join(',')})`;
+ const edge=`<polyline points="${pts(jag)}" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="round" filter="url(#paperS)"/>`;
+ const reach=E.oc(seg(p,0,.2)), rip=seg(p,.2,.5), fly=E.ic(seg(p,.5,1));
+ const th=6*rip+18*fly, dx=900*fly;
+ [[L,-1],[R,1]].forEach(([w,sd])=>{w.style.transformOrigin=`540px 1920px`;w.style.transform=`translateX(${sd*dx}px) rotate(${sd*th+jit(q,sd+5,.6)}deg)`;
+  const hx=sd<0?110:970; const hand=HAND(hx+sd*lerp(420,0,reach),300,sd<0?200:-20,1.1);
+  const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('width',1080);s.setAttribute('height',1920);
+  s.style.cssText='position:absolute;left:0;top:0;overflow:visible';s.innerHTML=(rip>0?edge:'')+hand;
+  if(rip>0)s.firstChild.style.clipPath=sd<0?`polygon(0 0,600px 0,600px 1920px,0 1920px)`:`polygon(480px 0,1080px 0,1080px 1920px,480px 1920px)`;
+  w.appendChild(s);});
+ fx.innerHTML='';}
+
+function tSlide(out,p,q,fx){          // a hand grabs the left edge and drags the sheet away
+ const reach=E.oc(seg(p,0,.25)), pull=E.ic(seg(p,.22,1));
+ const dx=-1350*pull, r=-5*pull;
+ out.style.transformOrigin='0 1920px'; out.style.transform=`translateX(${dx}px) rotate(${r}deg)`; out.style.filter='url(#lift)';
+ const a=r*Math.PI/180, hx0=40, hy0=1000; const hx=dx+hx0*Math.cos(a)-(hy0-1920)*Math.sin(a), hy=1920+hx0*Math.sin(a)+(hy0-1920)*Math.cos(a);
+ fx.innerHTML=HAND(hx-lerp(500,0,reach),hy,185,1.1);}
+
+function tZoom(out,p,q,fx){          // camera pushes through the windscreen into the dashboard
+ const z=E.ic(p); out.style.transformOrigin='501px 1425px'; out.style.transform=`scale(${1+16*z})`;
+ out.style.opacity=p<.82?1:0; fx.innerHTML='';}
+const TF={flip:tFlip,crumple:tCrumple,tear:tTear,slide:tSlide,zoom:tZoom};
+
+// ---------- frame ----------
+function render(f0){
+ const q=Math.floor(f0/STEP), f=q*STEP, t=f/FPS;
+ // reset sheets
+ document.querySelectorAll('#stage>.sc').forEach(el=>{el.style.display='none';el.style.clipPath='';el.style.transform='';el.style.filter='';el.style.zIndex='';el.style.opacity=''});
+ ['twL','twR'].forEach(id=>{$(id).style.display='none';$(id).innerHTML=''});
+ $('fx').innerHTML='';
+ // draw every sheet that is on screen (outgoing above incoming)
+ SC.forEach((s,i)=>{const a=i?s.a-H:s.a, b=i<SC.length-1?s.b+H:s.b; if(f<a||f>=b)return;
+  const el=$(s.id); el.style.display='block'; el.style.zIndex=40-i; s.fn(f-s.a,q,t);});
+ // transitions
+ for(let i=0;i<SC.length-1;i++){const b=SC[i].b; if(f>=b-H&&f<b+H){TF[TRN[i]]($(SC[i].id),(f-(b-H))/(2*H),q,$('fx'));}}
+ // headline
+ let txt='',o=0,dy=0;TT.forEach(([a,b,s])=>{if(f>=a&&f<b){txt=s;const pin=seg(f,a,a+8),pout=seg(f,b-6,b);o=pin>0&&pout<1?1:0;dy=(1-E.oc(pin))*-120}});
+ const tp=$('ttlP'); if(tp.textContent!==txt)tp.textContent=txt; tp.style.opacity=o;
+ tp.style.transform=`translateY(${dy}px) rotate(${-1.2+jit(q,1,.6)}deg)`;
+}
+window.READY=document.fonts.ready.then(()=>{render(0);return true});
+</script>
+</body></html>
