@@ -60,12 +60,18 @@ p{margin:0}
 .stat span{color:var(--slate);font-weight:500;font-size:15px}
 
 /* offer */
-.offer{display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.offer{display:grid;grid-template-columns:1fr;overflow:hidden}
 .offer>div{padding:34px 34px 30px;min-width:0}
 .offer .price{background:linear-gradient(160deg,var(--blue) 0%,var(--deep) 100%);color:#fff;display:flex;flex-direction:column;gap:10px}
 .price .k{font-weight:500;font-size:16px;opacity:.9}
 .price .v{font-weight:900;font-size:clamp(40px,6vw,56px);line-height:1.15}
 .price .v small{font-size:22px;font-weight:700;opacity:.9;margin-right:6px}
+.tiers{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.tr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-radius:16px;background:rgba(255,255,255,.12);font-weight:700;font-size:17px;white-space:nowrap}
+.tr b{font-weight:900;font-size:clamp(20px,3vw,26px)}
+.tr b small{font-size:15px;font-weight:700;opacity:.9}
+.tr.best{background:#fff;color:var(--deep)}
+@media (min-width:761px){ .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px} .tr{flex-direction:column;align-items:flex-start;gap:4px;padding:14px 18px} .price ul{flex-direction:row;flex-wrap:wrap;gap:12px 32px} }
 .price ul{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
 .price li{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px}
 .price li svg{width:26px;height:26px;fill:#fff;flex:none}
@@ -155,7 +161,7 @@ tr:last-child td{border-bottom:0}
  .wrap{gap:56px}
  .offer>div{padding:26px 22px}
 }
-@media (max-width:480px){ th,td{padding:8px 3px;font-size:13px} th{font-size:12px} .offer>div{padding:24px 16px} }
+@media (max-width:480px){ th,td{padding:8px 2px;font-size:12.5px} th{font-size:12px} .offer>div{padding:24px 16px} }
 @media (max-width:420px){ .feats{grid-template-columns:1fr 1fr;gap:12px} .feat{padding:10px 10px 14px} .cars{grid-template-columns:1fr} }
 @media screen and (prefers-reduced-motion:reduce){ .clip video{display:none} .clip .print-only{display:block!important} }
 
@@ -174,7 +180,8 @@ tr:last-child td{border-bottom:0}
  .feat h3{font-size:14px}
  .phone{max-width:240px}
  .newpage{break-before:page}
- .hero{grid-template-columns:1.25fr .75fr} .prod,.offer,.contact,.grid2{grid-template-columns:1fr 1fr}
+ .hero{grid-template-columns:1.25fr .75fr} .prod,.contact,.grid2{grid-template-columns:1fr 1fr}
+ .offer{grid-template-columns:1fr} .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px} .tr{flex-direction:column;align-items:flex-start;gap:2px} .price ul{flex-direction:row;flex-wrap:wrap;gap:8px 24px}
  .stats{grid-template-columns:repeat(4,1fr)} .cars{grid-template-columns:repeat(3,1fr)} .flow{grid-template-columns:repeat(3,1fr)}
  .hero h1{font-size:34px}
 }
@@ -215,20 +222,26 @@ tr:last-child td{border-bottom:0}
   <div class="card offer">
    <div class="price">
     <span class="k">قیمت عمده هر دستگاه</span>
-    <span class="v">۱٬۱۹۰٬۰۰۰<small>تومان</small></span>
+    <div class="tiers">
+     <div class="tr"><span>۱۰ تا ۱۹ عدد</span><b>۱٬۳۹۰٬۰۰۰ <small>تومان</small></b></div>
+     <div class="tr"><span>۲۰ تا ۲۹ عدد</span><b>۱٬۲۹۰٬۰۰۰ <small>تومان</small></b></div>
+     <div class="tr best"><span>۳۰ عدد و بیشتر</span><b>۱٬۱۹۰٬۰۰۰ <small>تومان</small></b></div>
+    </div>
     <ul>
-     <li><svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4l16-.02V7z"/></svg>حداقل سفارش ۳۰ عدد</li>
+     <li><svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4l16-.02V7z"/></svg>حداقل سفارش ۱۰ عدد</li>
      <li><svg viewBox="0 0 24 24"><path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-9-1c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-6v11c0 1.1-.9 2-2 2H4v-2h17V7h2z"/></svg>پرداخت نقدی</li>
      <li><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>گارانتی و پشتیبانی با شرکت</li>
     </ul>
    </div>
    <div class="calc">
     <h3>محاسبه سود همکار</h3>
-    <p>قیمت پیشنهادی فروش تکی: <b>۱٬۸۰۰٬۰۰۰ تومان</b>. سود فروش هر دستگاه <b style="color:var(--green)">۶۱۰٬۰۰۰ تومان</b> است (حدود ۵۱٪ نسبت به قیمت خرید).</p>
+    <p>قیمت پیشنهادی فروش تکی: <b>۱٬۸۰۰٬۰۰۰ تومان</b>. سود فروش هر دستگاه بسته به تعداد سفارش، از <b style="color:var(--green)">۴۱۰٬۰۰۰</b> تا <b style="color:var(--green)">۶۱۰٬۰۰۰ تومان</b> است.</p>
     <div class="tbl">
      <table>
       <thead><tr><th>تعداد</th><th>مبلغ خرید</th><th>مبلغ فروش</th><th>سود</th></tr></thead>
       <tbody>
+       <tr><td>۱۰ عدد</td><td>۱۳٬۹۰۰٬۰۰۰</td><td>۱۸٬۰۰۰٬۰۰۰</td><td class="g">۴٬۱۰۰٬۰۰۰</td></tr>
+       <tr><td>۲۰ عدد</td><td>۲۵٬۸۰۰٬۰۰۰</td><td>۳۶٬۰۰۰٬۰۰۰</td><td class="g">۱۰٬۲۰۰٬۰۰۰</td></tr>
        <tr><td>۳۰ عدد</td><td>۳۵٬۷۰۰٬۰۰۰</td><td>۵۴٬۰۰۰٬۰۰۰</td><td class="g">۱۸٬۳۰۰٬۰۰۰</td></tr>
        <tr><td>۵۰ عدد</td><td>۵۹٬۵۰۰٬۰۰۰</td><td>۹۰٬۰۰۰٬۰۰۰</td><td class="g">۳۰٬۵۰۰٬۰۰۰</td></tr>
        <tr><td>۱۰۰ عدد</td><td>۱۱۹٬۰۰۰٬۰۰۰</td><td>۱۸۰٬۰۰۰٬۰۰۰</td><td class="g">۶۱٬۰۰۰٬۰۰۰</td></tr>
@@ -329,7 +342,7 @@ tr:last-child td{border-bottom:0}
  <section class="sec">
   <header><p class="eyebrow">سفارش</p><h2>سفارش در سه قدم</h2></header>
   <ol class="flow">
-   <li class="card"><b>تماس و هماهنگی</b><span>تعداد سفارش (حداقل ۳۰ عدد) و روش ارسال به‌صورت تلفنی هماهنگ می‌شود.</span></li>
+   <li class="card"><b>تماس و هماهنگی</b><span>تعداد سفارش (حداقل ۱۰ عدد) و روش ارسال به‌صورت تلفنی هماهنگ می‌شود.</span></li>
    <li class="card"><b>پرداخت نقدی</b><span>صورت‌حساب ارسال می‌شود و پس از واریز، سفارش ثبت می‌شود.</span></li>
    <li class="card"><b>ارسال و پشتیبانی</b><span>دستگاه‌ها ارسال می‌شوند و گارانتی و پشتیبانی مشتریان بر عهده شرکت است.</span></li>
   </ol>

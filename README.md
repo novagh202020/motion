@@ -73,7 +73,7 @@ feature k starts at frame 210 + 67.5*k; recap at 750; end card at 817.5; last he
 - mon_motion.html      Live monitoring: driver's questions -> plug diag -> fast connect -> ~1 s visible press on «مانیتورینگ خودرو» ->
                        «اسکن», 14 sensors found -> list: tick 13 on eighth notes, confirm -> «شروع خواندن»: 13 live cards refresh every
                        709 ms -> stop, «اسکن مجدد», tick 3 (battery/alternator, O2 1, O2 2) -> 3 live cards + big LIVE card -> end card (37 s)
-- wholesale_motion.html  Wholesale teaser (30 s on song/song_cut.wav, formal copy): sales stat, diag + app, trust cards, wholesale price 1,190,000 / min 30 / cash, profit vs retail 1,800,000, end card with TEL / WA consts
+- wholesale_motion.html  Wholesale teaser (30 s on song/song_cut.wav, formal copy): sales stat, diag + app, trust cards, wholesale tiers 10-19: 1,390,000 / 20-29: 1,290,000 / 30+: 1,190,000, min 10, cash, profit vs retail 1,800,000, end card with TEL / WA consts
                        python3 sfx_wh.py -> sfx_wh_full.wav, mix_wh.wav; PAGE=wholesale_motion.html python3 render.py video silent.mp4 0 900
 - retail_motion.html  Retail intro motion (30 s, song_cut): diag drop, 7 app sections one per bar (clips composited by tools/mux_retail.py from out/clip_*.mp4), recap, gold/warranty/return, end card with buy button; price strip 1,590,000 always on screen
                        PAGE=retail_motion.html python3 render.py video out/rt_base.mp4 0 900; python3 tools/mux_retail.py; python3 sfx_rt.py -> sfx_rt_full.wav, mix_rt.wav
