@@ -145,7 +145,7 @@ Object.keys(FX).forEach(function(mk){ FX[mk].forEach(function(n){ add('fx',mk,n,
 
 var OK={}; /* model -> {year:true} from the sheet (only «موفق» rows) */
 function parseCSV(txt){
-  var rows=[],row=[],f='',q=false; txt=txt.replace(/^﻿/,'');
+  var rows=[],row=[],f='',q=false; txt=txt.replace(/^\uFEFF/,'');
   for(var i=0;i<txt.length;i++){var c=txt[i];
     if(q){ if(c=='"'){ if(txt[i+1]=='"'){f+='"';i++;} else q=false; } else f+=c; }
     else if(c=='"') q=true; else if(c==','||c==';'||c=='\t'){row.push(f);f='';}
