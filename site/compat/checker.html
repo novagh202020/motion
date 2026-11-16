@@ -1,0 +1,230 @@
+<!-- CarDiag compatibility checker — paste this whole file into one Elementor «HTML» widget.
+     Set data-csv below to the media-library URL of cardiag-compat.csv. Every rule is scoped under .cdc. -->
+<style>
+.cdc{--b:#2196F3;--d:#1565C0;--s:#E3EFFC;--n:#10203C;--sl:#6E7D96;--l:#DEE6F2;--bg:#F4F8FD;
+ --g:#22A050;--gt:#DEF6E6;--a:#F28012;--at:#FFF1E0;--r:#DC3232;--rt:#FFECEC;
+ font-family:Vazirmatn,Tahoma,sans-serif;color:var(--n);direction:rtl;line-height:1.8;font-size:15px;
+ max-width:560px;margin:0 auto;padding:20px 16px 32px;-webkit-font-smoothing:antialiased}
+.cdc *,.cdc *::before,.cdc *::after{box-sizing:border-box}
+.cdc h1,.cdc h2,.cdc p{margin:0;padding:0}
+.cdc button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cdc .hd{text-align:center;margin-bottom:18px}
+.cdc .hd h1{font-size:24px;font-weight:900;line-height:1.5}
+.cdc .bar{display:flex;gap:6px;justify-content:center;margin-top:12px}
+.cdc .bar i{width:8px;height:8px;border-radius:4px;background:#C9D9EE;transition:all .25s}
+.cdc .bar i.on{width:24px;background:var(--b)}
+.cdc .crumbs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:14px;min-height:32px}
+.cdc .crumbs button{border:1px solid var(--l);background:#fff;border-radius:12px;padding:2px 12px;font-size:13.5px;font-weight:700;color:var(--d)}
+.cdc .crumbs button::after{content:"✕";margin-right:6px;font-size:11px;color:var(--sl)}
+.cdc .card{background:#fff;border:1px solid var(--l);border-radius:20px;padding:18px;box-shadow:0 10px 28px rgba(20,40,80,.07)}
+.cdc .q{font-size:18px;font-weight:800;margin-bottom:14px;text-align:center}
+.cdc .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cdc .big{border:2px solid var(--l);background:var(--bg);border-radius:18px;padding:22px 8px;font-size:18px;font-weight:800;transition:border-color .15s,background .15s}
+.cdc .big small{display:block;font-size:12.5px;font-weight:500;color:var(--sl);margin-top:2px}
+.cdc .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.cdc .grid.y{grid-template-columns:repeat(4,1fr)}
+.cdc .opt{border:1.5px solid var(--l);background:#fff;border-radius:14px;padding:11px 8px;font-size:14.5px;font-weight:700;line-height:1.5;transition:border-color .15s,background .15s}
+.cdc .big:hover,.cdc .opt:hover,.cdc .big:focus-visible,.cdc .opt:focus-visible{border-color:var(--b);background:var(--s);outline:0}
+.cdc .find{width:100%;border:1.5px solid var(--l);border-radius:14px;padding:10px 14px;font:inherit;margin-bottom:12px;background:var(--bg);color:var(--n)}
+.cdc .find:focus{outline:0;border-color:var(--b);background:#fff}
+.cdc .res{text-align:center;padding:26px 18px}
+.cdc .ic{width:76px;height:76px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
+.cdc .ic svg{width:40px;height:40px;fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.cdc .res h2{font-size:22px;font-weight:900;line-height:1.5}
+.cdc .res .car{display:inline-block;margin:8px 0 10px;font-size:13.5px;font-weight:700;padding:3px 12px;border-radius:12px;background:var(--bg);color:var(--sl)}
+.cdc .res p{font-size:15px;color:var(--sl);font-weight:500}
+.cdc .ok .ic{background:var(--g);box-shadow:0 0 0 10px var(--gt)} .cdc .ok h2{color:var(--g)}
+.cdc .maybe .ic{background:var(--b);box-shadow:0 0 0 10px var(--s)} .cdc .maybe h2{color:var(--d)}
+.cdc .low .ic{background:var(--a);box-shadow:0 0 0 10px var(--at)} .cdc .low h2{color:var(--a)}
+.cdc .no .ic{background:var(--r);box-shadow:0 0 0 10px var(--rt)} .cdc .no h2{color:var(--r)}
+.cdc .acts{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.cdc .btn{height:52px;border:0;border-radius:14px;background:var(--b);color:#fff!important;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(33,150,243,.28);text-decoration:none!important}
+.cdc .ghost{height:48px;border:1.5px solid var(--l);border-radius:14px;background:#fff;font-weight:700;color:var(--d)}
+.cdc .ltr{direction:ltr;unicode-bidi:isolate}
+@media (min-width:600px){.cdc .grid{grid-template-columns:repeat(3,1fr)}.cdc .grid.y{grid-template-columns:repeat(5,1fr)}}
+</style>
+
+<div class="cdc" id="cdc"
+     data-csv="/wp-content/uploads/cardiag-compat.csv"
+     data-buy="https://www.cardiag.ir/product/%d8%b9%db%8c%d8%a8-%db%8c%d8%a7%d8%a8-%d9%87%d9%88%d8%b4-%d9%85%d8%b5%d9%86%d9%88%d8%b9%db%8c-%d8%ae%d9%88%d8%af%d8%b1%d9%88%d9%87%d8%a7%db%8c-%d8%a7%db%8c%d8%b1%d8%a7%d9%86%db%8c/">
+  <div class="hd"><h1>با ماشین تو کار می‌کنه؟</h1><div class="bar"><i></i><i></i><i></i><i></i></div></div>
+  <div class="crumbs"></div>
+  <div class="card body"></div>
+</div>
+
+<script>
+(function(){
+var root=document.getElementById('cdc'); if(!root) return;
+var FA='۰۱۲۳۴۵۶۷۸۹', fa=function(s){return String(s).replace(/\d/g,function(d){return FA[d]})};
+var en=function(s){return String(s).replace(/[۰-۹]/g,function(d){return FA.indexOf(d)}).replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)})};
+
+/* ---------- catalog: [model, first year, last year, rule]  rule: i=injector/dual-fuel, p=Pride, x=not supported ----------
+   Model names match the app's list (and the «مدل» column of the sheet). */
+var IR={
+ 'ایران‌خودرو':[
+  ['206 تیپ 2 دستی',1381,1402,'i'],['206 تیپ 2 اتوماتیک',1384,1395,'i'],['206 تیپ 5 دستی',1383,1402,'i'],['206 تیپ 5 اتوماتیک',1385,1398,'i'],
+  ['206 تیپ 6 دستی',1386,1395,'i'],['206 تیپ 6 اتوماتیک',1386,1395,'i'],['206 صندوق‌دار V2',1386,1402,'i'],['206 صندوق‌دار V6',1386,1402,'i'],
+  ['206 صندوق‌دار V8',1386,1402,'i'],['206 صندوق‌دار V9',1386,1402,'i'],['206 صندوق‌دار V10',1386,1402,'i'],['206 صندوق‌دار V20',1386,1402,'i'],
+  ['207 دستی (هاچ‌بک)',1393,1404,'i'],['207 اتوماتیک (هاچ‌بک)',1394,1404,'i'],['207 پانوراما',1395,1404,'i'],['207i TU5P',1400,1404,'i'],
+  ['207 صندوقدار دستی',1400,1404,'i'],['207 صندوقدار اتوماتیک',1401,1404,'i'],
+  ['405 GLX (XU7)',1370,1399,'i'],['405 GLX دوگانه‌سوز (XU7)',1385,1399,'i'],['405 SLX (TU5)',1388,1399,'i'],['405 SLX دوگانه‌سوز',1390,1399,'i'],['405 GLI (XU7)',1372,1385,'i'],
+  ['پارس معمولی (XU7)',1380,1402,'i'],['پارس سال (XU7P)',1395,1402,'i'],['پارس LX (TU5)',1393,1404,'i'],['پارس ELX (XU7)',1386,1396,'i'],['پارس ELX (TU5)',1392,1398,'i'],['پارس دوگانه‌سوز',1386,1400,'i'],
+  ['سمند LX (XU7)',1381,1400,'i'],['سمند LX EF7',1389,1400,'i'],['سمند EF7 دوگانه‌سوز',1389,1400,'i'],['سمند LX دوگانه‌سوز (XU7)',1385,1395,'i'],['سمند SE (XU7)',1388,1395,'i'],['سمند سریر (XU7)',1388,1392,'i'],
+  ['سمند سورن ELX (XU7)',1386,1400,'i'],['سمند سورن ELX EF7',1392,1400,'i'],['سمند سورن پلاس',1399,1404,'i'],['سمند سورن توربو',1399,1404,'i'],
+  ['دنا EF7',1391,1400,'i'],['دنا پلاس (تنفس طبیعی)',1394,1404,'i'],['دنا پلاس توربو',1397,1404,'i'],['دنا پلاس توربو اتوماتیک',1399,1404,'i'],
+  ['رانا LX (TU5)',1391,1400,'i'],['رانا پلاس',1398,1404,'i'],['تارا دستی',1400,1404,'i'],['تارا اتوماتیک',1400,1404,'i'],
+  ['آریسان (XU7 دوگانه‌سوز)',1389,1404,'i'],['پیکان 1600 انژکتوری',1380,1384,'i'],['پیکان وانت دوگانه‌سوز',1385,1394,'i'],
+  ['پیکان کاربراتوری',1370,1384,'x'],['پیکان وانت کاربراتوری',1370,1388,'x'],['روآ / روآ سال (1600 OHV)',1384,1390,'x'],['آردی (RD / RDi)',1382,1388,'x']],
+ 'سایپا':[
+  ['پراید 111 (Hatchback)',1388,1399,'p'],['پراید 131 (Sedan)',1381,1398,'p'],['پراید 132 (Hatchback TU3)',1382,1398,'p'],['پراید 141 (Hatchback)',1381,1395,'p'],
+  ['پراید 151 (وانت)',1389,1402,'p'],['پراید 131 دوگانه‌سوز',1386,1398,'p'],['پراید 111 دوگانه‌سوز',1390,1398,'p'],['پراید کاربراتوری',1372,1381,'x'],
+  ['تیبا SX / EX',1388,1399,'i'],['تیبا SX دوگانه‌سوز',1389,1398,'i'],['تیبا 2',1392,1400,'i'],['تیبا 2 پلاس',1398,1400,'i'],
+  ['ساینا S (دنده‌ای)',1396,1404,'i'],['ساینا GX',1396,1402,'i'],['ساینا S Plus',1401,1404,'i'],['ساینا اتوماتیک',1402,1404,'i'],
+  ['کوییک G / GX',1396,1402,'i'],['کوییک R',1397,1404,'i'],['کوییک GXR',1398,1403,'i'],['کوییک S (دنده‌ای)',1399,1404,'i'],['کوییک اتوماتیک',1401,1404,'i'],['کوییک پلاس',1402,1404,'i'],
+  ['شاهین دستی',1399,1404,'i'],['شاهین اتوماتیک (CVT)',1402,1404,'i'],['اطلس (M15)',1402,1404,'i'],['سهند (M15)',1403,1405,'i'],['آریا',1401,1404,'i']],
+ 'پارس‌خودرو':[
+  ['تندر 90 E1/E2',1386,1400,'i'],['تندر 90 اتوماتیک',1388,1400,'i'],['پارس تندر',1393,1400,'i'],
+  ['ساندرو دستی',1393,1398,'i'],['ساندرو اتوماتیک',1394,1398,'i'],['استپ‌وی دستی',1395,1398,'i'],['استپ‌وی اتوماتیک',1395,1398,'i']],
+ 'زامیاد':[['زامیاد Z24 بنزینی',1380,1404,'i'],['زامیاد Z24 دوگانه‌سوز',1385,1404,'i'],['پادرا / پادرا پلاس',1398,1404,'i'],['زامیاد کاربراتوری',1370,1380,'x']],
+ 'بهمن موتور':[['کارا (وانت)',1392,1404,'i'],['کاپرا (وانت)',1393,1402,'i'],['فیدلیتی (Fidelity)',1401,1404,'i'],['دیگنیتی (Dignity)',1401,1404,'i']]
+};
+var FX={
+ 'ام‌وی‌ام':['MVM 110 (S11)','MVM 110S','MVM 315 (A3)','MVM 530 (Eastar)','MVM 550','MVM X22','MVM X22 Pro','MVM X33','MVM X33S','MVM X55','MVM X55 Pro','MVM Arrizo 5 / 6'],
+ 'جک':['JAC J4 1.5','JAC J5 1.8','JAC J7','JAC S3 1.5','JAC S5 2.0T','JAC S7','JAC JS4','JAC JS6 1.5T','JAC T8 2.0T'],
+ 'چری':['Arrizo 5 1.5T','Arrizo 6 1.5T','Tiggo 5 1.5T','Tiggo 7 1.5T','Tiggo 7 Pro','Tiggo 8'],
+ 'فونیکس':['فونیکس تیگو 7 پرو','فونیکس تیگو 8 پرو مکس','فونیکس آریزو 6 پرو','FX'],
+ 'لیفان':['Lifan 520 1.3','Lifan 620 1.6','Lifan X50','Lifan X60 1.8','Lifan X80 2.0T'],
+ 'هایما':['Haima S5 1.5T','Haima S7 1.8T','Haima 8S','Haima 7X'],
+ 'دانگ‌فنگ':['H30 Cross 1.6','S30','AX7 2.0T','DFSK Glory 500 1.5T','DFSK Glory 580 1.5T'],
+ 'برلیانس':['H220 / H230 1.5','H320 1.5','H330 1.5','V5'],
+ 'جیلی':['Emgrand EC7 1.8','Emgrand X7','GC6','Coolray'],
+ 'بسترن (فاو)':['بسترن B30','بسترن T77','بسترن B50'],
+ 'کی‌ام‌سی':['KMC T8','KMC J7','KMC K7','KMC X5'],
+ 'چانگان':['CS35 1.6','CS55','Eado'],
+ 'هاوال / گریت‌وال':['Haval H2','Haval H6','Wingle 5'],
+ 'جتور':['Jetour X70','Jetour Dashing','Jetour X90'],
+ 'ام‌جی':['MG 3','MG 6','MG ZS','MG GS','MG RX5'],
+ 'لاماری':['لاماری ایما'],
+ 'هیوندای':['Accent / Verna 1.4','Accent RB 1.6','Elantra MD 1.6','Elantra AD 2.0','i20 1.4','Sonata NF 2.0','Sonata YF 2.0','Sonata LF','Santa Fe CM 2.4','Santa Fe DM 2.0T','Santa Fe TM 2.4','Tucson IX35','Tucson TL 2.0','Azera','Genesis','Creta'],
+ 'کیا':['Rio','Picanto','Cerato 2.0','Optima','Sportage','Sorento XM 2.4','Sorento UM','Mohave'],
+ 'تویوتا':['Corolla','Yaris','Camry','Prius','RAV4','Prado','Land Cruiser','Hilux 2.4 Diesel (2GD-FTV)','Hilux بنزینی'],
+ 'نیسان':['Sunny','Tiida','Juke','Qashqai','X-Trail','Teana 2.5 (QR25DE)','Maxima','Pickup / Zamyad 2.4','Navara'],
+ 'مزدا':['Mazda 2','Mazda 3 2.0 (LF)','Mazda 6 2.0 (LF)','CX-5'],
+ 'میتسوبیشی':['Lancer 1.6 (4G18)','Galant 2.4 (4G64)','ASX','Outlander','Pajero'],
+ 'سوزوکی':['Grand Vitara 2.0 (J20A)','Grand Vitara 2.4 (J24B)','Vitara','Kizashi','Swift'],
+ 'هوندا':['Civic','Accord','CR-V'],
+ 'رنو':['مگان 1.6 (K4M)','داستر 2.0','کپچر','کولیوس','سیمبل','تلیسمان'],
+ 'پژو':['2008 1.6 THP','301','508','3008','5008'],
+ 'سیتروئن':['C3','C5','زانتیا'],
+ 'سانگ‌یانگ':['Rexton 2.3','Korando','Tivoli','Kyron','Actyon'],
+ 'بی‌ام‌و':['318i F30 (B38)','320i','520i','525i E60 (N52)','528i','X3','X5'],
+ 'بنز':['C200','E200','E250','GLC'],
+ 'فولکس‌واگن':['Golf','Passat','Jetta','Tiguan'],
+ 'دوو':['سیه‌لو (Cielo)','ماتیز','اسپرو','لانوس']
+};
+var FX_Y=[1370,1405];
+/* big makers: pick the family first, then the variant (first matching prefix wins) */
+var FAM={
+ 'ایران‌خودرو':[['پژو 206','206'],['پژو 207','207'],['پژو 405','405'],['پژو پارس','پارس'],['سورن','سمند سورن'],['سمند','سمند'],['دنا','دنا'],
+  ['رانا','رانا'],['تارا','تارا'],['آریسان','آریسان'],['پیکان','پیکان'],['روآ','روآ'],['آردی','آردی']],
+ 'سایپا':[['پراید','پراید'],['تیبا','تیبا'],['ساینا','ساینا'],['کوییک','کوییک'],['شاهین','شاهین'],['اطلس','اطلس'],['سهند','سهند'],['آریا','آریا']]
+};
+function famOf(mk,n){ var f=FAM[mk]; if(!f) return null; for(var i=0;i<f.length;i++) if(n.indexOf(f[i][1])==0) return f[i][0]; return 'سایر'; }
+/* sheet «برند» -> [ir|fx, maker] for models that are not in the catalog yet */
+var BRAND={'پژو 206':'ir|ایران‌خودرو','پژو 207':'ir|ایران‌خودرو','پژو 405':'ir|ایران‌خودرو','پژو پارس':'ir|ایران‌خودرو','سمند':'ir|ایران‌خودرو','دنا':'ir|ایران‌خودرو',
+ 'رانا':'ir|ایران‌خودرو','تارا':'ir|ایران‌خودرو','آریسان':'ir|ایران‌خودرو','پیکان':'ir|ایران‌خودرو','پراید':'ir|سایپا','تیبا':'ir|سایپا','ساینا':'ir|سایپا','کوییک':'ir|سایپا',
+ 'شاهین':'ir|سایپا','اطلس':'ir|سایپا','سهند':'ir|سایپا','ال 90':'ir|پارس‌خودرو','رنو ساندرو':'ir|پارس‌خودرو','زامیاد':'ir|زامیاد','بهمن موتور':'ir|بهمن موتور',
+ 'ام وی ام':'fx|ام‌وی‌ام','دانگفنگ':'fx|دانگ‌فنگ','فاو':'fx|بسترن (فاو)','سانگ یانگ':'fx|سانگ‌یانگ','BMW':'fx|بی‌ام‌و','پژو 2008':'fx|پژو'};
+
+/* build a uniform model table: key -> {n, t:'ir'|'fx', m:maker, y:[from,to], r} */
+var M={}, LIST={ir:{},fx:{}};
+function add(t,mk,n,a,b,r){ if(M[n]) return; M[n]={n:n,t:t,m:mk,y:[a,b],r:r}; (LIST[t][mk]=LIST[t][mk]||[]).push(n); }
+Object.keys(IR).forEach(function(mk){ IR[mk].forEach(function(x){ add('ir',mk,x[0],x[1],x[2],x[3]); }); });
+Object.keys(FX).forEach(function(mk){ FX[mk].forEach(function(n){ add('fx',mk,n,FX_Y[0],FX_Y[1],'f'); }); });
+
+var OK={}; /* model -> {year:true} from the sheet (only «موفق» rows) */
+function parseCSV(txt){
+  var rows=[],row=[],f='',q=false; txt=txt.replace(/^﻿/,'');
+  for(var i=0;i<txt.length;i++){var c=txt[i];
+    if(q){ if(c=='"'){ if(txt[i+1]=='"'){f+='"';i++;} else q=false; } else f+=c; }
+    else if(c=='"') q=true; else if(c==','||c==';'||c=='\t'){row.push(f);f='';}
+    else if(c=='\n'||c=='\r'){ if(c=='\r'&&txt[i+1]=='\n') i++; row.push(f); rows.push(row); row=[]; f=''; }
+    else f+=c; }
+  if(f||row.length){row.push(f);rows.push(row);} return rows;
+}
+function loadSheet(txt){
+  var rows=parseCSV(txt); if(!rows.length) return;
+  var h=rows[0].map(function(s){return s.trim()});
+  var ib=h.indexOf('برند'), im=h.indexOf('مدل'), iy=h.findIndex(function(s){return s.indexOf('سال')==0}), is=h.findIndex(function(s){return /وضعیت|موفق/.test(s)});
+  if(im<0||iy<0||is<0) return;
+  rows.slice(1).forEach(function(r){
+    var n=(r[im]||'').trim(), y=+en((r[iy]||'').trim()), s=(r[is]||'').trim();
+    if(!n||!y||!/^(موفق|بله|1|yes|ok)$/i.test(s)) return;
+    if(!M[n]){ var bm=(BRAND[(r[ib]||'').trim()]||'').split('|');
+      if(bm.length==2) add(bm[0],bm[1],n,bm[0]=='fx'?FX_Y[0]:y,bm[0]=='fx'?FX_Y[1]:y,bm[0]=='fx'?'f':((r[ib]||'').trim()=='پراید'?'p':'i'));
+      else return; }
+    (OK[n]=OK[n]||{})[y]=true;
+  });
+}
+
+/* ---------- UI ---------- */
+var S={}, body=root.querySelector('.body'), crumbs=root.querySelector('.crumbs'), dots=root.querySelectorAll('.bar i');
+var TYPES={ir:'ایرانی',fx:'خارجی'};
+function el(tag,cls,html){var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function opt(label,fn,cls){var b=el('button',cls||'opt',label); b.type='button'; b.onclick=fn; return b;}
+function step(n){ dots.forEach(function(d,i){d.classList.toggle('on',i<n)}); }
+function setCrumbs(){
+  crumbs.innerHTML='';
+  [['t',TYPES[S.t]],['m',S.m],['f',S.f&&S.f!=S.n?fa(S.f):''],['n',S.n&&fa(S.n)],['y',S.y&&S.y!='-'&&fa(S.y)]].forEach(function(c,i,a){
+    if(!c[1]) return;
+    crumbs.appendChild(opt(esc(c[1]),function(){ a.slice(i).forEach(function(k){delete S[k[0]]}); render(); },''));
+  });
+}
+function grid(items,fn,cls){ var g=el('div','grid'+(cls?' '+cls:'')); items.forEach(function(x){ g.appendChild(opt(esc(fa(x)),function(){fn(x)})); }); return g; }
+function render(){
+  setCrumbs(); body.innerHTML=''; body.className='card body';
+  if(!S.t){ step(1); body.appendChild(el('p','q','خودروت ایرانیه یا خارجی؟'));
+    var two=el('div','two');
+    two.appendChild(opt('ایرانی<small>ایران‌خودرو، سایپا، …</small>',function(){S.t='ir';render()},'big'));
+    two.appendChild(opt('خارجی<small>چینی، کره‌ای، ژاپنی، …</small>',function(){S.t='fx';render()},'big'));
+    body.appendChild(two); return; }
+  if(!S.m){ step(2); body.appendChild(el('p','q','برند خودرو'));
+    body.appendChild(grid(Object.keys(LIST[S.t]),function(x){S.m=x;render()})); return; }
+  var names=LIST[S.t][S.m], g;
+  if(!S.n && FAM[S.m] && !S.f){ step(3); body.appendChild(el('p','q','مدل خودرو'));
+    var fams=[]; names.forEach(function(n){ var f=famOf(S.m,n); if(fams.indexOf(f)<0) fams.push(f); });
+    body.appendChild(grid(fams,function(f){ S.f=f; var v=names.filter(function(n){return famOf(S.m,n)==f});
+      if(v.length==1){ S.n=v[0]; if(M[S.n].r=='x') S.y='-'; } render(); })); return; }
+  if(!S.n){ step(3); body.appendChild(el('p','q',S.f?'تیپ خودرو':'مدل خودرو'));
+    if(S.f) names=names.filter(function(n){return famOf(S.m,n)==S.f});
+    if(names.length>10){ var f=el('input','find'); f.type='search'; f.placeholder='جستجوی مدل…'; body.appendChild(f);
+      f.oninput=function(){ var q=en(f.value.trim()).toLowerCase(); g.querySelectorAll('button').forEach(function(b,i){ b.style.display=en(names[i]).toLowerCase().indexOf(q)>-1?'':'none'; }); }; }
+    g=grid(names,function(x){S.n=x; if(M[x].r=='x') S.y='-'; render()}); body.appendChild(g); return; }
+  if(!S.y){ step(4); body.appendChild(el('p','q','سال ساخت'));
+    var c=M[S.n], ys={}, y; for(y=c.y[0];y<=c.y[1];y++) ys[y]=1; Object.keys(OK[S.n]||{}).forEach(function(k){ys[k]=1});
+    body.appendChild(grid(Object.keys(ys).map(Number).sort(function(a,b){return b-a}),function(x){S.y=x;render()},'y')); return; }
+  step(4); result();
+}
+var ICO={ok:'<path d="M9 21l7 7 15-16"/>',maybe:'<path d="M20 18v12M20 11v.5"/>',low:'<path d="M20 10v13M20 29v.5"/>',no:'<path d="M12 12l16 16M28 12L12 28"/>'};
+function result(){
+  var c=M[S.n], tested=S.y!='-' && OK[S.n] && OK[S.n][S.y], car=esc(fa(S.n))+(S.y!='-'?' · '+fa(S.y):''), k,t,p;
+  var RET='اگه وصل نشد، طبق مقررات سایت تا یک هفته فرصت مرجوعی داری.';
+  if(c.r=='x'){ k='no'; t='با این خودرو کار نمی‌کنه'; p='کاردیاگ با این خودرو سازگار نیست.'; }
+  else if(tested){ k='ok'; t='تست شده و وصل شده'; p='این برند و مدل خودرو قبلاً با کاردیاگ تست شده و اتصال موفق داشته.'; }
+  else if(c.r=='f'){ k='ok'; t='سازگاره'; p='کاردیاگ از خودروهای چینی و خارجی پشتیبانی می‌کنه.'; }
+  else if(c.r=='p'){ k='low'; t='نرخ اتصال پراید پایینه'; p='این مدل و سال هنوز تست نشده. می‌تونی تستش کنی؛ '+RET; }
+  else { k='maybe'; t='هنوز تست نشده'; p='این مدل هنوز تست نشده ولی به احتمال زیاد وصل می‌شه. '+RET; }
+  body.className='card body res '+k;
+  body.innerHTML='<div class="ic"><svg viewBox="0 0 40 40">'+ICO[k]+'</svg></div><h2>'+t+'</h2><span class="car">'+car+'</span><p>'+p+'</p>';
+  var a=el('div','acts');
+  if(k!='no'){ var b=el('a','btn','خرید کاردیاگ'); b.href=root.getAttribute('data-buy'); a.appendChild(b); }
+  a.appendChild(opt('بررسی یه خودروی دیگه',function(){S={};render()},'ghost'));
+  body.appendChild(a);
+}
+
+render();
+var url=root.getAttribute('data-csv');
+if(url) fetch(url,{cache:'no-cache'}).then(function(r){return r.ok?r.text():''}).then(function(t){ if(t){ loadSheet(t); if(S.y) render(); } }).catch(function(){});
+})();
+</script>
