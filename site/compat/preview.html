@@ -3,7 +3,7 @@
 <style>
 .cdc{--b:#2196F3;--d:#1565C0;--s:#E3EFFC;--n:#10203C;--sl:#6E7D96;--l:#DEE6F2;--bg:#F4F8FD;
  --g:#22A050;--gt:#DEF6E6;--a:#F28012;--at:#FFF1E0;--r:#DC3232;--rt:#FFECEC;
- font-family:Vazirmatn,Tahoma,sans-serif;color:var(--n);direction:rtl;line-height:1.8;font-size:15px;
+ font-family:inherit;color:var(--n);direction:rtl;line-height:1.8;font-size:15px;
  max-width:560px;margin:0 auto;padding:20px 16px 32px;-webkit-font-smoothing:antialiased}
 .cdc *,.cdc *::before,.cdc *::after{box-sizing:border-box}
 .cdc h1,.cdc h2,.cdc p{margin:0;padding:0}
@@ -40,6 +40,7 @@
 .cdc .acts{display:flex;flex-direction:column;gap:10px;margin-top:20px}
 .cdc .btn{height:52px;border:0;border-radius:14px;background:var(--b);color:#fff!important;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(33,150,243,.28);text-decoration:none!important}
 .cdc .ghost{height:48px;border:1.5px solid var(--l);border-radius:14px;background:#fff;font-weight:700;color:var(--d)}
+.cdc .res p a{color:var(--d);font-weight:700}
 .cdc .ltr{direction:ltr;unicode-bidi:isolate}
 @media (min-width:600px){.cdc .grid{grid-template-columns:repeat(3,1fr)}.cdc .grid.y{grid-template-columns:repeat(5,1fr)}}
 </style>
@@ -209,7 +210,7 @@ function render(){
 var ICO={ok:'<path d="M9 21l7 7 15-16"/>',maybe:'<path d="M20 18v12M20 11v.5"/>',low:'<path d="M20 10v13M20 29v.5"/>',no:'<path d="M12 12l16 16M28 12L12 28"/>'};
 function result(){
   var c=M[S.n], tested=S.y!='-' && OK[S.n] && OK[S.n][S.y], car=esc(fa(S.n))+(S.y!='-'?' · '+fa(S.y):''), k,t,p;
-  var RET='اگه وصل نشد، طبق مقررات سایت تا یک هفته فرصت مرجوعی داری.';
+  var RET='اگه وصل نشد، طبق <a href="/terms/">مقررات سایت</a> تا یک هفته فرصت مرجوعی داری.';
   if(c.r=='x'){ k='no'; t='با این خودرو کار نمی‌کنه'; p='کاردیاگ با این خودرو سازگار نیست.'; }
   else if(tested){ k='ok'; t='تست شده و وصل شده'; p='این برند و مدل خودرو قبلاً با کاردیاگ تست شده و اتصال موفق داشته.'; }
   else if(c.r=='f'){ k='ok'; t='سازگاره'; p='کاردیاگ از خودروهای چینی و خارجی پشتیبانی می‌کنه.'; }
