@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fa"><head><meta charset="utf-8"><title>CarDiag Battery OK Screen</title>
+<style>
+@font-face{font-family:V;font-weight:500;src:url(fonts/Vazirmatn-FD-Medium.ttf)}
+@font-face{font-family:V;font-weight:700;src:url(fonts/Vazirmatn-FD-Bold.ttf)}
+@font-face{font-family:V;font-weight:800;src:url(fonts/Vazirmatn-FD-ExtraBold.ttf)}
+@font-face{font-family:V;font-weight:900;src:url(fonts/Vazirmatn-FD-Black.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+/* the app's battery & alternator result screen at the phone's native 1080x2400, for compositing into the cover photo */
+html{width:1080px;height:2400px;overflow:hidden}
+body{width:900px;height:2000px;zoom:1.2;overflow:hidden;position:relative;background:#F4F6FA;font-family:V,sans-serif;color:#10203C;direction:rtl}
+.sb{height:96px;background:#2196F3;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 64px 0;font-weight:700;font-size:38px;direction:ltr}
+.hd{height:200px;background:#2196F3;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-radius:0 0 46px 46px}
+.hd .t{display:flex;align-items:center;gap:20px;font-weight:900;font-size:62px;white-space:nowrap}
+.hd .h{display:flex;align-items:center;gap:12px;font-weight:700;font-size:38px;opacity:.95}
+.body{padding:46px 56px 0}
+.tt{display:flex;align-items:center;gap:18px;font-weight:900;font-size:50px}
+.ds{margin-top:22px;font-weight:500;font-size:34px;line-height:1.7;color:#6E7D96}
+.rs{margin-top:34px;font-weight:800;font-size:40px}
+.rd{margin-top:14px;display:grid;grid-template-columns:1fr;gap:2px;font-weight:600;font-size:32px;line-height:1.6;color:#33415C}
+.rd span:before{content:"• ";color:#98A3B8}
+.btn{margin-top:34px;height:120px;border-radius:60px;background:#2196F3;color:#fff;font-weight:900;font-size:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(33,150,243,.3)}
+.it{margin-top:44px}
+.it b{display:block;font-weight:900;font-size:42px}
+.it p{margin-top:10px;font-weight:500;font-size:33px;line-height:1.7;color:#33415C}
+.nav{position:absolute;left:0;right:0;bottom:0;height:200px;background:#2196F3;display:flex;padding-bottom:20px}
+.nav div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;font-size:32px}
+.pill{width:150px;height:70px;border-radius:35px;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<div class="sb"><span>3:40</span><span>▮▮▮ 33%</span></div>
+<div class="hd"><div class="t"><svg width="70" height="70" viewBox="0 0 24 24"><path fill="#fff" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>تست باتری و دینام</div>
+ <div class="h"><svg width="44" height="44" viewBox="0 0 24 24"><path fill="#fff" d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>آموزش</div></div>
+<div class="body">
+ <div class="tt"><svg width="56" height="56" viewBox="0 0 24 24"><path fill="#22A050" fill-rule="evenodd" d="M5 3.5h4v2.5H5z M15 3.5h4v2.5h-4z M2 7a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z M5 12h5v1.6H5z M15.6 12h1.6v-1.7h1.6V12h1.6v1.6h-1.6v1.7h-1.6v-1.7h-1.6z"/></svg>تست باتری و دینام</div>
+ <div class="ds">ولتاژ در چهار وضعیت مختلف سنجیده می‌شود: سکون، لحظه‌ی استارت، دور آرام، و دور بالا با بار. از روی اختلاف این چهار عدد، سلامت باتری و دینام جدا از هم ارزیابی می‌شود.</div>
+ <div class="rs">نتیجه‌ی تست: <span style="color:#22A050">سالم</span></div>
+ <div class="rd"><span>سوئیچ باز، موتور خاموش: ۱۲٫۴۷</span><span>لحظه‌ی استارت زدن: ۱۲٫۰۷</span><span>موتور روشن، دور آرام: ۱۳٫۹۷</span><span>۲۰۰۰ دور با چراغ و بخاری: ۱۳٫۹۷</span></div>
+ <div class="btn">تست دوباره</div>
+ <div class="it"><b style="color:#22A050">شارژ باتری مناسب است</b><p>۱۲٫۴ ولت با موتور خاموش.</p></div>
+ <div class="it"><b style="color:#22A050">باتری زیر بار استارت سالم است</b><p>کمینه‌ی ولتاژ هنگام استارت ۱۲٫۰ ولت.</p></div>
+ <div class="it"><b style="color:#22A050">دینام شارژ می‌کند</b><p>۱۳٫۹ ولت در دور آرام.</p></div>
+ <div class="it"><b style="color:#22A050">دینام زیر بار افت ندارد</b><p>با چراغ و بخاری روشن، ۱۳٫۹ ولت بود.</p></div>
+</div>
+<div class="nav"><div><span class="pill"><svg width="50" height="50" viewBox="0 0 24 24"><path fill="#fff" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span>خانه</div>
+ <div><svg width="64" height="64" viewBox="0 0 24 24"><path fill="#fff" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>افزودن خودرو</div>
+ <div><svg width="60" height="60" viewBox="0 0 24 24"><path fill="#fff" d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>بیشتر</div></div>
+</body></html>
